@@ -1,0 +1,11 @@
+{
+    "asset": "0f1083d0fab921a4697517ae6c336304",
+    "fileName": "019b1899-d3eb-7930-895d-3b3d1f26cc6c.pose.json",
+    "prompt": "animation of individual skull parts moving and returning to their original positions",
+    "negativePrompt": "",
+    "model": "9e46c009-67d8-4254-a3a0-32e3168247ee",
+    "modelName": "Text to Motion",
+    "customSeed": 687163458,
+    "w3CTraceId": "044b61198b1d1d6f767db4d622fc6226",
+    "isTrimmed": false
+}
