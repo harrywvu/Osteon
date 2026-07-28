@@ -1,4 +1,5 @@
-# Human Skeletal VR
+# Osteon
+`*Greek root for bone*`
 
 A VR anatomy training application for Meta Quest 2/3. Users grab individual
 bones from a full skeleton in a hospital-room environment; each bone returns
@@ -65,3 +66,32 @@ working copy full of regenerable cache folders, mismatched package versions,
 and a hard dependency on having Blender installed just to *see* the models.
 Every fix above exists so the next person doesn't have to rediscover all of
 this from scratch.
+
+## Ownership
+
+This project is hosted on my personal GitHub for development convenience, but
+it is **owned by Mariano Marcos State University, College of Computing and
+Information Sciences (MMSU CCIS)**. It was developed as part of an academic
+research/practicum initiative, not as personal or independent work. Any reuse,
+distribution, or continuation of this project should go through the
+university, not just this repository.
+
+## License
+
+This project is **not open source**. All rights are reserved by MMSU CCIS.
+
+No license is granted to copy, modify, distribute, or use this code or its
+assets outside of MMSU-affiliated academic work, except with explicit written
+permission from the university.
+
+## Handing this off to the next maintainer
+
+If you're inheriting this project:
+
+1. **Get repo access first.** Ask the current maintainer or MMSU CCIS OJT/practicum coordinator to either transfer this repository to you, add you as a collaborator, or point you to wherever the university wants it hosted long-term (a personal account shouldn't be the permanent home of an institution-owned project — flag this if it hasn't already been addressed).
+2. **Read `Docs/` in this order:** `SETUP.md` → `KNOWN_ISSUES.md` → `ARCHITECTURE.md`. Don't skip `KNOWN_ISSUES.md` — it exists specifically so you don't re-diagnose problems that already have known fixes.
+3. **Do a clean clone test before assuming anything's broken.** Clone fresh, follow `Installation`, and see what actually happens on your machine before troubleshooting — half of past "the project is broken" moments were stale local cache, not real bugs.
+4. **Add to `KNOWN_ISSUES.md` as you go**, don't just fix things quietly. The point of these docs is that they compound — every maintainer who documents what they hit makes it faster for the next one.
+5. **When you eventually hand it off yourself**, do the same: update ownership contacts below, tag a known-good commit, and don't leave it in a state where the next person has to reverse-engineer what "working" even looks like.
+
+**Current point of contact:** *Queenee R. Vidad*
