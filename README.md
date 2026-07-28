@@ -6,9 +6,31 @@ to its starting position on release and can display a title + anatomical
 description on an info panel. Colored sockets suggest a bone-assembly /
 matching exercise.
 
-This project is maintained by MMSU CCIS students as part of an ongoing
+This project is maintained by MMSU CCIS as part of an ongoing
 research/practicum handoff. **Read `Docs/SETUP.md` before opening this
 project for the first time** — it will save you hours.
+
+## Installation
+
+### Prerequisites
+
+- **Unity Editor** — exact version pinned in `ProjectSettings/ProjectVersion.txt`. Install that exact version via Unity Hub (a mismatched version is the #1 cause of weird compile errors on this project).
+- **Blender 4.5.x** — required even if you're not editing 3D art. The skeleton/hospital models are live `.blend` files, and Unity silently fails to import them (models go invisible, no error shown) if Blender isn't installed and associated with `.blend` files on your machine.
+- **Android Build Support module** (Unity Hub → Installs → gear icon → Add Modules → include Android SDK & NDK + OpenJDK) — needed to build for Quest.
+- **Git LFS** — this repo tracks large binary assets (`.blend`, `.fbx`, textures, audio) via LFS.
+
+### Steps
+
+```bash
+git lfs install
+git clone <repo-url>
+```
+
+Open the cloned folder in **Unity Hub → Open → select folder**. Don't extract a zip and open that instead — cloning properly is what makes the Git LFS files resolve to their real content instead of tiny pointer files.
+
+First open will take a while — Unity has to import every asset and compile every script from scratch. That's expected.
+
+**Entry scene:** `Assets/_Recovery/0 (8).unity`
 
 ## Quick facts
 
