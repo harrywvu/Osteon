@@ -2,55 +2,119 @@
 
 ## Project Overview
 
-VR anatomy training app for Meta Quest 2/3. Users grab individual bones from a full skeleton in a hospital-room environment; bones return to origin on release and display an info panel (title + anatomical description). Colored sockets suggest a bone-assembly matching exercise.
+VR anatomy exploration app for Meta Quest. The current enabled experience uses
+selectable skeleton divisions, an in-world anatomical information panel,
+hover-group highlighting, axial drill-down views, and controller-based yaw
+rotation.
+
+The conceptual navigation model uses anatomical granularity levels: G0 whole
+skeleton, G1 axial/appendicular division, G2 major bone group, and G3 individual
+bone. These are semantic scopes, not rendering LODs. See
+`Docs/ARCHITECTURE.md` for the implementation matrix.
+
+Legacy per-bone grab/return scripts remain in older recovery scenes, but they
+are not attached to the enabled build scene. Do not describe per-bone grabbing
+or G3/socket assembly as current functionality without implementing and
+verifying it first.
 
 - **Engine:** Unity 6000.3.2f1 (pinned — do not guess)
-- **Render pipeline:** URP (com.unity.render-pipelines.universal 17.3.0)
-- **XR stack:** OpenXR + Meta XR SDK (com.meta.xr.sdk.interaction 83.0.0), XR Interaction Toolkit 3.2.1, XR Hands 1.7.1
-- **Target:** Android, ARM64, IL2CPP, min SDK 32
-- **3D source assets:** Blender 4.5.x (.blend files — requires Blender installed for import)
-- **Entry scene:** `Assets/_Recovery/0 (8).unity`
+- **Render pipeline:** URP (`com.unity.render-pipelines.universal` 17.3.0)
+- **XR stack:** OpenXR 1.16.0, Meta XR Interaction/Core 83.0.0, XR Interaction
+  Toolkit 3.2.1, XR Hands 1.7.1
+- **Target:** Android, ARM64, IL2CPP, minimum SDK 32
+- **3D source assets:** Blender 4.5.x (`.blend` import requires Blender)
+- **Entry scene:** `Assets/_Recovery/CONTROLLERS MIGRATION.unity`
 
-## Key Scripts
+## Read First
 
-| Script | Role |
-|---|---|
-| `Assets/BonePartGrabRelease.cs` | XR grab behavior + return-to-origin on release (coroutine-based lerp) |
-| `Assets/Scripts/BonePartInfo.cs` | Per-bone data: partName, partDescription |
-| `Assets/Scripts/InfoBoardController.cs` | Singleton that shows/hides an in-world TMP info panel |
+1. `Docs/SETUP.md`
+2. `Docs/ARCHITECTURE.md`
+3. `Docs/KNOWN_ISSUES.md`
+4. `Docs/ACCOUNTS.md` for device or release work
 
-## Build & Test
+## Project-Owned Scripts
 
-1. Open project in Unity Hub (Unity 6000.3.2f1 with Android Build Support module)
-2. File → Build Settings → Android (ARM64, IL2CPP, min SDK 32)
-3. Enable Developer Mode on Quest via Meta Horizon app
-4. Connect Quest via USB, accept USB debugging prompt
-5. Build & Run
+| Script | Role | Current-scene status |
+|---|---|---|
+| `Assets/Scripts/InfoBoardController.cs` | Controls division visibility, information text, panel state, and Back-button state | Active |
+| `Assets/Scripts/DivisionSelection.cs` | Selects/isolates axial or appendicular divisions using child XRI interactables | Active |
+| `Assets/Scripts/ViewTransitionOnSelect.cs` | Swaps from the full model to configured drill-down views | Active |
+| `Assets/Scripts/BoneGroupHoverHighlighter.cs` | Applies one highlight material to all renderers in a hovered group | Active |
+| `Assets/Scripts/SkeletonYawRotator.cs` | Rotates `SkeletonRotationPivot` from the right controller thumbstick | Active |
+| `Assets/BonePartGrabRelease.cs` | Legacy XR grab, info display, and return-to-origin coroutine | Older recovery scenes only |
+| `Assets/Scripts/BonePartInfo.cs` | Legacy per-bone title and description data | Older recovery scenes only |
+| `Assets/Scripts/AxialDivisionSelection.cs` | Superseded axial-only selection behavior | Unreferenced |
 
-Or build APK and sideload: `adb install <apk>`
+## Build and Test
+
+1. Open the project in Unity Hub with Unity 6000.3.2f1 and its Android Build
+   Support module.
+2. Open `Assets/_Recovery/CONTROLLERS MIGRATION.unity`.
+3. Use **File -> Build Profiles** and prefer the `Meta Quest` Android profile.
+4. Confirm the global scene list contains only the controller-migration scene
+   as enabled.
+5. Confirm ARM64, IL2CPP, and minimum SDK 32.
+6. Enable Developer Mode on Quest through the Meta Horizon app.
+7. Connect by USB, accept USB debugging, then use Build and Run.
+
+Manual installation:
+
+```powershell
+adb install -r <path-to-apk>
+```
+
+The current Play Mode smoke test is division selection, information-panel
+updates, drill-down transitions, group highlighting, and full-skeleton
+right-thumbstick rotation. Per-bone grabbing is not a current-scene test.
 
 ## Critical Gotchas
 
-- **Blender dependency:** The four `.blend` files (`hospital room.blend`, `ribs.blend`, `SpinalColumn.blend`, `wholebodydraft.blend`) require Blender 4.5.x installed and associated with `.blend` files. Without it, meshes render invisible with no loud error. Fix: install Blender 4.5, force reimport.
-- **Package version mismatches:** `com.meta.xr.sdk.interaction` (83.0.0) and `com.meta.xr.simulator` (81.0.0) have a version gap. Deprecated `com.unity.ai.generators` also present.
-- **Legacy Oculus plugin:** `com.unity.xr.oculus` (4.5.2) is deprecated on this editor version — may be leftover cruft.
-- **Scene naming:** Entry scene has an unusual name (`0 (8)`). Rename once stable per `Docs/KNOWN_ISSUES.md`.
-- **First-open errors:** If compile errors flood the console on first open, collapse them and check if errors are in `Library/PackageCache/` (package version mismatch) vs `Assets/` (real problem). Safe to delete `Library/`, `Temp/`, `obj/`, `Logs/` to regenerate.
+- **Blender dependency:** The project contains 11 live `.blend` assets. The
+  current scene directly references `hospital room.blend`,
+  `Skeleton_axial.blend`, and `VERTEBRAL COLUMN.blend`. Without Blender 4.5.x
+  and `.blend` file association, Unity may render imported meshes invisible
+  without a prominent error.
+- **Git LFS:** Models, textures, and media use LFS. Resolve LFS files before
+  opening Unity; do not work from a ZIP containing pointer files.
+- **Package version gap:** Meta XR Interaction/Core resolve to 83.0.0, while
+  Meta XR Simulator is 81.0.0.
+- **Deprecated/redundant packages:** `com.unity.ai.generators` is present beside
+  `com.unity.ai.assistant`; `com.unity.xr.oculus` remains installed even though
+  Android XR Management loads OpenXR.
+- **Scene naming:** The enabled scene has the recovery name
+  `CONTROLLERS MIGRATION`. Rename it only when stable, and update the global
+  scene list, both build profiles, README, and Docs together.
+- **Build identity:** `DefaultCompany` and
+  `com.DefaultCompany.VRTemplate` are still committed defaults.
+- **Detail-view rotation:** Only the full low-poly model is parented to
+  `SkeletonRotationPivot`; drill-down roots do not currently rotate with it.
+- **Highlight reference:** One vertebral-view `BoneGroupHoverHighlighter`
+  instance has no highlight material assigned.
+- **First-open errors:** Collapse Console errors and separate
+  `Library/PackageCache/` failures from project errors under `Assets/`. Only
+  `Library/`, `Library_*`, `Temp/`, `obj/`, and `Logs/` are safe cache folders
+  to regenerate.
 
-## Repo Structure
+## Repository Structure
 
-- `Assets/Scripts/` — project code (2 files: BonePartInfo.cs, InfoBoardController.cs)
-- `Assets/BonePartGrabRelease.cs` — project code (at root Assets)
-- `Assets/_Recovery/` — scene recovery history (snapshots of the working scene)
-- `Assets/Scenes/` — sample/basic scenes
-- `Assets/Samples/` — XR Interaction Toolkit, XR Hands sample content (do not edit)
-- `Assets/VRTemplateAssets/` — VR template sample scripts (do not edit)
-- `Docs/` — SETUP.md, ARCHITECTURE.md, KNOWN_ISSUES.md (read these first)
-- `ProjectSettings/` — Unity project config (build targets, XR settings)
-- `Packages/manifest.json` — package dependencies
+- `Assets/Scripts/` — project-owned selection, UI, highlighting, and rotation
+  code
+- `Assets/BonePartGrabRelease.cs` — legacy per-bone grab behavior
+- `Assets/_Recovery/` — current scene and historical recovery snapshots
+- `Assets/Art/Models/Skeleton/` — low- and mid-poly skeleton assets
+- `Assets/VRTemplateAssets/` — imported VR template dependency used by the
+  active XR rig and coaching UI; avoid editing
+- `Assets/Samples/` — package sample content; do not edit
+- `Assets/Settings/Build Profiles/` — Unity 6 Android build profiles
+- `Docs/` — maintained project documentation
+- `ProjectSettings/EditorBuildSettings.asset` — authoritative enabled-scene
+  list
+- `Packages/manifest.json` — direct package dependencies
 
-## Unverified (as of last note)
+## Unverified
 
-- Socket/assembly matching logic location (not yet identified in scripts)
-- Hand tracking vs controller input path on actual headset
+- Play Mode smoke test after the latest scene migration
+- Back-button behavior across every drill-down transition
+- Controller and hand paths on physical Quest hardware
 - Clean Android build from a fresh clone
+- Socket/assembly behavior (no implementation was found)

@@ -1,45 +1,112 @@
-# Human Skeletal VR
+# Osteon
 
-A VR anatomy training application for Meta Quest 2/3. Users grab individual
-bones from a full skeleton in a hospital-room environment; each bone returns
-to its starting position on release and can display a title + anatomical
-description on an info panel. Colored sockets suggest a bone-assembly /
-matching exercise.
+*Greek root for bone*
 
-This project is maintained by MMSU CCIS students as part of an ongoing
-research/practicum handoff. **Read `Docs/SETUP.md` before opening this
-project for the first time** — it will save you hours.
+Osteon (Human Skeletal VR) is a Unity-based anatomy viewer for Meta Quest. The current
+build presents a skeleton in a hospital-room environment, lets the user select
+the axial or appendicular division, updates an in-world information panel, and
+supports drill-down views of the axial skeleton.
 
-## Quick facts
+> Documentation last audited against the repository on 2026-09-08.
 
-- **Engine:** Unity — exact version pinned in `ProjectSettings/ProjectVersion.txt`
-  (verify there; do not assume from memory, this project has been through
-  version drift before)
-- **Render pipeline:** URP
-- **XR stack:** XR Interaction Toolkit, XR Hands, Meta XR SDK, OpenXR
-- **Target:** Android (Meta Quest), ARM64, IL2CPP, min SDK 32
-- **3D source assets:** Blender 4.5.x (`.blend` files) — see note below
-- **UI/Text:** TextMesh Pro
+## Current experience
 
-## Entry point
+The only enabled build scene is:
 
-Open scene: `Assets/_Recovery/0 (8).unity`
+`Assets/_Recovery/CONTROLLERS MIGRATION.unity`
 
-(Yes, that scene name is unusual — it's the recovered/working scene from a
-past maintenance session. Consider renaming it to something clearer once
-you're confident it's stable — see `Docs/KNOWN_ISSUES.md`.)
+The experience is designed around four anatomical granularity levels: **G0**
+whole skeleton, **G1** axial/appendicular division, **G2** major bone group or
+region, and **G3** individual bone. See the implementation matrix in
+[`Docs/ARCHITECTURE.md`](Docs/ARCHITECTURE.md#anatomical-granularity-levels-g0-g3).
 
-## Before you touch anything
+In that scene:
 
-1. Read `Docs/SETUP.md` — exact tool versions and install steps.
-2. Read `Docs/ARCHITECTURE.md` — what the main scripts do.
-3. Read `Docs/KNOWN_ISSUES.md` — active warnings, unresolved package
-   mismatches, and things that look broken but are actually fine (or vice versa).
+- XR Interaction Toolkit `XRSimpleInteractable` components drive selection.
+- Hovering a configured division highlights the whole group.
+- Selecting a division isolates it and updates the TextMesh Pro information
+  panel.
+- Selecting the axial division transitions from the full low-poly skeleton to
+  `Skeleton_axial.blend`; a further selection transitions to the vertebral
+  column view.
+- The right controller thumbstick rotates the full-skeleton selection view
+  around the world Y axis.
 
-## Why these docs exist
+The repository also contains `BonePartGrabRelease` and `BonePartInfo`, which
+implement per-bone grab, information display, and return-to-origin behavior.
+Those scripts are used by older recovery scenes but are **not attached to the
+current enabled scene**, so the intended G3 experience is not part of the
+current acceptance path.
 
-This project was previously handed off with no setup documentation, an 8GB
-working copy full of regenerable cache folders, mismatched package versions,
-and a hard dependency on having Blender installed just to *see* the models.
-Every fix above exists so the next person doesn't have to rediscover all of
-this from scratch.
+## Technical baseline
+
+| Area | Current value |
+|---|---|
+| Unity | **6000.3.2f1** |
+| Render pipeline | URP 17.3.0 |
+| XR runtime | OpenXR 1.16.0 on Android |
+| Interaction | XR Interaction Toolkit 3.2.1 |
+| Meta packages | Meta XR Interaction/Core 83.0.0 |
+| Hand tracking package | XR Hands 1.7.1 |
+| Target | Android / Meta Quest, ARM64, IL2CPP, minimum SDK 32 |
+| Input handling | Unity Input System |
+| UI text | TextMesh Pro |
+
+The project contains live `.blend` assets and currently requires Blender 4.5.x
+for reliable Unity imports. Large models, textures, and media are tracked with
+Git LFS.
+
+## Start here
+
+1. Read [`Docs/SETUP.md`](Docs/SETUP.md) before opening the project on a new
+   machine.
+2. Read [`Docs/ARCHITECTURE.md`](Docs/ARCHITECTURE.md) for the scene flow and
+   script map.
+3. Check [`Docs/KNOWN_ISSUES.md`](Docs/KNOWN_ISSUES.md) before changing package,
+   XR, or build settings.
+4. Use [`Docs/ACCOUNTS.md`](Docs/ACCOUNTS.md) when preparing a headset or a
+   distributable build.
+
+## Repository map
+
+| Path | Purpose |
+|---|---|
+| `Assets/_Recovery/` | Working scene plus historical recovery snapshots |
+| `Assets/Scripts/` | Project-owned interaction and UI scripts |
+| `Assets/BonePartGrabRelease.cs` | Legacy per-bone grab/return behavior |
+| `Assets/Art/Models/Skeleton/` | Low- and mid-poly anatomy models |
+| `Assets/VRTemplateAssets/` | Unity VR template content used by the XR rig and coaching UI |
+| `Assets/Samples/` | Imported package samples; do not edit for project behavior |
+| `Assets/Settings/Build Profiles/` | Unity 6 Android/Quest build profiles |
+| `Packages/manifest.json` | Direct package dependencies |
+| `ProjectSettings/` | Unity, Android, XR, and global scene settings |
+| `Docs/` | Setup, architecture, accounts, and issue history |
+
+## Ownership
+
+This project is hosted on my personal GitHub for development convenience, but
+it is **owned by Mariano Marcos State University, College of Computing and
+Information Sciences (MMSU CCIS)**. It was developed as part of an academic
+research/practicum initiative, not as personal or independent work. Any reuse,
+distribution, or continuation of this project should go through the
+university, not just this repository.
+
+## License
+
+This project is **not open source**. All rights are reserved by MMSU CCIS.
+
+No license is granted to copy, modify, distribute, or use this code or its
+assets outside of MMSU-affiliated academic work, except with explicit written
+permission from the university.
+
+## Handing this off to the next maintainer
+
+If you're inheriting this project:
+
+1. **Get repo access first.** Ask the current maintainer or MMSU CCIS OJT/practicum coordinator to either transfer this repository to you, add you as a collaborator, or point you to wherever the university wants it hosted long-term (a personal account shouldn't be the permanent home of an institution-owned project — flag this if it hasn't already been addressed).
+2. **Read `Docs/` in this order:** `SETUP.md` → `KNOWN_ISSUES.md` → `ARCHITECTURE.md`. Don't skip `KNOWN_ISSUES.md` — it exists specifically so you don't re-diagnose problems that already have known fixes.
+3. **Do a clean clone test before assuming anything's broken.** Clone fresh, follow `Installation`, and see what actually happens on your machine before troubleshooting — half of past "the project is broken" moments were stale local cache, not real bugs.
+4. **Add to `KNOWN_ISSUES.md` as you go**, don't just fix things quietly. The point of these docs is that they compound — every maintainer who documents what they hit makes it faster for the next one.
+5. **When you eventually hand it off yourself**, do the same: update ownership contacts below, tag a known-good commit, and don't leave it in a state where the next person has to reverse-engineer what "working" even looks like.
+
+**Current point of contact:** *Queenee R. Vidad*

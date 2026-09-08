@@ -3,6 +3,7 @@
 *.blend1 filter=lfs diff=lfs merge=lfs -text
 # ---- 3D model exports ----
 *.fbx filter=lfs diff=lfs merge=lfs -text
+*.glb filter=lfs diff=lfs merge=lfs -text
 *.obj filter=lfs diff=lfs merge=lfs -text
 # ---- Textures / images (large ones especially — adjust if you have many tiny UI icons) ----
 *.psd filter=lfs diff=lfs merge=lfs -text
