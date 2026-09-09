@@ -24,6 +24,10 @@
   cleanup candidate after confirming it is not needed.
 - G3 display placement, controller feel/reconnection, targeting, and text
   readability still require physical Quest verification. See `G3_INSPECTION.md`.
+- User review on 2026-09-09 found the expected inspection output but identified
+  rough interaction and placement. Stationary use, smooth viewpoint turning,
+  and controller grabbing are planned in
+  [Plans and Features](../Plans%20and%20Features/README.md), not implemented.
 
 ### Package and XR configuration risks
 
@@ -53,6 +57,12 @@
 
 ### Build and release configuration
 
+- The automated G3 Android development build on 2026-09-09 completed ARM64
+  native compilation but failed to package an APK. Gradle reported
+  `Unable to establish loopback connection`; a Meta manifest callback also
+  failed on a missing generated `xrmanifest.androidlib` intermediate manifest
+  in the isolated validation copy. Successful APK packaging and installation
+  remain unverified. This is a recorded failure, not a confirmed diagnosis or fix.
 - The product name is `VRSKULL`, but the committed company and Android package
   identity are still the Unity template defaults:
   `DefaultCompany` / `com.DefaultCompany.VRTemplate`.
@@ -87,6 +97,17 @@
 - [ ] Hand-tracking selection path on a physical headset
 - [ ] Clean Android/Quest build from a fresh clone
 - [ ] Installation and launch of that APK on supported Quest hardware
+
+## 2026-09-09 — Vertebral-column G3 implementation
+
+- Implemented inspection for all 26 entries with independent turning/tilt,
+  a stationary reference column, information, and restored Back history.
+- Automated Play Mode validation passed 6,604 assertions, including XRI
+  selection callbacks, two-ray hover, input restoration, and scene reload.
+- The automated Android build failed at packaging; no successful APK was
+  verified. Detailed physical-headset acceptance remains pending.
+- Recorded user feedback and dated plans for stationary viewing, controller
+  grabbing, and reusable bone-group expansion. These improvements remain planned.
 
 ## 2026-09-08 — Documentation and repository audit
 

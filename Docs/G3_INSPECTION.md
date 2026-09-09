@@ -140,4 +140,24 @@ outside the anatomy checks and remain documented in `KNOWN_ISSUES.md`.
 Physical Quest targeting, panel comfort, control feel, controller reconnection,
 and anatomical-content review still require separate verification. ADB reported
 no connected devices. Desktop checks do not establish headset comfort or
-complete hand-tracking support. Android build verification is in progress.
+complete hand-tracking support.
+
+The automated Android development build completed ARM64 native compilation but
+failed during APK packaging. Gradle reported `Unable to establish loopback
+connection`; the Meta manifest callback also reported a missing generated
+`xrmanifest.androidlib` intermediate manifest. No successful APK or device
+installation was verified in that run. Details remain in the local validation
+copy's `Logs/G3-android.log` and `Logs/G3-build.txt`. No further build was run
+for the commit and documentation update.
+
+## User review and next steps — 2026-09-09
+
+The user reported that the result matched the expected output but needed
+substantial polish. Priorities are stationary use, viewpoint turning, consistent
+model placement, and controller grabbing. The chosen future behavior is smooth
+viewpoint turning, controller-based grabbing, and bones staying where released.
+These are planned changes, not features of the current G3 implementation.
+
+See [Plans and Features](../Plans%20and%20Features/README.md) for the dated plans
+and feature status. The user's review does not establish a complete headset
+acceptance pass or a successful automated APK build.

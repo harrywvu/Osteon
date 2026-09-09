@@ -42,6 +42,12 @@ legacy script in historical scenes; grabbing and assembly are not part of the
 current bone-inspection experience. See [`Docs/G3_INSPECTION.md`](Docs/G3_INSPECTION.md)
 for controls, authoring, automated checks, and remaining headset verification.
 
+The 2026-09-09 Play Mode run passed 6,604 assertions across all 26 entries.
+Automated APK packaging failed with a Gradle loopback-connection error, and
+headset acceptance remains pending. Planned stationary viewing, controller
+grabbing, and expansion are tracked in
+[`Plans and Features`](Plans%20and%20Features/README.md).
+
 ## Technical baseline
 
 | Area | Current value |

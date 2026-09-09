@@ -7,6 +7,10 @@ selectable skeleton divisions, an in-world anatomical information panel,
 hover-group highlighting, axial drill-down views, controller-based yaw rotation,
 and G3 inspection of the 26 vertebral-column bone entries. See
 `Docs/G3_INSPECTION.md` for controls, setup, and the verification record.
+`Plans and Features/README.md` indexes dated future work. Stationary viewing,
+smooth viewpoint turning, controller grabbing, and group expansion are planned;
+do not describe them as implemented. The automated G3 APK packaging attempt
+failed after native compilation; see `Docs/KNOWN_ISSUES.md`.
 
 The conceptual navigation model uses anatomical granularity levels: G0 whole
 skeleton, G1 axial/appendicular division, G2 major bone group, and G3 individual
