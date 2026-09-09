@@ -4,8 +4,9 @@
 
 VR anatomy exploration app for Meta Quest. The current enabled experience uses
 selectable skeleton divisions, an in-world anatomical information panel,
-hover-group highlighting, axial drill-down views, and controller-based yaw
-rotation.
+hover-group highlighting, axial drill-down views, controller-based yaw rotation,
+and G3 inspection of the 26 vertebral-column bone entries. See
+`Docs/G3_INSPECTION.md` for controls, setup, and the verification record.
 
 The conceptual navigation model uses anatomical granularity levels: G0 whole
 skeleton, G1 axial/appendicular division, G2 major bone group, and G3 individual
@@ -14,7 +15,7 @@ bone. These are semantic scopes, not rendering LODs. See
 
 Legacy per-bone grab/return scripts remain in older recovery scenes, but they
 are not attached to the enabled build scene. Do not describe per-bone grabbing
-or G3/socket assembly as current functionality without implementing and
+or socket assembly as current functionality without implementing and
 verifying it first.
 
 - **Engine:** Unity 6000.3.2f1 (pinned — do not guess)
@@ -40,9 +41,13 @@ verifying it first.
 | `Assets/Scripts/DivisionSelection.cs` | Selects/isolates axial or appendicular divisions using child XRI interactables | Active |
 | `Assets/Scripts/ViewTransitionOnSelect.cs` | Swaps from the full model to configured drill-down views | Active |
 | `Assets/Scripts/BoneGroupHoverHighlighter.cs` | Applies one highlight material to all renderers in a hovered group | Active |
-| `Assets/Scripts/SkeletonYawRotator.cs` | Rotates `SkeletonRotationPivot` from the right controller thumbstick | Active |
+| `Assets/Scripts/SkeletonYawRotator.cs` | Rotates the full, axial, and vertebral models about their centers from the right thumbstick | Active |
+| `Assets/Scripts/AnatomyNavigationController.cs` | Owns view history, Back, G3 selection and controller input | Active |
+| `Assets/Scripts/BoneSelection.cs` | Per-bone selection and hover highlighting | Active on 26 vertebral-column entries |
+| `Assets/Scripts/BoneInspectionDisplay.cs` | Centered inspection copy and stationary reference column | Active |
+| `Assets/Scripts/AnatomyInputReservation.cs` | Reserves and restores competing G3 input bindings | Active |
 | `Assets/BonePartGrabRelease.cs` | Legacy XR grab, info display, and return-to-origin coroutine | Older recovery scenes only |
-| `Assets/Scripts/BonePartInfo.cs` | Legacy per-bone title and description data | Older recovery scenes only |
+| `Assets/Scripts/BonePartInfo.cs` | Per-bone title and description data | G3 and older recovery scenes |
 | `Assets/Scripts/AxialDivisionSelection.cs` | Superseded axial-only selection behavior | Unreferenced |
 
 ## Build and Test
@@ -64,8 +69,11 @@ adb install -r <path-to-apk>
 ```
 
 The current Play Mode smoke test is division selection, information-panel
-updates, drill-down transitions, group highlighting, and full-skeleton
-right-thumbstick rotation. Per-bone grabbing is not a current-scene test.
+updates, drill-down transitions, group highlighting, full-skeleton
+right-thumbstick rotation, and G3 inspection. In G3, right-stick sideways turns,
+up/down tilts, A resets turning, and B resets tilt. Back restores the previous
+view. Per-bone grabbing is not a current-scene test. Automated checks are in
+`Assets/Editor/AnatomyValidation.cs` and `Tools/Invoke-AnatomyValidation.ps1`.
 
 ## Critical Gotchas
 
@@ -86,10 +94,10 @@ right-thumbstick rotation. Per-bone grabbing is not a current-scene test.
   scene list, both build profiles, README, and Docs together.
 - **Build identity:** `DefaultCompany` and
   `com.DefaultCompany.VRTemplate` are still committed defaults.
-- **Detail-view rotation:** Only the full low-poly model is parented to
-  `SkeletonRotationPivot`; drill-down roots do not currently rotate with it.
-- **Highlight reference:** One vertebral-view `BoneGroupHoverHighlighter`
-  instance has no highlight material assigned.
+- **G3 input:** Keep the anatomy Back button independent of coaching-card
+  callbacks. Preserve prior binding overrides when reserving the right stick/A/B.
+- **Scene authoring:** The Anatomy setup menu saves the active build scene and
+  replaces per-bone descriptions from `VertebralBoneCatalog`; save work first.
 - **First-open errors:** Collapse Console errors and separate
   `Library/PackageCache/` failures from project errors under `Assets/`. Only
   `Library/`, `Library_*`, `Temp/`, `obj/`, and `Logs/` are safe cache folders
@@ -113,8 +121,8 @@ right-thumbstick rotation. Per-bone grabbing is not a current-scene test.
 
 ## Unverified
 
-- Play Mode smoke test after the latest scene migration
-- Back-button behavior across every drill-down transition
+- Manual Play Mode input and headset comfort (automated G0–G3 navigation,
+  Back, hover, and input-reservation checks passed on 2026-09-09)
 - Controller and hand paths on physical Quest hardware
 - Clean Android build from a fresh clone
 - Socket/assembly behavior (no implementation was found)

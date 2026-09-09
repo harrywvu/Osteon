@@ -43,6 +43,7 @@ public class BoneGroupHoverHighlighter : MonoBehaviour
 
     private void OnHoverEntered(HoverEnterEventArgs args)
     {
+        if (!isActiveAndEnabled || highlightMaterial == null) return;
         hoverCount++;
 
         foreach (var renderer in renderers)
@@ -52,7 +53,7 @@ public class BoneGroupHoverHighlighter : MonoBehaviour
             for (int i = 0; i < highlighted.Length; i++)
                 highlighted[i] = highlightMaterial;
 
-            renderer.materials = highlighted;
+            renderer.sharedMaterials = highlighted;
         }
     }
 
@@ -62,7 +63,16 @@ public class BoneGroupHoverHighlighter : MonoBehaviour
 
         if (hoverCount > 0) return;
 
-        for (int i = 0; i < renderers.Length; i++)
-            renderers[i].materials = originalMaterials[i];
+        ClearHighlight();
     }
+
+    public void ClearHighlight()
+    {
+        hoverCount = 0;
+        if (renderers == null) return;
+        for (int i = 0; i < renderers.Length; i++)
+            if (renderers[i] != null) renderers[i].sharedMaterials = originalMaterials[i];
+    }
+
+    private void OnDisable() => ClearHighlight();
 }

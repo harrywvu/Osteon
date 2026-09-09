@@ -1,9 +1,12 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class InfoBoardController : MonoBehaviour
 {
     private static InfoBoardController instance;
+    [SerializeField] private AnatomyNavigationController navigation;
+    [SerializeField] private TextMeshProUGUI backLabel;
 
     [Header("UI References")]
     [SerializeField] private GameObject infoPanel;
@@ -29,7 +32,7 @@ public class InfoBoardController : MonoBehaviour
             return;
         }
 
-        ReturnToDivisionSelection();
+        if (navigation == null) ReturnToDivisionSelection();
     }
 
     public static void SelectDivision(
@@ -53,6 +56,11 @@ public class InfoBoardController : MonoBehaviour
 
     public void ReturnToDivisionSelection()
     {
+        if (navigation != null)
+        {
+            navigation.ReturnToOverview();
+            return;
+        }
         foreach (var division in divisionRoots)
         {
             if (division == null) continue;
@@ -80,6 +88,24 @@ public class InfoBoardController : MonoBehaviour
     {
         if (instance != null && instance.infoPanel != null)
             instance.infoPanel.SetActive(false);
+    }
+
+    public void ShowNavigationInfo(string title, string description, string backText, bool canGoBack)
+    {
+        Show(title, description);
+        if (backLabel != null) backLabel.text = backText;
+        if (backButton != null) backButton.SetActive(canGoBack);
+    }
+
+    public void SetNavigationBackInteractable(bool value)
+    {
+        if (backButton != null && backButton.TryGetComponent<Button>(out var button))
+            button.interactable = value;
+    }
+
+    private void OnDestroy()
+    {
+        if (instance == this) instance = null;
     }
 
     private void Show(string title, string description)

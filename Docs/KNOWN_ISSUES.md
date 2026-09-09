@@ -1,6 +1,6 @@
 # Known Issues and Project History
 
-> Current-state audit: 2026-09-08. Historical entries are retained below so
+> Current-state update: 2026-09-09. Historical entries are retained below so
 > previous recovery work is not lost.
 
 ## Current open issues
@@ -10,22 +10,20 @@
 - The only enabled scene is
   `Assets/_Recovery/CONTROLLERS MIGRATION.unity`. Earlier documentation named
   `0 (8).unity`; that is now a historical recovery snapshot.
-- The enabled scene is selection-based and contains `XRSimpleInteractable`
-  components. `BonePartGrabRelease` and `BonePartInfo` are not attached there,
-  so the intended G3 individual-bone grabbing, anatomical descriptions, and
-  return-to-origin behavior are not current-scene features.
-- The G0 whole-skeleton and G1 axial/appendicular concepts are represented in
-  the enabled scene. G2 is only partially wired through the axial and
-  vertebral-column views; complete major-group coverage is not verified.
+- The enabled scene has G3 selection-based inspection for the 26 vertebral-column
+  entries. `BonePartInfo` supplies their descriptions. Grabbing, physical return,
+  and assembly remain outside the current experience.
+- G0 whole skeleton, G1 axial/appendicular divisions, and G2 vertebral column
+  are connected in the enabled scene. Other major groups remain outside the
+  implemented G2–G3 flow.
 - No project-owned socket-matching logic was found, and the enabled scene does
   not contain an `XRSocketInteractor`. Socket materials are present, but an
   assembly/matching exercise is not currently implemented.
 - `AxialDivisionSelection.cs` is unreferenced by every scene and prefab. It
   overlaps with the newer generic `DivisionSelection` behavior and is a
   cleanup candidate after confirming it is not needed.
-- One `BoneGroupHoverHighlighter` instance in the vertebral-column view has a
-  null `highlightMaterial` reference. Verify that view in Play Mode and assign
-  `Assets/HighlightMst.mat` if group highlighting is intended there.
+- G3 display placement, controller feel/reconnection, targeting, and text
+  readability still require physical Quest verification. See `G3_INSPECTION.md`.
 
 ### Package and XR configuration risks
 
@@ -43,9 +41,15 @@
 - Hand-tracking packages/features and controller profiles are enabled together.
   The right-thumbstick rotation script is explicitly controller-based, and the
   end-to-end hand/controller paths have not been verified on current hardware.
-- The full low-poly skeleton is parented to `SkeletonRotationPivot`, but the
-  axial and vertebral drill-down model roots are not. The thumbstick rotator
-  therefore does not rotate those detail views with the current hierarchy.
+- The full, axial, and vertebral views now each have a model-center yaw rotator.
+  G3 uses independent turning/tilt on its inspection copy; the reference column
+  stays stationary.
+- Batch Play Mode emits an `ArgumentOutOfRangeException` in imported
+  `XRDeviceSimulatorUI.Initialize` when its keyboard action has no resolved
+  controls, and another in Unity Editor Search indexing. Bezi/Unity AI packages
+  also report duplicate CodeAnalysis assembly versions and an unavailable
+  editor-integration WebSocket. Anatomy checks pass separately; these package
+  and editor issues have not been repaired by changing imported code.
 
 ### Build and release configuration
 
@@ -75,9 +79,10 @@
 
 ## Verification still required
 
-- [ ] Play Mode smoke test of the current controller-migration scene
-- [ ] Back-button behavior across every model-view transition
-- [ ] Highlighting in the vertebral-column view
+- [x] Automated Play Mode G0–G3 flow: 6,604 assertions, all 26 entries
+- [x] Back callbacks across the implemented model-view transitions
+- [x] Two-ray bone highlighting and material restoration in the vertebral view
+- [ ] Manual Play Mode controller input and targeting
 - [ ] Controller rays and right-thumbstick rotation on Quest 2 and Quest 3
 - [ ] Hand-tracking selection path on a physical headset
 - [ ] Clean Android/Quest build from a fresh clone

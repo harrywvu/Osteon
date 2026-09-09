@@ -4,6 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class DivisionSelection : MonoBehaviour
 {
+    [SerializeField] private AnatomyNavigationController navigation;
     [Header("Division information")]
     [SerializeField] private string divisionTitle;
 
@@ -34,6 +35,12 @@ public class DivisionSelection : MonoBehaviour
 
     private void OnChildSelected(SelectEnterEventArgs args)
     {
+        if (!isActiveAndEnabled) return;
+        if (navigation != null)
+        {
+            navigation.SelectDivision(gameObject, divisionTitle, divisionDescription);
+            return;
+        }
         if (selected) return;
 
         selected = true;

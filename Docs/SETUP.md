@@ -71,8 +71,7 @@ global scene list and serialize the same core Android values. Prefer
 ## 5. Play Mode smoke test
 
 The current scene is selection-based and follows the G0–G3 granularity model
-defined in `Docs/ARCHITECTURE.md`. The present smoke test covers G0, G1, and the
-implemented portion of G2:
+defined in `Docs/ARCHITECTURE.md`. G3 currently covers the vertebral column:
 
 - [ ] **G0:** The hospital room and complete low-poly skeleton render correctly.
 - [ ] The XR origin initializes and controller rays can select objects.
@@ -84,11 +83,18 @@ implemented portion of G2:
       selecting the configured vertebral-column group opens the group view.
 - [ ] Moving the right thumbstick horizontally rotates the full-skeleton
       selection view.
-- [ ] The Back button resets the division-selection information state.
+- [ ] **G3:** Pointing at a vertebral-column bone highlights only that bone and
+      previews its name. Selecting opens an enlarged bone and a stationary reference column.
+- [ ] **G3:** Right-stick sideways turns the bone; up/down tilts it. A resets
+      turning without changing tilt, and B resets tilt without changing turning.
+- [ ] **G3:** The name, breadcrumb, introductory description, and controls are readable.
+- [ ] Back follows bone → vertebral column → axial division → whole skeleton,
+      restoring the previous view's transform and information.
+- [ ] Holding the selection input does not skip levels. Repeat the complete path twice.
+- [ ] G3 input does not also move/jump/turn the XR origin or scroll the panel.
 
-**G3 is excluded from this smoke test.** Per-bone grabbing, return-to-origin,
-and per-bone information are not wired into the enabled scene; the supporting
-legacy scripts are present only in older recovery scenes.
+See `Docs/G3_INSPECTION.md` and `Tools/Invoke-AnatomyValidation.ps1` for automated
+Play Mode regression checks. Grabbing and assembly are excluded from this smoke test.
 
 ## 6. Build and run on Quest
 

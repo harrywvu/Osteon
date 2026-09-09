@@ -5,9 +5,11 @@
 Osteon (Human Skeletal VR) is a Unity-based anatomy viewer for Meta Quest. The current
 build presents a skeleton in a hospital-room environment, lets the user select
 the axial or appendicular division, updates an in-world information panel, and
-supports drill-down views of the axial skeleton.
+supports drill-down views of the axial skeleton and individual-bone inspection
+within the vertebral column.
 
-> Documentation last audited against the repository on 2026-09-08.
+> G3 implementation updated on 2026-09-09; see the verification record in
+> [`Docs/G3_INSPECTION.md`](Docs/G3_INSPECTION.md).
 
 ## Current experience
 
@@ -29,14 +31,16 @@ In that scene:
 - Selecting the axial division transitions from the full low-poly skeleton to
   `Skeleton_axial.blend`; a further selection transitions to the vertebral
   column view.
-- The right controller thumbstick rotates the full-skeleton selection view
-  around the world Y axis.
+- The right controller thumbstick rotates the whole-skeleton and detail views.
+- Selecting one of the 26 vertebral-column bones opens an enlarged inspection
+  copy beside a stationary reference column. Right-stick sideways turns the
+  bone; up/down tilts it. A resets turning and B resets tilt independently.
+- Back restores the previous anatomical view and its orientation.
 
-The repository also contains `BonePartGrabRelease` and `BonePartInfo`, which
-implement per-bone grab, information display, and return-to-origin behavior.
-Those scripts are used by older recovery scenes but are **not attached to the
-current enabled scene**, so the intended G3 experience is not part of the
-current acceptance path.
+`BonePartInfo` supplies the G3 information. `BonePartGrabRelease` remains a
+legacy script in historical scenes; grabbing and assembly are not part of the
+current bone-inspection experience. See [`Docs/G3_INSPECTION.md`](Docs/G3_INSPECTION.md)
+for controls, authoring, automated checks, and remaining headset verification.
 
 ## Technical baseline
 

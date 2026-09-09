@@ -137,7 +137,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 8534673}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -503,7 +504,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 88474846}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -736,6 +738,128 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 101076096}
   m_CullTransparentMesh: 0
+--- !u!1 &110315457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 110315458}
+  - component: {fileID: 110315462}
+  - component: {fileID: 110315461}
+  - component: {fileID: 110315460}
+  - component: {fileID: 110315459}
+  m_Layer: 0
+  m_Name: Anatomy information panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &110315458
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110315457}
+  m_LocalRotation: {x: -0, y: 0.62545115, z: -0, w: 0.7802633}
+  m_LocalPosition: {x: 0, y: 0, z: -0.665262}
+  m_LocalScale: {x: 0.001, y: 0.001, z: 0.001}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1314856010}
+  - {fileID: 1649189724}
+  - {fileID: 247415541}
+  m_Father: {fileID: 1767297586}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 2.7753143, y: 1.35}
+  m_SizeDelta: {x: 560, y: 680}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &110315459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110315457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.035, g: 0.055, b: 0.075, a: 0.98}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &110315460
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110315457}
+  m_CullTransparentMesh: 1
+--- !u!114 &110315461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110315457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7951c64acb0fa62458bf30a60089fe2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.UI.TrackedDeviceGraphicRaycaster
+  m_IgnoreReversedGraphics: 0
+  m_CheckFor2DOcclusion: 0
+  m_CheckFor3DOcclusion: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RaycastTriggerInteraction: 1
+--- !u!223 &110315462
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110315457}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 882545739}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &111076067 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5ff6d8153c1864e459280900722b9d1c, type: 3}
@@ -759,7 +883,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 113195784}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -1067,6 +1192,137 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 135727390}
   m_CullTransparentMesh: 1
+--- !u!114 &141030584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 141030585}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &141030585
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136827}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5784849628261665817, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &141030586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "T1 \u2014 Thoracic vertebra"
+  partDescription: 'Location: thoracic region, between C7 and T2.
+
+    Role: supports
+    the trunk and articulates with ribs.
+
+    Look for: rib articulation surfaces
+    on the body and transverse processes.'
+--- !u!114 &141030587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136828}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
 --- !u!1 &166773890
 GameObject:
   m_ObjectHideFlags: 0
@@ -1220,7 +1476,6 @@ RectTransform:
   m_Children:
   - {fileID: 1426321817}
   - {fileID: 3409566789716954860}
-  - {fileID: 247415541}
   - {fileID: 1147199964}
   - {fileID: 1754699344}
   - {fileID: 1215012700}
@@ -1405,7 +1660,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 167457177}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6fc0d34940dd44129c17bc6d4396b866, type: 3}
   m_Name: 
@@ -1443,9 +1698,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7235e2b387a76a447876efd53dc71c07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InfoBoardController
-  infoPanel: {fileID: 979148024}
-  titleText: {fileID: 1457503512}
-  descriptionText: {fileID: 1739594289}
+  navigation: {fileID: 1767297585}
+  backLabel: {fileID: 730538438}
+  infoPanel: {fileID: 110315457}
+  titleText: {fileID: 1314856012}
+  descriptionText: {fileID: 1649189726}
   backButton: {fileID: 247415540}
   divisionRoots:
   - {fileID: 1268313926}
@@ -1470,7 +1727,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 176470889}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -1569,7 +1827,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 198092648}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -1668,7 +1927,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 233007568}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -1784,7 +2044,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &247415541
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1792,19 +2052,20 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 247415540}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2115241177}
   - {fileID: 387072629}
-  m_Father: {fileID: 167457178}
+  - {fileID: 730538436}
+  m_Father: {fileID: 110315458}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -81, y: -156}
-  m_SizeDelta: {x: 100, y: 45}
+  m_AnchoredPosition: {x: 0, y: -292}
+  m_SizeDelta: {x: 508, y: 56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &247415542
 MonoBehaviour:
@@ -1978,13 +2239,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 247415540}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0.1, g: 0.3, b: 0.42, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2022,11 +2283,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.1254902, g: 0.5882353, b: 0.9529412, a: 1}
-    m_HighlightedColor: {r: 0.09411765, g: 0.4392157, b: 0.7137255, a: 1}
-    m_PressedColor: {r: 0.34509805, g: 0.6901961, b: 0.9647059, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.7, g: 0.9, b: 1, a: 1}
+    m_PressedColor: {r: 0.5, g: 0.75, b: 0.9, a: 1}
     m_SelectedColor: {r: 0.1254902, g: 0.5882353, b: 0.9529412, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -2041,29 +2302,17 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 387072630}
+  m_TargetGraphic: {fileID: 247415545}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 167457187}
-        m_TargetAssemblyTypeName: StepManager, Assembly-CSharp
-        m_MethodName: PreviousStep
-        m_Mode: 1
+      - m_Target: {fileID: 1767297585}
+        m_TargetAssemblyTypeName: AnatomyNavigationController, Assembly-CSharp
+        m_MethodName: GoBack
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 167457188}
-        m_TargetAssemblyTypeName: InfoBoardController, Assembly-CSharp
-        m_MethodName: ReturnToDivisionSelection
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2095,7 +2344,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 328440746}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -2191,7 +2441,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &329674978
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2214,6 +2464,137 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 350, y: 330}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &362733969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 362733970}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &362733970
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136833}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2707942265286441016, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &362733971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "L4 \u2014 Lumbar vertebra"
+  partDescription: 'Location: lower back, between L3 and L5.
+
+    Role: carries substantial
+    body weight and supports trunk movement.
+
+    Look for: the large vertebral body
+    and broad spinous process.'
+--- !u!114 &362733972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136834}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
 --- !u!1 &371725632 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2733241429587503350, guid: 5ff6d8153c1864e459280900722b9d1c, type: 3}
@@ -2232,7 +2613,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 371725637}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -2330,7 +2712,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &387072629
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2711,7 +3093,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 434938161}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -2900,7 +3283,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 472095122}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -2981,6 +3365,137 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5784849628261665817, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
+--- !u!114 &511791640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 511791641}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &511791641
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136815}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5201384384055554329, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &511791642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "T7 \u2014 Thoracic vertebra"
+  partDescription: 'Location: thoracic region, between T6 and T8.
+
+    Role: supports
+    the trunk and articulates with ribs.
+
+    Look for: rib articulation surfaces
+    on the body and transverse processes.'
+--- !u!114 &511791643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136816}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
 --- !u!1 &513107253 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1691713354905861547, guid: 5ff6d8153c1864e459280900722b9d1c, type: 3}
@@ -2999,7 +3514,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 513107258}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -3098,7 +3614,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 524265348}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -3381,6 +3898,268 @@ MonoBehaviour:
   m_MinAngleAllowed: 0.1
   m_MaxAngleAllowed: 5
   m_TimeUntilThresholdReachesMaxAngle: 3
+--- !u!114 &577443246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 577443247}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &577443247
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136835}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4668215351681643544, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &577443248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "L3 \u2014 Lumbar vertebra"
+  partDescription: 'Location: lower back, between L2 and L4.
+
+    Role: carries substantial
+    body weight and supports trunk movement.
+
+    Look for: the large vertebral body
+    and broad spinous process.'
+--- !u!114 &577443249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136836}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
+--- !u!114 &596812542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 596812543}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &596812543
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136839}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5194093898736058809, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &596812544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "L1 \u2014 Lumbar vertebra"
+  partDescription: 'Location: lower back, between T12 and L2.
+
+    Role: carries
+    substantial body weight and supports trunk movement.
+
+    Look for: the large
+    vertebral body and broad spinous process.'
+--- !u!114 &596812545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136840}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
 --- !u!1 &610590590
 GameObject:
   m_ObjectHideFlags: 0
@@ -3468,6 +4247,137 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &624769644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 624769645}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &624769645
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136807}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6772843038626447993, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &624769646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "T11 \u2014 Thoracic vertebra"
+  partDescription: 'Location: thoracic region, between T10 and T12.
+
+    Role: supports
+    the trunk and articulates with ribs.
+
+    Look for: rib articulation on the body;
+    no transverse costal facet.'
+--- !u!114 &624769647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136808}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
 --- !u!1 &641893117
 GameObject:
   m_ObjectHideFlags: 0
@@ -3596,7 +4506,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 643622990}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -3677,6 +4588,137 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8522850485223452418, guid: 5ff6d8153c1864e459280900722b9d1c, type: 3}
+--- !u!114 &646470234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 646470235}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &646470235
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136819}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1413734210137817703, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &646470236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "T5 \u2014 Thoracic vertebra"
+  partDescription: 'Location: thoracic region, between T4 and T6.
+
+    Role: supports
+    the trunk and articulates with ribs.
+
+    Look for: rib articulation surfaces
+    on the body and transverse processes.'
+--- !u!114 &646470237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136820}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
 --- !u!1001 &652124635
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3873,6 +4915,137 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 3633865748600368068, guid: 00c9c177e828a57439e290aef2a23b3f, type: 3}
+--- !u!114 &680183465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 680183466}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &680183466
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136811}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1796376691293787952, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &680183467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "T9 \u2014 Thoracic vertebra"
+  partDescription: 'Location: thoracic region, between T8 and T10.
+
+    Role: supports
+    the trunk and articulates with ribs.
+
+    Look for: rib articulation surfaces
+    on the body and transverse processes.'
+--- !u!114 &680183468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136812}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
 --- !u!1 &692582117 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1397334459795558106, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
@@ -3891,7 +5064,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 692582122}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -3990,7 +5164,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 708232549}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -4193,7 +5368,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 718694716}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -4274,6 +5450,143 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2297000933106877455, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
+--- !u!1 &730538435
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 730538436}
+  - component: {fileID: 730538437}
+  - component: {fileID: 730538438}
+  m_Layer: 0
+  m_Name: Anatomy back label
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &730538436
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730538435}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 247415541}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 484, y: 52}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &730538437
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730538435}
+  m_CullTransparentMesh: 1
+--- !u!114 &730538438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730538435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Back to skeleton
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: f675742eaf9c20a4f909d78ee7a14fed, type: 2}
+  m_sharedMaterial: {fileID: 4687939059374929122, guid: f675742eaf9c20a4f909d78ee7a14fed, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 0.94, g: 0.97, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: 0
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 24
+  m_fontSizeBase: 24
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 0
+  m_fontSizeMax: 0
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 0
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 00000000
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 0
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &734501189
 GameObject:
   m_ObjectHideFlags: 0
@@ -4289,7 +5602,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &734501190
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4317,6 +5630,168 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8134302614855669011, guid: c4a645c929982ea41a52b5037ee7d94d, type: 3}
   m_PrefabInstance: {fileID: 1071784861}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &798115003
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 798115004}
+  m_Layer: 0
+  m_Name: Bone inspection anchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &798115004
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798115003}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.62545115, z: -0, w: 0.7802633}
+  m_LocalPosition: {x: 2.6360364, y: 1.35, z: -0.0406008}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1767297586}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &808308806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 808308807}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &808308807
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136831}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1155945346752864243, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &808308808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "L5 \u2014 Lumbar vertebra"
+  partDescription: 'Location: lower back, between L4 and the sacrum.
+
+    Role: carries
+    substantial body weight and supports trunk movement.
+
+    Look for: the large
+    vertebral body and broad spinous process.'
+--- !u!114 &808308809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136832}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
 --- !u!1 &809614859 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7181165616554504471, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
@@ -4335,7 +5810,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 809614864}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -4935,6 +6411,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4f332aea9a46b34bab01d9d6d17f588, type: 3}
+--- !u!114 &882545738 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4504524130642332244, guid: e4f332aea9a46b34bab01d9d6d17f588, type: 3}
+  m_PrefabInstance: {fileID: 882545737}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017c5e3933235514c9520e1dace2a4b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!20 &882545739 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7277802327414017196, guid: e4f332aea9a46b34bab01d9d6d17f588, type: 3}
+  m_PrefabInstance: {fileID: 882545737}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &892903084
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4998,6 +6490,318 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 892903086}
+    - targetCorrespondingSourceObject: {fileID: -4112447370682504863, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 892903092}
+    - targetCorrespondingSourceObject: {fileID: -4112447370682504863, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 892903091}
+    - targetCorrespondingSourceObject: {fileID: -4112447370682504863, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 892903090}
+    - targetCorrespondingSourceObject: {fileID: -4112447370682504863, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 892903089}
+    - targetCorrespondingSourceObject: {fileID: -1199132312560227061, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1879568838}
+    - targetCorrespondingSourceObject: {fileID: -1199132312560227061, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1879568837}
+    - targetCorrespondingSourceObject: {fileID: -1199132312560227061, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1879568836}
+    - targetCorrespondingSourceObject: {fileID: -1199132312560227061, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1879568839}
+    - targetCorrespondingSourceObject: {fileID: 4669568362778912729, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1008820799}
+    - targetCorrespondingSourceObject: {fileID: 4669568362778912729, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1008820798}
+    - targetCorrespondingSourceObject: {fileID: 4669568362778912729, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1008820797}
+    - targetCorrespondingSourceObject: {fileID: 4669568362778912729, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1008820800}
+    - targetCorrespondingSourceObject: {fileID: -3178046160932995656, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1878756173}
+    - targetCorrespondingSourceObject: {fileID: -3178046160932995656, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1878756172}
+    - targetCorrespondingSourceObject: {fileID: -3178046160932995656, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1878756171}
+    - targetCorrespondingSourceObject: {fileID: -3178046160932995656, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1878756174}
+    - targetCorrespondingSourceObject: {fileID: -4380658578787356450, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1506301920}
+    - targetCorrespondingSourceObject: {fileID: -4380658578787356450, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1506301919}
+    - targetCorrespondingSourceObject: {fileID: -4380658578787356450, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1506301918}
+    - targetCorrespondingSourceObject: {fileID: -4380658578787356450, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1506301921}
+    - targetCorrespondingSourceObject: {fileID: 7840708012227944050, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 996075141}
+    - targetCorrespondingSourceObject: {fileID: 7840708012227944050, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 996075140}
+    - targetCorrespondingSourceObject: {fileID: 7840708012227944050, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 996075139}
+    - targetCorrespondingSourceObject: {fileID: 7840708012227944050, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 996075142}
+    - targetCorrespondingSourceObject: {fileID: -3168399983831569649, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1105354102}
+    - targetCorrespondingSourceObject: {fileID: -3168399983831569649, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1105354101}
+    - targetCorrespondingSourceObject: {fileID: -3168399983831569649, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1105354100}
+    - targetCorrespondingSourceObject: {fileID: -3168399983831569649, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1105354103}
+    - targetCorrespondingSourceObject: {fileID: -2279861033378979911, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1594136857}
+    - targetCorrespondingSourceObject: {fileID: -2279861033378979911, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1594136856}
+    - targetCorrespondingSourceObject: {fileID: -2279861033378979911, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1594136855}
+    - targetCorrespondingSourceObject: {fileID: -2279861033378979911, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1594136854}
+    - targetCorrespondingSourceObject: {fileID: 2068212843329336952, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 596812544}
+    - targetCorrespondingSourceObject: {fileID: 2068212843329336952, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 596812543}
+    - targetCorrespondingSourceObject: {fileID: 2068212843329336952, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 596812542}
+    - targetCorrespondingSourceObject: {fileID: 2068212843329336952, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 596812545}
+    - targetCorrespondingSourceObject: {fileID: 5028459402138217045, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2112090854}
+    - targetCorrespondingSourceObject: {fileID: 5028459402138217045, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2112090853}
+    - targetCorrespondingSourceObject: {fileID: 5028459402138217045, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2112090852}
+    - targetCorrespondingSourceObject: {fileID: 5028459402138217045, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2112090855}
+    - targetCorrespondingSourceObject: {fileID: -3244236261851962067, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 577443248}
+    - targetCorrespondingSourceObject: {fileID: -3244236261851962067, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 577443247}
+    - targetCorrespondingSourceObject: {fileID: -3244236261851962067, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 577443246}
+    - targetCorrespondingSourceObject: {fileID: -3244236261851962067, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 577443249}
+    - targetCorrespondingSourceObject: {fileID: 2710442288873408293, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 362733971}
+    - targetCorrespondingSourceObject: {fileID: 2710442288873408293, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 362733970}
+    - targetCorrespondingSourceObject: {fileID: 2710442288873408293, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 362733969}
+    - targetCorrespondingSourceObject: {fileID: 2710442288873408293, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 362733972}
+    - targetCorrespondingSourceObject: {fileID: -5928347159139064744, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 808308808}
+    - targetCorrespondingSourceObject: {fileID: -5928347159139064744, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 808308807}
+    - targetCorrespondingSourceObject: {fileID: -5928347159139064744, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 808308806}
+    - targetCorrespondingSourceObject: {fileID: -5928347159139064744, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 808308809}
+    - targetCorrespondingSourceObject: {fileID: 3725801791064023241, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1311911093}
+    - targetCorrespondingSourceObject: {fileID: 3725801791064023241, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1311911092}
+    - targetCorrespondingSourceObject: {fileID: 3725801791064023241, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1311911091}
+    - targetCorrespondingSourceObject: {fileID: 3725801791064023241, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1311911094}
+    - targetCorrespondingSourceObject: {fileID: 7234840277176076966, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 141030586}
+    - targetCorrespondingSourceObject: {fileID: 7234840277176076966, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 141030585}
+    - targetCorrespondingSourceObject: {fileID: 7234840277176076966, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 141030584}
+    - targetCorrespondingSourceObject: {fileID: 7234840277176076966, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 141030587}
+    - targetCorrespondingSourceObject: {fileID: -7291326867415564083, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1817782757}
+    - targetCorrespondingSourceObject: {fileID: -7291326867415564083, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1817782756}
+    - targetCorrespondingSourceObject: {fileID: -7291326867415564083, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1817782755}
+    - targetCorrespondingSourceObject: {fileID: -7291326867415564083, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1817782758}
+    - targetCorrespondingSourceObject: {fileID: 6940878136057389860, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2139106345}
+    - targetCorrespondingSourceObject: {fileID: 6940878136057389860, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2139106344}
+    - targetCorrespondingSourceObject: {fileID: 6940878136057389860, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2139106343}
+    - targetCorrespondingSourceObject: {fileID: 6940878136057389860, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2139106346}
+    - targetCorrespondingSourceObject: {fileID: -1812417358951056537, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1795531471}
+    - targetCorrespondingSourceObject: {fileID: -1812417358951056537, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1795531470}
+    - targetCorrespondingSourceObject: {fileID: -1812417358951056537, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1795531469}
+    - targetCorrespondingSourceObject: {fileID: -1812417358951056537, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1795531472}
+    - targetCorrespondingSourceObject: {fileID: 7343997221775269445, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 646470236}
+    - targetCorrespondingSourceObject: {fileID: 7343997221775269445, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 646470235}
+    - targetCorrespondingSourceObject: {fileID: 7343997221775269445, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 646470234}
+    - targetCorrespondingSourceObject: {fileID: 7343997221775269445, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 646470237}
+    - targetCorrespondingSourceObject: {fileID: 4760585915579559441, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1489596518}
+    - targetCorrespondingSourceObject: {fileID: 4760585915579559441, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1489596517}
+    - targetCorrespondingSourceObject: {fileID: 4760585915579559441, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1489596516}
+    - targetCorrespondingSourceObject: {fileID: 4760585915579559441, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1489596519}
+    - targetCorrespondingSourceObject: {fileID: -2444541937023690198, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 511791642}
+    - targetCorrespondingSourceObject: {fileID: -2444541937023690198, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 511791641}
+    - targetCorrespondingSourceObject: {fileID: -2444541937023690198, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 511791640}
+    - targetCorrespondingSourceObject: {fileID: -2444541937023690198, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 511791643}
+    - targetCorrespondingSourceObject: {fileID: 1985639140305888494, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1386474620}
+    - targetCorrespondingSourceObject: {fileID: 1985639140305888494, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1386474619}
+    - targetCorrespondingSourceObject: {fileID: 1985639140305888494, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1386474618}
+    - targetCorrespondingSourceObject: {fileID: 1985639140305888494, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1386474621}
+    - targetCorrespondingSourceObject: {fileID: 3896451360226037201, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 680183467}
+    - targetCorrespondingSourceObject: {fileID: 3896451360226037201, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 680183466}
+    - targetCorrespondingSourceObject: {fileID: 3896451360226037201, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 680183465}
+    - targetCorrespondingSourceObject: {fileID: 3896451360226037201, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 680183468}
+    - targetCorrespondingSourceObject: {fileID: -772539852287913195, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1395828629}
+    - targetCorrespondingSourceObject: {fileID: -772539852287913195, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1395828628}
+    - targetCorrespondingSourceObject: {fileID: -772539852287913195, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1395828627}
+    - targetCorrespondingSourceObject: {fileID: -772539852287913195, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1395828630}
+    - targetCorrespondingSourceObject: {fileID: -1158236782983689640, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 624769646}
+    - targetCorrespondingSourceObject: {fileID: -1158236782983689640, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 624769645}
+    - targetCorrespondingSourceObject: {fileID: -1158236782983689640, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 624769644}
+    - targetCorrespondingSourceObject: {fileID: -1158236782983689640, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 624769647}
+    - targetCorrespondingSourceObject: {fileID: -4802020827116248664, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1848810544}
+    - targetCorrespondingSourceObject: {fileID: -4802020827116248664, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1848810543}
+    - targetCorrespondingSourceObject: {fileID: -4802020827116248664, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1848810542}
+    - targetCorrespondingSourceObject: {fileID: -4802020827116248664, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1848810545}
   m_SourcePrefab: {fileID: 100100000, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
 --- !u!1 &892903085 stripped
 GameObject:
@@ -5021,6 +6825,147 @@ MonoBehaviour:
   degreesPerSecond: 90
   deadZone: 0.15
   invertDirection: 0
+--- !u!23 &892903087 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6184211895607668109, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &892903088 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4112447370682504863, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &892903089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892903088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 892903087}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
+--- !u!114 &892903090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892903088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 892903091}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &892903091
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892903088}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7354426424150082006, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &892903092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892903088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "C1 \u2014 Atlas"
+  partDescription: 'Location: top of the neck, between the skull and C2.
+
+    Role:
+    supports the head and contributes to nodding.
+
+    Look for: the bony ring and
+    broad lateral masses; there is no vertebral body.'
 --- !u!1 &922450396 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7026907012913539849, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
@@ -5039,7 +6984,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 922450401}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -5177,7 +7123,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Back
+  m_text: Back to skeleton
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fbb7c6a04be6d8341934b839f24b42e1, type: 2}
   m_sharedMaterial: {fileID: 4687939059374929122, guid: fbb7c6a04be6d8341934b839f24b42e1, type: 2}
@@ -5272,7 +7218,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &979148025
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5295,6 +7241,268 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 350, y: 250}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &996075139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 996075140}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &996075140
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136843}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1939154208209704197, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &996075141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "C6 \u2014 Cervical vertebra"
+  partDescription: 'Location: neck, between C5 and C7.
+
+    Role: supports the neck
+    and allows movement.
+
+    Look for: a small body and openings in the transverse
+    processes.'
+--- !u!114 &996075142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136844}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
+--- !u!114 &1008820797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 1008820798}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &1008820798
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136849}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2104250737164029209, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &1008820799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "C3 \u2014 Cervical vertebra"
+  partDescription: 'Location: neck, between C2 and C4.
+
+    Role: supports the neck
+    and allows movement.
+
+    Look for: a small body and openings in the transverse
+    processes.'
+--- !u!114 &1008820800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136850}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
 --- !u!1 &1060371908
 GameObject:
   m_ObjectHideFlags: 0
@@ -5310,7 +7518,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1060371909
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5351,7 +7559,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1063724850}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -5737,7 +7946,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1076003400}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -5818,6 +8028,167 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6746204762444053716, guid: 5ff6d8153c1864e459280900722b9d1c, type: 3}
+--- !u!1 &1077577699
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1077577700}
+  m_Layer: 0
+  m_Name: Column reference anchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1077577700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077577699}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.62545115, z: -0, w: 0.7802633}
+  m_LocalPosition: {x: 2.5446353, y: 1.35, z: 0.36933312}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1767297586}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1105354100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 1105354101}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &1105354101
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136841}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8861296024009629687, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &1105354102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "C7 \u2014 Cervical vertebra"
+  partDescription: 'Location: base of the neck, between C6 and T1.
+
+    Role: joins
+    the neck to the thoracic region.
+
+    Look for: its long spinous process.'
+--- !u!114 &1105354103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136842}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
 --- !u!1 &1108362813
 GameObject:
   m_ObjectHideFlags: 0
@@ -5946,7 +8317,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1132272461}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -6042,7 +8414,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1147199964
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6465,7 +8837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1215012700
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6506,7 +8878,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1222273624}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -7138,6 +9511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 633a05628a9a176409de07cc75d39c1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DivisionSelection
+  navigation: {fileID: 1767297585}
   divisionTitle: Axial Skeleton
   divisionDescription: "Forms the body\u2019s central axis and includes the skull,
     vertebral column, and thoracic cage. It primarily provides structural support
@@ -7154,6 +9528,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6db970dcdac1c464b9ab2ea04fda3360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ViewTransitionOnSelect
+  navigation: {fileID: 1767297585}
+  nextTitle: Vertebral column
+  nextDescription: Explore the vertebral column. Point at an individual bone and
+    select it for inspection.
   currentView: {fileID: 111076067}
   nextView: {fileID: 1290350099}
 --- !u!114 &1268313935
@@ -7168,6 +9546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 633a05628a9a176409de07cc75d39c1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DivisionSelection
+  navigation: {fileID: 1767297585}
   divisionTitle: Appendicular Division
   divisionDescription: Includes the bones of the upper and lower limbs and the pectoral
     and pelvic girdles that connect them to the axial skeleton. It is primarily involved
@@ -7190,7 +9569,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1272644834}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -7580,6 +9960,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6db970dcdac1c464b9ab2ea04fda3360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ViewTransitionOnSelect
+  navigation: {fileID: 1767297585}
+  nextTitle: Vertebral column
+  nextDescription: Explore the vertebral column. Point at an individual bone and
+    select it for inspection.
   currentView: {fileID: 1290350099}
   nextView: {fileID: 892903085}
 --- !u!114 &1290350102
@@ -7764,6 +10148,274 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1308026377}
   m_CullTransparentMesh: 0
+--- !u!114 &1311911091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 1311911092}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &1311911092
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136829}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8489618132397480986, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &1311911093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: Sacrum
+  partDescription: 'Location: between L5 and the coccyx, at the back of the pelvis.
+
+    Role:
+    transfers weight from the spine to the pelvic girdle.
+
+    Look for: its triangular
+    shape and paired sacral foramina; five vertebrae fuse to form this bone.'
+--- !u!114 &1311911094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136830}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
+--- !u!1 &1314856009
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1314856010}
+  - component: {fileID: 1314856011}
+  - component: {fileID: 1314856012}
+  m_Layer: 0
+  m_Name: Anatomy title
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1314856010
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1314856009}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 110315458}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 276}
+  m_SizeDelta: {x: 508, y: 70}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1314856011
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1314856009}
+  m_CullTransparentMesh: 1
+--- !u!114 &1314856012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1314856009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Human Skeleton
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: f675742eaf9c20a4f909d78ee7a14fed, type: 2}
+  m_sharedMaterial: {fileID: 4687939059374929122, guid: f675742eaf9c20a4f909d78ee7a14fed, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 0.94, g: 0.97, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: 0
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 32
+  m_fontSizeBase: 32
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1331295168 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -939844253596384474, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
@@ -7782,7 +10434,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1331295173}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -8187,7 +10840,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1369028853}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -8286,7 +10940,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1373538045}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -8367,6 +11022,137 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8861296024009629687, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
+--- !u!114 &1386474618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 1386474619}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &1386474619
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136813}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6699147319352607541, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &1386474620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "T8 \u2014 Thoracic vertebra"
+  partDescription: 'Location: thoracic region, between T7 and T9.
+
+    Role: supports
+    the trunk and articulates with ribs.
+
+    Look for: rib articulation surfaces
+    on the body and transverse processes.'
+--- !u!114 &1386474621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136814}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
 --- !u!1 &1388285060 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5876179160206460817, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
@@ -8385,7 +11171,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1388285065}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -8466,6 +11253,137 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6699147319352607541, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
+--- !u!114 &1395828627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 1395828628}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &1395828628
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136809}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3711651024319652098, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &1395828629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "T10 \u2014 Thoracic vertebra"
+  partDescription: 'Location: thoracic region, between T9 and T11.
+
+    Role: supports
+    the trunk and articulates with ribs.
+
+    Look for: rib articulation surfaces
+    on the body and transverse processes.'
+--- !u!114 &1395828630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136810}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
 --- !u!1 &1399475096 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2473600107920947184, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
@@ -8484,7 +11402,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1399475101}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -8736,7 +11655,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1426321817
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8886,7 +11805,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: Human Skeleton
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f675742eaf9c20a4f909d78ee7a14fed, type: 2}
   m_sharedMaterial: {fileID: 4687939059374929122, guid: f675742eaf9c20a4f909d78ee7a14fed, type: 2}
@@ -9118,6 +12037,137 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1463907093}
   m_CullTransparentMesh: 0
+--- !u!114 &1489596516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 1489596517}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &1489596517
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136817}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5706410905756370526, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &1489596518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "T6 \u2014 Thoracic vertebra"
+  partDescription: 'Location: thoracic region, between T5 and T7.
+
+    Role: supports
+    the trunk and articulates with ribs.
+
+    Look for: rib articulation surfaces
+    on the body and transverse processes.'
+--- !u!114 &1489596519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136818}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
 --- !u!1 &1501385467 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4254726639082848770, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
@@ -9136,7 +12186,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1501385472}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -9372,6 +12423,137 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1505684870}
   m_CullTransparentMesh: 0
+--- !u!114 &1506301918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 1506301919}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &1506301919
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136845}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6590863773863938432, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &1506301920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "C5 \u2014 Cervical vertebra"
+  partDescription: 'Location: neck, between C4 and C6.
+
+    Role: supports the neck
+    and allows movement.
+
+    Look for: a small body and openings in the transverse
+    processes.'
+--- !u!114 &1506301921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136846}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
 --- !u!1 &1509861220 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5775228464092129107, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
@@ -9390,7 +12572,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1509861225}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -9489,7 +12672,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1519503255}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -9588,7 +12772,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1525307111}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -9848,7 +13033,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1556729198}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -9947,7 +13133,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1570388874}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -10051,7 +13238,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1576954826}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -10150,7 +13338,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1578056216}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -10401,7 +13590,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1591754669}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -10482,6 +13672,387 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1155945346752864243, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
+--- !u!23 &1594136804 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1772570439705406676, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136805 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4802020827116248664, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136806 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3962853038012383717, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136807 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1158236782983689640, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136808 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -3602844892950845939, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136809 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -772539852287913195, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136810 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1135457896624282263, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136811 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3896451360226037201, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136812 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7347656708942387313, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136813 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1985639140305888494, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136814 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -3595363625075182116, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136815 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2444541937023690198, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136816 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -5269671936808551406, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136817 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4760585915579559441, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136818 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -2940217710099398268, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136819 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7343997221775269445, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136820 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7272360806203053597, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136821 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1812417358951056537, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136822 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -417345414725629161, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136823 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6940878136057389860, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136824 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4988058564935243485, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136825 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -7291326867415564083, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136826 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7790664732242153708, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136827 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7234840277176076966, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136828 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5177669836752679954, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136829 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3725801791064023241, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136830 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6015113216819744036, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136831 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -5928347159139064744, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136832 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2511102221263882527, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136833 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2710442288873408293, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136834 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8801009852237116930, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136835 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3244236261851962067, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136836 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -4181711283198634617, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136837 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5028459402138217045, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136838 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -93912917512691172, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136839 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2068212843329336952, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136840 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 348851696270608250, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136841 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3168399983831569649, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136842 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5843761483367830397, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136843 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7840708012227944050, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136844 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 186198330868577904, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136845 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4380658578787356450, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136846 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1675956268197313614, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136847 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3178046160932995656, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136848 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6155204738067573897, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136849 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4669568362778912729, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136850 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6533303652432822736, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136851 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1199132312560227061, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1594136852 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8499626675411175596, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594136853 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2279861033378979911, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+  m_PrefabInstance: {fileID: 892903084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1594136854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136804}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
+--- !u!114 &1594136855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 1594136856}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &1594136856
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136853}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4255328910450092391, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &1594136857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "Coccyx \u2014 Tailbone"
+  partDescription: 'Location: below the sacrum at the end of the column.
+
+    Role:
+    anchors pelvic-floor muscles and ligaments.
+
+    Look for: the small tapering
+    series of segments. The number and fusion of these segments vary.'
 --- !u!1 &1597990503 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8718609343401131157, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
@@ -10500,7 +14071,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1597990508}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -10610,7 +14182,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1648996484
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10633,6 +14205,143 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 350, y: 250}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!1 &1649189723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1649189724}
+  - component: {fileID: 1649189725}
+  - component: {fileID: 1649189726}
+  m_Layer: 0
+  m_Name: Anatomy description
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1649189724
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649189723}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 110315458}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -4}
+  m_SizeDelta: {x: 508, y: 472}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1649189725
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649189723}
+  m_CullTransparentMesh: 1
+--- !u!114 &1649189726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649189723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Select a division to start.
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: f675742eaf9c20a4f909d78ee7a14fed, type: 2}
+  m_sharedMaterial: {fileID: 4687939059374929122, guid: f675742eaf9c20a4f909d78ee7a14fed, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 0.94, g: 0.97, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: 0
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 24
+  m_fontSizeBase: 24
+  m_fontWeight: 400
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 20
+  m_fontSizeMax: 24
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1702963519
 GameObject:
   m_ObjectHideFlags: 0
@@ -10892,7 +14601,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: Select a division to start.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f675742eaf9c20a4f909d78ee7a14fed, type: 2}
   m_sharedMaterial: {fileID: 4687939059374929122, guid: f675742eaf9c20a4f909d78ee7a14fed, type: 2}
@@ -10923,8 +14632,8 @@ MonoBehaviour:
   m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMin: 14
+  m_fontSizeMax: 22
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
@@ -10987,7 +14696,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1754699344
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11028,7 +14737,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1758435982}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -11124,7 +14834,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1760222176
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11248,6 +14958,121 @@ MonoBehaviour:
       m_Calls: []
   m_SkinnedMeshRenderer: {fileID: 5336186961436253092}
   m_BlendShapeIndex: 0
+--- !u!1 &1767297582
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1767297586}
+  - component: {fileID: 1767297585}
+  - component: {fileID: 1767297584}
+  - component: {fileID: 1767297583}
+  m_Layer: 0
+  m_Name: AnatomyNavigation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1767297583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767297582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 687a2e34bc0c44429665c6d886a5d594, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnatomyInputReservation
+  actionManagers:
+  - {fileID: 882545738}
+--- !u!114 &1767297584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767297582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8285d3436b74673b8c2ddc8e8060d7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneInspectionDisplay
+  boneAnchor: {fileID: 798115004}
+  referenceAnchor: {fileID: 1077577700}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
+  boneDiameter: 0.3
+  referenceHeight: 0.45
+--- !u!114 &1767297585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767297582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3e07804af794cb3be026b86ab94bac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnatomyNavigationController
+  overviewRoot: {fileID: 111076067}
+  axialDivisionRoot: {fileID: 1268313926}
+  appendicularDivisionRoot: {fileID: 1268313927}
+  axialView: {fileID: 1290350099}
+  vertebralView: {fileID: 892903085}
+  infoBoard: {fileID: 167457188}
+  inspectionDisplay: {fileID: 1767297584}
+  inputReservation: {fileID: 1767297583}
+  bones:
+  - {fileID: 892903089}
+  - {fileID: 1879568839}
+  - {fileID: 1008820800}
+  - {fileID: 1878756174}
+  - {fileID: 1506301921}
+  - {fileID: 996075142}
+  - {fileID: 1105354103}
+  - {fileID: 141030587}
+  - {fileID: 1817782758}
+  - {fileID: 2139106346}
+  - {fileID: 1795531472}
+  - {fileID: 646470237}
+  - {fileID: 1489596519}
+  - {fileID: 511791643}
+  - {fileID: 1386474621}
+  - {fileID: 680183468}
+  - {fileID: 1395828630}
+  - {fileID: 624769647}
+  - {fileID: 1848810545}
+  - {fileID: 596812545}
+  - {fileID: 2112090855}
+  - {fileID: 577443249}
+  - {fileID: 362733972}
+  - {fileID: 808308809}
+  - {fileID: 1311911094}
+  - {fileID: 1594136854}
+--- !u!4 &1767297586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767297582}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 798115004}
+  - {fileID: 1077577700}
+  - {fileID: 110315458}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1783572213
 GameObject:
   m_ObjectHideFlags: 0
@@ -11372,6 +15197,137 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1784760386}
   m_Mesh: {fileID: 2084190396054467835, guid: 7c9cbe489de715647b5ef9864bb9de40, type: 3}
+--- !u!114 &1795531469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 1795531470}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &1795531470
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136821}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6844322550994406984, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &1795531471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "T4 \u2014 Thoracic vertebra"
+  partDescription: 'Location: thoracic region, between T3 and T5.
+
+    Role: supports
+    the trunk and articulates with ribs.
+
+    Look for: rib articulation surfaces
+    on the body and transverse processes.'
+--- !u!114 &1795531472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136822}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
 --- !u!1 &1813378350 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6770989454903755621, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
@@ -11390,7 +15346,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1813378355}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -11598,6 +15555,137 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!114 &1817782755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 1817782756}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &1817782756
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136825}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4164562309206975141, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &1817782757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "T2 \u2014 Thoracic vertebra"
+  partDescription: 'Location: thoracic region, between T1 and T3.
+
+    Role: supports
+    the trunk and articulates with ribs.
+
+    Look for: rib articulation surfaces
+    on the body and transverse processes.'
+--- !u!114 &1817782758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136826}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
 --- !u!1001 &1825945902
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11655,6 +15743,399 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b4a657c7df58fb4fa21624fe730efa2, type: 3}
+--- !u!114 &1848810542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 1848810543}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &1848810543
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136805}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1308910792152573850, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &1848810544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "T12 \u2014 Thoracic vertebra"
+  partDescription: 'Location: thoracic region, between T11 and L1.
+
+    Role: supports
+    the trunk and articulates with ribs.
+
+    Look for: rib articulation on the body;
+    no transverse costal facet.'
+--- !u!114 &1848810545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136806}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
+--- !u!114 &1878756171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 1878756172}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &1878756172
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136847}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7825757583103744868, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &1878756173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "C4 \u2014 Cervical vertebra"
+  partDescription: 'Location: neck, between C3 and C5.
+
+    Role: supports the neck
+    and allows movement.
+
+    Look for: a small body and openings in the transverse
+    processes.'
+--- !u!114 &1878756174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136848}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
+--- !u!114 &1879568836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 1879568837}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &1879568837
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136851}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7791577066479141583, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &1879568838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "C2 \u2014 Axis"
+  partDescription: 'Location: below C1 in the upper neck.
+
+    Role: provides the
+    pivot for turning the atlas and head.
+
+    Look for: the upward projection called
+    the dens.'
+--- !u!114 &1879568839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136852}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
 --- !u!1 &1881474691
 GameObject:
   m_ObjectHideFlags: 0
@@ -11951,7 +16432,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1951292586}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -12050,7 +16532,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 1952754669}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -12302,7 +16785,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2018379305
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12444,7 +16927,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 2054407836}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -12697,7 +17181,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 2080410678}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -12891,6 +17376,137 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 2.220446e-16, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2112090852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 2112090853}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &2112090853
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136837}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5423169134400810920, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &2112090854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "L2 \u2014 Lumbar vertebra"
+  partDescription: 'Location: lower back, between L1 and L3.
+
+    Role: carries substantial
+    body weight and supports trunk movement.
+
+    Look for: the large vertebral body
+    and broad spinous process.'
+--- !u!114 &2112090855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136838}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
 --- !u!1 &2114257084 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5781063912748308383, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
@@ -12909,7 +17525,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 2114257089}
   m_InteractionLayers:
     m_Bits: 1
   m_DistanceCalculationMode: 1
@@ -13007,7 +17624,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2115241177
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13024,7 +17641,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1.7, y: -4.3}
+  m_AnchoredPosition: {x: -1.699997, y: -4.299999}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2115241178
@@ -13065,6 +17682,137 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2115241176}
   m_CullTransparentMesh: 1
+--- !u!114 &2139106343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 2139106344}
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!64 &2139106344
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136823}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2824923001928301372, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+--- !u!114 &2139106345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee95d9b3dc750764aa017461261f3fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BonePartInfo
+  partName: "T3 \u2014 Thoracic vertebra"
+  partDescription: 'Location: thoracic region, between T2 and T4.
+
+    Role: supports
+    the trunk and articulates with ribs.
+
+    Look for: rib articulation surfaces
+    on the body and transverse processes.'
+--- !u!114 &2139106346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594136823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468b5bddd3354284b735ea459fc438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneSelection
+  navigation: {fileID: 1767297585}
+  boneRenderers:
+  - {fileID: 1594136824}
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
 --- !u!4 &3807489303757875
 Transform:
   m_ObjectHideFlags: 0
@@ -25599,7 +30347,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &3409566789716954865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46286,3 +51034,4 @@ SceneRoots:
   - {fileID: 1290350098}
   - {fileID: 892903084}
   - {fileID: 1268313925}
+  - {fileID: 1767297586}
