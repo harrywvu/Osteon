@@ -1,6 +1,7 @@
 # Setup Guide
 
-> Last verified against the repository on 2026-09-08.
+> Verified against the restored default branch on 2026-09-24. The full
+> vertebral G3 validation passed 6,604 assertions across all 26 entries.
 
 ## 1. Install the required tools
 
@@ -21,7 +22,7 @@ Run:
 ```powershell
 git lfs install
 git clone <repo-url>
-cd "Human Skeletal VR - Backup"
+cd Osteon
 git lfs pull
 ```
 
@@ -95,6 +96,16 @@ defined in `Docs/ARCHITECTURE.md`. G3 currently covers the vertebral column:
 
 See `Docs/G3_INSPECTION.md` and `Tools/Invoke-AnatomyValidation.ps1` for automated
 Play Mode regression checks. Grabbing and assembly are excluded from this smoke test.
+
+Run a focused pilot or the complete 26-entry suite from a temporary project copy
+or worktree while the main project is closed or open elsewhere:
+
+```powershell
+./Tools/Invoke-AnatomyValidation.ps1 -ProjectPath '<validation-project>' -Pilot
+./Tools/Invoke-AnatomyValidation.ps1 -ProjectPath '<validation-project>'
+```
+
+Add `-Capture` to the complete run when a desktop rendering is also required.
 
 ## 6. Build and run on Quest
 

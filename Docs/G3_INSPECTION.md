@@ -71,11 +71,13 @@ Run automated Play Mode checks in a closed project or a temporary project copy:
 
 ```powershell
 ./Tools/Invoke-AnatomyValidation.ps1 -ProjectPath '<validation-project>' -Pilot
+./Tools/Invoke-AnatomyValidation.ps1 -ProjectPath '<validation-project>'
 ./Tools/Invoke-AnatomyValidation.ps1 -ProjectPath '<validation-project>' -Capture
 ```
 
-The first command configures and validates C1. The second configures all 26
-entries and captures a desktop rendering when a graphics device is available.
+The first command configures and validates C1. The second validates all 26
+entries without graphics. The third validates all 26 entries and captures a
+desktop rendering when a graphics device is available.
 The runner writes `Logs/G3-validation.json` and its Unity log; failures return
 a nonzero exit. It checks navigation history, held-selection gating, independent
 resets, tilt limits, two-ray hover, copied geometry and bounds, information,
@@ -118,6 +120,19 @@ level and the model's anatomical fidelity before classroom use.
 - [NCBI Bookshelf, Sacral Vertebrae](https://www.ncbi.nlm.nih.gov/books/NBK551653/): sacral structure and connections.
 
 ## Verification record
+
+On 2026-09-24, the G3 commits were recovered from the pushed
+`codex/g3-bone-inspection` branch and fast-forwarded onto local and remote
+`master`. Before recovery, the default-branch scene contained no per-bone
+`BoneSelection` components or `AnatomyNavigationController`, which explained
+the missing vertebral hover and selection behavior on a new laptop.
+
+The full validation was repeated in an isolated worktree with Unity 6000.3.2f1.
+It again passed **6,604 assertions across all 26 entries**, including actual XRI
+selection callbacks, two-ray hover and material restoration, Back navigation,
+input restoration, and scene reload. Project assemblies compiled without C#
+errors; the known package assembly-version and editor-integration warnings were
+still present.
 
 On 2026-09-09, C1 passed the initial Play Mode pilot. The final all-bone run in
 Unity 6000.3.2f1 passed **6,604 assertions across 26 entries**, including actual

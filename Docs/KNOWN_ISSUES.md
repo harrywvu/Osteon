@@ -1,6 +1,6 @@
 # Known Issues and Project History
 
-> Current-state update: 2026-09-09. Historical entries are retained below so
+> Current-state update: 2026-09-24. Historical entries are retained below so
 > previous recovery work is not lost.
 
 ## Current open issues
@@ -90,6 +90,7 @@
 ## Verification still required
 
 - [x] Automated Play Mode G0–G3 flow: 6,604 assertions, all 26 entries
+- [x] Repeat all-bone validation from the restored default branch on 2026-09-24
 - [x] Back callbacks across the implemented model-view transitions
 - [x] Two-ray bone highlighting and material restoration in the vertebral view
 - [ ] Manual Play Mode controller input and targeting
@@ -97,6 +98,24 @@
 - [ ] Hand-tracking selection path on a physical headset
 - [ ] Clean Android/Quest build from a fresh clone
 - [ ] Installation and launch of that APK on supported Quest hardware
+
+## 2026-09-24 — Default-branch G3 recovery
+
+- The validated G3 implementation had been pushed to
+  `codex/g3-bone-inspection` but had not been merged into the default `master`
+  branch. A clone of `master` therefore contained no `BoneSelection` components
+  or `AnatomyNavigationController` in the enabled scene, so individual vertebrae
+  could not emit hover or selection events.
+- Rebuilt the missing local Git index, preserved the unrelated Unity preload
+  settings, and fast-forwarded local and remote `master` through commits
+  `a045b5c` and `b2edeeb`.
+- Confirmed the enabled scene contains 26 `BoneSelection` components, one
+  `AnatomyNavigationController`, 71 `XRSimpleInteractable` components, and 73
+  mesh colliders.
+- Repeated the full isolated Unity 6000.3.2f1 validation on this laptop. All
+  6,604 assertions passed across 26 entries, including XRI selection callbacks,
+  two-ray hover, material restoration, Back navigation, and scene reload.
+- Physical Quest targeting and Android APK packaging remain unverified.
 
 ## 2026-09-09 — Vertebral-column G3 implementation
 

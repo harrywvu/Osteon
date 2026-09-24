@@ -126,7 +126,8 @@ view. Per-bone grabbing is not a current-scene test. Automated checks are in
 ## Unverified
 
 - Manual Play Mode input and headset comfort (automated G0–G3 navigation,
-  Back, hover, and input-reservation checks passed on 2026-09-09)
+  Back, hover, and input-reservation checks passed on 2026-09-09 and again
+  after default-branch recovery on 2026-09-24)
 - Controller and hand paths on physical Quest hardware
 - Clean Android build from a fresh clone
 - Socket/assembly behavior (no implementation was found)

@@ -8,7 +8,8 @@ the axial or appendicular division, updates an in-world information panel, and
 supports drill-down views of the axial skeleton and individual-bone inspection
 within the vertebral column.
 
-> G3 implementation updated on 2026-09-09; see the verification record in
+> G3 implementation restored to the default branch and revalidated on
+> 2026-09-24; see the verification record in
 > [`Docs/G3_INSPECTION.md`](Docs/G3_INSPECTION.md).
 
 ## Current experience
@@ -42,7 +43,8 @@ legacy script in historical scenes; grabbing and assembly are not part of the
 current bone-inspection experience. See [`Docs/G3_INSPECTION.md`](Docs/G3_INSPECTION.md)
 for controls, authoring, automated checks, and remaining headset verification.
 
-The 2026-09-09 Play Mode run passed 6,604 assertions across all 26 entries.
+The full Play Mode suite passed 6,604 assertions across all 26 entries on
+2026-09-09 and again after default-branch recovery on 2026-09-24.
 Automated APK packaging failed with a Gradle loopback-connection error, and
 headset acceptance remains pending. Planned stationary viewing, controller
 grabbing, and expansion are tracked in
