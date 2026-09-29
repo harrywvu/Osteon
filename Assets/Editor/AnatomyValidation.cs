@@ -141,9 +141,14 @@ public static class AnatomyValidation
         manager.SelectEnter((IXRSelectInteractor)ray1, (IXRSelectInteractable)divisionTarget);
         Require(nav.Level == AnatomyLevel.Division && nav.HistoryCount == 1, "Division callbacks must enter exactly G1.");
         Require(!nav.EnterGroup(group, "Vertebral column", "Group overview."), "One press skipped G1.");
+        yield return null; yield return null;
+        CheckAxialGroupHighlights(nav.CurrentView, manager, ray1, ray2);
         var groupTransition = nav.CurrentView.GetComponentsInChildren<ViewTransitionOnSelect>(true)
             .Single(t => AnatomySceneSetup.Reference<GameObject>(t, "nextView") == group);
-        var groupTarget = groupTransition.GetComponentsInChildren<XRSimpleInteractable>(true).First(i => i.enabled);
+        var transitionRoot = AnatomySceneSetup.Reference<Transform>(groupTransition, "interactableRoot");
+        Require(transitionRoot != null && transitionRoot.name == "VertabralColumn",
+            "The vertebral transition is not scoped to the axial vertebral group.");
+        var groupTarget = transitionRoot.GetComponentsInChildren<XRSimpleInteractable>(true).First(i => i.enabled);
         Require(!manager.IsSelectPossible((IXRSelectInteractor)ray2, (IXRSelectInteractable)groupTarget),
             "The second controller can select through the transition gate.");
         yield return null; yield return null;
@@ -250,6 +255,43 @@ public static class AnatomyValidation
         var reloaded = UnityEngine.Object.FindFirstObjectByType<AnatomyNavigationController>();
         Require(reloaded != null && reloaded.Level == AnatomyLevel.Whole, "Scene reload did not restart at G0.");
         Require(projectErrors.Count == 0, "Project runtime errors: " + string.Join("\n", projectErrors));
+    }
+
+    private static void CheckAxialGroupHighlights(GameObject axial, XRInteractionManager manager,
+        XRRayInteractor ray1, XRRayInteractor ray2)
+    {
+        var descendants = axial.GetComponentsInChildren<Transform>(true);
+        var groups = AnatomySceneSetup.AxialBoneGroupNames
+            .Select(name => descendants.Single(t => t.name == name).gameObject).ToArray();
+
+        foreach (GameObject group in groups)
+        {
+            var highlighter = group.GetComponent<BoneGroupHoverHighlighter>();
+            Require(highlighter != null && highlighter.enabled, $"Missing G2 highlighter: {group.name}");
+            var target = group.GetComponentsInChildren<XRSimpleInteractable>(true).FirstOrDefault(i => i.enabled);
+            Require(target != null, $"G2 group has no hover target: {group.name}");
+            var groupRenderers = group.GetComponentsInChildren<Renderer>(true);
+            Require(groupRenderers.Length > 0, $"G2 group has no renderers: {group.name}");
+            var originals = groupRenderers.Select(renderer => renderer.sharedMaterials).ToArray();
+            GameObject other = groups.First(candidate => candidate != group);
+            Renderer otherRenderer = other.GetComponentsInChildren<Renderer>(true).First();
+            Material[] otherOriginal = otherRenderer.sharedMaterials;
+
+            manager.HoverEnter((IXRHoverInteractor)ray1, (IXRHoverInteractable)target);
+            manager.HoverEnter((IXRHoverInteractor)ray2, (IXRHoverInteractable)target);
+            for (int i = 0; i < groupRenderers.Length; i++)
+                Require(!groupRenderers[i].sharedMaterials.SequenceEqual(originals[i]),
+                    $"Hover did not highlight renderer {groupRenderers[i].name} in {group.name}.");
+            Require(otherRenderer.sharedMaterials.SequenceEqual(otherOriginal),
+                $"Hovering {group.name} changed {other.name}.");
+            manager.HoverExit((IXRHoverInteractor)ray1, (IXRHoverInteractable)target);
+            Require(!groupRenderers[0].sharedMaterials.SequenceEqual(originals[0]),
+                $"One ray exiting cleared the other ray on {group.name}.");
+            manager.HoverExit((IXRHoverInteractor)ray2, (IXRHoverInteractable)target);
+            for (int i = 0; i < groupRenderers.Length; i++)
+                Require(groupRenderers[i].sharedMaterials.SequenceEqual(originals[i]),
+                    $"Last hover did not restore {group.name} materials.");
+        }
     }
 
     private static void CheckInputReservation()

@@ -855,7 +855,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -2777,6 +2777,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8559772660787471312, guid: d478ef999a9d5dd448be5ffeb6ffa615, type: 3}
   m_PrefabInstance: {fileID: 1335455614447843228}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &405396254 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 42c889ad1b6b68146b53070d0bf4d81e, type: 3}
+  m_PrefabInstance: {fileID: 1382090966}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &405396255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405396254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e59d2ec06d8f728489df8476b272fb76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SkeletonYawRotator
+  centerMode: 0
+  customLocalCenter: {x: 0, y: 0, z: 0}
+  degreesPerSecond: 90
+  deadZone: 0.15
+  invertDirection: 0
 --- !u!1 &416155125
 GameObject:
   m_ObjectHideFlags: 0
@@ -6436,16 +6458,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8409
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8409
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8409
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.993
+      value: 2.516
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.794
+      value: 1.1624
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.036
+      value: -1.176
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9346,6 +9380,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -3978900066134968033, guid: 5ff6d8153c1864e459280900722b9d1c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1268313935}
+    - targetCorrespondingSourceObject: {fileID: -3978900066134968033, guid: 5ff6d8153c1864e459280900722b9d1c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1268313936}
     - targetCorrespondingSourceObject: {fileID: 7202294400915833231, guid: 5ff6d8153c1864e459280900722b9d1c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 434938161}
@@ -9529,6 +9566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ViewTransitionOnSelect
   navigation: {fileID: 1767297585}
+  interactableRoot: {fileID: 0}
   nextTitle: Vertebral column
   nextDescription: Explore the vertebral column. Point at an individual bone and
     select it for inspection.
@@ -9551,6 +9589,25 @@ MonoBehaviour:
   divisionDescription: Includes the bones of the upper and lower limbs and the pectoral
     and pelvic girdles that connect them to the axial skeleton. It is primarily involved
     in movement, locomotion, and interaction with the environment.
+--- !u!114 &1268313936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268313927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db970dcdac1c464b9ab2ea04fda3360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ViewTransitionOnSelect
+  navigation: {fileID: 0}
+  interactableRoot: {fileID: 0}
+  nextTitle: Vertebral column
+  nextDescription: Explore the vertebral column. Point at an individual bone and
+    select it for inspection.
+  currentView: {fileID: 111076067}
+  nextView: {fileID: 405396254}
 --- !u!1 &1272644829 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4318033463904107717, guid: 5ff6d8153c1864e459280900722b9d1c, type: 3}
@@ -9666,19 +9723,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.504
+      value: 2.496
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.173
+      value: -0.17299998
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.557
+      value: -1.173
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.72294545
+      value: 0.7535481
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
       propertyPath: m_LocalRotation.x
@@ -9686,7 +9743,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.6909051
+      value: -0.65739286
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
       propertyPath: m_LocalRotation.z
@@ -9698,7 +9755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -87.404
+      value: -82.203
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -9961,6 +10018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ViewTransitionOnSelect
   navigation: {fileID: 1767297585}
+  interactableRoot: {fileID: 0}
   nextTitle: Vertebral column
   nextDescription: Explore the vertebral column. Point at an individual bone and
     select it for inspection.
@@ -10353,7 +10411,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4294965232
   m_fontColor: {r: 0.94, g: 0.97, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -10366,7 +10424,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -11022,6 +11080,82 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8861296024009629687, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
+--- !u!1001 &1382090966
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 42c889ad1b6b68146b53070d0bf4d81e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.89392555
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 42c889ad1b6b68146b53070d0bf4d81e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.89392555
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 42c889ad1b6b68146b53070d0bf4d81e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.89392555
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 42c889ad1b6b68146b53070d0bf4d81e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.493
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 42c889ad1b6b68146b53070d0bf4d81e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 42c889ad1b6b68146b53070d0bf4d81e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.187
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 42c889ad1b6b68146b53070d0bf4d81e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.52618414
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 42c889ad1b6b68146b53070d0bf4d81e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.52618414
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 42c889ad1b6b68146b53070d0bf4d81e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.4723667
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 42c889ad1b6b68146b53070d0bf4d81e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.4723667
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 42c889ad1b6b68146b53070d0bf4d81e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 42c889ad1b6b68146b53070d0bf4d81e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 42c889ad1b6b68146b53070d0bf4d81e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -83.83
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42c889ad1b6b68146b53070d0bf4d81e, type: 3}
+      propertyPath: m_Name
+      value: Skeleton_appendicular
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 42c889ad1b6b68146b53070d0bf4d81e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 42c889ad1b6b68146b53070d0bf4d81e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 405396255}
+  m_SourcePrefab: {fileID: 100100000, guid: 42c889ad1b6b68146b53070d0bf4d81e, type: 3}
 --- !u!114 &1386474618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14279,7 +14413,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4294965232
   m_fontColor: {r: 0.94, g: 0.97, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -14292,7 +14426,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -15024,6 +15158,7 @@ MonoBehaviour:
   axialDivisionRoot: {fileID: 1268313926}
   appendicularDivisionRoot: {fileID: 1268313927}
   axialView: {fileID: 1290350099}
+  appendicularView: {fileID: 405396254}
   vertebralView: {fileID: 892903085}
   infoBoard: {fileID: 167457188}
   inspectionDisplay: {fileID: 1767297584}
@@ -51035,3 +51170,4 @@ SceneRoots:
   - {fileID: 892903084}
   - {fileID: 1268313925}
   - {fileID: 1767297586}
+  - {fileID: 1382090966}

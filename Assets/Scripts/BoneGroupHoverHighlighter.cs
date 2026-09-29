@@ -6,10 +6,17 @@ public class BoneGroupHoverHighlighter : MonoBehaviour
 {
     [SerializeField] private Material highlightMaterial;
 
+    public Material HighlightMaterial => highlightMaterial;
+
     private Renderer[] renderers;
     private Material[][] originalMaterials;
     private XRBaseInteractable[] interactables;
     private int hoverCount;
+
+    public void Configure(Material material)
+    {
+        highlightMaterial = material;
+    }
 
     private void Awake()
     {

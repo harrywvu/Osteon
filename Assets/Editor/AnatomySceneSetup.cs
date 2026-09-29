@@ -14,10 +14,39 @@ using UnityEngine.XR.Interaction.Toolkit.UI;
 public static class AnatomySceneSetup
 {
     public const string ScenePath = "Assets/_Recovery/CONTROLLERS MIGRATION.unity";
+    public static readonly string[] AxialBoneGroupNames = { "Skull", "Ribcage", "VertabralColumn" };
 
     [MenuItem("Anatomy/Configure vertebral inspection")]
     public static void ConfigureAll() => Configure(false);
     public static void ConfigurePilot() => Configure(true);
+
+    [MenuItem("Anatomy/Configure appendicular G1 UI")]
+    public static void ConfigureAppendicularG1Ui()
+    {
+        if (EditorApplication.isPlaying) throw new InvalidOperationException("Leave Play Mode before configuring anatomy.");
+
+        Scene scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+        var objects = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<Transform>(true))
+            .Select(t => t.gameObject).ToArray();
+        GameObject appendicularView = objects.Single(o => o.name == "Skeleton_appendicular");
+        AnatomyNavigationController navigation = objects.Select(o => o.GetComponent<AnatomyNavigationController>())
+            .Single(c => c != null);
+        InfoBoardController board = objects.Select(o => o.GetComponent<InfoBoardController>()).Single(c => c != null);
+
+        Set(navigation, "appendicularView", appendicularView);
+        Set(board, "navigation", navigation);
+        GameObject backObject = Reference<GameObject>(board, "backButton");
+        Button back = backObject.GetComponent<Button>();
+        while (back.onClick.GetPersistentEventCount() > 0)
+            UnityEventTools.RemovePersistentListener(back.onClick, 0);
+        UnityEventTools.AddPersistentListener(back.onClick, navigation.GoBack);
+        appendicularView.SetActive(false);
+
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+        AssetDatabase.SaveAssets();
+        Debug.Log("Appendicular G1 now uses the anatomy information panel and Back navigation.");
+    }
 
     private static T Add<T>(GameObject target) where T : Component
     {
@@ -62,6 +91,7 @@ public static class AnatomySceneSetup
             .Select(t => t.gameObject).ToArray();
         GameObject overview = objects.Single(o => o.name == "low-poly-skeleton-prefab");
         GameObject axial = objects.Single(o => o.name == "Skeleton_axial");
+        GameObject appendicularView = objects.Single(o => o.name == "Skeleton_appendicular");
         GameObject vertebral = objects.Single(o => o.name == "VERTEBRAL COLUMN");
         InfoBoardController board = objects.Select(o => o.GetComponent<InfoBoardController>()).Single(c => c != null);
         GameObject axialDivision = overview.GetComponentsInChildren<DivisionSelection>(true)
@@ -71,6 +101,8 @@ public static class AnatomySceneSetup
             .Single(c => c.gameObject != axialDivision).gameObject;
         Material highlight = AssetDatabase.LoadAssetAtPath<Material>("Assets/HighlightMst.mat");
         if (highlight == null) throw new InvalidOperationException("Highlight material was not imported.");
+        GameObject[] axialGroups = ConfigureAxialGroupHighlights(axial, highlight);
+        Transform axialVertebralGroup = axialGroups.Single(group => group.name == "VertabralColumn").transform;
 
         GameObject owner = objects.FirstOrDefault(o => o.name == "AnatomyNavigation") ?? new GameObject("AnatomyNavigation");
         var navigation = Add<AnatomyNavigationController>(owner);
@@ -96,6 +128,7 @@ public static class AnatomySceneSetup
         Set(navigation, "axialDivisionRoot", axialDivision);
         Set(navigation, "appendicularDivisionRoot", appendicular);
         Set(navigation, "axialView", axial);
+        Set(navigation, "appendicularView", appendicularView);
         Set(navigation, "vertebralView", vertebral);
         Set(navigation, "infoBoard", board);
         Set(navigation, "inspectionDisplay", display);
@@ -104,7 +137,11 @@ public static class AnatomySceneSetup
             .Where(c => c != null).Cast<UnityEngine.Object>().ToArray());
         foreach (var selection in overview.GetComponentsInChildren<DivisionSelection>(true)) Set(selection, "navigation", navigation);
         foreach (var transition in objects.Select(o => o.GetComponent<ViewTransitionOnSelect>()).Where(c => c != null))
+        {
             Set(transition, "navigation", navigation);
+            if (Reference<GameObject>(transition, "nextView") == vertebral)
+                Set(transition, "interactableRoot", axialVertebralGroup);
+        }
 
         var entries = VertebralBoneCatalog.All().Where(e => !pilot || e.meshName == "C1").ToArray();
         var selections = new BoneSelection[entries.Length];
@@ -134,7 +171,7 @@ public static class AnatomySceneSetup
             highlighter.enabled = false;
         // Empty collider lists make XRI collect descendants, including another interactable's
         // colliders. Assign each collider to its nearest interactable so targeting has one owner.
-        foreach (GameObject root in new[] { overview, axial, vertebral })
+        foreach (GameObject root in new[] { overview, axial, appendicularView, vertebral })
             foreach (var interactable in root.GetComponentsInChildren<XRBaseInteractable>(true))
             {
                 var owned = interactable.GetComponentsInChildren<Collider>(true)
@@ -162,11 +199,31 @@ public static class AnatomySceneSetup
         axialDivision.SetActive(true);
         appendicular.SetActive(true);
         axial.SetActive(false);
+        appendicularView.SetActive(false);
         vertebral.SetActive(false);
         EditorSceneManager.MarkSceneDirty(scene);
         EditorSceneManager.SaveScene(scene);
         AssetDatabase.SaveAssets();
         Debug.Log($"G3 scene configured with {entries.Length} bones. Display center: {center}.");
+    }
+
+    private static GameObject[] ConfigureAxialGroupHighlights(GameObject axial, Material highlight)
+    {
+        var descendants = axial.GetComponentsInChildren<Transform>(true);
+        var groups = AxialBoneGroupNames.Select(name => descendants.Single(t => t.name == name).gameObject).ToArray();
+        var groupSet = new System.Collections.Generic.HashSet<GameObject>(groups);
+
+        foreach (var highlighter in axial.GetComponentsInChildren<BoneGroupHoverHighlighter>(true))
+            highlighter.enabled = groupSet.Contains(highlighter.gameObject);
+
+        foreach (GameObject group in groups)
+        {
+            var highlighter = Add<BoneGroupHoverHighlighter>(group);
+            Set(highlighter, "highlightMaterial", highlight);
+            highlighter.enabled = true;
+        }
+
+        return groups;
     }
 
     private static Transform Anchor(Transform owner, string name)

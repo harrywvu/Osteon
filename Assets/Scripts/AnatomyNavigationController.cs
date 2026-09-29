@@ -13,6 +13,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     [SerializeField] private GameObject axialDivisionRoot;
     [SerializeField] private GameObject appendicularDivisionRoot;
     [SerializeField] private GameObject axialView;
+    [SerializeField] private GameObject appendicularView;
     [SerializeField] private GameObject vertebralView;
     [SerializeField] private InfoBoardController infoBoard;
     [SerializeField] private BoneInspectionDisplay inspectionDisplay;
@@ -85,13 +86,16 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         }
         authoredGroupOrientation = vertebralView.transform.rotation;
         selectFilter = new XRSelectFilterDelegate((interactor, interactable) => CanNavigate);
-        foreach (GameObject root in new[] { overviewRoot, axialView, vertebralView })
+        foreach (GameObject root in new[] { overviewRoot, axialView, appendicularView, vertebralView })
+        {
+            if (root == null) continue;
             foreach (XRBaseInteractable interactable in root.GetComponentsInChildren<XRBaseInteractable>(true))
                 if (!filtered.Contains(interactable))
                 {
                     filtered.Add(interactable);
                     interactable.selectFilters.Add(selectFilter);
                 }
+        }
         initialized = true;
         current = new ViewFrame { level = AnatomyLevel.Whole, root = overviewRoot,
             title = "Human Skeleton", description = "Select a division to start.", breadcrumb = "" };
@@ -152,7 +156,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         if (!CanNavigate || Level != AnatomyLevel.Whole ||
             (division != axialDivisionRoot && division != appendicularDivisionRoot)) return false;
         var next = new ViewFrame { level = AnatomyLevel.Division, division = division,
-            root = division == axialDivisionRoot ? axialView : overviewRoot,
+            root = division == axialDivisionRoot ? axialView : appendicularView != null ? appendicularView : overviewRoot,
             title = title, description = description,
             breadcrumb = division == axialDivisionRoot ? "Axial" : "Appendicular" };
         Push(next);
@@ -226,6 +230,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         ClearHighlights();
         overviewRoot.SetActive(false);
         axialView.SetActive(false);
+        if (appendicularView != null) appendicularView.SetActive(false);
         vertebralView.SetActive(false);
         axialDivisionRoot.SetActive(frame.level == AnatomyLevel.Whole || frame.division == axialDivisionRoot);
         appendicularDivisionRoot.SetActive(frame.level == AnatomyLevel.Whole || frame.division == appendicularDivisionRoot);
@@ -247,7 +252,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     {
         previewBone = null;
         foreach (var bone in bones) if (bone != null) bone.ClearHighlight();
-        foreach (GameObject root in new[] { overviewRoot, axialView, vertebralView })
+        foreach (GameObject root in new[] { overviewRoot, axialView, appendicularView, vertebralView })
         {
             if (root == null) continue;
             foreach (var highlighter in root.GetComponentsInChildren<BoneGroupHoverHighlighter>(true))
