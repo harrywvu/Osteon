@@ -1,8 +1,16 @@
 # Individual-bone inspection
 
-The enabled controller-migration scene has G2-to-G3 inspection for two axial
-groups. The vertebral column has C1–C7, T1–T12, L1–L5, Sacrum, and Coccyx.
-The ribcage has 24 individual ribs and the sternum. The vertebral model's five
+The enabled controller-migration scene has G2-to-G3 inspection for the axial
+vertebral column and ribcage, plus both appendicular lower limbs, both upper
+limbs, both pectoral sides, and the pelvic girdle. The vertebral
+column has C1–C7, T1–T12, L1–L5, Sacrum, and Coccyx. The ribcage has 24
+individual ribs and the sternum. The left lower limb has 30 selectable bones:
+femur, patella, tibia, fibula, 7 tarsals, 5 metatarsals, and 14 toe phalanges.
+Each pectoral side has a clavicle and scapula. The pelvic model has one selectable
+left hip bone; its sacrum, coccyx, and obturator-foramen meshes remain context.
+The right lower-limb model has the standard 30 bones plus two sesamoids. Each
+upper limb has 30 selectable bones.
+The vertebral model's five
 `Disk` meshes and the rib model's cartilage stay visible as context and are not
 selectable bones.
 
@@ -10,10 +18,20 @@ selectable bones.
 
 - In G2, point at a bone to highlight it and preview its name on the information panel.
 - Select using the existing XRI selection binding to open a centered inspection copy.
-- A stationary reference column or ribcage remains beside the inspected bone and highlights its location.
+- A stationary reference group remains beside the inspected bone and highlights its location.
 - The information panel shows a breadcrumb, name, introductory description, and controls.
-- Back returns one level: bone → its G2 group → axial division → whole skeleton.
+- The bone inspection anchor is at world X **2.477991**, Z **-1.173756**;
+  the reference group keeps its 42 cm offset and both retain their height.
+- The anatomy and quiz panels have a blue **Move** bar below their controls.
+  Aim at a bar, hold the controller's select/grab input while positioning the
+  panel, then release. The quiz launcher moves with its panel.
+- The panel Back button or left X returns one level: bone → its G2 group → axial or appendicular division → whole skeleton.
   The previous view's position, rotation, and scale are restored.
+  Release X before pressing again. In the XR Device Simulator, select **Left Controller**
+  and press **B** for X.
+- In pectoral G2, press left Y to switch between the right and left models without
+  adding a history level. Release Y before switching again.
+  In the XR Device Simulator, select **Left Controller** and press **N** for Y.
 
 | G3 control | Action |
 |---|---|
@@ -21,7 +39,8 @@ selectable bones.
 | Right thumbstick vertically | Tilt at up to 60°/second, limited to ±90° |
 | Right A button | Reset turning independently |
 | Right B button | Reset tilt independently |
-| Panel Back | Return to the selected bone's G2 group |
+| Panel Back or left X | Return one G level |
+| Left Y in pectoral G2 | Switch between right and left pectoral models |
 
 Each bone starts in the model's authored anatomical orientation. The controller
 must return to neutral on entry or reconnection before inspection movement starts.
@@ -35,8 +54,9 @@ existing right-thumbstick yaw behavior.
 when their navigation reference is assigned. Historical scenes keep their legacy
 behavior and existing script GUIDs.
 
-Each selectable vertebral or ribcage mesh has serialized `BonePartInfo`, `BoneSelection`,
-`XRSimpleInteractable`, renderer references, and a fitted non-convex `MeshCollider`.
+Each selectable vertebral, ribcage, limb, or girdle mesh has serialized
+`BonePartInfo`, `BoneSelection`, `XRSimpleInteractable`, renderer references,
+and a fitted non-convex `MeshCollider`.
 The mesh collider is used for ray selection; these bones have no grab rigidbody.
 
 `BoneInspectionDisplay` constructs visual-only copies sharing imported meshes.
@@ -51,10 +71,12 @@ UI press bindings remain available. Prior binding overrides and affected action
 enabled states are restored on exit or disable. This also prevents the template
 input mediator from reviving a conflicting binding by re-enabling its action.
 
-The active scene's anatomy Back button belongs only to the navigation controller.
+The active scene's anatomy Back button and left X input call the navigation controller.
 Its old coaching-card callbacks are removed, and the unused scene `StepManager`
 is disabled. The controller now presents a scene-owned world-space panel beside
-the display. Imported template scripts and historical scenes are unchanged.
+the display. The panel Canvas sits inside a movable station; only the Move bar
+has a grab collider, so the Back button remains a UI target. Imported template
+scripts and historical scenes are unchanged.
 Anatomy colliders have explicit, unique interactable owners, including in earlier
 views. G2's old whole-column highlighter is disabled in favor of per-bone hover.
 
@@ -70,6 +92,18 @@ bindings. It selects 24 imported rib meshes and the sternum and leaves cartilage
 as context. The `RibBoneCatalog` supplies initial descriptions; rerunning setup
 replaces descriptions on those entries.
 
+Use **Anatomy → Configure left lower limb inspection** to rebuild only the 30
+left lower-limb G3 bindings. `LeftLowerLimbBoneCatalog` supplies introductory
+descriptions; rerunning setup replaces descriptions on those entries.
+
+Use **Anatomy → Configure girdle inspection** to rebuild both pectoral sides
+and the pelvic G3 binding. `GirdleBoneCatalog` supplies their introductory
+descriptions; rerunning setup replaces them.
+
+Use **Anatomy → Configure remaining limb inspection** to rebuild the right
+lower limb and both upper limbs. `AppendicularLimbBoneCatalog` supplies their
+introductory descriptions; rerunning setup replaces them.
+
 The editor-only `VertebralBoneCatalog` supplies the initial descriptions. Once
 configured, runtime information is serialized on each bone's `BonePartInfo`.
 Running setup again replaces those descriptions with the catalog versions.
@@ -83,9 +117,11 @@ Run automated Play Mode checks in a closed project or a temporary project copy:
 ./Tools/Invoke-AnatomyValidation.ps1 -ProjectPath '<validation-project>' -Current
 ```
 
-The first command configures C1 and all 25 ribcage entries. The second configures
-and validates all 51 entries without graphics. The third captures a desktop
-rendering when a graphics device is available. `-Current` validates the already
+The first command configures C1, all 25 ribcage entries, both lower limbs,
+both upper limbs, and the five girdle entries. The second configures and
+validates all 178 entries without graphics.
+The third captures a desktop rendering when a graphics device is available.
+`-Current` validates the already
 configured scene without replacing its serialized bone descriptions.
 The runner writes `Logs/G3-validation.json` and its Unity log; failures return
 a nonzero exit. It checks navigation history, held-selection gating, independent
@@ -102,7 +138,10 @@ It requires the pinned ARM64, IL2CPP, and minimum SDK 32 settings and writes
 
 1. Open the controller-migration scene or install its development APK. Select
    Axial, then the vertebral column and C1; repeat through Ribcage with a rib
-   and the sternum. Release selection between steps.
+   and the sternum, then through Appendicular → Left lower limb with a limb bone.
+   Inspect both pectoral sides using left Y, then the pelvic hip bone.
+   Repeat through the right lower limb and each upper limb.
+   Release selection between steps.
 2. Read each bone's information and target both small and large bones from a
    normal standing position. Confirm the reference highlights only the selected bone.
 3. Move the right stick diagonally, reach both tilt limits, and test A then B
@@ -114,7 +153,7 @@ It requires the pinned ARM64, IL2CPP, and minimum SDK 32 settings and writes
    once. Confirm one transition per fresh press and no stuck hover material.
 6. Disconnect/reconnect the right controller during G3. Return its stick and
    A/B to neutral, then verify controls resume. Leave G3 and confirm the prior
-   locomotion/manipulation bindings work again. Repeat with all 51 entries.
+   locomotion/manipulation bindings work again. Repeat with all 178 entries.
 
 ## Content references
 
@@ -129,8 +168,51 @@ level and the model's anatomical fidelity before classroom use.
 - [NCBI Bookshelf, Lumbar Vertebrae](https://ncbi.nlm.nih.gov/books/NBK459278/): lumbar features.
 - [NCBI Bookshelf, Sacral Vertebrae](https://www.ncbi.nlm.nih.gov/books/NBK551653/): sacral structure and connections.
 - [OpenStax, Anatomy and Physiology 2e, The Thoracic Cage](https://openstax.org/books/anatomy-and-physiology-2e/pages/7-4-the-thoracic-cage): rib numbering, true/false/floating classification, costal cartilage, and sternum.
+- [OpenStax, Anatomy and Physiology 2e, Bones of the Lower Limb](https://openstax.org/books/anatomy-and-physiology-2e/pages/8-4-bones-of-the-lower-limb): lower-limb bone names, location, and regional grouping.
+- [OpenStax, Anatomy and Physiology 2e, Bones of the Upper Limb](https://openstax.org/books/anatomy-and-physiology-2e/pages/8-2-bones-of-the-upper-limb): arm, wrist, hand, and digit grouping.
+- [OpenStax, Anatomy and Physiology 2e, The Pectoral Girdle](https://openstax.org/books/anatomy-and-physiology-2e/pages/8-1-the-pectoral-girdle): clavicle and scapula anatomy.
+- [OpenStax, Anatomy and Physiology 2e, The Pelvic Girdle and Pelvis](https://openstax.org/books/anatomy-and-physiology-2e/pages/8-3-the-pelvic-girdle-and-pelvis): hip bone and pelvic context.
 
 ## Verification record
+
+On 2026-10-01, the anatomy Canvas grab component moved to a parent station
+and left X gained a Back binding. Unity 6000.3.2f1 Play Mode passed **9,783
+assertions across 178 G3 entries**, including simulated X navigation, a held
+button staying at one level, and a separate Back UI target. Physical
+Quest targeting and panel movement remain unverified.
+
+On 2026-10-01, the G3 display moved to X 2.477991, Z -1.173756, with the
+reference offset preserved. The anatomy and quiz panels gained separate XR
+grab handles below their controls. Unity 6000.3.2f1 Play Mode passed **9,780
+assertions across 178 G3 entries**, including anchor spacing and both handle
+configurations. Physical Quest grabbing and panel comfort remain unverified.
+
+On 2026-10-01, the active scene gained G3 inspection for the right lower limb
+(32 imported meshes, including two sesamoids) and both upper limbs (30 bones
+each). Unity 6000.3.2f1 Play Mode passed **9,774 assertions across 178 entries**.
+The new checks cover G1→G2 XRI selection, per-bone hover and G3 selection,
+information fit, reference geometry and highlighting, and Back restoration.
+Physical Quest targeting and APK packaging remain unverified.
+
+On 2026-10-01, the active scene gained G3 inspection for each pectoral
+clavicle and scapula and the pelvic model's left hip bone. The appendicular
+Right pectoral G2 view switches between sides with left Y, without changing the
+Back depth. Unity 6000.3.2f1 Play Mode passed **8,197 assertions across 86
+entries**, including the new XRI hover/selection, reference geometry, bone
+highlighting, information fit, side switching, and Back paths. Controller Y
+feel, targeting, and APK packaging remain unverified on Quest.
+
+On 2026-10-01, the pectoral switch gained an Input System binding so the XR
+Device Simulator's left-controller **N** key drives Y. A simulated left Y press
+switched the G2 model during the full 178-entry Play Mode run, which passed
+9,774 assertions. Physical Quest input still needs verification.
+
+On 2026-09-30, the enabled scene gained G3 inspection for all 30 bones in the
+left lower-limb model. The `-Current` Play Mode suite in Unity 6000.3.2f1
+passed **8,100 assertions across 81 entries**. It exercised each new bone's
+XRI hover and selection, information fit, inspection and reference geometry,
+reference highlighting, Back history, and G2 transform restoration. Physical
+Quest targeting and a packaged APK remain unverified.
 
 On 2026-09-30, the active scene gained G3 inspection for the 24 ribs and
 sternum, sharing the vertebral path's hover preview, enlarged inspection,

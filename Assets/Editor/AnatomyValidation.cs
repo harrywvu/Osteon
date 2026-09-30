@@ -125,6 +125,21 @@ public static class AnatomyValidation
         Require(nav.Bones.Select(b => b.name).Distinct().Count() == nav.Bones.Length, "Duplicate bone bindings.");
         Require(nav.RibBones.Length == 25, "Expected 24 selectable ribs and the sternum.");
         Require(nav.RibBones.Select(b => b.name).Distinct().Count() == 25, "Duplicate rib bindings.");
+        Require(nav.LeftLowerLimbBones.Length == 30, "Expected 30 selectable left lower-limb bones.");
+        Require(nav.LeftLowerLimbBones.Select(b => b.name).Distinct().Count() == 30,
+            "Duplicate left lower-limb bindings.");
+        Require(nav.RightPectoralBones.Length == 2 && nav.LeftPectoralBones.Length == 2,
+            "Expected a clavicle and scapula on each pectoral side.");
+        Require(nav.PelvicBones.Length == 1 && nav.PelvicBones[0].name == "Hip_L_2",
+            "Expected the imported left hip bone as the pelvic G3 entry.");
+        Require(nav.RightLowerLimbBones.Length == 32 &&
+                nav.RightLowerLimbBones.Select(b => b.name).Distinct().Count() == 32,
+            "Expected 32 right lower-limb meshes, including two sesamoids.");
+        Require(nav.LeftUpperLimbBones.Length == 30 && nav.RightUpperLimbBones.Length == 30,
+            "Expected 30 selectable bones per upper limb.");
+        Require(nav.LeftUpperLimbBones.Select(b => b.name).Distinct().Count() == 30 &&
+                nav.RightUpperLimbBones.Select(b => b.name).Distinct().Count() == 30,
+            "Duplicate upper-limb bindings.");
         var overview = nav.CurrentView;
         foreach (var divisionView in new[] {
             AnatomySceneSetup.Reference<GameObject>(nav, "axialView"),
@@ -145,6 +160,18 @@ public static class AnatomyValidation
         var group = AnatomySceneSetup.Reference<GameObject>(nav, "vertebralView");
         var ribView = AnatomySceneSetup.Reference<GameObject>(nav, "ribView");
         Require(ribView != null, "Ribcage G3 view is not assigned.");
+        var leftLowerLimbView = AnatomySceneSetup.Reference<GameObject>(nav, "leftLowerLimbView");
+        Require(leftLowerLimbView != null, "Left lower-limb G3 view is not assigned.");
+        var rightPectoralView = AnatomySceneSetup.Reference<GameObject>(nav, "rightPectoralView");
+        var leftPectoralView = AnatomySceneSetup.Reference<GameObject>(nav, "leftPectoralView");
+        var pelvicView = AnatomySceneSetup.Reference<GameObject>(nav, "pelvicView");
+        Require(rightPectoralView != null && leftPectoralView != null && pelvicView != null,
+            "Girdle G3 views are not assigned.");
+        var rightLowerLimbView = AnatomySceneSetup.Reference<GameObject>(nav, "rightLowerLimbView");
+        var leftUpperLimbView = AnatomySceneSetup.Reference<GameObject>(nav, "leftUpperLimbView");
+        var rightUpperLimbView = AnatomySceneSetup.Reference<GameObject>(nav, "rightUpperLimbView");
+        Require(rightLowerLimbView != null && leftUpperLimbView != null && rightUpperLimbView != null,
+            "Remaining limb G3 views are not assigned.");
         var board = AnatomySceneSetup.Reference<InfoBoardController>(nav, "infoBoard");
         var title = AnatomySceneSetup.Reference<TMPro.TextMeshProUGUI>(board, "titleText");
         var description = AnatomySceneSetup.Reference<TMPro.TextMeshProUGUI>(board, "descriptionText");
@@ -155,7 +182,10 @@ public static class AnatomyValidation
         var ray2 = new GameObject("Validation ray 2").AddComponent<XRRayInteractor>();
         ray1.transform.position = ray2.transform.position = Vector3.one * 1000;
         ray1.interactionManager = ray2.interactionManager = manager;
-        foreach (var root in new[] { overview, AnatomySceneSetup.Reference<GameObject>(nav, "axialView"), group, ribView })
+        foreach (var root in new[] { overview, AnatomySceneSetup.Reference<GameObject>(nav, "axialView"),
+                     AnatomySceneSetup.Reference<GameObject>(nav, "appendicularView"), group, ribView,
+                     leftLowerLimbView, rightPectoralView, leftPectoralView, pelvicView,
+                     rightLowerLimbView, leftUpperLimbView, rightUpperLimbView })
         {
             var colliders = new HashSet<Collider>();
             foreach (var target in root.GetComponentsInChildren<XRBaseInteractable>(true).Where(i => i.enabled))
@@ -167,7 +197,7 @@ public static class AnatomyValidation
         Require(nav.Level == AnatomyLevel.Division && nav.HistoryCount == 1, "Division callbacks must enter exactly G1.");
         Require(!nav.EnterGroup(group, "Vertebral column", "Group overview."), "One press skipped G1.");
         yield return null; yield return null;
-        CheckAxialGroupHighlights(nav.CurrentView, manager, ray1, ray2);
+        CheckGroupHighlights(nav.CurrentView, manager, ray1, ray2);
         var groupTransition = nav.CurrentView.GetComponentsInChildren<ViewTransitionOnSelect>(true)
             .Single(t => AnatomySceneSetup.Reference<GameObject>(t, "nextView") == group);
         var transitionRoot = AnatomySceneSetup.Reference<Transform>(groupTransition, "interactableRoot");
@@ -341,7 +371,183 @@ public static class AnatomyValidation
         Require(!axialDivision.activeSelf && nav.CurrentView == appendicularView && appendicularView.activeSelf,
             "Appendicular isolation regressed.");
         yield return null; yield return null;
+        CheckGroupHighlights(appendicularView, manager, ray1, ray2);
+        var leftLowerTransition = appendicularView.GetComponentsInChildren<ViewTransitionOnSelect>(true)
+            .Single(t => t.NextView == leftLowerLimbView);
+        var leftLowerTarget = leftLowerTransition.GetComponentsInChildren<XRSimpleInteractable>(true)
+            .First(i => i.enabled);
+        manager.SelectEnter((IXRSelectInteractor)ray1, (IXRSelectInteractable)leftLowerTarget);
+        Require(nav.Level == AnatomyLevel.Group && nav.CurrentView == leftLowerLimbView &&
+                leftLowerLimbView.activeSelf && nav.HistoryCount == 2,
+            "Left lower-limb selection did not open its G2 view.");
+        yield return null; yield return null;
+        Require(leftLowerLimbView.GetComponentsInChildren<BoneSelection>(true).Length == 30,
+            "Left lower-limb selection components are incomplete.");
+        leftLowerLimbView.transform.Rotate(Vector3.up, 29, Space.World);
+        Vector3 limbPosition = leftLowerLimbView.transform.localPosition;
+        Quaternion limbRotation = leftLowerLimbView.transform.localRotation;
+        Vector3 limbScale = leftLowerLimbView.transform.localScale;
+        foreach (BoneSelection bone in nav.LeftLowerLimbBones)
+        {
+            Require(bone.Info != null && !string.IsNullOrWhiteSpace(bone.Info.PartDescription),
+                $"Missing lower-limb information: {bone.name}");
+            var interactable = bone.GetComponent<XRSimpleInteractable>();
+            var renderer = bone.Renderers[0];
+            var original = renderer.sharedMaterials;
+            Require(interactable.enabled && bone.GetComponent<MeshCollider>().sharedMesh != null,
+                $"Lower-limb bone cannot be selected: {bone.name}");
+            manager.HoverEnter((IXRHoverInteractor)ray1, (IXRHoverInteractable)interactable);
+            manager.HoverEnter((IXRHoverInteractor)ray2, (IXRHoverInteractable)interactable);
+            Require(renderer.sharedMaterials[0] != original[0] &&
+                    description.text.Contains("Pointing at: " + bone.Info.PartName),
+                $"Lower-limb hover preview failed: {bone.name}");
+            manager.HoverExit((IXRHoverInteractor)ray1, (IXRHoverInteractable)interactable);
+            Require(renderer.sharedMaterials[0] != original[0], "One ray cleared the other lower-limb hover.");
+            manager.HoverExit((IXRHoverInteractor)ray2, (IXRHoverInteractable)interactable);
+            Require(renderer.sharedMaterials.SequenceEqual(original),
+                "Lower-limb hover material was not restored.");
+            manager.SelectEnter((IXRSelectInteractor)ray1, (IXRSelectInteractable)interactable);
+            Require(nav.Level == AnatomyLevel.Bone && nav.SelectedBone == bone &&
+                    !leftLowerLimbView.activeSelf && nav.HistoryCount == 3,
+                $"Lower-limb selection did not enter G3: {bone.name}");
+            Require(title.text == bone.Info.PartName &&
+                    description.text.Contains("Appendicular → Left lower limb"),
+                "Lower-limb information or breadcrumb is missing.");
+            description.ForceMeshUpdate(true, true);
+            Require(description.preferredHeight <= description.rectTransform.rect.height + 1,
+                $"Lower-limb information overflows the panel: {bone.name}");
+            var isolated = nav.InspectionDisplay.BoneVisual;
+            var reference = nav.InspectionDisplay.ReferenceVisual;
+            Require(isolated != null && reference != null &&
+                    isolated.GetComponentsInChildren<MeshFilter>().Length == bone.Renderers.Length &&
+                    reference.GetComponentsInChildren<MeshFilter>().Length ==
+                    leftLowerLimbView.GetComponentsInChildren<MeshFilter>(true).Length,
+                "Lower-limb inspection or reference geometry is incomplete.");
+            var referenceBone = reference.GetComponentsInChildren<MeshRenderer>()
+                .Single(r => r.name == bone.name);
+            Require(referenceBone.sharedMaterials.All(m => m == nav.GroupHighlightMaterial),
+                "The reference limb does not highlight the inspected bone.");
+            Require(isolated.GetComponentsInChildren<Collider>().Length == 0 &&
+                    reference.GetComponentsInChildren<Collider>().Length == 0,
+                "Lower-limb inspection visuals captured controller rays.");
+            Require(Mathf.Abs(BoneInspectionDisplay.LocalBounds(isolated).size.magnitude - 0.30f) < 0.001f &&
+                    Mathf.Abs(BoneInspectionDisplay.LocalBounds(reference).size.y - 0.45f) < 0.001f,
+                "Lower-limb inspection sizing changed.");
+            var referenceRotation = reference.rotation;
+            nav.InspectionPose.Apply(new Vector2(1, 1), 0.5f, false, false);
+            nav.InspectionDisplay.SetRotation(nav.InspectionPose.Rotation);
+            Require(reference.rotation == referenceRotation, "Lower-limb reference moved with the inspected bone.");
+            Require(!nav.InspectBone(bone), "Repeated selection pushed a duplicate lower-limb G3 frame.");
+            yield return null; yield return null;
+            back.onClick.Invoke();
+            Require(nav.Level == AnatomyLevel.Group && nav.SelectedBone == null &&
+                    leftLowerLimbView.activeSelf && nav.HistoryCount == 2,
+                "Lower-limb Back did not restore G2.");
+            Require(leftLowerLimbView.transform.localPosition == limbPosition &&
+                    leftLowerLimbView.transform.localRotation == limbRotation &&
+                    leftLowerLimbView.transform.localScale == limbScale,
+                "Lower-limb G2 transform changed across inspection.");
+            Require(renderer.sharedMaterials.SequenceEqual(original),
+                "Lower-limb hover material leaked across Back.");
+            yield return null; yield return null;
+        }
         nav.GoBack();
+        Require(nav.Level == AnatomyLevel.Division && !leftLowerLimbView.activeSelf,
+            "Left lower-limb Back did not restore appendicular G1.");
+        yield return null; yield return null;
+        var rightPectoralTransition = appendicularView.GetComponentsInChildren<ViewTransitionOnSelect>(true)
+            .Single(t => t.NextView == rightPectoralView);
+        var rightPectoralTarget = rightPectoralTransition.GetComponentsInChildren<XRSimpleInteractable>(true)
+            .First(i => i.enabled);
+        manager.SelectEnter((IXRSelectInteractor)ray1, (IXRSelectInteractable)rightPectoralTarget);
+        Require(nav.Level == AnatomyLevel.Group && nav.CurrentView == rightPectoralView &&
+                description.text.Contains("Left Y: switch pectoral side"),
+            "Right pectoral G2 or switch hint is missing.");
+        yield return null; yield return null;
+        var rightChecks = CheckGirdleBones(nav, rightPectoralView, nav.RightPectoralBones,
+            "Right pectoral girdle", manager, ray1, ray2, title, description, back);
+        while (rightChecks.MoveNext()) yield return rightChecks.Current;
+        var simulatedLeft = UnityEngine.InputSystem.InputSystem.AddDevice<
+            UnityEngine.XR.Interaction.Toolkit.Inputs.Simulation.XRSimulatedController>();
+        UnityEngine.InputSystem.InputSystem.SetDeviceUsage(simulatedLeft,
+            UnityEngine.InputSystem.CommonUsages.LeftHand);
+        yield return null; yield return null;
+        var pressedY = new UnityEngine.XR.Interaction.Toolkit.Inputs.Simulation.XRSimulatedControllerState()
+            .WithButton(UnityEngine.XR.Interaction.Toolkit.Inputs.Simulation.ControllerButton.SecondaryButton);
+        UnityEngine.InputSystem.InputSystem.QueueStateEvent(simulatedLeft, pressedY);
+        yield return null; yield return null;
+        Require(nav.CurrentView == leftPectoralView &&
+                !rightPectoralView.activeSelf && nav.HistoryCount == 2,
+            "Simulated left Y did not show the left pectoral G2 model.");
+        UnityEngine.InputSystem.InputSystem.QueueStateEvent(simulatedLeft,
+            new UnityEngine.XR.Interaction.Toolkit.Inputs.Simulation.XRSimulatedControllerState());
+        yield return null;
+        UnityEngine.InputSystem.InputSystem.RemoveDevice(simulatedLeft);
+        yield return null; yield return null;
+        var leftChecks = CheckGirdleBones(nav, leftPectoralView, nav.LeftPectoralBones,
+            "Left pectoral girdle", manager, ray1, ray2, title, description, back);
+        while (leftChecks.MoveNext()) yield return leftChecks.Current;
+        Require(nav.SwitchPectoralSide() && nav.CurrentView == rightPectoralView &&
+                !leftPectoralView.activeSelf && nav.HistoryCount == 2,
+            "Pectoral side switch did not return to the right G2 model.");
+        yield return null; yield return null;
+        var simulatedBack = UnityEngine.InputSystem.InputSystem.AddDevice<
+            UnityEngine.XR.Interaction.Toolkit.Inputs.Simulation.XRSimulatedController>();
+        UnityEngine.InputSystem.InputSystem.SetDeviceUsage(simulatedBack,
+            UnityEngine.InputSystem.CommonUsages.LeftHand);
+        yield return null; yield return null;
+        var pressedX = new UnityEngine.XR.Interaction.Toolkit.Inputs.Simulation.XRSimulatedControllerState()
+            .WithButton(UnityEngine.XR.Interaction.Toolkit.Inputs.Simulation.ControllerButton.PrimaryButton);
+        UnityEngine.InputSystem.InputSystem.QueueStateEvent(simulatedBack, pressedX);
+        yield return null; yield return null;
+        Require(nav.Level == AnatomyLevel.Division && nav.CurrentView == appendicularView &&
+                !rightPectoralView.activeSelf && !leftPectoralView.activeSelf,
+            "Left X Back did not restore appendicular G1.");
+        Require(nav.HistoryCount == 1, "Holding left X skipped more than one G level.");
+        UnityEngine.InputSystem.InputSystem.QueueStateEvent(simulatedBack,
+            new UnityEngine.XR.Interaction.Toolkit.Inputs.Simulation.XRSimulatedControllerState());
+        yield return null;
+        UnityEngine.InputSystem.InputSystem.RemoveDevice(simulatedBack);
+        yield return null; yield return null;
+        var pelvicTransition = appendicularView.GetComponentsInChildren<ViewTransitionOnSelect>(true)
+            .Single(t => t.NextView == pelvicView);
+        var pelvicTarget = pelvicTransition.GetComponentsInChildren<XRSimpleInteractable>(true)
+            .First(i => i.enabled);
+        manager.SelectEnter((IXRSelectInteractor)ray1, (IXRSelectInteractable)pelvicTarget);
+        Require(nav.Level == AnatomyLevel.Group && nav.CurrentView == pelvicView && pelvicView.activeSelf,
+            "Pelvic selection did not open its G2 view.");
+        yield return null; yield return null;
+        var pelvicChecks = CheckGirdleBones(nav, pelvicView, nav.PelvicBones,
+            "Pelvic girdle", manager, ray1, ray2, title, description, back);
+        while (pelvicChecks.MoveNext()) yield return pelvicChecks.Current;
+        nav.GoBack();
+        Require(nav.Level == AnatomyLevel.Division && nav.CurrentView == appendicularView,
+            "Pelvic Back did not restore appendicular G1.");
+        yield return null; yield return null;
+        var remainingViews = new[] { rightLowerLimbView, leftUpperLimbView, rightUpperLimbView };
+        var remainingBones = new[] { nav.RightLowerLimbBones, nav.LeftUpperLimbBones, nav.RightUpperLimbBones };
+        var remainingTitles = new[] { "Right lower limb", "Left upper limb", "Right upper limb" };
+        for (int i = 0; i < remainingViews.Length; i++)
+        {
+            GameObject view = remainingViews[i];
+            var transition = appendicularView.GetComponentsInChildren<ViewTransitionOnSelect>(true)
+                .Single(t => t.NextView == view);
+            var target = transition.GetComponentsInChildren<XRSimpleInteractable>(true)
+                .First(t => t.enabled);
+            manager.SelectEnter((IXRSelectInteractor)ray1, (IXRSelectInteractable)target);
+            Require(nav.Level == AnatomyLevel.Group && nav.CurrentView == view && view.activeSelf,
+                $"Remaining limb selection did not open G2: {remainingTitles[i]}");
+            yield return null; yield return null;
+            var limbChecks = CheckGirdleBones(nav, view, remainingBones[i], remainingTitles[i],
+                manager, ray1, ray2, title, description, back);
+            while (limbChecks.MoveNext()) yield return limbChecks.Current;
+            nav.GoBack();
+            Require(nav.Level == AnatomyLevel.Division && nav.CurrentView == appendicularView,
+                $"Remaining limb Back did not restore appendicular G1: {remainingTitles[i]}");
+            yield return null; yield return null;
+        }
+        nav.GoBack();
+        Require(nav.Level == AnatomyLevel.Whole, "Appendicular Back did not restore G0.");
         yield return null; yield return null;
         Require(nav.SelectDivision(axialDivision, "Axial", "Axial overview."), "Cannot re-enter axial division.");
         yield return null; yield return null;
@@ -350,6 +556,7 @@ public static class AnatomyValidation
         Require(nav.InspectBone(nav.Bones[0]), "Cannot re-inspect the same bone.");
         yield return null; yield return null;
         nav.GoBack();
+        CheckPanelMovementSetup(nav);
         UnityEngine.Object.Destroy(ray1.gameObject);
         UnityEngine.Object.Destroy(ray2.gameObject);
         yield return null; yield return null;
@@ -360,13 +567,128 @@ public static class AnatomyValidation
         Require(projectErrors.Count == 0, "Project runtime errors: " + string.Join("\n", projectErrors));
     }
 
-    private static void CheckAxialGroupHighlights(GameObject axial, XRInteractionManager manager,
+    private static void CheckPanelMovementSetup(AnatomyNavigationController nav)
+    {
+        var display = nav.InspectionDisplay;
+        var boneAnchor = AnatomySceneSetup.Reference<Transform>(display, "boneAnchor");
+        var referenceAnchor = AnatomySceneSetup.Reference<Transform>(display, "referenceAnchor");
+        Require(Mathf.Abs(boneAnchor.position.x - 2.477991f) < 0.0001f &&
+                Mathf.Abs(boneAnchor.position.z + 1.173756f) < 0.0001f &&
+                Mathf.Abs(boneAnchor.position.y - referenceAnchor.position.y) < 0.0001f &&
+                Mathf.Abs(Vector3.Distance(boneAnchor.position, referenceAnchor.position) - 0.42f) < 0.001f,
+            "G3 inspection placement or reference spacing is incorrect.");
+        var board = AnatomySceneSetup.Reference<InfoBoardController>(nav, "infoBoard");
+        var anatomyPanel = AnatomySceneSetup.Reference<GameObject>(board, "infoPanel");
+        var quizStation = GameObject.Find("Quiz station");
+        Require(anatomyPanel != null && quizStation != null, "Anatomy or quiz panel is missing.");
+        Transform anatomyStation = anatomyPanel.transform.parent;
+        Require(anatomyStation != null && anatomyStation.name == "Anatomy panel station" &&
+                anatomyPanel.GetComponent<Rigidbody>() == null &&
+                anatomyPanel.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>() == null,
+            "Anatomy Canvas still owns the grab interaction.");
+        var backObject = AnatomySceneSetup.Reference<GameObject>(board, "backButton");
+        var back = backObject != null ? backObject.GetComponent<UnityEngine.UI.Button>() : null;
+        var backImage = back != null ? back.GetComponent<UnityEngine.UI.Image>() : null;
+        Require(back != null && back.gameObject.activeInHierarchy &&
+                backImage != null && backImage.raycastTarget,
+            "Anatomy Back is not a clickable UI button.");
+        CheckPanelGrabHandle(anatomyStation, anatomyPanel.transform);
+        CheckPanelGrabHandle(quizStation.transform, quizStation.transform.Find("Quiz panel"));
+    }
+
+    private static void CheckPanelGrabHandle(Transform movable, Transform panel)
+    {
+        Require(panel != null, $"Movable panel is missing under {movable.name}.");
+        var handle = panel.Find("Move handle");
+        var grab = movable.GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
+        var body = movable.GetComponent<Rigidbody>();
+        var collider = handle != null ? handle.GetComponent<BoxCollider>() : null;
+        var label = handle != null ? handle.GetComponentInChildren<TMPro.TextMeshProUGUI>() : null;
+        Require(handle != null && collider != null && label != null && label.text.Contains("Move") &&
+                handle.localPosition.y < -0.5f * ((RectTransform)panel).sizeDelta.y &&
+                body != null && body.isKinematic && grab != null && grab.enabled &&
+                grab.colliders.Count == 1 && grab.colliders[0] == collider,
+            $"Move handle is not configured for XR grabbing: {movable.name}");
+    }
+
+    private static IEnumerator CheckGirdleBones(AnatomyNavigationController nav, GameObject view,
+        BoneSelection[] bones, string groupTitle, XRInteractionManager manager,
+        XRRayInteractor ray1, XRRayInteractor ray2, TMPro.TextMeshProUGUI title,
+        TMPro.TextMeshProUGUI description, UnityEngine.UI.Button back)
+    {
+        Require(view.activeSelf && view.GetComponentsInChildren<BoneSelection>(true).Length == bones.Length,
+            $"Girdle selection components are incomplete: {groupTitle}");
+        Vector3 position = view.transform.localPosition;
+        Quaternion rotation = view.transform.localRotation;
+        Vector3 scale = view.transform.localScale;
+        foreach (BoneSelection bone in bones)
+        {
+            Require(bone.Info != null && !string.IsNullOrWhiteSpace(bone.Info.PartDescription),
+                $"Missing girdle information: {bone.name}");
+            var interactable = bone.GetComponent<XRSimpleInteractable>();
+            var renderer = bone.Renderers[0];
+            var original = renderer.sharedMaterials;
+            Require(interactable.enabled && bone.GetComponent<MeshCollider>().sharedMesh != null,
+                $"Girdle bone cannot be selected: {bone.name}");
+            manager.HoverEnter((IXRHoverInteractor)ray1, (IXRHoverInteractable)interactable);
+            manager.HoverEnter((IXRHoverInteractor)ray2, (IXRHoverInteractable)interactable);
+            Require(renderer.sharedMaterials[0] != original[0] &&
+                    description.text.Contains("Pointing at: " + bone.Info.PartName),
+                $"Girdle hover preview failed: {bone.name}");
+            manager.HoverExit((IXRHoverInteractor)ray1, (IXRHoverInteractable)interactable);
+            Require(renderer.sharedMaterials[0] != original[0], "One ray cleared the other girdle hover.");
+            manager.HoverExit((IXRHoverInteractor)ray2, (IXRHoverInteractable)interactable);
+            Require(renderer.sharedMaterials.SequenceEqual(original), "Girdle hover material was not restored.");
+            manager.SelectEnter((IXRSelectInteractor)ray1, (IXRSelectInteractable)interactable);
+            Require(nav.Level == AnatomyLevel.Bone && nav.SelectedBone == bone &&
+                    !view.activeSelf && nav.HistoryCount == 3,
+                $"Girdle selection did not enter G3: {bone.name}");
+            Require(title.text == bone.Info.PartName &&
+                    description.text.Contains("Appendicular → " + groupTitle),
+                $"Girdle information or breadcrumb is missing: {bone.name}");
+            description.ForceMeshUpdate(true, true);
+            Require(description.preferredHeight <= description.rectTransform.rect.height + 1,
+                $"Girdle information overflows the panel: {bone.name}");
+            var isolated = nav.InspectionDisplay.BoneVisual;
+            var reference = nav.InspectionDisplay.ReferenceVisual;
+            Require(isolated != null && reference != null &&
+                    isolated.GetComponentsInChildren<MeshFilter>().Length == bone.Renderers.Length &&
+                    reference.GetComponentsInChildren<MeshFilter>().Length ==
+                    view.GetComponentsInChildren<MeshFilter>(true).Length,
+                $"Girdle inspection or reference geometry is incomplete: {bone.name}");
+            var referenceBone = reference.GetComponentsInChildren<MeshRenderer>()
+                .Single(r => r.name == bone.name);
+            Require(referenceBone.sharedMaterials.All(m => m == nav.GroupHighlightMaterial),
+                $"Reference girdle does not highlight the inspected bone: {bone.name}");
+            Require(isolated.GetComponentsInChildren<Collider>().Length == 0 &&
+                    reference.GetComponentsInChildren<Collider>().Length == 0,
+                "Girdle inspection visuals captured controller rays.");
+            var referenceRotation = reference.rotation;
+            nav.InspectionPose.Apply(new Vector2(1, 1), 0.5f, false, false);
+            nav.InspectionDisplay.SetRotation(nav.InspectionPose.Rotation);
+            Require(reference.rotation == referenceRotation, "Girdle reference moved with the inspected bone.");
+            Require(!nav.SwitchPectoralSide(), "Pectoral switching should be disabled in G3.");
+            yield return null; yield return null;
+            back.onClick.Invoke();
+            Require(nav.Level == AnatomyLevel.Group && nav.SelectedBone == null &&
+                    nav.CurrentView == view && view.activeSelf && nav.HistoryCount == 2,
+                $"Girdle Back did not restore G2: {bone.name}");
+            Require(view.transform.localPosition == position &&
+                    view.transform.localRotation == rotation && view.transform.localScale == scale,
+                $"Girdle G2 transform changed across inspection: {bone.name}");
+            Require(renderer.sharedMaterials.SequenceEqual(original),
+                $"Girdle hover material leaked across Back: {bone.name}");
+            yield return null; yield return null;
+        }
+    }
+
+    private static void CheckGroupHighlights(GameObject axial, XRInteractionManager manager,
         XRRayInteractor ray1, XRRayInteractor ray2)
     {
         var groups = axial.GetComponentsInChildren<BoneGroupHoverHighlighter>(true)
             .Where(highlighter => highlighter.enabled)
             .Select(highlighter => highlighter.gameObject).ToArray();
-        Require(groups.Length >= 2, "Axial groups have no hover highlighters.");
+        Require(groups.Length >= 2, "Division groups have no hover highlighters.");
 
         foreach (GameObject group in groups)
         {
@@ -471,6 +793,11 @@ public static class AnatomyValidation
         public int bones;
         public int vertebralBones;
         public int ribcageBones;
+        public int leftLowerLimbBones;
+        public int pectoralBones;
+        public int pelvicBones;
+        public int rightLowerLimbBones;
+        public int upperLimbBones;
         public string error;
     }
 
@@ -480,7 +807,9 @@ public static class AnatomyValidation
         Directory.CreateDirectory("Logs");
         int vertebralCount = SessionState.GetInt(CountKey, 0);
         var report = new Report { passed = error == null, assertions = assertions,
-            bones = vertebralCount + 25, vertebralBones = vertebralCount, ribcageBones = 25,
+            bones = vertebralCount + 25 + 30 + 4 + 1 + 32 + 60, vertebralBones = vertebralCount,
+            ribcageBones = 25, leftLowerLimbBones = 30, pectoralBones = 4, pelvicBones = 1,
+            rightLowerLimbBones = 32, upperLimbBones = 60,
             error = error };
         File.WriteAllText("Logs/G3-validation.json", JsonUtility.ToJson(report, true));
         Debug.Log($"G3 validation: {(report.passed ? "PASS" : "FAIL")}, {assertions} assertions. {error}");

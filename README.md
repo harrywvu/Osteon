@@ -5,8 +5,9 @@
 Osteon (Human Skeletal VR) is a Unity-based anatomy viewer for Meta Quest. The current
 build presents a skeleton in a hospital-room environment, lets the user select
 the axial or appendicular division, updates an in-world information panel, and
-supports drill-down views of the axial skeleton and individual-bone inspection
-within the vertebral column and ribcage.
+supports drill-down views of the axial and appendicular skeletons and
+individual-bone inspection within the vertebral column, ribcage, both lower
+limbs, both upper limbs, pectoral girdles, and pelvic girdle.
 
 > G3 implementation restored to the default branch and revalidated on
 > 2026-09-24; see the verification record in
@@ -32,14 +33,20 @@ In that scene:
 - Selecting the axial division transitions from the full low-poly skeleton to
   `Skeleton_axial.blend`; a further selection opens the vertebral column or
   ribcage view.
+- Selecting Left lower limb from the appendicular division opens its G2 model.
+- The right lower limb and both upper limbs also have selectable G2 and G3 views.
+- Selecting Right pectoral girdle opens its G2 model; left Y switches between
+  the right and left pectoral models. Pelvic girdle opens its own G2 model.
 - The right controller thumbstick rotates the whole-skeleton and detail views.
-- Selecting one of the 26 vertebral-column entries or 25 ribcage bones opens an
-  enlarged inspection copy beside a stationary, highlighted reference group.
-  Right-stick sideways turns the
-  bone; up/down tilts it. A resets turning and B resets tilt independently.
+- Selecting one of the 178 configured bones opens an enlarged
+  inspection copy beside a stationary,
+  highlighted reference group. Right-stick sideways turns the bone; up/down
+  tilts it. A resets turning and B resets tilt independently.
 - Back restores the previous anatomical view and its orientation.
-- An optional stationary practice-quiz station beside the anatomy panel calls
+- An optional user-movable practice-quiz station beside the anatomy panel calls
   the shared AWS quiz API when a private local demo configuration is present.
+- The anatomy and quiz panels each have a Move bar for controller grabbing.
+  G3 inspection starts at world X 2.477991, Z -1.173756.
 
 `BonePartInfo` supplies the G3 information. `BonePartGrabRelease` remains a
 legacy script in historical scenes; grabbing and assembly are not part of the
@@ -48,14 +55,22 @@ for controls, authoring, automated checks, and remaining headset verification.
 
 The practice quiz uses a packaged ONNX mastery model and question bank in a
 Python Lambda service, with progress in DynamoDB. Its notebook is not hosted.
-The one-learner AWS demo passed API smoke tests, but the latest stationary UI
-placement and physical Quest behavior still need verification. A future web
+The one-learner AWS demo passed API smoke tests, but physical Quest panel
+grabbing and targeting still need verification. A future web
 client can use the same API, but no web UI or public-release authentication
 has been built. See [`Docs/QUIZ_INTEGRATION.md`](Docs/QUIZ_INTEGRATION.md).
 
 The vertebral Play Mode suite passed 6,604 assertions across all 26 entries on
 2026-09-09 and again after default-branch recovery on 2026-09-24. The expanded
 suite passed 7,153 assertions across all 51 entries on 2026-09-30.
+With the left lower limb added, the suite passed 8,100 assertions across all
+81 entries on 2026-09-30.
+With both pectoral sides and the pelvic hip bone, the suite passed 8,197
+assertions across 86 entries on 2026-10-01.
+With the right lower limb and both upper limbs, the suite passed 9,774
+assertions across 178 entries on 2026-10-01.
+With panel movement and the new G3 position, it passed 9,780 assertions
+across the same 178 entries on 2026-10-01.
 Automated APK packaging failed with a Gradle loopback-connection error, and
 headset acceptance remains pending. Planned stationary viewing, controller
 grabbing, and expansion are tracked in

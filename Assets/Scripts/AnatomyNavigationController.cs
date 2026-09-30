@@ -16,12 +16,26 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     [SerializeField] private GameObject appendicularView;
     [SerializeField] private GameObject vertebralView;
     [SerializeField] private GameObject ribView;
+    [SerializeField] private GameObject leftLowerLimbView;
+    [SerializeField] private GameObject rightPectoralView;
+    [SerializeField] private GameObject leftPectoralView;
+    [SerializeField] private GameObject pelvicView;
+    [SerializeField] private GameObject rightLowerLimbView;
+    [SerializeField] private GameObject leftUpperLimbView;
+    [SerializeField] private GameObject rightUpperLimbView;
     [SerializeField] private Material groupHighlightMaterial;
     [SerializeField] private InfoBoardController infoBoard;
     [SerializeField] private BoneInspectionDisplay inspectionDisplay;
     [SerializeField] private AnatomyInputReservation inputReservation;
     [SerializeField] private BoneSelection[] bones;
     [SerializeField] private BoneSelection[] ribBones;
+    [SerializeField] private BoneSelection[] leftLowerLimbBones;
+    [SerializeField] private BoneSelection[] rightPectoralBones;
+    [SerializeField] private BoneSelection[] leftPectoralBones;
+    [SerializeField] private BoneSelection[] pelvicBones;
+    [SerializeField] private BoneSelection[] rightLowerLimbBones;
+    [SerializeField] private BoneSelection[] leftUpperLimbBones;
+    [SerializeField] private BoneSelection[] rightUpperLimbBones;
 
     private readonly Stack<ViewFrame> history = new Stack<ViewFrame>();
     private readonly AnatomySelectionGate selectionGate = new AnatomySelectionGate();
@@ -34,8 +48,24 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     private BoneSelection previewBone;
     private Quaternion authoredGroupOrientation;
     private Quaternion authoredRibOrientation;
+    private Quaternion authoredLeftLowerLimbOrientation;
+    private Quaternion authoredRightPectoralOrientation;
+    private Quaternion authoredLeftPectoralOrientation;
+    private Quaternion authoredPelvicOrientation;
+    private Quaternion authoredRightLowerLimbOrientation;
+    private Quaternion authoredLeftUpperLimbOrientation;
+    private Quaternion authoredRightUpperLimbOrientation;
     private InputDevice rightController;
+    private InputDevice leftController;
+    private UnityEngine.InputSystem.InputAction pectoralSwitchAction;
+    private UnityEngine.InputSystem.InputAction backAction;
+    private int pectoralSwitchControlCount;
+    private int backControlCount;
     private bool controlsReady;
+    private bool pectoralSwitchReady;
+    private bool backInputReady;
+    private bool lastBack;
+    private bool lastY;
     private bool lastA;
     private bool lastB;
     private bool initialized;
@@ -49,6 +79,13 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     public BoneInspectionDisplay InspectionDisplay => inspectionDisplay;
     public BoneSelection[] Bones => bones;
     public BoneSelection[] RibBones => ribBones;
+    public BoneSelection[] LeftLowerLimbBones => leftLowerLimbBones;
+    public BoneSelection[] RightPectoralBones => rightPectoralBones;
+    public BoneSelection[] LeftPectoralBones => leftPectoralBones;
+    public BoneSelection[] PelvicBones => pelvicBones;
+    public BoneSelection[] RightLowerLimbBones => rightLowerLimbBones;
+    public BoneSelection[] LeftUpperLimbBones => leftUpperLimbBones;
+    public BoneSelection[] RightUpperLimbBones => rightUpperLimbBones;
     public Material GroupHighlightMaterial => groupHighlightMaterial;
 
     private sealed class ViewFrame
@@ -114,6 +151,27 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         }
         authoredGroupOrientation = vertebralView.transform.rotation;
         if (ribView != null) authoredRibOrientation = ribView.transform.rotation;
+        if (leftLowerLimbView != null)
+            authoredLeftLowerLimbOrientation = leftLowerLimbView.transform.rotation;
+        if (rightPectoralView != null)
+            authoredRightPectoralOrientation = rightPectoralView.transform.rotation;
+        if (leftPectoralView != null)
+            authoredLeftPectoralOrientation = leftPectoralView.transform.rotation;
+        if (pelvicView != null) authoredPelvicOrientation = pelvicView.transform.rotation;
+        if (rightLowerLimbView != null)
+            authoredRightLowerLimbOrientation = rightLowerLimbView.transform.rotation;
+        if (leftUpperLimbView != null)
+            authoredLeftUpperLimbOrientation = leftUpperLimbView.transform.rotation;
+        if (rightUpperLimbView != null)
+            authoredRightUpperLimbOrientation = rightUpperLimbView.transform.rotation;
+        pectoralSwitchAction = new UnityEngine.InputSystem.InputAction("Pectoral side switch",
+            UnityEngine.InputSystem.InputActionType.Button,
+            "<XRController>{LeftHand}/{SecondaryButton}");
+        pectoralSwitchAction.Enable();
+        backAction = new UnityEngine.InputSystem.InputAction("Anatomy Back",
+            UnityEngine.InputSystem.InputActionType.Button,
+            "<XRController>{LeftHand}/{PrimaryButton}");
+        backAction.Enable();
         selectFilter = new XRSelectFilterDelegate((interactor, interactable) => CanNavigate);
         foreach (GameObject root in SelectionRoots())
         {
@@ -141,6 +199,86 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         selectionGate.Poll(pressed, Time.frameCount);
         infoBoard.SetNavigationBackInteractable(CanNavigate);
         if (Level == AnatomyLevel.Bone) UpdateInspectionInput();
+        UpdatePectoralSwitchInput();
+        UpdateBackInput();
+    }
+
+    private void UpdateBackInput()
+    {
+        var connected = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+        int controlCount = backAction != null ? backAction.controls.Count : 0;
+        if (controlCount != backControlCount)
+        {
+            backInputReady = false;
+            backControlCount = controlCount;
+        }
+        bool legacyX = connected.isValid &&
+            connected.TryGetFeatureValue(CommonUsages.primaryButton, out bool pressed) && pressed;
+        bool x = legacyX || (backAction != null && backAction.IsPressed());
+        if (!backInputReady)
+        {
+            backInputReady = !x;
+            lastBack = x;
+            return;
+        }
+        if (x && !lastBack && history.Count > 0) GoBack();
+        lastBack = x;
+    }
+
+    private void UpdatePectoralSwitchInput()
+    {
+        if (Level != AnatomyLevel.Group ||
+            (current.root != rightPectoralView && current.root != leftPectoralView))
+        {
+            pectoralSwitchReady = false;
+            return;
+        }
+        var connected = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+        int controlCount = pectoralSwitchAction != null ? pectoralSwitchAction.controls.Count : 0;
+        if (controlCount != pectoralSwitchControlCount)
+        {
+            pectoralSwitchReady = false;
+            pectoralSwitchControlCount = controlCount;
+        }
+        if (connected.isValid && (!leftController.isValid || !leftController.Equals(connected)))
+        {
+            leftController = connected;
+            pectoralSwitchReady = false;
+        }
+        else if (!connected.isValid && leftController.isValid)
+        {
+            leftController = default;
+            pectoralSwitchReady = false;
+        }
+        bool legacyY = connected.isValid &&
+            connected.TryGetFeatureValue(CommonUsages.secondaryButton, out bool pressed) && pressed;
+        bool y = legacyY || (pectoralSwitchAction != null && pectoralSwitchAction.IsPressed());
+        if (!pectoralSwitchReady)
+        {
+            pectoralSwitchReady = !y;
+            lastY = y;
+            return;
+        }
+        if (y && !lastY) SwitchPectoralSide();
+        lastY = y;
+    }
+
+    public bool SwitchPectoralSide()
+    {
+        if (!CanNavigate || Level != AnatomyLevel.Group ||
+            (current.root != rightPectoralView && current.root != leftPectoralView)) return false;
+        GameObject nextRoot = current.root == rightPectoralView ? leftPectoralView : rightPectoralView;
+        if (nextRoot == null) return false;
+        string title = nextRoot == leftPectoralView ? "Left pectoral girdle" : "Right pectoral girdle";
+        string description = nextRoot == leftPectoralView
+            ? "The left clavicle and scapula connect the upper limb to the trunk. They position the shoulder and support arm movement."
+            : "The right clavicle and scapula connect the upper limb to the trunk. They position the shoulder and support arm movement.";
+        var next = new ViewFrame { level = AnatomyLevel.Group, root = nextRoot, title = title,
+            description = description, breadcrumb = "Appendicular → " + title };
+        next.Capture();
+        ShowFrame(next);
+        selectionGate.Block(Time.frameCount);
+        return true;
     }
 
     private static bool IsControllerPressed(XRNode hand)
@@ -216,6 +354,13 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         yield return appendicularView;
         yield return vertebralView;
         yield return ribView;
+        yield return leftLowerLimbView;
+        yield return rightPectoralView;
+        yield return leftPectoralView;
+        yield return pelvicView;
+        yield return rightLowerLimbView;
+        yield return leftUpperLimbView;
+        yield return rightUpperLimbView;
         foreach (var view in groupViews) yield return view;
     }
 
@@ -224,17 +369,45 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         foreach (var bone in bones) yield return bone;
         if (ribBones != null)
             foreach (var bone in ribBones) yield return bone;
+        if (leftLowerLimbBones != null)
+            foreach (var bone in leftLowerLimbBones) yield return bone;
+        if (rightPectoralBones != null)
+            foreach (var bone in rightPectoralBones) yield return bone;
+        if (leftPectoralBones != null)
+            foreach (var bone in leftPectoralBones) yield return bone;
+        if (pelvicBones != null)
+            foreach (var bone in pelvicBones) yield return bone;
+        if (rightLowerLimbBones != null)
+            foreach (var bone in rightLowerLimbBones) yield return bone;
+        if (leftUpperLimbBones != null)
+            foreach (var bone in leftUpperLimbBones) yield return bone;
+        if (rightUpperLimbBones != null)
+            foreach (var bone in rightUpperLimbBones) yield return bone;
     }
 
     public bool InspectBone(BoneSelection bone)
     {
         if (!CanNavigate || Level != AnatomyLevel.Group || bone == null || bone.Info == null) return false;
         GameObject group = current.root;
-        BoneSelection[] entries = group == vertebralView ? bones : group == ribView ? ribBones : null;
+        BoneSelection[] entries = group == vertebralView ? bones :
+            group == ribView ? ribBones : group == leftLowerLimbView ? leftLowerLimbBones :
+            group == rightPectoralView ? rightPectoralBones :
+            group == leftPectoralView ? leftPectoralBones : group == pelvicView ? pelvicBones :
+            group == rightLowerLimbView ? rightLowerLimbBones :
+            group == leftUpperLimbView ? leftUpperLimbBones :
+            group == rightUpperLimbView ? rightUpperLimbBones : null;
         if (entries == null || System.Array.IndexOf(entries, bone) < 0 ||
             !bone.transform.IsChildOf(group.transform)) return false;
         ClearHighlights();
-        Quaternion orientation = group == vertebralView ? authoredGroupOrientation : authoredRibOrientation;
+        Quaternion orientation = group == vertebralView ? authoredGroupOrientation :
+            group == ribView ? authoredRibOrientation :
+            group == leftLowerLimbView ? authoredLeftLowerLimbOrientation :
+            group == rightPectoralView ? authoredRightPectoralOrientation :
+            group == leftPectoralView ? authoredLeftPectoralOrientation :
+            group == pelvicView ? authoredPelvicOrientation :
+            group == rightLowerLimbView ? authoredRightLowerLimbOrientation :
+            group == leftUpperLimbView ? authoredLeftUpperLimbOrientation :
+            authoredRightUpperLimbOrientation;
         try { inspectionDisplay.Show(bone, group.transform, orientation); }
         catch (System.Exception error)
         {
@@ -291,11 +464,19 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         if (appendicularView != null) appendicularView.SetActive(false);
         vertebralView.SetActive(false);
         if (ribView != null) ribView.SetActive(false);
+        if (leftLowerLimbView != null) leftLowerLimbView.SetActive(false);
+        if (rightPectoralView != null) rightPectoralView.SetActive(false);
+        if (leftPectoralView != null) leftPectoralView.SetActive(false);
+        if (pelvicView != null) pelvicView.SetActive(false);
+        if (rightLowerLimbView != null) rightLowerLimbView.SetActive(false);
+        if (leftUpperLimbView != null) leftUpperLimbView.SetActive(false);
+        if (rightUpperLimbView != null) rightUpperLimbView.SetActive(false);
         foreach (var group in groupViews)
             if (group != null) group.SetActive(false);
         axialDivisionRoot.SetActive(frame.level == AnatomyLevel.Whole || frame.division == axialDivisionRoot);
         appendicularDivisionRoot.SetActive(frame.level == AnatomyLevel.Whole || frame.division == appendicularDivisionRoot);
         current = frame;
+        pectoralSwitchReady = false;
         frame.Restore();
         frame.root.SetActive(true);
         Present();
@@ -345,6 +526,9 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         if (!string.IsNullOrEmpty(current.breadcrumb)) body = current.breadcrumb + "\n\n" + body;
         if (previewBone != null && previewBone.Info != null)
             body += "\n\nPointing at: " + previewBone.Info.PartName + "\nSelect to inspect.";
+        if (Level == AnatomyLevel.Group &&
+            (current.root == rightPectoralView || current.root == leftPectoralView))
+            body += "\n\nLeft Y: switch pectoral side";
         if (Level == AnatomyLevel.Bone)
             body += "\n\nRight stick: turn / tilt\nA: reset turn    B: reset tilt";
         string back = Level == AnatomyLevel.Bone && history.Count > 0 ? "Back to " + history.Peek().title :
@@ -355,6 +539,8 @@ public sealed class AnatomyNavigationController : MonoBehaviour
 
     private void OnDisable()
     {
+        pectoralSwitchAction?.Disable();
+        backAction?.Disable();
         if (!initialized) return;
         ExitInspection();
         ClearHighlights();
@@ -363,12 +549,17 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     private void OnEnable()
     {
         if (!initialized) return;
+        pectoralSwitchAction?.Enable();
+        backAction?.Enable();
+        backInputReady = false;
         if (Level == AnatomyLevel.Bone && history.Count > 0) ShowFrame(history.Pop());
         selectionGate.Block(Time.frameCount);
     }
 
     private void OnDestroy()
     {
+        pectoralSwitchAction?.Dispose();
+        backAction?.Dispose();
         foreach (var interactable in filtered)
             if (interactable != null) interactable.selectFilters.Remove(selectFilter);
     }

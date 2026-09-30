@@ -1,6 +1,6 @@
 # Architecture Overview
 
-> G3 implementation updated on 2026-09-09. See `Docs/G3_INSPECTION.md` for the
+> G3 implementation updated on 2026-10-01. See `Docs/G3_INSPECTION.md` for the
 > validation record and remaining physical-headset checks.
 
 ## Runtime entry point
@@ -23,8 +23,8 @@ level-of-detail (LOD), graphics-quality, or difficulty setting.
 |---|---|---|---|
 | **G0 — Whole skeleton** | The complete skeleton as the overview/entry view | View the complete structure and select a top-level division | Present through `low-poly-skeleton-prefab.fbx` |
 | **G1 — Skeletal division** | Axial or appendicular skeleton | Select a division to isolate it and show its overview information | Present through the two `DivisionSelection` roots |
-| **G2 — Major bone group** | A major group or region within the selected division—for example skull, vertebral column, thoracic cage, shoulder/upper-limb grouping, lower-limb grouping, or pelvis | Explore the group and select one of its bones | Vertebral column and Ribcage have connected G2 views; both continue to G3 |
-| **G3 — Individual bone** | One named bone | Select, turn, and tilt an enlarged inspection copy with information and a reference group | Implemented for 26 vertebral entries and 25 ribcage entries (24 ribs and sternum) |
+| **G2 — Major bone group** | A major group or region within the selected division—for example skull, vertebral column, thoracic cage, shoulder/upper-limb grouping, lower-limb grouping, or pelvis | Explore the group and select one of its bones | Vertebral column, Ribcage, both lower limbs, both upper limbs, both pectoral sides, and pelvic girdle have G2 views that continue to G3 |
+| **G3 — Individual bone** | One named bone | Select, turn, and tilt an enlarged inspection copy with information and a reference group | Implemented for 178 entries: 26 vertebral, 25 ribcage, 30 left lower-limb, 32 right lower-limb, 60 upper-limb, 4 pectoral, and 1 pelvic |
 
 The intended navigation direction is `G0 -> G1 -> G2 -> G3` as the user makes
 increasingly specific selections. `AnatomyNavigationController` owns Back
@@ -40,6 +40,15 @@ must all work in the enabled scene.
 ```text
 G0: Full low-poly skeleton
   |-- select Appendicular -> G1: isolate division + show division information
+  |                           `-> select Left lower limb -> G2: activate limb view
+  |                                `-> select a named bone -> G3: inspection + reference limb
+  |                           `-> select Right pectoral girdle -> G2: right model
+  |                                `-> left Y switches to/from left model
+  |                                     `-> select clavicle or scapula -> G3
+  |                           `-> select Pelvic girdle -> G2: pelvic model
+  |                                `-> select hip bone -> G3
+  |                           `-> select Right lower limb -> G2 -> select bone -> G3
+  |                           `-> select Left or Right upper limb -> G2 -> select bone -> G3
   `-- select Axial -------> G1: isolate division + show division information
                               `-> activate the detailed axial model
                                    |-> select the vertebral-column group
@@ -77,15 +86,16 @@ independently. The controller must return to neutral after entry or reconnection
 | Script | Responsibility | Status in current scene |
 |---|---|---|
 | `Assets/Scripts/AnatomyNavigationController.cs` | View history, model visibility, bone selection, information, and G3 controller input | Attached to `AnatomyNavigation` |
-| `Assets/Scripts/BoneSelection.cs` | Per-bone selection and first/last-ray hover highlighting | Attached to 26 vertebral-column and 25 ribcage entries |
+| `Assets/Scripts/BoneSelection.cs` | Per-bone selection and first/last-ray hover highlighting | Attached to 178 entries across nine group models |
 | `Assets/Scripts/BoneInspectionDisplay.cs` | Builds centered visual-only inspection and reference copies | Attached to `AnatomyNavigation` |
 | `Assets/Scripts/AnatomyInputReservation.cs` | Temporarily reserves conflicting right-controller bindings and restores them on exit | Attached to `AnatomyNavigation` |
 | `Assets/Scripts/InfoBoardController.cs` | Information-panel presentation; legacy division behavior when navigation is unassigned | Attached once to `CoachingCardRoot` |
 | `Assets/Scripts/DivisionSelection.cs` | Routes child selection to navigation; retains legacy isolation when navigation is unassigned | Attached to the axial and appendicular roots |
-| `Assets/Scripts/ViewTransitionOnSelect.cs` | Routes group selection to navigation; retains legacy view swapping when navigation is unassigned | Attached to the axial division and axial detail flow |
+| `Assets/Scripts/ViewTransitionOnSelect.cs` | Routes group selection to navigation; retains legacy view swapping when navigation is unassigned | Attached to the axial and appendicular group flows |
 | `Assets/Scripts/BoneGroupHoverHighlighter.cs` | Highlights a hovered division/group and restores shared materials on exit or disable | Used before individual-bone selection |
 | `Assets/Scripts/SkeletonYawRotator.cs` | Rotates a model about its center with the right thumbstick | Attached to the full, axial, vertebral, and ribcage model roots |
-| `Assets/Scripts/OsteonQuizDemo.cs` | Creates the stationary practice-quiz station and calls the shared HTTP API | Runtime-created only in the enabled scene; Quest placement still needs verification |
+| `Assets/Scripts/OsteonQuizDemo.cs` | Creates the world-space, user-movable practice-quiz station and calls the shared HTTP API | Runtime-created only in the enabled scene; Quest placement still needs verification |
+| `Assets/Scripts/PanelMoveHandle.cs` | Gives the anatomy and quiz panels a separate XR grab bar below their controls | Scene-authored for anatomy; runtime-created for quiz |
 | `Assets/BonePartGrabRelease.cs` | Shows `BonePartInfo` on grab, hides it on release, then lerps the object back to its original parent/local transform | Not referenced by the current scene; used by older recovery scenes |
 | `Assets/Scripts/BonePartInfo.cs` | Stores a serialized part name and anatomical description | Used by G3 and older recovery scenes |
 | `Assets/Scripts/AxialDivisionSelection.cs` | Older axial-only selection implementation that hides a configured appendicular object | Not referenced by any scene or prefab |
@@ -101,9 +111,15 @@ assembly; no project `.asmdef` files are present.
 | Axial drill-down view | `Assets/Art/Models/Skeleton/Mid Poly/Skeleton_axial.blend` |
 | Vertebral-column drill-down | `Assets/Art/Models/Skeleton/Mid Poly/Axial Bone Groups/VERTEBRAL COLUMN.blend` |
 | Ribcage drill-down | `Assets/Art/Models/Skeleton/Mid Poly/Axial Bone Groups/ribs.fbx` |
+| Left lower-limb drill-down | `Assets/Art/Models/Skeleton/Mid Poly/Appendicular Bone Groups/G2_LeftLowerLimb.fbx` |
+| Right lower-limb drill-down | `Assets/Art/Models/Skeleton/Mid Poly/Appendicular Bone Groups/G2_RightLowerLimb.fbx` |
+| Upper-limb drill-down | `Assets/Art/Models/Skeleton/Mid Poly/Appendicular Bone Groups/G2_LeftUpperLimb.fbx` and `G2_RightUpperLimb.fbx` |
+| Pectoral drill-down | `Assets/Art/Models/Skeleton/Mid Poly/Appendicular Bone Groups/G2_RightPectoralGirdle.fbx` and `G2_LeftPectoralGirdle.fbx` |
+| Pelvic drill-down | `Assets/Art/Models/Skeleton/Mid Poly/Appendicular Bone Groups/G2_Pelvic Girdle.fbx` |
 | Room model | `Assets/hospital room.blend` |
 | XR rig | `Assets/VRTemplateAssets/Prefabs/Setup/Complete XR Origin Set Up Variant.prefab` |
 | Information UI | `AnatomyNavigation/Anatomy information panel`, using TextMesh Pro and the existing Back button; controlled by `InfoBoardController` on `CoachingCardRoot` |
+| G3 display placement | Bone anchor at world X 2.477991, Z -1.173756; reference keeps its 42 cm offset |
 | Hover material | `Assets/HighlightMst.mat` |
 
 The current scene depends on Unity VR template prefabs. The obsolete scene
@@ -158,7 +174,8 @@ demo configuration, model inputs, security boundary, and verification record.
 - Complete G2 coverage for all major axial and appendicular bone groups
 - G3 per-bone grab and return-to-origin behavior
 - Socket-based assembly or correctness matching
-- G3 inspection outside the vertebral-column and ribcage groups
+- G3 inspection outside the vertebral-column, ribcage, limb, pectoral, and
+  pelvic groups
 
 Colored socket materials and older grab scripts remain in the repository, but
 there is no project-owned socket-matching script and no `XRSocketInteractor` in

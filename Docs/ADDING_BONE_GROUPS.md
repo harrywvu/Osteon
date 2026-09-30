@@ -28,6 +28,7 @@ with a collider to receive selection.
 
 No per-mesh collider setup, separate highlighter component, or navigation view
 array edit is needed for a new group. G3 individual-bone inspection currently
-applies to the vertebral column and ribcage. Adding a G2 view does not create
+applies to the vertebral column, ribcage, both lower limbs, both upper limbs,
+both pectoral sides, and pelvic girdle. Adding a G2 view does not create
 G3 entries: each selectable bone needs `BonePartInfo`, `BoneSelection`, an
 `XRSimpleInteractable`, a mesh collider, and a navigation binding.

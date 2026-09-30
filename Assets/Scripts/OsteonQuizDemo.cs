@@ -175,6 +175,8 @@ public sealed class OsteonQuizDemo : MonoBehaviour
             new Vector2(700, 80), 24, TextAlignmentOptions.Center);
         actionButton = AddButton(panelRect, "", new Vector2(0, -416), new Vector2(700, 76));
         actionLabel = actionButton.GetComponentInChildren<TextMeshProUGUI>();
+        PanelMoveHandle.Configure(station, panelRect, TMP_Settings.defaultFontAsset,
+            new Vector2(0, -520), new Vector2(700, 58));
         panel.SetActive(false);
         Debug.Log("[OsteonQuiz] Stationary quiz station created beside the anatomy panel.");
         // Show the menu first. The learner explicitly starts or resumes practice.

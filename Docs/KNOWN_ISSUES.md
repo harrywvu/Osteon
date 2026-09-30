@@ -1,6 +1,6 @@
 # Known Issues and Project History
 
-> Current-state update: 2026-09-30. Historical entries are retained below so
+> Current-state update: 2026-10-01. Historical entries are retained below so
 > previous recovery work is not lost.
 
 ## Current open issues
@@ -11,12 +11,15 @@
   `Assets/_Recovery/CONTROLLERS MIGRATION.unity`. Earlier documentation named
   `0 (8).unity`; that is now a historical recovery snapshot.
 - The enabled scene has G3 selection-based inspection for 26 vertebral-column
-  entries and 25 ribcage entries (24 ribs and the sternum). `BonePartInfo`
+  entries, 25 ribcage entries (24 ribs and the sternum), 30 left lower-limb
+  bones, 32 right lower-limb meshes, 60 upper-limb bones, 4 pectoral bones,
+  and 1 pelvic hip bone. `BonePartInfo`
   supplies their descriptions. Grabbing, physical return, and assembly remain
   outside the current experience.
 - G0 whole skeleton, G1 axial/appendicular divisions, and the G2 vertebral
-  column and Ribcage views are connected in the enabled scene. Other major
-  groups remain outside the implemented G2 flow. Both groups continue to G3.
+  column, Ribcage, limb, pectoral, and pelvic views are connected in
+  the enabled scene. Left Y switches between the two pectoral G2 models.
+  Other major groups remain outside the implemented G2 flow.
 - No project-owned socket-matching logic was found, and the enabled scene does
   not contain an `XRSocketInteractor`. Socket materials are present, but an
   assembly/matching exercise is not currently implemented.
@@ -65,9 +68,9 @@
 - The web UI, per-learner authentication, API Gateway authorizer, deliberate
   browser CORS configuration, automated AWS deployment/rollback, and school
   ownership of AWS billing and learner data are not implemented or verified.
-- The quiz UI was reported working in Unity Play Mode before it was moved to a
-  stationary world-space station. The final placement and controller targeting
-  still need a Play Mode recheck and physical Quest acceptance.
+- The quiz is a world-space station with an XR grab bar. Automated Play Mode
+  checks confirm the station and grab components, while controller targeting
+  and movement still need physical Quest acceptance.
 - The model/CSV were integrated from the teammate's repository, but their
   educational accuracy, data rights, and approval for wider distribution have
   not been documented here. See [`QUIZ_INTEGRATION.md`](QUIZ_INTEGRATION.md).
@@ -106,7 +109,7 @@
 
 ## Verification still required
 
-- [x] Automated Play Mode G0–G3 flow: 7,153 assertions, all 51 entries on 2026-09-30
+- [x] Automated Play Mode G0–G3 flow: 9,774 assertions, all 178 entries on 2026-10-01
 - [x] Repeat all-bone validation from the restored default branch on 2026-09-24
 - [x] Back callbacks across the implemented model-view transitions
 - [x] Two-ray bone highlighting and material restoration in both G2 views
@@ -117,6 +120,34 @@
 - [ ] Installation and launch of that APK on supported Quest hardware
 - [ ] Quiz station stays in the scene, and its menu, hide/reopen, start/stop,
       answer flow, and error recovery work in Play Mode and on Quest
+
+## 2026-10-01 — Inspection placement and movable panels
+
+- Moved the G3 bone anchor to X 2.477991, Z -1.173756 and kept its reference
+  offset. Added separate XR grab bars below the anatomy and quiz panels.
+- Unity 6000.3.2f1 Play Mode passed 9,780 assertions across 178 entries,
+  including anchor and grab-component checks. Quest grabbing remains unverified.
+
+## 2026-10-01 — Right lower and upper-limb G3 inspection
+
+- Added 32 selectable right lower-limb meshes (including two sesamoids) and
+  30 bones in each upper-limb view.
+- Unity 6000.3.2f1 Play Mode passed 9,774 assertions across 178 entries.
+  Physical Quest controls and an APK remain unverified.
+
+## 2026-10-01 — Pectoral and pelvic G3 inspection
+
+- Added G3 inspection for the left and right clavicles and scapulae and the
+  pelvic model's left hip bone. Left Y switches pectoral sides at G2.
+- Unity 6000.3.2f1 Play Mode passed 8,197 assertions across 86 entries.
+  Physical Quest controls and an APK remain unverified.
+
+## 2026-09-30 — Left lower-limb G3 inspection
+
+- Added individual selection and inspection for 30 bones in the appendicular
+  left lower-limb model, using the existing G3 controls and reference display.
+- Unity 6000.3.2f1 Play Mode passed 8,100 assertions across all 81 G3 entries.
+  Physical Quest targeting and a packaged APK remain unverified.
 
 ## 2026-09-30 — Ribcage G3 inspection
 

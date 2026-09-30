@@ -184,11 +184,12 @@ saved result, not advance twice. Answering changes the demo learner's stored
 progress, so do not use a shared live session as disposable test data.
 
 In the enabled `CONTROLLERS MIGRATION` scene, `OsteonQuizDemo` creates a
-stationary world-space quiz station beside `Anatomy information panel`. The
+world-space quiz station beside `Anatomy information panel`. The
 menu initially shows **Start / Resume Practice**. **Stop** returns to the
 menu without erasing saved server progress. **Hide** collapses the menu to a
-small launcher at the same scene position; selecting it reopens the menu.
-The station does not follow the headset and is not saved as a hand-authored
+small launcher at the station's current position; selecting it reopens the menu.
+The blue Move bar below the quiz panel lets the user grab and reposition the
+station, including its launcher. It does not follow the headset and is not saved as a hand-authored
 scene object. If the anatomy panel cannot be found, it uses a fixed position
 computed once from the camera at startup. The web client is not implemented;
 it needs its own UI, allowed CORS origin, and release-grade authentication.
@@ -201,7 +202,7 @@ it needs its own UI, allowed CORS origin, and release-grade authentication.
 | Real ONNX inference on Windows | Passed locally using ONNX Runtime 1.22.1. |
 | Lambda direct tests | Start and answer succeeded after the IAM table-ARN fix, exercising DynamoDB and model inference. |
 | API Gateway smoke test | Unauthenticated request returned `authentication_required`; authorized `POST /v1/sessions` returned a session, mastery `0.5`, and a question. An answer request also succeeded. |
-| Unity editor | Quiz UI was reported visible and interactive. The latest stationary placement change has not yet been rechecked in Play Mode or on a Quest. |
+| Unity editor | Quiz UI was reported visible and interactive. The movable station and XR grab components passed automated Play Mode checks on 2026-10-01; physical grab feel remains unverified. |
 | Physical Quest / APK | Not verified for this quiz integration. The existing project also has a separately recorded Android packaging failure. |
 
 Before a wider or production release: move the resources to an institution-

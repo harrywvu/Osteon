@@ -1,7 +1,13 @@
 # Setup Guide
 
 > Vertebral G3 was revalidated on 2026-09-24. The vertebral and ribcage G3
-> paths passed 7,153 Play Mode assertions on 2026-09-30.
+> paths passed 7,153 Play Mode assertions on 2026-09-30. The expanded suite
+> with the left lower limb passed 8,100 assertions across 81 entries.
+> The pectoral and pelvic expansion passed 8,197 assertions across 86 entries
+> on 2026-10-01.
+> The expanded limb suite passed 9,774 assertions across 178 entries on 2026-10-01.
+> With the inspection placement and panel handles, 9,780 assertions passed
+> across 178 entries on 2026-10-01.
 
 ## 1. Install the required tools
 
@@ -72,7 +78,8 @@ global scene list and serialize the same core Android values. Prefer
 ## 5. Play Mode smoke test
 
 The current scene is selection-based and follows the G0–G3 granularity model
-defined in `Docs/ARCHITECTURE.md`. G3 covers the vertebral column and ribcage:
+defined in `Docs/ARCHITECTURE.md`. G3 covers the vertebral column, ribcage,
+both lower limbs, both upper limbs, both pectoral sides, and the pelvic hip bone:
 
 - [ ] **G0:** The hospital room and complete low-poly skeleton render correctly.
 - [ ] The XR origin initializes and controller rays can select objects.
@@ -83,16 +90,30 @@ defined in `Docs/ARCHITECTURE.md`. G3 covers the vertebral column and ribcage:
 - [ ] **G2 (partial):** Selecting the axial division opens its detailed view;
       selecting the vertebral-column or Ribcage group opens its G2 view. Back
       returns from either group to axial G1.
+- [ ] **G2 (partial):** Selecting Left lower limb from appendicular G1 opens its
+      G2 model. Back returns to appendicular G1.
+- [ ] **G2 (partial):** Selecting Right pectoral girdle opens its G2 model;
+      left Y switches to and from the left model. Selecting Pelvic girdle opens
+      its G2 model. Back returns to appendicular G1.
+- [ ] **G2 (partial):** Selecting Right lower limb or either upper limb opens
+      its G2 model. Back returns to appendicular G1.
 - [ ] Moving the right thumbstick horizontally rotates the full-skeleton
       selection view.
-- [ ] **G3:** Pointing at a vertebral entry, rib, or sternum highlights only that
+- [ ] **G3:** Pointing at a vertebral entry, rib, sternum, limb bone,
+      pectoral bone, or pelvic hip bone highlights only that
       bone and previews its name. Selecting opens an enlarged bone and a
       stationary reference group.
 - [ ] **G3:** Right-stick sideways turns the bone; up/down tilts it. A resets
       turning without changing tilt, and B resets tilt without changing turning.
 - [ ] **G3:** The name, breadcrumb, introductory description, and controls are readable.
-- [ ] Back follows bone → its G2 group → axial division → whole skeleton,
+- [ ] **Panels:** Aim at each blue Move bar, hold select/grab, reposition the
+      anatomy and quiz panels independently, then release. Quiz Hide/Open keeps
+      the launcher with the moved panel. Confirm the anatomy Back button can be
+      selected without grabbing the Move bar.
+- [ ] Panel Back and left X each follow bone → its G2 group → its division → whole skeleton,
       restoring the previous view's transform and information.
+- [ ] In the XR Device Simulator, select Left Controller and press B for X;
+      holding X returns only one level until it is released and pressed again.
 - [ ] Holding the selection input does not skip levels. Repeat the complete path twice.
 - [ ] G3 input does not also move/jump/turn the XR origin or scroll the panel.
 
@@ -104,13 +125,13 @@ The optional one-learner practice quiz uses an AWS API. To test it, copy
 `Assets/Resources/QuizDemoConfig.json` and fill in the private HTTPS API base
 URL and temporary demo token. In Play Mode, find the quiz station beside the
 anatomy information panel. Start/resume, answer, stop, hide, reopen, and turn
-your head to confirm the station stays fixed in the room. Do not commit the
-filled config or distribute an APK containing its token. The quiz's stationary
-placement and physical Quest input have not yet been reverified after the last
-UI change. Full backend and AWS setup is in
+your head to confirm the station stays in its current room position until
+grabbed. Do not commit the filled config or distribute an APK containing its
+token. The quiz's XR grab interaction and physical Quest input still need
+device verification. Full backend and AWS setup is in
 [`QUIZ_INTEGRATION.md`](QUIZ_INTEGRATION.md).
 
-Run a focused vertebral pilot or the complete 51-entry suite from a temporary project copy
+Run a focused vertebral pilot or the complete 178-entry suite from a temporary project copy
 or worktree while the main project is closed or open elsewhere:
 
 ```powershell

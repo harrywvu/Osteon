@@ -14,6 +14,7 @@ using UnityEngine.XR.Interaction.Toolkit.UI;
 public static class AnatomySceneSetup
 {
     public const string ScenePath = "Assets/_Recovery/CONTROLLERS MIGRATION.unity";
+    private static readonly Vector2 InspectionXZ = new Vector2(2.477991f, -1.173756f);
 
     [MenuItem("Anatomy/Configure vertebral inspection")]
     public static void ConfigureAll() => Configure(false);
@@ -38,6 +39,100 @@ public static class AnatomySceneSetup
         EditorSceneManager.SaveScene(scene);
         AssetDatabase.SaveAssets();
         Debug.Log("Ribcage G3 configured with 24 ribs and the sternum.");
+    }
+
+    [MenuItem("Anatomy/Configure left lower limb inspection")]
+    public static void ConfigureLeftLowerLimbInspection()
+    {
+        if (EditorApplication.isPlaying) throw new InvalidOperationException("Leave Play Mode before configuring anatomy.");
+        if (SceneManager.GetActiveScene().isDirty)
+            throw new InvalidOperationException("Save your scene changes before configuring anatomy.");
+        Scene scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+        var objects = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<Transform>(true))
+            .Select(t => t.gameObject).ToArray();
+        var navigation = objects.Select(o => o.GetComponent<AnatomyNavigationController>()).Single(c => c != null);
+        GameObject view = Named(objects, "G2_LeftLowerLimb", "G2_LEFT_LOWER_LIMB");
+        Material highlight = AssetDatabase.LoadAssetAtPath<Material>("Assets/HighlightMst.mat");
+        if (highlight == null) throw new InvalidOperationException("Highlight material was not imported.");
+        ConfigureLeftLowerLimbBones(navigation, view, highlight);
+        view.SetActive(false);
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+        AssetDatabase.SaveAssets();
+        Debug.Log("Left lower limb G3 configured with 30 bones.");
+    }
+
+    [MenuItem("Anatomy/Configure girdle inspection")]
+    public static void ConfigureGirdleInspection()
+    {
+        if (EditorApplication.isPlaying) throw new InvalidOperationException("Leave Play Mode before configuring anatomy.");
+        if (SceneManager.GetActiveScene().isDirty)
+            throw new InvalidOperationException("Save your scene changes before configuring anatomy.");
+        Scene scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+        var objects = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<Transform>(true))
+            .Select(t => t.gameObject).ToArray();
+        var navigation = objects.Select(o => o.GetComponent<AnatomyNavigationController>()).Single(c => c != null);
+        Material highlight = AssetDatabase.LoadAssetAtPath<Material>("Assets/HighlightMst.mat");
+        if (highlight == null) throw new InvalidOperationException("Highlight material was not imported.");
+        ConfigureGirdles(navigation, objects, highlight);
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+        AssetDatabase.SaveAssets();
+        Debug.Log("Girdle G3 configured: two bones per pectoral side and one pelvic hip bone.");
+    }
+
+    [MenuItem("Anatomy/Configure remaining limb inspection")]
+    public static void ConfigureRemainingLimbInspection()
+    {
+        if (EditorApplication.isPlaying) throw new InvalidOperationException("Leave Play Mode before configuring anatomy.");
+        if (SceneManager.GetActiveScene().isDirty)
+            throw new InvalidOperationException("Save your scene changes before configuring anatomy.");
+        Scene scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+        var objects = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<Transform>(true))
+            .Select(t => t.gameObject).ToArray();
+        var navigation = objects.Select(o => o.GetComponent<AnatomyNavigationController>()).Single(c => c != null);
+        Material highlight = AssetDatabase.LoadAssetAtPath<Material>("Assets/HighlightMst.mat");
+        if (highlight == null) throw new InvalidOperationException("Highlight material was not imported.");
+        ConfigureRemainingLimbs(navigation, objects, highlight);
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+        AssetDatabase.SaveAssets();
+        Debug.Log("Right lower and both upper-limb G3 views configured with 92 selectable meshes.");
+    }
+
+    [MenuItem("Anatomy/Configure inspection placement and panel movement")]
+    public static void ConfigureInspectionPlacementAndPanels()
+    {
+        if (EditorApplication.isPlaying) throw new InvalidOperationException("Leave Play Mode before configuring anatomy.");
+        if (SceneManager.GetActiveScene().isDirty)
+            throw new InvalidOperationException("Save your scene changes before configuring anatomy.");
+        Scene scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+        var objects = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<Transform>(true))
+            .Select(t => t.gameObject).ToArray();
+        Transform owner = Named(objects, "AnatomyNavigation").transform;
+        Transform boneAnchor = owner.Find("Bone inspection anchor");
+        Transform referenceAnchor = owner.Find("Column reference anchor");
+        if (boneAnchor == null || referenceAnchor == null)
+            throw new InvalidOperationException("Inspection anchors are missing.");
+        MoveInspectionAnchors(boneAnchor, referenceAnchor);
+        var panel = owner.GetComponentsInChildren<RectTransform>(true)
+            .FirstOrDefault(rect => rect.name == "Anatomy information panel");
+        if (panel == null) throw new InvalidOperationException("Anatomy information panel is missing.");
+        TMP_FontAsset font = panel.Find("Anatomy title").GetComponent<TextMeshProUGUI>().font;
+        Transform station = EnsureAnatomyPanelStation(owner, panel);
+        PanelMoveHandle.Configure(station, panel, font, new Vector2(0, -385), new Vector2(508, 58));
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+        AssetDatabase.SaveAssets();
+        Debug.Log("G3 inspection moved to the requested X/Z and anatomy panel movement configured.");
+    }
+
+    private static void MoveInspectionAnchors(Transform boneAnchor, Transform referenceAnchor)
+    {
+        Vector3 position = boneAnchor.position;
+        Vector3 delta = new Vector3(InspectionXZ.x - position.x, 0f, InspectionXZ.y - position.z);
+        boneAnchor.position += delta;
+        referenceAnchor.position += delta;
     }
 
     [MenuItem("Anatomy/Configure appendicular G1 UI")]
@@ -117,6 +212,13 @@ public static class AnatomySceneSetup
         GameObject appendicularView = Named(objects, "G1_Skeleton_appendicular", "Skeleton_appendicular");
         GameObject vertebral = Named(objects, "G2_VertebralColumn", "G2_VERTEBRAL COLUMN", "VERTEBRAL COLUMN");
         GameObject ribView = Named(objects, "G2_ribs", "G2_RIBCAGE");
+        GameObject leftLowerLimbView = Named(objects, "G2_LeftLowerLimb", "G2_LEFT_LOWER_LIMB");
+        GameObject rightPectoralView = Named(objects, "G2_RightPectoralGirdle");
+        GameObject leftPectoralView = Named(objects, "G2_LeftPectoralGirdle");
+        GameObject pelvicView = Named(objects, "G2_Pelvic Girdle", "G2_PELVIC_GIRDLE");
+        GameObject rightLowerLimbView = Named(objects, "G2_RightLowerLimb");
+        GameObject leftUpperLimbView = Named(objects, "G2_LeftUpperLimb");
+        GameObject rightUpperLimbView = Named(objects, "G2_RightUpperLimb");
         InfoBoardController board = objects.Select(o => o.GetComponent<InfoBoardController>()).Single(c => c != null);
         GameObject axialDivision = overview.GetComponentsInChildren<DivisionSelection>(true)
             .Single(c => c.GetComponent<ViewTransitionOnSelect>() != null &&
@@ -146,6 +248,7 @@ public static class AnatomySceneSetup
         center.y = Mathf.Max(center.y, 1.35f);
         boneAnchor.SetPositionAndRotation(center, facing);
         referenceAnchor.SetPositionAndRotation(center - facing * Vector3.right * 0.42f, facing);
+        MoveInspectionAnchors(boneAnchor, referenceAnchor);
         Set(display, "boneAnchor", boneAnchor);
         Set(display, "referenceAnchor", referenceAnchor);
         Set(display, "highlightMaterial", highlight);
@@ -156,6 +259,13 @@ public static class AnatomySceneSetup
         Set(navigation, "appendicularView", appendicularView);
         Set(navigation, "vertebralView", vertebral);
         Set(navigation, "ribView", ribView);
+        Set(navigation, "leftLowerLimbView", leftLowerLimbView);
+        Set(navigation, "rightPectoralView", rightPectoralView);
+        Set(navigation, "leftPectoralView", leftPectoralView);
+        Set(navigation, "pelvicView", pelvicView);
+        Set(navigation, "rightLowerLimbView", rightLowerLimbView);
+        Set(navigation, "leftUpperLimbView", leftUpperLimbView);
+        Set(navigation, "rightUpperLimbView", rightUpperLimbView);
         Set(navigation, "groupHighlightMaterial", highlight);
         Set(navigation, "infoBoard", board);
         Set(navigation, "inspectionDisplay", display);
@@ -195,11 +305,16 @@ public static class AnatomySceneSetup
         }
         SetArray(navigation, "bones", selections);
         ConfigureRibBones(navigation, ribView, highlight);
+        ConfigureLeftLowerLimbBones(navigation, leftLowerLimbView, highlight);
+        ConfigureGirdles(navigation, objects, highlight);
+        ConfigureRemainingLimbs(navigation, objects, highlight);
         foreach (var highlighter in vertebral.GetComponentsInChildren<BoneGroupHoverHighlighter>(true))
             highlighter.enabled = false;
         // Empty collider lists make XRI collect descendants, including another interactable's
         // colliders. Assign each collider to its nearest interactable so targeting has one owner.
-        foreach (GameObject root in new[] { overview, axial, appendicularView, vertebral, ribView })
+        foreach (GameObject root in new[] { overview, axial, appendicularView, vertebral, ribView,
+                     leftLowerLimbView, rightPectoralView, leftPectoralView, pelvicView,
+                     rightLowerLimbView, leftUpperLimbView, rightUpperLimbView })
             foreach (var interactable in root.GetComponentsInChildren<XRBaseInteractable>(true))
             {
                 var owned = interactable.GetComponentsInChildren<Collider>(true)
@@ -230,6 +345,13 @@ public static class AnatomySceneSetup
         appendicularView.SetActive(false);
         vertebral.SetActive(false);
         ribView.SetActive(false);
+        leftLowerLimbView.SetActive(false);
+        rightPectoralView.SetActive(false);
+        leftPectoralView.SetActive(false);
+        pelvicView.SetActive(false);
+        rightLowerLimbView.SetActive(false);
+        leftUpperLimbView.SetActive(false);
+        rightUpperLimbView.SetActive(false);
         EditorSceneManager.MarkSceneDirty(scene);
         EditorSceneManager.SaveScene(scene);
         AssetDatabase.SaveAssets();
@@ -270,6 +392,145 @@ public static class AnatomySceneSetup
         SetArray(navigation, "ribBones", selections);
     }
 
+    private static void ConfigureLeftLowerLimbBones(AnatomyNavigationController navigation,
+        GameObject view, Material highlight)
+    {
+        var entries = LeftLowerLimbBoneCatalog.All().ToArray();
+        if (entries.Length != 30) throw new InvalidOperationException("Expected 30 left lower-limb entries.");
+        var meshes = view.GetComponentsInChildren<MeshFilter>(true);
+        var selections = new BoneSelection[entries.Length];
+        for (int i = 0; i < entries.Length; i++)
+        {
+            var entry = entries[i];
+            var mesh = meshes.Single(m => m.name == entry.meshName);
+            if (mesh.sharedMesh == null || mesh.GetComponent<MeshRenderer>() == null)
+                throw new InvalidOperationException($"Missing rendered left lower-limb mesh: {entry.meshName}");
+            var info = Add<BonePartInfo>(mesh.gameObject);
+            SetText(info, "partName", entry.title);
+            SetText(info, "partDescription", entry.description);
+            var collider = Add<MeshCollider>(mesh.gameObject);
+            collider.sharedMesh = mesh.sharedMesh;
+            collider.convex = false;
+            var interactable = Add<XRSimpleInteractable>(mesh.gameObject);
+            interactable.colliders.Clear();
+            interactable.colliders.Add(collider);
+            interactable.selectMode = InteractableSelectMode.Single;
+            var selection = Add<BoneSelection>(mesh.gameObject);
+            Set(selection, "navigation", navigation);
+            Set(selection, "highlightMaterial", highlight);
+            SetArray(selection, "boneRenderers", new UnityEngine.Object[] { mesh.GetComponent<MeshRenderer>() });
+            var oldHighlighter = mesh.GetComponent<BoneGroupHoverHighlighter>();
+            if (oldHighlighter != null) oldHighlighter.enabled = false;
+            selections[i] = selection;
+        }
+        Set(navigation, "leftLowerLimbView", view);
+        SetArray(navigation, "leftLowerLimbBones", selections);
+    }
+
+    private static void ConfigureGirdles(AnatomyNavigationController navigation,
+        GameObject[] objects, Material highlight)
+    {
+        GameObject right = Named(objects, "G2_RightPectoralGirdle");
+        GameObject left = Named(objects, "G2_LeftPectoralGirdle");
+        GameObject pelvic = Named(objects, "G2_Pelvic Girdle", "G2_PELVIC_GIRDLE");
+        Set(navigation, "rightPectoralView", right);
+        Set(navigation, "leftPectoralView", left);
+        Set(navigation, "pelvicView", pelvic);
+        SetArray(navigation, "rightPectoralBones",
+            ConfigureGirdleBones(navigation, right, highlight, GirdleBoneCatalog.Pectoral("Right").ToArray()));
+        SetArray(navigation, "leftPectoralBones",
+            ConfigureGirdleBones(navigation, left, highlight, GirdleBoneCatalog.Pectoral("Left").ToArray()));
+        SetArray(navigation, "pelvicBones",
+            ConfigureGirdleBones(navigation, pelvic, highlight, GirdleBoneCatalog.Pelvic().ToArray()));
+        right.SetActive(false);
+        left.SetActive(false);
+        pelvic.SetActive(false);
+    }
+
+    private static BoneSelection[] ConfigureGirdleBones(AnatomyNavigationController navigation,
+        GameObject view, Material highlight, GirdleBoneCatalog.Entry[] entries)
+    {
+        var meshes = view.GetComponentsInChildren<MeshFilter>(true);
+        var selections = new BoneSelection[entries.Length];
+        for (int i = 0; i < entries.Length; i++)
+        {
+            var entry = entries[i];
+            var mesh = meshes.Single(m => m.name == entry.meshName);
+            if (mesh.sharedMesh == null || mesh.GetComponent<MeshRenderer>() == null)
+                throw new InvalidOperationException($"Missing rendered girdle mesh: {view.name}/{entry.meshName}");
+            var info = Add<BonePartInfo>(mesh.gameObject);
+            SetText(info, "partName", entry.title);
+            SetText(info, "partDescription", entry.description);
+            var collider = Add<MeshCollider>(mesh.gameObject);
+            collider.sharedMesh = mesh.sharedMesh;
+            collider.convex = false;
+            var interactable = Add<XRSimpleInteractable>(mesh.gameObject);
+            interactable.colliders.Clear();
+            interactable.colliders.Add(collider);
+            interactable.selectMode = InteractableSelectMode.Single;
+            var selection = Add<BoneSelection>(mesh.gameObject);
+            Set(selection, "navigation", navigation);
+            Set(selection, "highlightMaterial", highlight);
+            SetArray(selection, "boneRenderers", new UnityEngine.Object[] { mesh.GetComponent<MeshRenderer>() });
+            var oldHighlighter = mesh.GetComponent<BoneGroupHoverHighlighter>();
+            if (oldHighlighter != null) oldHighlighter.enabled = false;
+            selections[i] = selection;
+        }
+        return selections;
+    }
+
+    private static void ConfigureRemainingLimbs(AnatomyNavigationController navigation,
+        GameObject[] objects, Material highlight)
+    {
+        GameObject rightLower = Named(objects, "G2_RightLowerLimb");
+        GameObject leftUpper = Named(objects, "G2_LeftUpperLimb");
+        GameObject rightUpper = Named(objects, "G2_RightUpperLimb");
+        Set(navigation, "rightLowerLimbView", rightLower);
+        Set(navigation, "leftUpperLimbView", leftUpper);
+        Set(navigation, "rightUpperLimbView", rightUpper);
+        SetArray(navigation, "rightLowerLimbBones", ConfigureLimbBones(navigation, rightLower,
+            highlight, AppendicularLimbBoneCatalog.RightLower().ToArray()));
+        SetArray(navigation, "leftUpperLimbBones", ConfigureLimbBones(navigation, leftUpper,
+            highlight, AppendicularLimbBoneCatalog.Upper("Left").ToArray()));
+        SetArray(navigation, "rightUpperLimbBones", ConfigureLimbBones(navigation, rightUpper,
+            highlight, AppendicularLimbBoneCatalog.Upper("Right").ToArray()));
+        rightLower.SetActive(false);
+        leftUpper.SetActive(false);
+        rightUpper.SetActive(false);
+    }
+
+    private static BoneSelection[] ConfigureLimbBones(AnatomyNavigationController navigation,
+        GameObject view, Material highlight, AppendicularLimbBoneCatalog.Entry[] entries)
+    {
+        var meshes = view.GetComponentsInChildren<MeshFilter>(true);
+        var selections = new BoneSelection[entries.Length];
+        for (int i = 0; i < entries.Length; i++)
+        {
+            var entry = entries[i];
+            var mesh = meshes.Single(m => m.name == entry.meshName);
+            if (mesh.sharedMesh == null || mesh.GetComponent<MeshRenderer>() == null)
+                throw new InvalidOperationException($"Missing rendered limb mesh: {view.name}/{entry.meshName}");
+            var info = Add<BonePartInfo>(mesh.gameObject);
+            SetText(info, "partName", entry.title);
+            SetText(info, "partDescription", entry.description);
+            var collider = Add<MeshCollider>(mesh.gameObject);
+            collider.sharedMesh = mesh.sharedMesh;
+            collider.convex = false;
+            var interactable = Add<XRSimpleInteractable>(mesh.gameObject);
+            interactable.colliders.Clear();
+            interactable.colliders.Add(collider);
+            interactable.selectMode = InteractableSelectMode.Single;
+            var selection = Add<BoneSelection>(mesh.gameObject);
+            Set(selection, "navigation", navigation);
+            Set(selection, "highlightMaterial", highlight);
+            SetArray(selection, "boneRenderers", new UnityEngine.Object[] { mesh.GetComponent<MeshRenderer>() });
+            var oldHighlighter = mesh.GetComponent<BoneGroupHoverHighlighter>();
+            if (oldHighlighter != null) oldHighlighter.enabled = false;
+            selections[i] = selection;
+        }
+        return selections;
+    }
+
     private static Transform Anchor(Transform owner, string name)
     {
         Transform found = owner.Find(name);
@@ -283,7 +544,8 @@ public static class AnatomySceneSetup
         Camera viewer, Vector3 center, Quaternion facing)
     {
         TMP_FontAsset font = Reference<TextMeshProUGUI>(board, "titleText").font;
-        Transform existing = owner.Find("Anatomy information panel");
+        Transform existing = owner.GetComponentsInChildren<RectTransform>(true)
+            .FirstOrDefault(rect => rect.name == "Anatomy information panel");
         GameObject panel = existing != null ? existing.gameObject :
             new GameObject("Anatomy information panel", typeof(RectTransform));
         panel.transform.SetParent(owner, false);
@@ -333,6 +595,26 @@ public static class AnatomySceneSetup
         Set(board, "descriptionText", description);
         Set(board, "backLabel", label);
         panel.SetActive(true);
+        Transform station = EnsureAnatomyPanelStation(owner, panelRect);
+        PanelMoveHandle.Configure(station, panelRect, font,
+            new Vector2(0, -385), new Vector2(508, 58));
+    }
+
+    private static Transform EnsureAnatomyPanelStation(Transform owner, RectTransform panel)
+    {
+        var oldGrab = panel.GetComponent<XRGrabInteractable>();
+        if (oldGrab != null) UnityEngine.Object.DestroyImmediate(oldGrab);
+        var oldBody = panel.GetComponent<Rigidbody>();
+        if (oldBody != null) UnityEngine.Object.DestroyImmediate(oldBody);
+
+        Transform station = owner.Find("Anatomy panel station");
+        if (station == null)
+        {
+            station = new GameObject("Anatomy panel station").transform;
+            station.SetParent(owner, false);
+        }
+        panel.SetParent(station, true);
+        return station;
     }
 
     private static TextMeshProUGUI Text(RectTransform parent, string name, TMP_FontAsset font, float size, FontStyles style)
