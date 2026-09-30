@@ -1,0 +1,4 @@
+{
+  "baseUrl": "https://YOUR-API-ID.execute-api.ap-southeast-2.amazonaws.com",
+  "demoToken": "PASTE-A-TEMPORARY-LONG-RANDOM-TOKEN-HERE"
+}

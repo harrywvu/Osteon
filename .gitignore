@@ -50,3 +50,9 @@ crashlytics-build.properties
 
 # ---- Never commit local Unity Hub / license files ----
 UnityLicense.txt
+
+# Temporary one-learner quiz credentials must stay out of source control.
+Assets/Resources/QuizDemoConfig.json
+Assets/Resources/QuizDemoConfig.json.meta
+Backend/quiz-api/dist/
+Backend/quiz-api/__pycache__/
