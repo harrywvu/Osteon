@@ -15,20 +15,25 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     [SerializeField] private GameObject axialView;
     [SerializeField] private GameObject appendicularView;
     [SerializeField] private GameObject vertebralView;
-    [SerializeField] private GameObject[] additionalGroupViews;
+    [SerializeField] private GameObject ribView;
+    [SerializeField] private Material groupHighlightMaterial;
     [SerializeField] private InfoBoardController infoBoard;
     [SerializeField] private BoneInspectionDisplay inspectionDisplay;
     [SerializeField] private AnatomyInputReservation inputReservation;
     [SerializeField] private BoneSelection[] bones;
+    [SerializeField] private BoneSelection[] ribBones;
 
     private readonly Stack<ViewFrame> history = new Stack<ViewFrame>();
     private readonly AnatomySelectionGate selectionGate = new AnatomySelectionGate();
     private readonly BoneInspectionPose inspectionPose = new BoneInspectionPose();
     private readonly List<XRBaseInteractable> filtered = new List<XRBaseInteractable>();
+    private readonly List<ViewTransitionOnSelect> groupTransitions = new List<ViewTransitionOnSelect>();
+    private readonly List<GameObject> groupViews = new List<GameObject>();
     private XRSelectFilterDelegate selectFilter;
     private ViewFrame current;
     private BoneSelection previewBone;
     private Quaternion authoredGroupOrientation;
+    private Quaternion authoredRibOrientation;
     private InputDevice rightController;
     private bool controlsReady;
     private bool lastA;
@@ -43,6 +48,8 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     public BoneInspectionPose InspectionPose => inspectionPose;
     public BoneInspectionDisplay InspectionDisplay => inspectionDisplay;
     public BoneSelection[] Bones => bones;
+    public BoneSelection[] RibBones => ribBones;
+    public Material GroupHighlightMaterial => groupHighlightMaterial;
 
     private sealed class ViewFrame
     {
@@ -75,41 +82,21 @@ public sealed class AnatomyNavigationController : MonoBehaviour
 
     private void Awake()
     {
-        // The G1 ribcage meshes are imported without scene-authored ray targets.
-        // Create them before Start registers the navigation selection filters.
-        if (axialView == null) return;
-        Transform ribcage = null;
-        foreach (Transform child in axialView.GetComponentsInChildren<Transform>(true))
-            if (child.name == "Ribcage") { ribcage = child; break; }
-        if (ribcage == null)
+        RegisterGroupTransitions(axialView);
+        RegisterGroupTransitions(appendicularView);
+    }
+
+    private void RegisterGroupTransitions(GameObject divisionView)
+    {
+        if (divisionView == null) return;
+        foreach (var transition in divisionView.GetComponentsInChildren<ViewTransitionOnSelect>(true))
         {
-            Debug.LogError("G1 axial view is missing its Ribcage group.", this);
-            return;
+            if (!transition.enabled || transition.NextView == null || groupTransitions.Contains(transition)) continue;
+            groupTransitions.Add(transition);
+            if (transition.NextView != vertebralView && !groupViews.Contains(transition.NextView))
+                groupViews.Add(transition.NextView);
+            transition.Prepare(this);
         }
-
-        int targetCount = 0;
-        foreach (Transform child in ribcage)
-        {
-            var filter = child.GetComponent<MeshFilter>();
-            if (filter == null || filter.sharedMesh == null || child.GetComponent<Renderer>() == null)
-                continue;
-
-            var collider = child.GetComponent<MeshCollider>();
-            if (collider == null) collider = child.gameObject.AddComponent<MeshCollider>();
-            collider.sharedMesh = filter.sharedMesh;
-            collider.convex = false;
-
-            var interactable = child.GetComponent<XRBaseInteractable>();
-            if (interactable == null) interactable = child.gameObject.AddComponent<XRSimpleInteractable>();
-            if (!interactable.colliders.Contains(collider)) interactable.colliders.Add(collider);
-            targetCount++;
-        }
-        if (targetCount == 0)
-            Debug.LogError("G1 Ribcage has no rendered mesh children for ray selection.", this);
-        else if (targetCount != 17)
-            Debug.LogWarning($"G1 Ribcage has {targetCount} ray targets; expected 17.", this);
-        else
-            Debug.Log("G1 Ribcage ray targets ready: 17.", this);
     }
 
     private void Start() => Initialize();
@@ -117,14 +104,16 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     private void Initialize()
     {
         if (initialized) return;
-        if (overviewRoot == null || axialView == null || vertebralView == null || infoBoard == null ||
-            inspectionDisplay == null || inputReservation == null || bones == null || bones.Length == 0)
+        if (overviewRoot == null || axialView == null || vertebralView == null ||
+            infoBoard == null || inspectionDisplay == null || inputReservation == null ||
+            bones == null || bones.Length == 0)
         {
             Debug.LogError("Anatomy navigation is missing scene references. Run Anatomy/Configure vertebral inspection.", this);
             enabled = false;
             return;
         }
         authoredGroupOrientation = vertebralView.transform.rotation;
+        if (ribView != null) authoredRibOrientation = ribView.transform.rotation;
         selectFilter = new XRSelectFilterDelegate((interactor, interactable) => CanNavigate);
         foreach (GameObject root in SelectionRoots())
         {
@@ -138,7 +127,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         }
         initialized = true;
         current = new ViewFrame { level = AnatomyLevel.Whole, root = overviewRoot,
-            title = "Human Skeleton", description = "Select a division to start.", breadcrumb = "" };
+            title = infoBoard.DefaultTitle, description = infoBoard.DefaultDescription, breadcrumb = "" };
         current.Capture();
         ShowFrame(current);
         selectionGate.Block(Time.frameCount);
@@ -205,21 +194,19 @@ public sealed class AnatomyNavigationController : MonoBehaviour
 
     public bool EnterGroup(GameObject group, string title, string description)
     {
-        if (!CanNavigate || Level != AnatomyLevel.Division || current.division != axialDivisionRoot ||
-            !IsConfiguredGroup(group)) return false;
+        if (!CanNavigate || Level != AnatomyLevel.Division || group == null) return false;
+        bool belongsToCurrentDivision = false;
+        foreach (var transition in groupTransitions)
+            if (transition != null && transition.NextView == group &&
+                transition.transform.IsChildOf(current.root.transform))
+            {
+                belongsToCurrentDivision = true;
+                break;
+            }
+        if (!belongsToCurrentDivision) return false;
         Push(new ViewFrame { level = AnatomyLevel.Group, root = group, title = title,
-            description = description, breadcrumb = "Axial → " + title });
+            description = description, breadcrumb = current.breadcrumb + " → " + title });
         return true;
-    }
-
-    private bool IsConfiguredGroup(GameObject group)
-    {
-        if (group == null) return false;
-        if (group == vertebralView) return true;
-        if (additionalGroupViews == null) return false;
-        foreach (var view in additionalGroupViews)
-            if (group == view) return true;
-        return false;
     }
 
     private IEnumerable<GameObject> SelectionRoots()
@@ -228,16 +215,27 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         yield return axialView;
         yield return appendicularView;
         yield return vertebralView;
-        if (additionalGroupViews == null) yield break;
-        foreach (var view in additionalGroupViews) yield return view;
+        yield return ribView;
+        foreach (var view in groupViews) yield return view;
+    }
+
+    private IEnumerable<BoneSelection> AllBones()
+    {
+        foreach (var bone in bones) yield return bone;
+        if (ribBones != null)
+            foreach (var bone in ribBones) yield return bone;
     }
 
     public bool InspectBone(BoneSelection bone)
     {
-        if (!CanNavigate || Level != AnatomyLevel.Group || bone == null ||
-            System.Array.IndexOf(bones, bone) < 0 || bone.Info == null) return false;
+        if (!CanNavigate || Level != AnatomyLevel.Group || bone == null || bone.Info == null) return false;
+        GameObject group = current.root;
+        BoneSelection[] entries = group == vertebralView ? bones : group == ribView ? ribBones : null;
+        if (entries == null || System.Array.IndexOf(entries, bone) < 0 ||
+            !bone.transform.IsChildOf(group.transform)) return false;
         ClearHighlights();
-        try { inspectionDisplay.Show(bone, vertebralView.transform, authoredGroupOrientation); }
+        Quaternion orientation = group == vertebralView ? authoredGroupOrientation : authoredRibOrientation;
+        try { inspectionDisplay.Show(bone, group.transform, orientation); }
         catch (System.Exception error)
         {
             Debug.LogError($"Unable to inspect {bone.name}: {error.Message}", bone);
@@ -248,8 +246,8 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         SelectedBone = bone;
         current = new ViewFrame { level = AnatomyLevel.Bone, title = bone.Info.PartName,
             description = bone.Info.PartDescription,
-            breadcrumb = $"Axial → Vertebral column → {bone.name}" };
-        vertebralView.SetActive(false);
+            breadcrumb = current.breadcrumb + " → " + bone.Info.PartName };
+        group.SetActive(false);
         inspectionPose.Reset();
         inspectionDisplay.SetRotation(Quaternion.identity);
         controlsReady = false;
@@ -292,9 +290,9 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         axialView.SetActive(false);
         if (appendicularView != null) appendicularView.SetActive(false);
         vertebralView.SetActive(false);
-        if (additionalGroupViews != null)
-            foreach (var group in additionalGroupViews)
-                if (group != null) group.SetActive(false);
+        if (ribView != null) ribView.SetActive(false);
+        foreach (var group in groupViews)
+            if (group != null) group.SetActive(false);
         axialDivisionRoot.SetActive(frame.level == AnatomyLevel.Whole || frame.division == axialDivisionRoot);
         appendicularDivisionRoot.SetActive(frame.level == AnatomyLevel.Whole || frame.division == appendicularDivisionRoot);
         current = frame;
@@ -314,7 +312,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     private void ClearHighlights()
     {
         previewBone = null;
-        foreach (var bone in bones) if (bone != null) bone.ClearHighlight();
+        foreach (var bone in AllBones()) if (bone != null) bone.ClearHighlight();
         foreach (GameObject root in SelectionRoots())
         {
             if (root == null) continue;
@@ -335,7 +333,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         if (previewBone != bone) return;
         previewBone = null;
         if (Level == AnatomyLevel.Group)
-            foreach (var other in bones)
+            foreach (var other in AllBones())
                 if (other != null && other != bone && other.IsHovered) { previewBone = other; break; }
         Present();
     }
@@ -349,8 +347,9 @@ public sealed class AnatomyNavigationController : MonoBehaviour
             body += "\n\nPointing at: " + previewBone.Info.PartName + "\nSelect to inspect.";
         if (Level == AnatomyLevel.Bone)
             body += "\n\nRight stick: turn / tilt\nA: reset turn    B: reset tilt";
-        string back = Level == AnatomyLevel.Bone ? "Back to vertebral column" :
-            Level == AnatomyLevel.Group ? "Back to axial division" : "Back to skeleton";
+        string back = Level == AnatomyLevel.Bone && history.Count > 0 ? "Back to " + history.Peek().title :
+            Level == AnatomyLevel.Group && history.Count > 0 ? "Back to " + history.Peek().breadcrumb + " division" :
+            "Back to skeleton";
         infoBoard.ShowNavigationInfo(current.title, body, back, history.Count > 0);
     }
 

@@ -22,6 +22,9 @@ public class InfoBoardController : MonoBehaviour
     [TextArea(2, 4)]
     [SerializeField] private string defaultDescription = "Select a division to start";
 
+    public string DefaultTitle => defaultTitle;
+    public string DefaultDescription => defaultDescription;
+
     private void Awake()
     {
         if (instance == null)

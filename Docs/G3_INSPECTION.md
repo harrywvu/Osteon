@@ -1,16 +1,18 @@
 # Individual-bone inspection
 
-The vertebral-column pilot extends the enabled controller-migration scene from
-G2 to G3. The selectable entries are C1–C7, T1–T12, L1–L5, Sacrum, and Coccyx.
-The model's five `Disk` meshes remain visible context and are not selectable bones.
+The enabled controller-migration scene has G2-to-G3 inspection for two axial
+groups. The vertebral column has C1–C7, T1–T12, L1–L5, Sacrum, and Coccyx.
+The ribcage has 24 individual ribs and the sternum. The vertebral model's five
+`Disk` meshes and the rib model's cartilage stay visible as context and are not
+selectable bones.
 
 ## Interaction
 
 - In G2, point at a bone to highlight it and preview its name on the information panel.
 - Select using the existing XRI selection binding to open a centered inspection copy.
-- A stationary reference column remains beside the inspected bone and highlights its location.
+- A stationary reference column or ribcage remains beside the inspected bone and highlights its location.
 - The information panel shows a breadcrumb, name, introductory description, and controls.
-- Back returns one level: bone → vertebral column → axial division → whole skeleton.
+- Back returns one level: bone → its G2 group → axial division → whole skeleton.
   The previous view's position, rotation, and scale are restored.
 
 | G3 control | Action |
@@ -19,7 +21,7 @@ The model's five `Disk` meshes remain visible context and are not selectable bon
 | Right thumbstick vertically | Tilt at up to 60°/second, limited to ±90° |
 | Right A button | Reset turning independently |
 | Right B button | Reset tilt independently |
-| Panel Back | Return to the vertebral column |
+| Panel Back | Return to the selected bone's G2 group |
 
 Each bone starts in the model's authored anatomical orientation. The controller
 must return to neutral on entry or reconnection before inspection movement starts.
@@ -33,13 +35,13 @@ existing right-thumbstick yaw behavior.
 when their navigation reference is assigned. Historical scenes keep their legacy
 behavior and existing script GUIDs.
 
-Each selectable mesh has serialized `BonePartInfo`, `BoneSelection`,
+Each selectable vertebral or ribcage mesh has serialized `BonePartInfo`, `BoneSelection`,
 `XRSimpleInteractable`, renderer references, and a fitted non-convex `MeshCollider`.
 The mesh collider is used for ray selection; these bones have no grab rigidbody.
 
 `BoneInspectionDisplay` constructs visual-only copies sharing imported meshes.
 The original group stays intact and inactive during G3. The inspected bone fits
-inside a 30 cm bounding volume; the reference column is 45 cm high. Both use
+inside a 30 cm bounding volume; the reference group is 45 cm high. Both use
 editable scene anchors. There are no interactables, scripts, or colliders on the
 copies, so they do not capture UI rays or run duplicate navigation code.
 
@@ -63,6 +65,11 @@ the serialized bone bindings and navigation references. Save your current work
 first: the command opens and saves the enabled scene. It reuses existing
 components and rejects missing or duplicate source mesh names.
 
+Use **Anatomy → Configure rib inspection** to rebuild only the ribcage G3
+bindings. It selects 24 imported rib meshes and the sternum and leaves cartilage
+as context. The `RibBoneCatalog` supplies initial descriptions; rerunning setup
+replaces descriptions on those entries.
+
 The editor-only `VertebralBoneCatalog` supplies the initial descriptions. Once
 configured, runtime information is serialized on each bone's `BonePartInfo`.
 Running setup again replaces those descriptions with the catalog versions.
@@ -73,11 +80,13 @@ Run automated Play Mode checks in a closed project or a temporary project copy:
 ./Tools/Invoke-AnatomyValidation.ps1 -ProjectPath '<validation-project>' -Pilot
 ./Tools/Invoke-AnatomyValidation.ps1 -ProjectPath '<validation-project>'
 ./Tools/Invoke-AnatomyValidation.ps1 -ProjectPath '<validation-project>' -Capture
+./Tools/Invoke-AnatomyValidation.ps1 -ProjectPath '<validation-project>' -Current
 ```
 
-The first command configures and validates C1. The second validates all 26
-entries without graphics. The third validates all 26 entries and captures a
-desktop rendering when a graphics device is available.
+The first command configures C1 and all 25 ribcage entries. The second configures
+and validates all 51 entries without graphics. The third captures a desktop
+rendering when a graphics device is available. `-Current` validates the already
+configured scene without replacing its serialized bone descriptions.
 The runner writes `Logs/G3-validation.json` and its Unity log; failures return
 a nonzero exit. It checks navigation history, held-selection gating, independent
 resets, tilt limits, two-ray hover, copied geometry and bounds, information,
@@ -92,9 +101,10 @@ It requires the pinned ARM64, IL2CPP, and minimum SDK 32 settings and writes
 ### Quest acceptance pass
 
 1. Open the controller-migration scene or install its development APK. Select
-   Axial, then the vertebral column, then C1. Release selection between steps.
-2. Read the C1 information and target both small and large bones from a normal
-   standing position. Confirm the reference highlights only the selected bone.
+   Axial, then the vertebral column and C1; repeat through Ribcage with a rib
+   and the sternum. Release selection between steps.
+2. Read each bone's information and target both small and large bones from a
+   normal standing position. Confirm the reference highlights only the selected bone.
 3. Move the right stick diagonally, reach both tilt limits, and test A then B
    after combined movement. Confirm the panel/reference stay stationary and
    the XR origin does not turn, teleport, or jump from those inputs.
@@ -104,7 +114,7 @@ It requires the pinned ARM64, IL2CPP, and minimum SDK 32 settings and writes
    once. Confirm one transition per fresh press and no stuck hover material.
 6. Disconnect/reconnect the right controller during G3. Return its stick and
    A/B to neutral, then verify controls resume. Leave G3 and confirm the prior
-   locomotion/manipulation bindings work again. Repeat with all 26 entries.
+   locomotion/manipulation bindings work again. Repeat with all 51 entries.
 
 ## Content references
 
@@ -118,8 +128,18 @@ level and the model's anatomical fidelity before classroom use.
 - [NCBI Bookshelf, Thoracic Vertebrae](https://www.ncbi.nlm.nih.gov/books/NBK459153/): rib articulation and lower thoracic exceptions.
 - [NCBI Bookshelf, Lumbar Vertebrae](https://ncbi.nlm.nih.gov/books/NBK459278/): lumbar features.
 - [NCBI Bookshelf, Sacral Vertebrae](https://www.ncbi.nlm.nih.gov/books/NBK551653/): sacral structure and connections.
+- [OpenStax, Anatomy and Physiology 2e, The Thoracic Cage](https://openstax.org/books/anatomy-and-physiology-2e/pages/7-4-the-thoracic-cage): rib numbering, true/false/floating classification, costal cartilage, and sternum.
 
 ## Verification record
+
+On 2026-09-30, the active scene gained G3 inspection for the 24 ribs and
+sternum, sharing the vertebral path's hover preview, enlarged inspection,
+stationary highlighted reference, right-stick turning/tilt, A/B resets, input
+reservation, and Back history. Unity 6000.3.2f1 compiled the changes and the
+`-Current` Play Mode suite passed **7,153 assertions across 51 entries**. The
+checks exercised every ribcage entry's XRI hover/selection callback, reference
+highlighting, information fit, geometry, transform restoration, and Back path.
+Physical Quest targeting and a packaged APK remain unverified.
 
 On 2026-09-24, the G3 commits were recovered from the pushed
 `codex/g3-bone-inspection` branch and fast-forwarded onto local and remote

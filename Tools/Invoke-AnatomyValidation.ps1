@@ -2,6 +2,7 @@ param(
     [string]$ProjectPath = (Split-Path -Parent $PSScriptRoot),
     [string]$UnityEditor = 'C:/Program Files/Unity/Hub/Editor/6000.3.2f1/Editor/Unity.exe',
     [switch]$Pilot,
+    [switch]$Current,
     [switch]$Capture
 )
 
@@ -16,7 +17,9 @@ New-Item -ItemType Directory -Path $validationLogs -Force | Out-Null
 $validationLog = Join-Path $validationLogs 'G3-validation-editor.log'
 $validationReport = Join-Path $validationLogs 'G3-validation.json'
 $validationStart = Get-Date
-$validationMethod = if ($Pilot) { 'AnatomyValidation.RunPilot' } else { 'AnatomyValidation.RunAll' }
+$validationMethod = if ($Current) { 'AnatomyValidation.RunCurrent' } elseif ($Pilot) {
+    'AnatomyValidation.RunPilot'
+} else { 'AnatomyValidation.RunAll' }
 $validationArgs = @('-batchmode', '-projectPath', ('"' + $validationProject + '"'),
     '-executeMethod', $validationMethod, '-logFile', ('"' + $validationLog + '"'))
 if (-not $Capture) { $validationArgs += '-nographics' }

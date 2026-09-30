@@ -1,7 +1,7 @@
 # Setup Guide
 
-> Verified against the restored default branch on 2026-09-24. The full
-> vertebral G3 validation passed 6,604 assertions across all 26 entries.
+> Vertebral G3 was revalidated on 2026-09-24. The vertebral and ribcage G3
+> paths passed 7,153 Play Mode assertions on 2026-09-30.
 
 ## 1. Install the required tools
 
@@ -72,7 +72,7 @@ global scene list and serialize the same core Android values. Prefer
 ## 5. Play Mode smoke test
 
 The current scene is selection-based and follows the G0–G3 granularity model
-defined in `Docs/ARCHITECTURE.md`. G3 currently covers the vertebral column:
+defined in `Docs/ARCHITECTURE.md`. G3 covers the vertebral column and ribcage:
 
 - [ ] **G0:** The hospital room and complete low-poly skeleton render correctly.
 - [ ] The XR origin initializes and controller rays can select objects.
@@ -81,15 +81,17 @@ defined in `Docs/ARCHITECTURE.md`. G3 currently covers the vertebral column:
 - [ ] **G1:** Selecting a division hides the other division and updates the
       title and description on the in-world information panel.
 - [ ] **G2 (partial):** Selecting the axial division opens its detailed view;
-      selecting the configured vertebral-column group opens the group view.
+      selecting the vertebral-column or Ribcage group opens its G2 view. Back
+      returns from either group to axial G1.
 - [ ] Moving the right thumbstick horizontally rotates the full-skeleton
       selection view.
-- [ ] **G3:** Pointing at a vertebral-column bone highlights only that bone and
-      previews its name. Selecting opens an enlarged bone and a stationary reference column.
+- [ ] **G3:** Pointing at a vertebral entry, rib, or sternum highlights only that
+      bone and previews its name. Selecting opens an enlarged bone and a
+      stationary reference group.
 - [ ] **G3:** Right-stick sideways turns the bone; up/down tilts it. A resets
       turning without changing tilt, and B resets tilt without changing turning.
 - [ ] **G3:** The name, breadcrumb, introductory description, and controls are readable.
-- [ ] Back follows bone → vertebral column → axial division → whole skeleton,
+- [ ] Back follows bone → its G2 group → axial division → whole skeleton,
       restoring the previous view's transform and information.
 - [ ] Holding the selection input does not skip levels. Repeat the complete path twice.
 - [ ] G3 input does not also move/jump/turn the XR origin or scroll the panel.
@@ -97,7 +99,7 @@ defined in `Docs/ARCHITECTURE.md`. G3 currently covers the vertebral column:
 See `Docs/G3_INSPECTION.md` and `Tools/Invoke-AnatomyValidation.ps1` for automated
 Play Mode regression checks. Grabbing and assembly are excluded from this smoke test.
 
-Run a focused pilot or the complete 26-entry suite from a temporary project copy
+Run a focused vertebral pilot or the complete 51-entry suite from a temporary project copy
 or worktree while the main project is closed or open elsewhere:
 
 ```powershell

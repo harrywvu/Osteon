@@ -5,10 +5,10 @@
 VR anatomy exploration app for Meta Quest. The current enabled experience uses
 selectable skeleton divisions, an in-world anatomical information panel,
 hover-group highlighting, axial drill-down views, controller-based yaw rotation,
-and G3 inspection of the 26 vertebral-column bone entries. See
+and G3 inspection of 26 vertebral-column and 25 ribcage bone entries. See
 `Docs/G3_INSPECTION.md` for controls, setup, and the verification record.
 `Plans and Features/README.md` indexes dated future work. Stationary viewing,
-smooth viewpoint turning, controller grabbing, and group expansion are planned;
+smooth viewpoint turning, controller grabbing, and further group expansion are planned;
 do not describe them as implemented. The automated G3 APK packaging attempt
 failed after native compilation; see `Docs/KNOWN_ISSUES.md`.
 
@@ -45,9 +45,9 @@ verifying it first.
 | `Assets/Scripts/DivisionSelection.cs` | Selects/isolates axial or appendicular divisions using child XRI interactables | Active |
 | `Assets/Scripts/ViewTransitionOnSelect.cs` | Swaps from the full model to configured drill-down views | Active |
 | `Assets/Scripts/BoneGroupHoverHighlighter.cs` | Applies one highlight material to all renderers in a hovered group | Active |
-| `Assets/Scripts/SkeletonYawRotator.cs` | Rotates the full, axial, and vertebral models about their centers from the right thumbstick | Active |
+| `Assets/Scripts/SkeletonYawRotator.cs` | Rotates the full, axial, vertebral, and ribcage models from the right thumbstick | Active |
 | `Assets/Scripts/AnatomyNavigationController.cs` | Owns view history, Back, G3 selection and controller input | Active |
-| `Assets/Scripts/BoneSelection.cs` | Per-bone selection and hover highlighting | Active on 26 vertebral-column entries |
+| `Assets/Scripts/BoneSelection.cs` | Per-bone selection and hover highlighting | Active on 26 vertebral-column and 25 ribcage entries |
 | `Assets/Scripts/BoneInspectionDisplay.cs` | Centered inspection copy and stationary reference column | Active |
 | `Assets/Scripts/AnatomyInputReservation.cs` | Reserves and restores competing G3 input bindings | Active |
 | `Assets/BonePartGrabRelease.cs` | Legacy XR grab, info display, and return-to-origin coroutine | Older recovery scenes only |
@@ -101,7 +101,8 @@ view. Per-bone grabbing is not a current-scene test. Automated checks are in
 - **G3 input:** Keep the anatomy Back button independent of coaching-card
   callbacks. Preserve prior binding overrides when reserving the right stick/A/B.
 - **Scene authoring:** The Anatomy setup menu saves the active build scene and
-  replaces per-bone descriptions from `VertebralBoneCatalog`; save work first.
+  replaces per-bone descriptions from `VertebralBoneCatalog` or
+  `RibBoneCatalog`; save work first.
 - **First-open errors:** Collapse Console errors and separate
   `Library/PackageCache/` failures from project errors under `Assets/`. Only
   `Library/`, `Library_*`, `Temp/`, `obj/`, and `Logs/` are safe cache folders

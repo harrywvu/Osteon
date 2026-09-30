@@ -6,7 +6,7 @@ Osteon (Human Skeletal VR) is a Unity-based anatomy viewer for Meta Quest. The c
 build presents a skeleton in a hospital-room environment, lets the user select
 the axial or appendicular division, updates an in-world information panel, and
 supports drill-down views of the axial skeleton and individual-bone inspection
-within the vertebral column.
+within the vertebral column and ribcage.
 
 > G3 implementation restored to the default branch and revalidated on
 > 2026-09-24; see the verification record in
@@ -30,11 +30,12 @@ In that scene:
 - Selecting a division isolates it and updates the TextMesh Pro information
   panel.
 - Selecting the axial division transitions from the full low-poly skeleton to
-  `Skeleton_axial.blend`; a further selection transitions to the vertebral
-  column view.
+  `Skeleton_axial.blend`; a further selection opens the vertebral column or
+  ribcage view.
 - The right controller thumbstick rotates the whole-skeleton and detail views.
-- Selecting one of the 26 vertebral-column bones opens an enlarged inspection
-  copy beside a stationary reference column. Right-stick sideways turns the
+- Selecting one of the 26 vertebral-column entries or 25 ribcage bones opens an
+  enlarged inspection copy beside a stationary, highlighted reference group.
+  Right-stick sideways turns the
   bone; up/down tilts it. A resets turning and B resets tilt independently.
 - Back restores the previous anatomical view and its orientation.
 
@@ -43,8 +44,9 @@ legacy script in historical scenes; grabbing and assembly are not part of the
 current bone-inspection experience. See [`Docs/G3_INSPECTION.md`](Docs/G3_INSPECTION.md)
 for controls, authoring, automated checks, and remaining headset verification.
 
-The full Play Mode suite passed 6,604 assertions across all 26 entries on
-2026-09-09 and again after default-branch recovery on 2026-09-24.
+The vertebral Play Mode suite passed 6,604 assertions across all 26 entries on
+2026-09-09 and again after default-branch recovery on 2026-09-24. The expanded
+suite passed 7,153 assertions across all 51 entries on 2026-09-30.
 Automated APK packaging failed with a Gradle loopback-connection error, and
 headset acceptance remains pending. Planned stationary viewing, controller
 grabbing, and expansion are tracked in

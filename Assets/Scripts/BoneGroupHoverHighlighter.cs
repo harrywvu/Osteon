@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -10,7 +11,7 @@ public class BoneGroupHoverHighlighter : MonoBehaviour
 
     private Renderer[] renderers;
     private Material[][] originalMaterials;
-    private XRBaseInteractable[] interactables;
+    private readonly List<XRBaseInteractable> interactables = new List<XRBaseInteractable>();
     private int hoverCount;
 
     public void Configure(Material material)
@@ -26,11 +27,15 @@ public class BoneGroupHoverHighlighter : MonoBehaviour
         for (int i = 0; i < renderers.Length; i++)
             originalMaterials[i] = renderers[i].sharedMaterials;
 
-        // Finds every grabbable/hoverable bone under Axial or Appendicular.
-        interactables = GetComponentsInChildren<XRBaseInteractable>(true);
+        RefreshInteractables();
+    }
 
-        foreach (var interactable in interactables)
+    public void RefreshInteractables()
+    {
+        foreach (var interactable in GetComponentsInChildren<XRBaseInteractable>(true))
         {
+            if (interactables.Contains(interactable)) continue;
+            interactables.Add(interactable);
             interactable.hoverEntered.AddListener(OnHoverEntered);
             interactable.hoverExited.AddListener(OnHoverExited);
         }
@@ -38,8 +43,6 @@ public class BoneGroupHoverHighlighter : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (interactables == null) return;
-
         foreach (var interactable in interactables)
         {
             if (interactable == null) continue;

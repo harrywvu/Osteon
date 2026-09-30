@@ -1,6 +1,6 @@
 # Known Issues and Project History
 
-> Current-state update: 2026-09-24. Historical entries are retained below so
+> Current-state update: 2026-09-30. Historical entries are retained below so
 > previous recovery work is not lost.
 
 ## Current open issues
@@ -10,12 +10,13 @@
 - The only enabled scene is
   `Assets/_Recovery/CONTROLLERS MIGRATION.unity`. Earlier documentation named
   `0 (8).unity`; that is now a historical recovery snapshot.
-- The enabled scene has G3 selection-based inspection for the 26 vertebral-column
-  entries. `BonePartInfo` supplies their descriptions. Grabbing, physical return,
-  and assembly remain outside the current experience.
-- G0 whole skeleton, G1 axial/appendicular divisions, and G2 vertebral column
-  are connected in the enabled scene. Other major groups remain outside the
-  implemented G2–G3 flow.
+- The enabled scene has G3 selection-based inspection for 26 vertebral-column
+  entries and 25 ribcage entries (24 ribs and the sternum). `BonePartInfo`
+  supplies their descriptions. Grabbing, physical return, and assembly remain
+  outside the current experience.
+- G0 whole skeleton, G1 axial/appendicular divisions, and the G2 vertebral
+  column and Ribcage views are connected in the enabled scene. Other major
+  groups remain outside the implemented G2 flow. Both groups continue to G3.
 - No project-owned socket-matching logic was found, and the enabled scene does
   not contain an `XRSocketInteractor`. Socket materials are present, but an
   assembly/matching exercise is not currently implemented.
@@ -45,9 +46,9 @@
 - Hand-tracking packages/features and controller profiles are enabled together.
   The right-thumbstick rotation script is explicitly controller-based, and the
   end-to-end hand/controller paths have not been verified on current hardware.
-- The full, axial, and vertebral views now each have a model-center yaw rotator.
-  G3 uses independent turning/tilt on its inspection copy; the reference column
-  stays stationary.
+- The full, axial, vertebral, and ribcage views have yaw rotators. G3 uses
+  independent turning/tilt on its inspection copy; the reference group stays
+  stationary.
 - Batch Play Mode emits an `ArgumentOutOfRangeException` in imported
   `XRDeviceSimulatorUI.Initialize` when its keyboard action has no resolved
   controls, and another in Unity Editor Search indexing. Bezi/Unity AI packages
@@ -89,15 +90,24 @@
 
 ## Verification still required
 
-- [x] Automated Play Mode G0–G3 flow: 6,604 assertions, all 26 entries
+- [x] Automated Play Mode G0–G3 flow: 7,153 assertions, all 51 entries on 2026-09-30
 - [x] Repeat all-bone validation from the restored default branch on 2026-09-24
 - [x] Back callbacks across the implemented model-view transitions
-- [x] Two-ray bone highlighting and material restoration in the vertebral view
+- [x] Two-ray bone highlighting and material restoration in both G2 views
 - [ ] Manual Play Mode controller input and targeting
 - [ ] Controller rays and right-thumbstick rotation on Quest 2 and Quest 3
 - [ ] Hand-tracking selection path on a physical headset
 - [ ] Clean Android/Quest build from a fresh clone
 - [ ] Installation and launch of that APK on supported Quest hardware
+
+## 2026-09-30 — Ribcage G3 inspection
+
+- Connected 24 individual rib meshes and the sternum to the same inspection
+  behavior as the vertebral column. Cartilage remains visible context.
+- Added rib descriptions, scene bindings, per-bone hover, a highlighted
+  reference cage, and Back restoration. Existing G2 ribcage selection remains.
+- Unity 6000.3.2f1 Play Mode passed 7,153 assertions across all 51 G3 entries.
+  No physical Quest or Android APK test was completed for this change.
 
 ## 2026-09-24 — Default-branch G3 recovery
 
