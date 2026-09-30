@@ -1,6 +1,6 @@
 # Accounts, Device Access, and Release Ownership
 
-> Last reviewed on 2026-09-08. Do not commit passwords, recovery codes,
+> Last reviewed on 2026-09-30. Do not commit passwords, recovery codes,
 > keystores, or signing secrets to this repository.
 
 ## Project organization
@@ -20,8 +20,13 @@ A developer needs:
 - repository access, including permission to download Git LFS objects; and
 - Blender 4.5.x for importing the live `.blend` assets.
 
-No application login or backend account is documented for ordinary local Play
-Mode.
+Ordinary anatomy Play Mode does not need a backend login. The optional quiz
+demo calls an API deployed in a maintainer's **personal AWS account** in
+`ap-southeast-2`. Its one-learner bearer token belongs only in the ignored
+`Assets/Resources/QuizDemoConfig.json` and the matching Lambda environment
+variable, never in a commit. The token is embedded in any APK made with that
+file; do not distribute such an APK beyond the controlled demo. See
+[`QUIZ_INTEGRATION.md`](QUIZ_INTEGRATION.md).
 
 ## Quest device testing
 
@@ -40,6 +45,8 @@ To deploy directly to a headset, a tester needs:
 - Meta developer organization and app record
 - Store signing and release-channel access
 - Privacy policy and store-listing ownership, if distribution is planned
+- School-owned AWS account, billing/cost-alert owner, deployment permissions,
+  quiz identity provider, token rotation, and learner-data retention owner
 
 Record the responsible person or team and the secure storage location—not the
 secret itself—when these are established.

@@ -85,6 +85,7 @@ independently. The controller must return to neutral after entry or reconnection
 | `Assets/Scripts/ViewTransitionOnSelect.cs` | Routes group selection to navigation; retains legacy view swapping when navigation is unassigned | Attached to the axial division and axial detail flow |
 | `Assets/Scripts/BoneGroupHoverHighlighter.cs` | Highlights a hovered division/group and restores shared materials on exit or disable | Used before individual-bone selection |
 | `Assets/Scripts/SkeletonYawRotator.cs` | Rotates a model about its center with the right thumbstick | Attached to the full, axial, vertebral, and ribcage model roots |
+| `Assets/Scripts/OsteonQuizDemo.cs` | Creates the stationary practice-quiz station and calls the shared HTTP API | Runtime-created only in the enabled scene; Quest placement still needs verification |
 | `Assets/BonePartGrabRelease.cs` | Shows `BonePartInfo` on grab, hides it on release, then lerps the object back to its original parent/local transform | Not referenced by the current scene; used by older recovery scenes |
 | `Assets/Scripts/BonePartInfo.cs` | Stores a serialized part name and anatomical description | Used by G3 and older recovery scenes |
 | `Assets/Scripts/AxialDivisionSelection.cs` | Older axial-only selection implementation that hides a configured appendicular object | Not referenced by any scene or prefab |
@@ -124,6 +125,19 @@ scene instances rather than imported template scripts.
 
 Controller and hand behavior still require verification on a physical headset.
 
+## Practice quiz service
+
+The one-learner practice quiz has a separate client/server path. The current
+Unity scene creates an in-world quiz station beside the anatomy information
+panel; it is not attached to the headset. API Gateway's HTTP API sends the
+client's HTTPS requests to a Python Lambda function. Lambda reads the packaged
+question CSV and ONNX mastery-delta model, then persists the current session
+and mastery in DynamoDB. S3 holds the Lambda deployment ZIP only; it is not in
+the live question/answer request path. The notebook is a training artifact,
+not a hosted service. A future web UI can use the same API contract but is not
+yet implemented. See [`QUIZ_INTEGRATION.md`](QUIZ_INTEGRATION.md) for the exact
+demo configuration, model inputs, security boundary, and verification record.
+
 ## UI and selection lifecycle
 
 1. Navigation starts in G0 and installs selection filters on the model interactables.
@@ -144,7 +158,6 @@ Controller and hand behavior still require verification on a physical headset.
 - Complete G2 coverage for all major axial and appendicular bone groups
 - G3 per-bone grab and return-to-origin behavior
 - Socket-based assembly or correctness matching
-- A project-owned scoring, progress, or persistence system
 - G3 inspection outside the vertebral-column and ribcage groups
 
 Colored socket materials and older grab scripts remain in the repository, but

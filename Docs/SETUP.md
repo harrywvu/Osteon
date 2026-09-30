@@ -99,6 +99,17 @@ defined in `Docs/ARCHITECTURE.md`. G3 covers the vertebral column and ribcage:
 See `Docs/G3_INSPECTION.md` and `Tools/Invoke-AnatomyValidation.ps1` for automated
 Play Mode regression checks. Grabbing and assembly are excluded from this smoke test.
 
+The optional one-learner practice quiz uses an AWS API. To test it, copy
+`Docs/QuizDemoConfig.example.json` to the ignored
+`Assets/Resources/QuizDemoConfig.json` and fill in the private HTTPS API base
+URL and temporary demo token. In Play Mode, find the quiz station beside the
+anatomy information panel. Start/resume, answer, stop, hide, reopen, and turn
+your head to confirm the station stays fixed in the room. Do not commit the
+filled config or distribute an APK containing its token. The quiz's stationary
+placement and physical Quest input have not yet been reverified after the last
+UI change. Full backend and AWS setup is in
+[`QUIZ_INTEGRATION.md`](QUIZ_INTEGRATION.md).
+
 Run a focused vertebral pilot or the complete 51-entry suite from a temporary project copy
 or worktree while the main project is closed or open elsewhere:
 

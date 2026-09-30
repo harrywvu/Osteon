@@ -38,11 +38,20 @@ In that scene:
   Right-stick sideways turns the
   bone; up/down tilts it. A resets turning and B resets tilt independently.
 - Back restores the previous anatomical view and its orientation.
+- An optional stationary practice-quiz station beside the anatomy panel calls
+  the shared AWS quiz API when a private local demo configuration is present.
 
 `BonePartInfo` supplies the G3 information. `BonePartGrabRelease` remains a
 legacy script in historical scenes; grabbing and assembly are not part of the
 current bone-inspection experience. See [`Docs/G3_INSPECTION.md`](Docs/G3_INSPECTION.md)
 for controls, authoring, automated checks, and remaining headset verification.
+
+The practice quiz uses a packaged ONNX mastery model and question bank in a
+Python Lambda service, with progress in DynamoDB. Its notebook is not hosted.
+The one-learner AWS demo passed API smoke tests, but the latest stationary UI
+placement and physical Quest behavior still need verification. A future web
+client can use the same API, but no web UI or public-release authentication
+has been built. See [`Docs/QUIZ_INTEGRATION.md`](Docs/QUIZ_INTEGRATION.md).
 
 The vertebral Play Mode suite passed 6,604 assertions across all 26 entries on
 2026-09-09 and again after default-branch recovery on 2026-09-24. The expanded
@@ -80,6 +89,8 @@ Git LFS.
    XR, or build settings.
 4. Use [`Docs/ACCOUNTS.md`](Docs/ACCOUNTS.md) when preparing a headset or a
    distributable build.
+5. Use [`Docs/QUIZ_INTEGRATION.md`](Docs/QUIZ_INTEGRATION.md) for the practice
+   quiz, model, AWS demo, and its security/verification limits.
 
 ## Repository map
 
@@ -87,6 +98,7 @@ Git LFS.
 |---|---|
 | `Assets/_Recovery/` | Working scene plus historical recovery snapshots |
 | `Assets/Scripts/` | Project-owned interaction and UI scripts |
+| `Backend/quiz-api/` | Shared Python quiz API, ONNX model, question bank, tests, and packaging script |
 | `Assets/BonePartGrabRelease.cs` | Legacy per-bone grab/return behavior |
 | `Assets/Art/Models/Skeleton/` | Low- and mid-poly anatomy models |
 | `Assets/VRTemplateAssets/` | Unity VR template content used by the XR rig and coaching UI |

@@ -56,6 +56,22 @@
   editor-integration WebSocket. Anatomy checks pass separately; these package
   and editor issues have not been repaired by changing imported code.
 
+### Practice quiz demo boundaries
+
+- The shared quiz API runs in a maintainer's personal AWS account and currently
+  maps every valid demo token to one learner ID. It is suitable for the
+  controlled one-headset presentation, not multiple independent learners or a
+  public Quest/web release. The token is extractable from a Unity build.
+- The web UI, per-learner authentication, API Gateway authorizer, deliberate
+  browser CORS configuration, automated AWS deployment/rollback, and school
+  ownership of AWS billing and learner data are not implemented or verified.
+- The quiz UI was reported working in Unity Play Mode before it was moved to a
+  stationary world-space station. The final placement and controller targeting
+  still need a Play Mode recheck and physical Quest acceptance.
+- The model/CSV were integrated from the teammate's repository, but their
+  educational accuracy, data rights, and approval for wider distribution have
+  not been documented here. See [`QUIZ_INTEGRATION.md`](QUIZ_INTEGRATION.md).
+
 ### Build and release configuration
 
 - The automated G3 Android development build on 2026-09-09 completed ARM64
@@ -99,6 +115,8 @@
 - [ ] Hand-tracking selection path on a physical headset
 - [ ] Clean Android/Quest build from a fresh clone
 - [ ] Installation and launch of that APK on supported Quest hardware
+- [ ] Quiz station stays in the scene, and its menu, hide/reopen, start/stop,
+      answer flow, and error recovery work in Play Mode and on Quest
 
 ## 2026-09-30 — Ribcage G3 inspection
 
