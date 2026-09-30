@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6f0374732948e0840a0de700ab1fbc34
+guid: ab1a7a0bd8067734499d610f97bc246b
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -105,6 +105,6 @@ ModelImporter:
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
-  userData: reimported-after-blender-install-20260728
+  userData: 
   assetBundleName: 
   assetBundleVariant: 

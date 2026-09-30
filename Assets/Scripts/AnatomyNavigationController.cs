@@ -15,6 +15,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     [SerializeField] private GameObject axialView;
     [SerializeField] private GameObject appendicularView;
     [SerializeField] private GameObject vertebralView;
+    [SerializeField] private GameObject[] additionalGroupViews;
     [SerializeField] private InfoBoardController infoBoard;
     [SerializeField] private BoneInspectionDisplay inspectionDisplay;
     [SerializeField] private AnatomyInputReservation inputReservation;
@@ -72,6 +73,45 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        // The G1 ribcage meshes are imported without scene-authored ray targets.
+        // Create them before Start registers the navigation selection filters.
+        if (axialView == null) return;
+        Transform ribcage = null;
+        foreach (Transform child in axialView.GetComponentsInChildren<Transform>(true))
+            if (child.name == "Ribcage") { ribcage = child; break; }
+        if (ribcage == null)
+        {
+            Debug.LogError("G1 axial view is missing its Ribcage group.", this);
+            return;
+        }
+
+        int targetCount = 0;
+        foreach (Transform child in ribcage)
+        {
+            var filter = child.GetComponent<MeshFilter>();
+            if (filter == null || filter.sharedMesh == null || child.GetComponent<Renderer>() == null)
+                continue;
+
+            var collider = child.GetComponent<MeshCollider>();
+            if (collider == null) collider = child.gameObject.AddComponent<MeshCollider>();
+            collider.sharedMesh = filter.sharedMesh;
+            collider.convex = false;
+
+            var interactable = child.GetComponent<XRBaseInteractable>();
+            if (interactable == null) interactable = child.gameObject.AddComponent<XRSimpleInteractable>();
+            if (!interactable.colliders.Contains(collider)) interactable.colliders.Add(collider);
+            targetCount++;
+        }
+        if (targetCount == 0)
+            Debug.LogError("G1 Ribcage has no rendered mesh children for ray selection.", this);
+        else if (targetCount != 17)
+            Debug.LogWarning($"G1 Ribcage has {targetCount} ray targets; expected 17.", this);
+        else
+            Debug.Log("G1 Ribcage ray targets ready: 17.", this);
+    }
+
     private void Start() => Initialize();
 
     private void Initialize()
@@ -86,7 +126,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         }
         authoredGroupOrientation = vertebralView.transform.rotation;
         selectFilter = new XRSelectFilterDelegate((interactor, interactable) => CanNavigate);
-        foreach (GameObject root in new[] { overviewRoot, axialView, appendicularView, vertebralView })
+        foreach (GameObject root in SelectionRoots())
         {
             if (root == null) continue;
             foreach (XRBaseInteractable interactable in root.GetComponentsInChildren<XRBaseInteractable>(true))
@@ -166,10 +206,30 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     public bool EnterGroup(GameObject group, string title, string description)
     {
         if (!CanNavigate || Level != AnatomyLevel.Division || current.division != axialDivisionRoot ||
-            group != vertebralView) return false;
+            !IsConfiguredGroup(group)) return false;
         Push(new ViewFrame { level = AnatomyLevel.Group, root = group, title = title,
-            description = description, breadcrumb = "Axial → Vertebral column" });
+            description = description, breadcrumb = "Axial → " + title });
         return true;
+    }
+
+    private bool IsConfiguredGroup(GameObject group)
+    {
+        if (group == null) return false;
+        if (group == vertebralView) return true;
+        if (additionalGroupViews == null) return false;
+        foreach (var view in additionalGroupViews)
+            if (group == view) return true;
+        return false;
+    }
+
+    private IEnumerable<GameObject> SelectionRoots()
+    {
+        yield return overviewRoot;
+        yield return axialView;
+        yield return appendicularView;
+        yield return vertebralView;
+        if (additionalGroupViews == null) yield break;
+        foreach (var view in additionalGroupViews) yield return view;
     }
 
     public bool InspectBone(BoneSelection bone)
@@ -232,6 +292,9 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         axialView.SetActive(false);
         if (appendicularView != null) appendicularView.SetActive(false);
         vertebralView.SetActive(false);
+        if (additionalGroupViews != null)
+            foreach (var group in additionalGroupViews)
+                if (group != null) group.SetActive(false);
         axialDivisionRoot.SetActive(frame.level == AnatomyLevel.Whole || frame.division == axialDivisionRoot);
         appendicularDivisionRoot.SetActive(frame.level == AnatomyLevel.Whole || frame.division == appendicularDivisionRoot);
         current = frame;
@@ -252,7 +315,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     {
         previewBone = null;
         foreach (var bone in bones) if (bone != null) bone.ClearHighlight();
-        foreach (GameObject root in new[] { overviewRoot, axialView, appendicularView, vertebralView })
+        foreach (GameObject root in SelectionRoots())
         {
             if (root == null) continue;
             foreach (var highlighter in root.GetComponentsInChildren<BoneGroupHoverHighlighter>(true))

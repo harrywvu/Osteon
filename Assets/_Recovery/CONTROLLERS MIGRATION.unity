@@ -6511,7 +6511,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
       propertyPath: m_Name
-      value: VERTEBRAL COLUMN
+      value: G2_VERTEBRAL COLUMN
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7e2e767938a02394a8c99a76565107a8, type: 3}
       propertyPath: m_IsActive
@@ -7237,6 +7237,82 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 935912044}
   m_CullTransparentMesh: 1
+--- !u!1001 &976390748
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: ab1a7a0bd8067734499d610f97bc246b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.024050955
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab1a7a0bd8067734499d610f97bc246b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.024050955
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab1a7a0bd8067734499d610f97bc246b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.024050955
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab1a7a0bd8067734499d610f97bc246b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.3783
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab1a7a0bd8067734499d610f97bc246b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.124
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab1a7a0bd8067734499d610f97bc246b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.1366
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab1a7a0bd8067734499d610f97bc246b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7785146
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab1a7a0bd8067734499d610f97bc246b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab1a7a0bd8067734499d610f97bc246b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.6276265
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab1a7a0bd8067734499d610f97bc246b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab1a7a0bd8067734499d610f97bc246b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab1a7a0bd8067734499d610f97bc246b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -77.75
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ab1a7a0bd8067734499d610f97bc246b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ab1a7a0bd8067734499d610f97bc246b, type: 3}
+      propertyPath: m_Name
+      value: G2_ribs
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ab1a7a0bd8067734499d610f97bc246b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ab1a7a0bd8067734499d610f97bc246b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1803623266}
+  m_SourcePrefab: {fileID: 100100000, guid: ab1a7a0bd8067734499d610f97bc246b, type: 3}
 --- !u!1 &979148024
 GameObject:
   m_ObjectHideFlags: 0
@@ -9365,7 +9441,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5ff6d8153c1864e459280900722b9d1c, type: 3}
       propertyPath: m_Name
-      value: low-poly-skeleton-prefab
+      value: G0_low-poly-skeleton-prefab
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9795,7 +9871,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
       propertyPath: m_Name
-      value: Skeleton_axial
+      value: G1_Skeleton_axial
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
       propertyPath: m_IsActive
@@ -9808,6 +9884,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1290350102}
+    - targetCorrespondingSourceObject: {fileID: -7863659209285809422, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1968321022}
+    - targetCorrespondingSourceObject: {fileID: -7863659209285809422, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1968321021}
     - targetCorrespondingSourceObject: {fileID: -7789208931615187199, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1290350104}
@@ -11142,7 +11224,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 42c889ad1b6b68146b53070d0bf4d81e, type: 3}
       propertyPath: m_Name
-      value: Skeleton_appendicular
+      value: G1_Skeleton_appendicular
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 42c889ad1b6b68146b53070d0bf4d81e, type: 3}
       propertyPath: m_IsActive
@@ -15160,6 +15242,8 @@ MonoBehaviour:
   axialView: {fileID: 1290350099}
   appendicularView: {fileID: 405396254}
   vertebralView: {fileID: 892903085}
+  additionalGroupViews:
+  - {fileID: 1803623265}
   infoBoard: {fileID: 167457188}
   inspectionDisplay: {fileID: 1767297584}
   inputReservation: {fileID: 1767297583}
@@ -15463,6 +15547,28 @@ MonoBehaviour:
   boneRenderers:
   - {fileID: 1594136822}
   highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
+--- !u!1 &1803623265 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ab1a7a0bd8067734499d610f97bc246b, type: 3}
+  m_PrefabInstance: {fileID: 976390748}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1803623266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803623265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e59d2ec06d8f728489df8476b272fb76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SkeletonYawRotator
+  centerMode: 0
+  customLocalCenter: {x: 0, y: 0, z: 0}
+  degreesPerSecond: 90
+  deadZone: 0.15
+  invertDirection: 0
 --- !u!1 &1813378350 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6770989454903755621, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
@@ -16902,6 +17008,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1961850150}
   m_CullTransparentMesh: 0
+--- !u!1 &1968321019 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -7863659209285809422, guid: d17805a9c8293794eb6213b5d1a0e31c, type: 3}
+  m_PrefabInstance: {fileID: 1290350098}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1968321021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968321019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db970dcdac1c464b9ab2ea04fda3360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ViewTransitionOnSelect
+  navigation: {fileID: 1767297585}
+  interactableRoot: {fileID: 0}
+  nextTitle: Ribcage
+  nextDescription: Explore the ribs and sternum.
+  currentView: {fileID: 1290350099}
+  nextView: {fileID: 1803623265}
+--- !u!114 &1968321022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968321019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2162dbf238920c744a2063e7ce3b6a9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoneGroupHoverHighlighter
+  highlightMaterial: {fileID: 2100000, guid: 08f92997ad34bb641833bad9fc9be22f, type: 2}
 --- !u!1 &2018379304
 GameObject:
   m_ObjectHideFlags: 0
@@ -51166,8 +51308,9 @@ SceneRoots:
   - {fileID: 610590593}
   - {fileID: 1825945902}
   - {fileID: 882545737}
-  - {fileID: 1290350098}
   - {fileID: 892903084}
-  - {fileID: 1268313925}
+  - {fileID: 976390748}
   - {fileID: 1767297586}
   - {fileID: 1382090966}
+  - {fileID: 1290350098}
+  - {fileID: 1268313925}
