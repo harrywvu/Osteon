@@ -31,19 +31,19 @@ In that scene:
 - Selecting a division isolates it and updates the TextMesh Pro information
   panel.
 - Selecting the axial division transitions from the full low-poly skeleton to
-  `Skeleton_axial.blend`; a further selection opens the vertebral column or
-  ribcage view.
+  `Skeleton_axial.blend`; a further selection opens the skull, vertebral column,
+  or ribcage view.
 - Selecting Left lower limb from the appendicular division opens its G2 model.
 - The right lower limb and both upper limbs also have selectable G2 and G3 views.
 - Selecting Right pectoral girdle opens its G2 model; left Y switches between
   the right and left pectoral models. Pelvic girdle opens its own G2 model.
 - The right controller thumbstick rotates the whole-skeleton and detail views.
-- Selecting one of the 178 configured bones opens an enlarged
+- Selecting one of the 207 configured bone entries opens an enlarged
   inspection copy beside a stationary,
   highlighted reference group. Right-stick sideways turns the bone; up/down
   tilts it. A resets turning and B resets tilt independently.
 - Back restores the previous anatomical view and its orientation.
-- An optional user-movable practice-quiz station beside the anatomy panel calls
+- An optional user-movable practice-quiz station on the room's right wall calls
   the shared AWS quiz API when a private local demo configuration is present.
 - The anatomy and quiz panels each have a Move bar for controller grabbing.
   G3 inspection starts at world X 2.477991, Z -1.173756.

@@ -1,7 +1,7 @@
 # Individual-bone inspection
 
 The enabled controller-migration scene has G2-to-G3 inspection for the axial
-vertebral column and ribcage, plus both appendicular lower limbs, both upper
+skull, vertebral column, and ribcage, plus both appendicular lower limbs, both upper
 limbs, both pectoral sides, and the pelvic girdle. The vertebral
 column has C1–C7, T1–T12, L1–L5, Sacrum, and Coccyx. The ribcage has 24
 individual ribs and the sternum. The left lower limb has 30 selectable bones:
@@ -10,6 +10,10 @@ Each pectoral side has a clavicle and scapula. The pelvic model has one selectab
 left hip bone; its sacrum, coccyx, and obturator-foramen meshes remain context.
 The right lower-limb model has the standard 30 bones plus two sesamoids. Each
 upper limb has 30 selectable bones.
+The G2 skull model has 29 named selectable bone meshes: the 22 skull bones,
+six middle-ear ossicles, and the hyoid in the upper neck. Its two teeth meshes
+remain visible context and are not selectable bones.
+Anatomical grouping follows [OpenStax, *The Skull*](https://openstax.org/books/anatomy-and-physiology-2e/pages/7-2-the-skull).
 The vertebral model's five
 `Disk` meshes and the rib model's cartilage stay visible as context and are not
 selectable bones.
@@ -50,14 +54,22 @@ existing right-thumbstick yaw behavior.
 ## Implementation
 
 `AnatomyNavigationController` owns view history and selection state. Existing
-`DivisionSelection` and `ViewTransitionOnSelect` instances delegate to it only
-when their navigation reference is assigned. Historical scenes keep their legacy
-behavior and existing script GUIDs.
+`DivisionSelection` and `ViewTransitionOnSelect` instances delegate to it.
+In the enabled scene, both components on a division root must use the same
+navigation controller. `ViewTransitionOnSelect.Prepare` recovers a missing
+reference from its sibling `DivisionSelection`; historical scenes without a
+controller keep their legacy behavior and existing script GUIDs. A direct
+view switch bypasses navigation history and leaves G3 and Back out of sync.
 
-Each selectable vertebral, ribcage, limb, or girdle mesh has serialized
+Each selectable skull, vertebral, ribcage, limb, or girdle mesh has serialized
 `BonePartInfo`, `BoneSelection`, `XRSimpleInteractable`, renderer references,
 and a fitted non-convex `MeshCollider`.
 The mesh collider is used for ray selection; these bones have no grab rigidbody.
+The G2 skull uses separate low-detail meshes from `skull_ray_colliders.fbx` for
+its 29 ray colliders. The visible `skull.fbx` remains full detail for G2 and G3.
+If the skull FBX changes, regenerate the collider asset and run
+`Tools/Build-SkullRayColliders.py` with Blender 4.5, then run
+**Anatomy → Optimize skull ray targets** before building.
 
 `BoneInspectionDisplay` constructs visual-only copies sharing imported meshes.
 The original group stays intact and inactive during G3. The inspected bone fits
@@ -92,6 +104,11 @@ bindings. It selects 24 imported rib meshes and the sternum and leaves cartilage
 as context. The `RibBoneCatalog` supplies initial descriptions; rerunning setup
 replaces descriptions on those entries.
 
+Use **Anatomy → Configure skull inspection** to connect the G1 skull group to
+the imported `G2_skull` model and bind its 29 named bones for G3. It authors
+the skull's G1 and G2 collider targets in the scene for Quest builds and
+replaces descriptions from `SkullBoneCatalog` when rerun.
+
 Use **Anatomy → Configure left lower limb inspection** to rebuild only the 30
 left lower-limb G3 bindings. `LeftLowerLimbBoneCatalog` supplies introductory
 descriptions; rerunning setup replaces descriptions on those entries.
@@ -117,9 +134,9 @@ Run automated Play Mode checks in a closed project or a temporary project copy:
 ./Tools/Invoke-AnatomyValidation.ps1 -ProjectPath '<validation-project>' -Current
 ```
 
-The first command configures C1, all 25 ribcage entries, both lower limbs,
+The first command configures C1, all 29 skull entries, all 25 ribcage entries, both lower limbs,
 both upper limbs, and the five girdle entries. The second configures and
-validates all 178 entries without graphics.
+validates all 207 entries without graphics.
 The third captures a desktop rendering when a graphics device is available.
 `-Current` validates the already
 configured scene without replacing its serialized bone descriptions.
@@ -128,16 +145,20 @@ a nonzero exit. It checks navigation history, held-selection gating, independent
 resets, tilt limits, two-ray hover, copied geometry and bounds, information,
 input restoration, appendicular compatibility, repeated entry, and scene reload.
 Selection tests invoke XRI manager events through the scene's real selection
-callbacks; Back tests invoke the existing button's navigation callback.
+callbacks, including the appendicular G0 division target; Back tests invoke
+the existing button's navigation callback. See the appendicular incident in
+[`KNOWN_ISSUES.md`](KNOWN_ISSUES.md) for its negative control and repair steps.
 
 `AnatomyBuild.BuildQuest` is the batch entry point for an Android development APK.
-It requires the pinned ARM64, IL2CPP, and minimum SDK 32 settings and writes
+It requires the pinned ARM64, IL2CPP, minimum SDK 32, and prebaked collision
+mesh settings and writes
 `Builds/Anatomy-G3-development.apk` plus `Logs/G3-build.txt`.
 
 ### Quest acceptance pass
 
 1. Open the controller-migration scene or install its development APK. Select
-   Axial, then the vertebral column and C1; repeat through Ribcage with a rib
+   Axial, then Skull and a visible skull bone; repeat through the vertebral
+   column and C1, then through Ribcage with a rib
    and the sternum, then through Appendicular → Left lower limb with a limb bone.
    Inspect both pectoral sides using left Y, then the pelvic hip bone.
    Repeat through the right lower limb and each upper limb.
@@ -153,7 +174,7 @@ It requires the pinned ARM64, IL2CPP, and minimum SDK 32 settings and writes
    once. Confirm one transition per fresh press and no stuck hover material.
 6. Disconnect/reconnect the right controller during G3. Return its stick and
    A/B to neutral, then verify controls resume. Leave G3 and confirm the prior
-   locomotion/manipulation bindings work again. Repeat with all 178 entries.
+   locomotion/manipulation bindings work again. Repeat with all 207 entries.
 
 ## Content references
 
@@ -174,6 +195,31 @@ level and the model's anatomical fidelity before classroom use.
 - [OpenStax, Anatomy and Physiology 2e, The Pelvic Girdle and Pelvis](https://openstax.org/books/anatomy-and-physiology-2e/pages/8-3-the-pelvic-girdle-and-pelvis): hip bone and pelvic context.
 
 ## Verification record
+
+On 2026-10-01, the appendicular division's transition was connected to
+navigation and given a runtime fallback to its sibling `DivisionSelection`.
+The previous null-reference state failed the real XRI callback test at G0→G1;
+the saved scene and the fallback against that old scene each passed **10,535
+assertions across 207 G3 entries**. A fresh Android development APK built with
+zero errors at `Builds/Anatomy-G3-navigation-fix.apk`. Physical Quest
+interaction with this APK remains unverified. The full diagnosis and repair
+procedure are in [`KNOWN_ISSUES.md`](KNOWN_ISSUES.md).
+
+On 2026-10-01, the new `G2_skull` model was connected to the G1 skull group.
+The 29 named bone meshes have serialized G3 selection targets; the two teeth
+meshes remain context. The G1 skull group has 30 authored collider targets,
+and both Meta Quest build profiles prebake collision meshes. Unity 6000.3.2f1
+Play Mode passed **10,376 assertions across 207 G3 entries**, including the
+skull's G1 raycast, hover, selection, G3 display, and Back path. Physical Quest
+interaction remains to be checked. The ARM64 IL2CPP Android development build
+completed with zero errors and produced `Builds/Anatomy-G3-skull-Quest.apk`.
+
+On 2026-10-01, Quest testing found that controller rays passed through the
+ribcage and appendicular G1 groups. Their collider targets were being created
+at runtime from non-readable imported meshes. The scene now stores 140 G1 ray
+targets, and Quest build settings prebake collision meshes. Unity 6000.3.2f1
+Play Mode passed **9,947 assertions across 178 G3 entries**, including physics
+raycasts for the G1 groups. The rebuilt APK still needs a headset check.
 
 On 2026-10-01, the anatomy Canvas grab component moved to a parent station
 and left X gained a Back binding. Unity 6000.3.2f1 Play Mode passed **9,783

@@ -123,6 +123,9 @@ public static class AnatomyValidation
         Require(nav.Level == AnatomyLevel.Whole && nav.HistoryCount == 0, "Initial view must be G0.");
         Require(nav.Bones.Length == SessionState.GetInt(CountKey, 26), "Unexpected bone coverage.");
         Require(nav.Bones.Select(b => b.name).Distinct().Count() == nav.Bones.Length, "Duplicate bone bindings.");
+        Require(nav.SkullBones != null && nav.SkullBones.Length == 29 &&
+                nav.SkullBones.Select(b => b.name).Distinct().Count() == 29,
+            "Expected 29 distinct selectable skull bones.");
         Require(nav.RibBones.Length == 25, "Expected 24 selectable ribs and the sternum.");
         Require(nav.RibBones.Select(b => b.name).Distinct().Count() == 25, "Duplicate rib bindings.");
         Require(nav.LeftLowerLimbBones.Length == 30, "Expected 30 selectable left lower-limb bones.");
@@ -140,6 +143,7 @@ public static class AnatomyValidation
         Require(nav.LeftUpperLimbBones.Select(b => b.name).Distinct().Count() == 30 &&
                 nav.RightUpperLimbBones.Select(b => b.name).Distinct().Count() == 30,
             "Duplicate upper-limb bindings.");
+        Require(PlayerSettings.bakeCollisionMeshes, "Quest build must prebake collision meshes.");
         var overview = nav.CurrentView;
         foreach (var divisionView in new[] {
             AnatomySceneSetup.Reference<GameObject>(nav, "axialView"),
@@ -153,11 +157,28 @@ public static class AnatomyValidation
                     $"Missing navigation title: {transition.name}.");
                 Require(!string.IsNullOrWhiteSpace(new SerializedObject(transition).FindProperty("nextDescription").stringValue),
                     $"Missing navigation description: {transition.name}.");
+                Require(!new SerializedObject(transition).FindProperty("autoCreateMeshTargets").boolValue,
+                    $"G1 group {transition.name} still creates ray colliders at runtime.");
+                if (transition.NextView == AnatomySceneSetup.Reference<GameObject>(nav, "vertebralView")) continue;
+                Transform root = AnatomySceneSetup.Reference<Transform>(transition, "interactableRoot") ?? transition.transform;
+                var meshes = root.GetComponentsInChildren<MeshFilter>(true)
+                    .Where(filter => filter.sharedMesh != null && filter.GetComponent<Renderer>() != null).ToArray();
+                Require(meshes.Length > 0, $"G1 group {transition.name} has no visible ray targets.");
+                foreach (var mesh in meshes)
+                {
+                    var collider = mesh.GetComponent<Collider>();
+                    var target = mesh.GetComponent<XRBaseInteractable>();
+                    Require(collider != null && collider.enabled && target != null && target.enabled &&
+                            target.colliders.Contains(collider),
+                        $"G1 group {transition.name} has an unbaked ray target: {mesh.name}.");
+                }
             }
         }
         var axialDivision = AnatomySceneSetup.Reference<GameObject>(nav, "axialDivisionRoot");
         var appendicular = AnatomySceneSetup.Reference<GameObject>(nav, "appendicularDivisionRoot");
         var group = AnatomySceneSetup.Reference<GameObject>(nav, "vertebralView");
+        var skullView = AnatomySceneSetup.Reference<GameObject>(nav, "skullView");
+        Require(skullView != null && !skullView.activeSelf, "Skull G2 view must start hidden.");
         var ribView = AnatomySceneSetup.Reference<GameObject>(nav, "ribView");
         Require(ribView != null, "Ribcage G3 view is not assigned.");
         var leftLowerLimbView = AnatomySceneSetup.Reference<GameObject>(nav, "leftLowerLimbView");
@@ -183,7 +204,7 @@ public static class AnatomyValidation
         ray1.transform.position = ray2.transform.position = Vector3.one * 1000;
         ray1.interactionManager = ray2.interactionManager = manager;
         foreach (var root in new[] { overview, AnatomySceneSetup.Reference<GameObject>(nav, "axialView"),
-                     AnatomySceneSetup.Reference<GameObject>(nav, "appendicularView"), group, ribView,
+                     AnatomySceneSetup.Reference<GameObject>(nav, "appendicularView"), group, skullView, ribView,
                      leftLowerLimbView, rightPectoralView, leftPectoralView, pelvicView,
                      rightLowerLimbView, leftUpperLimbView, rightUpperLimbView })
         {
@@ -287,6 +308,73 @@ public static class AnatomyValidation
         nav.GoBack();
         Require(nav.Level == AnatomyLevel.Division, "G2 Back must restore G1.");
         yield return null; yield return null;
+        var skullTransition = nav.CurrentView.GetComponentsInChildren<ViewTransitionOnSelect>(true)
+            .Single(t => t.NextView == skullView);
+        Require(skullTransition.name == "Skull", "Skull transition is not on the G1 skull group.");
+        var skullTargets = skullTransition.GetComponentsInChildren<XRSimpleInteractable>(true)
+            .Where(i => i.enabled).ToArray();
+        Require(skullTargets.Length == 30 && skullTargets.Any(i =>
+                i.colliders.Any(CanRaycastCollider)),
+            "G1 skull lacks its authored Quest ray targets.");
+        manager.SelectEnter((IXRSelectInteractor)ray1, (IXRSelectInteractable)skullTargets[0]);
+        Require(nav.Level == AnatomyLevel.Group && nav.CurrentView == skullView &&
+                skullView.activeSelf && nav.HistoryCount == 2,
+            "G1 skull selection did not open G2.");
+        yield return null; yield return null;
+        Require(skullView.GetComponentsInChildren<BoneSelection>(true).Length == 29 &&
+                skullView.GetComponentsInChildren<MeshFilter>(true).Length == 31 &&
+                skullView.GetComponentsInChildren<MeshFilter>(true).Count(m =>
+                    m.name.StartsWith("Context -")) == 2,
+            "Skull bone selection or teeth context is incomplete.");
+        foreach (BoneSelection bone in nav.SkullBones)
+        {
+            Require(bone.Info != null && !string.IsNullOrWhiteSpace(bone.Info.PartDescription),
+                $"Missing skull information: {bone.name}");
+            var interactable = bone.GetComponent<XRSimpleInteractable>();
+            var collider = bone.GetComponent<MeshCollider>();
+            var renderer = bone.Renderers[0];
+            var original = renderer.sharedMaterials;
+            Require(interactable.enabled && collider.enabled && collider.sharedMesh != null &&
+                    interactable.colliders.Contains(collider),
+                $"Skull bone lacks an authored ray target: {bone.name}");
+            Require(AssetDatabase.GetAssetPath(collider.sharedMesh) == SkullRayTargetOptimization.ColliderModelPath &&
+                    collider.sharedMesh != bone.GetComponent<MeshFilter>().sharedMesh &&
+                    CanRaycastCollider(collider),
+                $"Skull bone does not use a hittable low-detail ray collider: {bone.name}");
+            manager.HoverEnter((IXRHoverInteractor)ray1, (IXRHoverInteractable)interactable);
+            Require(renderer.sharedMaterials[0] != original[0] &&
+                    description.text.Contains("Pointing at: " + bone.Info.PartName),
+                $"Skull hover did not highlight and preview {bone.name}");
+            manager.HoverExit((IXRHoverInteractor)ray1, (IXRHoverInteractable)interactable);
+            Require(renderer.sharedMaterials.SequenceEqual(original),
+                $"Skull hover material leaked: {bone.name}");
+            manager.SelectEnter((IXRSelectInteractor)ray1, (IXRSelectInteractable)interactable);
+            Require(nav.Level == AnatomyLevel.Bone && nav.SelectedBone == bone &&
+                    !skullView.activeSelf && nav.HistoryCount == 3,
+                $"Skull selection did not enter G3: {bone.name}");
+            Require(title.text == bone.Info.PartName && description.text.Contains("Axial → Skull"),
+                $"Skull G3 information is missing: {bone.name}");
+            description.ForceMeshUpdate(true, true);
+            Require(description.preferredHeight <= description.rectTransform.rect.height + 1,
+                $"Skull information overflows the panel: {bone.name}");
+            var isolated = nav.InspectionDisplay.BoneVisual;
+            var reference = nav.InspectionDisplay.ReferenceVisual;
+            Require(isolated.GetComponentsInChildren<MeshFilter>().Length == 1 &&
+                    reference.GetComponentsInChildren<MeshFilter>().Length == 31 &&
+                    isolated.GetComponentsInChildren<Collider>().Length == 0 &&
+                    reference.GetComponentsInChildren<Collider>().Length == 0,
+                $"Skull inspection geometry is incomplete: {bone.name}");
+            yield return null; yield return null;
+            back.onClick.Invoke();
+            Require(nav.Level == AnatomyLevel.Group && nav.CurrentView == skullView &&
+                    skullView.activeSelf && nav.SelectedBone == null,
+                $"Skull G3 Back did not restore G2: {bone.name}");
+            yield return null; yield return null;
+        }
+        nav.GoBack();
+        Require(nav.Level == AnatomyLevel.Division && !skullView.activeSelf,
+            "Skull G2 Back did not restore axial G1.");
+        yield return null; yield return null;
         var ribcageTransition = nav.CurrentView.GetComponentsInChildren<ViewTransitionOnSelect>(true)
             .Single(t => t.name == "Ribcage");
         var ribsView = AnatomySceneSetup.Reference<GameObject>(ribcageTransition, "nextView");
@@ -366,7 +454,15 @@ public static class AnatomyValidation
         nav.GoBack();
         Require(nav.Level == AnatomyLevel.Whole && overview.activeSelf && axialDivision.activeSelf && appendicular.activeSelf, "G1 Back must restore G0.");
         yield return null; yield return null;
-        Require(nav.SelectDivision(appendicular, "Appendicular", "Appendicular overview."), "Appendicular selection regressed.");
+        var appendicularTransition = appendicular.GetComponent<ViewTransitionOnSelect>();
+        Require(appendicularTransition != null &&
+                AnatomySceneSetup.Reference<AnatomyNavigationController>(appendicularTransition, "navigation") == nav,
+            "Appendicular division transition is not connected to navigation.");
+        var appendicularTarget = appendicular.GetComponentsInChildren<XRSimpleInteractable>()
+            .First(i => i.enabled);
+        manager.SelectEnter((IXRSelectInteractor)ray1, (IXRSelectInteractable)appendicularTarget);
+        Require(nav.Level == AnatomyLevel.Division && nav.HistoryCount == 1,
+            "Appendicular division callbacks did not enter G1.");
         var appendicularView = AnatomySceneSetup.Reference<GameObject>(nav, "appendicularView");
         Require(!axialDivision.activeSelf && nav.CurrentView == appendicularView && appendicularView.activeSelf,
             "Appendicular isolation regressed.");
@@ -381,6 +477,11 @@ public static class AnatomyValidation
                 leftLowerLimbView.activeSelf && nav.HistoryCount == 2,
             "Left lower-limb selection did not open its G2 view.");
         yield return null; yield return null;
+        Require(!ray1.hasSelection,
+            "The G1 target kept the controller ray selected after opening appendicular G2.");
+        Require(manager.IsSelectPossible((IXRSelectInteractor)ray1,
+                (IXRSelectInteractable)nav.LeftLowerLimbBones[0].GetComponent<XRSimpleInteractable>()),
+            "The selecting ray cannot select a G2 bone after leaving the G1 target.");
         Require(leftLowerLimbView.GetComponentsInChildren<BoneSelection>(true).Length == 30,
             "Left lower-limb selection components are incomplete.");
         leftLowerLimbView.transform.Rotate(Vector3.up, 29, Space.World);
@@ -406,6 +507,8 @@ public static class AnatomyValidation
             manager.HoverExit((IXRHoverInteractor)ray2, (IXRHoverInteractable)interactable);
             Require(renderer.sharedMaterials.SequenceEqual(original),
                 "Lower-limb hover material was not restored.");
+            Require(manager.IsSelectPossible((IXRSelectInteractor)ray2, (IXRSelectInteractable)interactable),
+                $"Lower-limb bone is highlighted but blocked from selection: {bone.name}");
             manager.SelectEnter((IXRSelectInteractor)ray1, (IXRSelectInteractable)interactable);
             Require(nav.Level == AnatomyLevel.Bone && nav.SelectedBone == bone &&
                     !leftLowerLimbView.activeSelf && nav.HistoryCount == 3,
@@ -639,6 +742,8 @@ public static class AnatomyValidation
             Require(renderer.sharedMaterials[0] != original[0], "One ray cleared the other girdle hover.");
             manager.HoverExit((IXRHoverInteractor)ray2, (IXRHoverInteractable)interactable);
             Require(renderer.sharedMaterials.SequenceEqual(original), "Girdle hover material was not restored.");
+            Require(manager.IsSelectPossible((IXRSelectInteractor)ray2, (IXRSelectInteractable)interactable),
+                $"Appendicular bone is highlighted but blocked from selection: {bone.name}");
             manager.SelectEnter((IXRSelectInteractor)ray1, (IXRSelectInteractable)interactable);
             Require(nav.Level == AnatomyLevel.Bone && nav.SelectedBone == bone &&
                     !view.activeSelf && nav.HistoryCount == 3,
@@ -685,6 +790,7 @@ public static class AnatomyValidation
     private static void CheckGroupHighlights(GameObject axial, XRInteractionManager manager,
         XRRayInteractor ray1, XRRayInteractor ray2)
     {
+        Physics.SyncTransforms();
         var groups = axial.GetComponentsInChildren<BoneGroupHoverHighlighter>(true)
             .Where(highlighter => highlighter.enabled)
             .Select(highlighter => highlighter.gameObject).ToArray();
@@ -696,6 +802,11 @@ public static class AnatomyValidation
             Require(highlighter != null && highlighter.enabled, $"Missing G2 highlighter: {group.name}");
             var target = group.GetComponentsInChildren<XRSimpleInteractable>(true).FirstOrDefault(i => i.enabled);
             Require(target != null, $"G2 group has no hover target: {group.name}");
+            Require(group.GetComponentsInChildren<XRBaseInteractable>(true)
+                    .Where(interactable => interactable.enabled)
+                    .SelectMany(interactable => interactable.colliders)
+                    .Any(CanRaycastCollider),
+                $"A physical ray cannot hit G1 group {group.name}.");
             var groupRenderers = group.GetComponentsInChildren<Renderer>(true);
             Require(groupRenderers.Length > 0, $"G2 group has no renderers: {group.name}");
             var originals = groupRenderers.Select(renderer => renderer.sharedMaterials).ToArray();
@@ -718,6 +829,30 @@ public static class AnatomyValidation
                 Require(groupRenderers[i].sharedMaterials.SequenceEqual(originals[i]),
                     $"Last hover did not restore {group.name} materials.");
         }
+    }
+
+    private static bool CanRaycastCollider(Collider collider)
+    {
+        if (collider == null || !collider.enabled || !collider.gameObject.activeInHierarchy) return false;
+        Bounds bounds = collider.bounds;
+        foreach (Vector3 axis in new[] { Vector3.right, Vector3.up, Vector3.forward })
+        {
+            float distance = Vector3.Dot(bounds.extents, new Vector3(Mathf.Abs(axis.x),
+                Mathf.Abs(axis.y), Mathf.Abs(axis.z))) + 1f;
+            int axisIndex = axis.x > 0 ? 0 : axis.y > 0 ? 1 : 2;
+            int first = (axisIndex + 1) % 3;
+            int second = (axisIndex + 2) % 3;
+            for (int u = -1; u <= 1; u++)
+                for (int v = -1; v <= 1; v++)
+                {
+                    Vector3 origin = bounds.center + axis * distance;
+                    origin[first] += u * bounds.extents[first] * 0.6f;
+                    origin[second] += v * bounds.extents[second] * 0.6f;
+                    if (collider.Raycast(new Ray(origin, -axis), out _, distance * 2f))
+                        return true;
+                }
+        }
+        return false;
     }
 
     private static void CheckInputReservation()
@@ -792,6 +927,7 @@ public static class AnatomyValidation
         public int assertions;
         public int bones;
         public int vertebralBones;
+        public int skullBones;
         public int ribcageBones;
         public int leftLowerLimbBones;
         public int pectoralBones;
@@ -807,7 +943,8 @@ public static class AnatomyValidation
         Directory.CreateDirectory("Logs");
         int vertebralCount = SessionState.GetInt(CountKey, 0);
         var report = new Report { passed = error == null, assertions = assertions,
-            bones = vertebralCount + 25 + 30 + 4 + 1 + 32 + 60, vertebralBones = vertebralCount,
+            bones = vertebralCount + 29 + 25 + 30 + 4 + 1 + 32 + 60,
+            vertebralBones = vertebralCount, skullBones = 29,
             ribcageBones = 25, leftLowerLimbBones = 30, pectoralBones = 4, pelvicBones = 1,
             rightLowerLimbBones = 32, upperLimbBones = 60,
             error = error };

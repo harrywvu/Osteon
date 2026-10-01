@@ -41,6 +41,79 @@ public static class AnatomySceneSetup
         Debug.Log("Ribcage G3 configured with 24 ribs and the sternum.");
     }
 
+    [MenuItem("Anatomy/Configure skull inspection")]
+    public static void ConfigureSkullInspection()
+    {
+        if (EditorApplication.isPlaying) throw new InvalidOperationException("Leave Play Mode before configuring anatomy.");
+        if (SceneManager.GetActiveScene().isDirty)
+            throw new InvalidOperationException("Save your scene changes before configuring anatomy.");
+        Scene scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+        var objects = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<Transform>(true))
+            .Select(t => t.gameObject).ToArray();
+        var navigation = objects.Select(o => o.GetComponent<AnatomyNavigationController>()).Single(c => c != null);
+        var axial = Reference<GameObject>(navigation, "axialView");
+        GameObject skullView = Named(objects, "G2_skull");
+        Material highlight = AssetDatabase.LoadAssetAtPath<Material>("Assets/HighlightMst.mat");
+        if (highlight == null) throw new InvalidOperationException("Highlight material was not imported.");
+        ConfigureSkull(navigation, axial, skullView, highlight);
+        AssignOwnedColliders(axial, skullView);
+        skullView.SetActive(false);
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+        AssetDatabase.SaveAssets();
+        Debug.Log("Skull G1-to-G3 configured with 29 selectable bones and authored Quest ray targets.");
+    }
+
+    private static void ConfigureSkull(AnatomyNavigationController navigation,
+        GameObject axial, GameObject skullView, Material highlight)
+    {
+        Transform skullGroup = axial.GetComponentsInChildren<Transform>(true)
+            .Single(t => t.name == "Skull" && t.GetComponentsInChildren<MeshFilter>(true).Length > 0);
+        var transition = Add<ViewTransitionOnSelect>(skullGroup.gameObject);
+        Set(transition, "navigation", navigation);
+        Set(transition, "interactableRoot", skullGroup);
+        SetText(transition, "nextTitle", "Skull");
+        SetText(transition, "nextDescription",
+            "The skull protects the brain and forms the framework of the face. Point at a named bone to inspect it.");
+        Set(transition, "currentView", axial);
+        Set(transition, "nextView", skullView);
+        Set(transition, "highlightMaterial", highlight);
+        var settings = new SerializedObject(transition);
+        settings.FindProperty("autoCreateMeshTargets").boolValue = true;
+        settings.ApplyModifiedPropertiesWithoutUndo();
+        BakeGroupRayTargets(navigation, axial);
+
+        var entries = SkullBoneCatalog.All().ToArray();
+        var meshes = skullView.GetComponentsInChildren<MeshFilter>(true);
+        var rayMeshes = SkullRayTargetOptimization.LoadMeshes();
+        var selections = new BoneSelection[entries.Length];
+        for (int i = 0; i < entries.Length; i++)
+        {
+            var entry = entries[i];
+            var mesh = meshes.Single(m => m.name == entry.meshName);
+            var renderer = mesh.GetComponent<MeshRenderer>();
+            if (mesh.sharedMesh == null || renderer == null)
+                throw new InvalidOperationException($"Missing rendered skull mesh: {entry.meshName}");
+            var info = Add<BonePartInfo>(mesh.gameObject);
+            SetText(info, "partName", entry.title);
+            SetText(info, "partDescription", entry.description);
+            var collider = Add<MeshCollider>(mesh.gameObject);
+            collider.sharedMesh = rayMeshes[entry.meshName];
+            collider.convex = false;
+            var interactable = Add<XRSimpleInteractable>(mesh.gameObject);
+            interactable.colliders.Clear();
+            interactable.colliders.Add(collider);
+            interactable.selectMode = InteractableSelectMode.Single;
+            var selection = Add<BoneSelection>(mesh.gameObject);
+            Set(selection, "navigation", navigation);
+            Set(selection, "highlightMaterial", highlight);
+            SetArray(selection, "boneRenderers", new UnityEngine.Object[] { renderer });
+            selections[i] = selection;
+        }
+        Set(navigation, "skullView", skullView);
+        SetArray(navigation, "skullBones", selections);
+    }
+
     [MenuItem("Anatomy/Configure left lower limb inspection")]
     public static void ConfigureLeftLowerLimbInspection()
     {
@@ -125,6 +198,86 @@ public static class AnatomySceneSetup
         EditorSceneManager.SaveScene(scene);
         AssetDatabase.SaveAssets();
         Debug.Log("G3 inspection moved to the requested X/Z and anatomy panel movement configured.");
+    }
+
+    [MenuItem("Anatomy/Bake G1 group ray targets for Quest")]
+    public static void BakeG1GroupRayTargetsForQuest()
+    {
+        if (EditorApplication.isPlaying) throw new InvalidOperationException("Leave Play Mode before configuring anatomy.");
+        if (SceneManager.GetActiveScene().isDirty)
+            throw new InvalidOperationException("Save your scene changes before configuring anatomy.");
+        Scene scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+        var objects = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<Transform>(true))
+            .Select(t => t.gameObject).ToArray();
+        var navigation = objects.Select(o => o.GetComponent<AnatomyNavigationController>()).Single(c => c != null);
+        var axial = Reference<GameObject>(navigation, "axialView");
+        var appendicular = Reference<GameObject>(navigation, "appendicularView");
+        int targets = BakeGroupRayTargets(navigation, axial, appendicular);
+        AssignOwnedColliders(axial, appendicular);
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+        AssetDatabase.SaveAssets();
+        Debug.Log($"Baked {targets} G1 mesh ray targets into the scene for Quest builds.");
+    }
+
+    private static int BakeGroupRayTargets(AnatomyNavigationController navigation,
+        params GameObject[] divisionViews)
+    {
+        int targets = 0;
+        foreach (GameObject division in divisionViews)
+        {
+            if (division == null) throw new InvalidOperationException("A G1 division view is missing.");
+            foreach (var transition in division.GetComponentsInChildren<ViewTransitionOnSelect>(true))
+            {
+                if (transition.NextView == null || transition.GetComponent<DivisionSelection>() != null) continue;
+                var settings = new SerializedObject(transition);
+                if (!settings.FindProperty("autoCreateMeshTargets").boolValue) continue;
+                Transform root = Reference<Transform>(transition, "interactableRoot") ?? transition.transform;
+                int groupTargets = 0;
+                foreach (var filter in root.GetComponentsInChildren<MeshFilter>(true))
+                {
+                    if (filter.sharedMesh == null || filter.GetComponent<Renderer>() == null) continue;
+                    Collider collider = filter.GetComponent<Collider>();
+                    if (collider == null)
+                    {
+                        var meshCollider = filter.gameObject.AddComponent<MeshCollider>();
+                        meshCollider.sharedMesh = filter.sharedMesh;
+                        meshCollider.convex = false;
+                        collider = meshCollider;
+                    }
+                    else if (collider is MeshCollider meshCollider && meshCollider.sharedMesh == null)
+                        meshCollider.sharedMesh = filter.sharedMesh;
+                    var interactable = filter.GetComponent<XRBaseInteractable>();
+                    if (interactable == null) interactable = filter.gameObject.AddComponent<XRSimpleInteractable>();
+                    interactable.colliders.Clear();
+                    interactable.colliders.Add(collider);
+                    interactable.enabled = true;
+                    groupTargets++;
+                }
+                if (groupTargets == 0)
+                    throw new InvalidOperationException($"G1 group {transition.name} has no rendered mesh targets.");
+                var highlighter = Add<BoneGroupHoverHighlighter>(transition.gameObject);
+                Set(highlighter, "highlightMaterial", navigation.GroupHighlightMaterial);
+                settings.FindProperty("autoCreateMeshTargets").boolValue = false;
+                settings.ApplyModifiedPropertiesWithoutUndo();
+                targets += groupTargets;
+            }
+        }
+        return targets;
+    }
+
+    private static void AssignOwnedColliders(params GameObject[] roots)
+    {
+        foreach (GameObject root in roots)
+            if (root != null)
+                foreach (var interactable in root.GetComponentsInChildren<XRBaseInteractable>(true))
+                {
+                    var owned = interactable.GetComponentsInChildren<Collider>(true)
+                        .Where(c => c.GetComponentInParent<XRBaseInteractable>(true) == interactable).ToArray();
+                    interactable.colliders.Clear();
+                    interactable.colliders.AddRange(owned);
+                    interactable.enabled = owned.Length > 0;
+                }
     }
 
     private static void MoveInspectionAnchors(Transform boneAnchor, Transform referenceAnchor)
@@ -212,6 +365,7 @@ public static class AnatomySceneSetup
         GameObject appendicularView = Named(objects, "G1_Skeleton_appendicular", "Skeleton_appendicular");
         GameObject vertebral = Named(objects, "G2_VertebralColumn", "G2_VERTEBRAL COLUMN", "VERTEBRAL COLUMN");
         GameObject ribView = Named(objects, "G2_ribs", "G2_RIBCAGE");
+        GameObject skullView = Named(objects, "G2_skull");
         GameObject leftLowerLimbView = Named(objects, "G2_LeftLowerLimb", "G2_LEFT_LOWER_LIMB");
         GameObject rightPectoralView = Named(objects, "G2_RightPectoralGirdle");
         GameObject leftPectoralView = Named(objects, "G2_LeftPectoralGirdle");
@@ -258,6 +412,7 @@ public static class AnatomySceneSetup
         Set(navigation, "axialView", axial);
         Set(navigation, "appendicularView", appendicularView);
         Set(navigation, "vertebralView", vertebral);
+        Set(navigation, "skullView", skullView);
         Set(navigation, "ribView", ribView);
         Set(navigation, "leftLowerLimbView", leftLowerLimbView);
         Set(navigation, "rightPectoralView", rightPectoralView);
@@ -304,25 +459,19 @@ public static class AnatomySceneSetup
             selections[i] = selection;
         }
         SetArray(navigation, "bones", selections);
+        ConfigureSkull(navigation, axial, skullView, highlight);
         ConfigureRibBones(navigation, ribView, highlight);
         ConfigureLeftLowerLimbBones(navigation, leftLowerLimbView, highlight);
         ConfigureGirdles(navigation, objects, highlight);
         ConfigureRemainingLimbs(navigation, objects, highlight);
+        BakeGroupRayTargets(navigation, axial, appendicularView);
         foreach (var highlighter in vertebral.GetComponentsInChildren<BoneGroupHoverHighlighter>(true))
             highlighter.enabled = false;
         // Empty collider lists make XRI collect descendants, including another interactable's
         // colliders. Assign each collider to its nearest interactable so targeting has one owner.
-        foreach (GameObject root in new[] { overview, axial, appendicularView, vertebral, ribView,
-                     leftLowerLimbView, rightPectoralView, leftPectoralView, pelvicView,
-                     rightLowerLimbView, leftUpperLimbView, rightUpperLimbView })
-            foreach (var interactable in root.GetComponentsInChildren<XRBaseInteractable>(true))
-            {
-                var owned = interactable.GetComponentsInChildren<Collider>(true)
-                    .Where(c => c.GetComponentInParent<XRBaseInteractable>(true) == interactable).ToArray();
-                interactable.colliders.Clear();
-                interactable.colliders.AddRange(owned);
-                interactable.enabled = owned.Length > 0;
-            }
+        AssignOwnedColliders(overview, axial, appendicularView, vertebral, skullView, ribView,
+            leftLowerLimbView, rightPectoralView, leftPectoralView, pelvicView,
+            rightLowerLimbView, leftUpperLimbView, rightUpperLimbView);
 
         Set(board, "navigation", navigation);
         GameObject backObject = Reference<GameObject>(board, "backButton");
@@ -344,6 +493,7 @@ public static class AnatomySceneSetup
         axial.SetActive(false);
         appendicularView.SetActive(false);
         vertebral.SetActive(false);
+        skullView.SetActive(false);
         ribView.SetActive(false);
         leftLowerLimbView.SetActive(false);
         rightPectoralView.SetActive(false);

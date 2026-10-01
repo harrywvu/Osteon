@@ -13,6 +13,7 @@ public class DivisionSelection : MonoBehaviour
 
     private XRBaseInteractable[] childInteractables;
     private bool selected;
+    public AnatomyNavigationController Navigation => navigation;
 
     private void Awake()
     {

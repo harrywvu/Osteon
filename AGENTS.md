@@ -5,13 +5,14 @@
 VR anatomy exploration app for Meta Quest. The current enabled experience uses
 selectable skeleton divisions, an in-world anatomical information panel,
 hover-group highlighting, axial drill-down views, controller-based yaw rotation,
-movable anatomy and quiz panels, and G3 inspection of 178 entries across the vertebral column, ribcage,
+movable anatomy and quiz panels, and G3 inspection of 207 entries across the skull, vertebral column, ribcage,
 both lower limbs, both upper limbs, both pectoral sides, and the pelvic model. See
 `Docs/G3_INSPECTION.md` for controls, setup, and the verification record.
 `Plans and Features/README.md` indexes dated future work. Stationary viewing,
 smooth viewpoint turning, controller grabbing, and further group expansion are planned;
-do not describe them as implemented. The automated G3 APK packaging attempt
-failed after native compilation; see `Docs/KNOWN_ISSUES.md`.
+do not describe them as implemented. The latest G3 Android development APK
+built successfully; physical Quest interaction is still unverified. See
+`Docs/KNOWN_ISSUES.md`.
 
 The conceptual navigation model uses anatomical granularity levels: G0 whole
 skeleton, G1 axial/appendicular division, G2 major bone group, and G3 individual
@@ -48,7 +49,7 @@ verifying it first.
 | `Assets/Scripts/BoneGroupHoverHighlighter.cs` | Applies one highlight material to all renderers in a hovered group | Active |
 | `Assets/Scripts/SkeletonYawRotator.cs` | Rotates the full, axial, vertebral, and ribcage models from the right thumbstick | Active |
 | `Assets/Scripts/AnatomyNavigationController.cs` | Owns view history, Back, G3 selection and controller input | Active |
-| `Assets/Scripts/BoneSelection.cs` | Per-bone selection and hover highlighting | Active on 178 entries across nine group models |
+| `Assets/Scripts/BoneSelection.cs` | Per-bone selection and hover highlighting | Active on 207 entries across ten group models |
 | `Assets/Scripts/BoneInspectionDisplay.cs` | Centered inspection copy and stationary reference column | Active |
 | `Assets/Scripts/PanelMoveHandle.cs` | Adds XR grab bars below the anatomy and quiz panels | Active |
 | `Assets/Scripts/AnatomyInputReservation.cs` | Reserves and restores competing G3 input bindings | Active |
@@ -102,6 +103,15 @@ the previous view. Per-bone grabbing is not a current-scene test. Automated chec
   `com.DefaultCompany.VRTemplate` are still committed defaults.
 - **G3 input:** Keep the anatomy Back button independent of coaching-card
   callbacks. Preserve prior binding overrides when reserving the right stick/A/B.
+- **Division navigation:** On each G0 division root, both `DivisionSelection`
+  and `ViewTransitionOnSelect` must point to the same navigation controller.
+  A missing transition reference can show a view without history, leaving
+  appendicular G3 selection and Back inert. Validate the real XRI callback;
+  see `Docs/KNOWN_ISSUES.md`.
+- **Quest G1 ray targets:** Keep rib and appendicular group colliders authored
+  in the scene, including the skull, and Prebake Collision Meshes enabled for Android. Runtime mesh
+  collider creation from non-readable imports worked in PC Play Mode but did
+  not give controller rays a hit target in the tested Quest build.
 - **Scene authoring:** The Anatomy setup menu saves the active build scene and
   replaces per-bone descriptions from the matching vertebral, rib, lower-limb,
   or girdle catalog; save work first.

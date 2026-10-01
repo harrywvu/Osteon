@@ -15,6 +15,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     [SerializeField] private GameObject axialView;
     [SerializeField] private GameObject appendicularView;
     [SerializeField] private GameObject vertebralView;
+    [SerializeField] private GameObject skullView;
     [SerializeField] private GameObject ribView;
     [SerializeField] private GameObject leftLowerLimbView;
     [SerializeField] private GameObject rightPectoralView;
@@ -28,6 +29,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     [SerializeField] private BoneInspectionDisplay inspectionDisplay;
     [SerializeField] private AnatomyInputReservation inputReservation;
     [SerializeField] private BoneSelection[] bones;
+    [SerializeField] private BoneSelection[] skullBones;
     [SerializeField] private BoneSelection[] ribBones;
     [SerializeField] private BoneSelection[] leftLowerLimbBones;
     [SerializeField] private BoneSelection[] rightPectoralBones;
@@ -47,6 +49,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     private ViewFrame current;
     private BoneSelection previewBone;
     private Quaternion authoredGroupOrientation;
+    private Quaternion authoredSkullOrientation;
     private Quaternion authoredRibOrientation;
     private Quaternion authoredLeftLowerLimbOrientation;
     private Quaternion authoredRightPectoralOrientation;
@@ -78,6 +81,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     public BoneInspectionPose InspectionPose => inspectionPose;
     public BoneInspectionDisplay InspectionDisplay => inspectionDisplay;
     public BoneSelection[] Bones => bones;
+    public BoneSelection[] SkullBones => skullBones;
     public BoneSelection[] RibBones => ribBones;
     public BoneSelection[] LeftLowerLimbBones => leftLowerLimbBones;
     public BoneSelection[] RightPectoralBones => rightPectoralBones;
@@ -150,6 +154,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
             return;
         }
         authoredGroupOrientation = vertebralView.transform.rotation;
+        if (skullView != null) authoredSkullOrientation = skullView.transform.rotation;
         if (ribView != null) authoredRibOrientation = ribView.transform.rotation;
         if (leftLowerLimbView != null)
             authoredLeftLowerLimbOrientation = leftLowerLimbView.transform.rotation;
@@ -353,6 +358,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         yield return axialView;
         yield return appendicularView;
         yield return vertebralView;
+        yield return skullView;
         yield return ribView;
         yield return leftLowerLimbView;
         yield return rightPectoralView;
@@ -367,6 +373,8 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     private IEnumerable<BoneSelection> AllBones()
     {
         foreach (var bone in bones) yield return bone;
+        if (skullBones != null)
+            foreach (var bone in skullBones) yield return bone;
         if (ribBones != null)
             foreach (var bone in ribBones) yield return bone;
         if (leftLowerLimbBones != null)
@@ -390,6 +398,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         if (!CanNavigate || Level != AnatomyLevel.Group || bone == null || bone.Info == null) return false;
         GameObject group = current.root;
         BoneSelection[] entries = group == vertebralView ? bones :
+            group == skullView ? skullBones :
             group == ribView ? ribBones : group == leftLowerLimbView ? leftLowerLimbBones :
             group == rightPectoralView ? rightPectoralBones :
             group == leftPectoralView ? leftPectoralBones : group == pelvicView ? pelvicBones :
@@ -400,6 +409,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
             !bone.transform.IsChildOf(group.transform)) return false;
         ClearHighlights();
         Quaternion orientation = group == vertebralView ? authoredGroupOrientation :
+            group == skullView ? authoredSkullOrientation :
             group == ribView ? authoredRibOrientation :
             group == leftLowerLimbView ? authoredLeftLowerLimbOrientation :
             group == rightPectoralView ? authoredRightPectoralOrientation :
@@ -463,6 +473,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         axialView.SetActive(false);
         if (appendicularView != null) appendicularView.SetActive(false);
         vertebralView.SetActive(false);
+        if (skullView != null) skullView.SetActive(false);
         if (ribView != null) ribView.SetActive(false);
         if (leftLowerLimbView != null) leftLowerLimbView.SetActive(false);
         if (rightPectoralView != null) rightPectoralView.SetActive(false);

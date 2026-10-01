@@ -10,8 +10,8 @@ public static class AnatomyBuild
     {
         if (PlayerSettings.GetScriptingBackend(UnityEditor.Build.NamedBuildTarget.Android) != ScriptingImplementation.IL2CPP ||
             PlayerSettings.Android.targetArchitectures != AndroidArchitecture.ARM64 ||
-            (int)PlayerSettings.Android.minSdkVersion != 32)
-            throw new InvalidOperationException("Quest build requires the committed IL2CPP / ARM64 / minimum SDK 32 configuration.");
+            (int)PlayerSettings.Android.minSdkVersion != 32 || !PlayerSettings.bakeCollisionMeshes)
+            throw new InvalidOperationException("Quest build requires IL2CPP, ARM64, minimum SDK 32, and prebaked collision meshes.");
         Directory.CreateDirectory("Builds");
         BuildReport report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
         {

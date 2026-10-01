@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -18,16 +19,20 @@ public class ViewTransitionOnSelect : MonoBehaviour
     [Tooltip("Optional override for the navigation controller's group highlight material.")]
     [SerializeField] private Material highlightMaterial;
 
-    private XRBaseInteractable[] interactables;
+    private readonly HashSet<XRBaseInteractable> interactables = new HashSet<XRBaseInteractable>();
     private bool hasTransitioned;
 
     public GameObject NextView => nextView;
 
     private void Awake() => Prepare();
 
+    private void OnEnable() => BindInteractables();
+
     public void Prepare(AnatomyNavigationController owner = null)
     {
         if (navigation == null && owner != null) navigation = owner;
+        if (navigation == null && TryGetComponent<DivisionSelection>(out var division))
+            navigation = division.Navigation;
         if (interactableRoot == null) interactableRoot = transform;
 
         if (nextView != null && GetComponent<DivisionSelection>() == null)
@@ -42,13 +47,18 @@ public class ViewTransitionOnSelect : MonoBehaviour
             highlighter.RefreshInteractables();
         }
 
-        if (interactables != null) return;
-        interactables = interactableRoot.GetComponentsInChildren<XRBaseInteractable>(true);
-        if (nextView != null && GetComponent<DivisionSelection>() == null && interactables.Length == 0)
+        BindInteractables();
+    }
+
+    private void BindInteractables()
+    {
+        if (interactableRoot == null) interactableRoot = transform;
+        var currentInteractables = interactableRoot.GetComponentsInChildren<XRBaseInteractable>(true);
+        if (nextView != null && GetComponent<DivisionSelection>() == null && currentInteractables.Length == 0)
             Debug.LogWarning($"Bone group {name} has no ray targets. Add rendered meshes or authored interactables.", this);
 
-        foreach (var interactable in interactables)
-            interactable.selectEntered.AddListener(OnSelected);
+        foreach (var interactable in currentInteractables)
+            if (interactables.Add(interactable)) interactable.selectEntered.AddListener(OnSelected);
     }
 
     private void EnsureMeshTargets()
@@ -74,9 +84,6 @@ public class ViewTransitionOnSelect : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (interactables == null)
-            return;
-
         foreach (var interactable in interactables)
         {
             if (interactable != null)

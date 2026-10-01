@@ -23,8 +23,8 @@ level-of-detail (LOD), graphics-quality, or difficulty setting.
 |---|---|---|---|
 | **G0 — Whole skeleton** | The complete skeleton as the overview/entry view | View the complete structure and select a top-level division | Present through `low-poly-skeleton-prefab.fbx` |
 | **G1 — Skeletal division** | Axial or appendicular skeleton | Select a division to isolate it and show its overview information | Present through the two `DivisionSelection` roots |
-| **G2 — Major bone group** | A major group or region within the selected division—for example skull, vertebral column, thoracic cage, shoulder/upper-limb grouping, lower-limb grouping, or pelvis | Explore the group and select one of its bones | Vertebral column, Ribcage, both lower limbs, both upper limbs, both pectoral sides, and pelvic girdle have G2 views that continue to G3 |
-| **G3 — Individual bone** | One named bone | Select, turn, and tilt an enlarged inspection copy with information and a reference group | Implemented for 178 entries: 26 vertebral, 25 ribcage, 30 left lower-limb, 32 right lower-limb, 60 upper-limb, 4 pectoral, and 1 pelvic |
+| **G2 — Major bone group** | A major group or region within the selected division—for example skull, vertebral column, thoracic cage, shoulder/upper-limb grouping, lower-limb grouping, or pelvis | Explore the group and select one of its bones | Skull, vertebral column, ribcage, both lower limbs, both upper limbs, both pectoral sides, and pelvic girdle have G2 views that continue to G3 |
+| **G3 — Individual bone** | One named bone | Select, turn, and tilt an enlarged inspection copy with information and a reference group | Implemented for 207 entries: 29 skull, 26 vertebral, 25 ribcage, 30 left lower-limb, 32 right lower-limb, 60 upper-limb, 4 pectoral, and 1 pelvic |
 
 The intended navigation direction is `G0 -> G1 -> G2 -> G3` as the user makes
 increasingly specific selections. `AnatomyNavigationController` owns Back
@@ -55,6 +55,8 @@ G0: Full low-poly skeleton
                                    |    -> G2: activate its group view
                                    |         `-> select a named bone
                                    |              -> G3: inspection + reference column
+                                   |-> select Skull -> G2: activate the skull view
+                                   |    `-> select a named bone -> G3: inspection + reference skull
                                    `-> select Ribcage -> G2: activate the ribs view
                                         `-> select a rib or sternum
                                              -> G3: inspection + reference cage
@@ -64,9 +66,11 @@ G0: Full low-poly skeleton
 from child `XRBaseInteractable` components. The enabled scene currently uses
 `XRSimpleInteractable` components rather than `XRGrabInteractable` components.
 
-`ViewTransitionOnSelect` creates mesh ray targets and group highlighting for
-new G1 groups. Navigation discovers each configured G2 view from its transition
-component. See `Docs/ADDING_BONE_GROUPS.md` for the setup steps.
+G1 group mesh ray targets are authored into the scene before Quest builds so
+their colliders can be cooked with the Android player. `ViewTransitionOnSelect`
+registers those targets and group highlighting at runtime. Navigation discovers
+each configured G2 view from its transition component. See
+`Docs/ADDING_BONE_GROUPS.md` for the setup steps.
 
 `AnatomyNavigationController` owns model visibility and history in the enabled
 scene. `InfoBoardController` presents its title, description, breadcrumb, and
@@ -86,7 +90,7 @@ independently. The controller must return to neutral after entry or reconnection
 | Script | Responsibility | Status in current scene |
 |---|---|---|
 | `Assets/Scripts/AnatomyNavigationController.cs` | View history, model visibility, bone selection, information, and G3 controller input | Attached to `AnatomyNavigation` |
-| `Assets/Scripts/BoneSelection.cs` | Per-bone selection and first/last-ray hover highlighting | Attached to 178 entries across nine group models |
+| `Assets/Scripts/BoneSelection.cs` | Per-bone selection and first/last-ray hover highlighting | Attached to 207 entries across ten group models |
 | `Assets/Scripts/BoneInspectionDisplay.cs` | Builds centered visual-only inspection and reference copies | Attached to `AnatomyNavigation` |
 | `Assets/Scripts/AnatomyInputReservation.cs` | Temporarily reserves conflicting right-controller bindings and restores them on exit | Attached to `AnatomyNavigation` |
 | `Assets/Scripts/InfoBoardController.cs` | Information-panel presentation; legacy division behavior when navigation is unassigned | Attached once to `CoachingCardRoot` |
@@ -144,8 +148,8 @@ Controller and hand behavior still require verification on a physical headset.
 ## Practice quiz service
 
 The one-learner practice quiz has a separate client/server path. The current
-Unity scene creates an in-world quiz station beside the anatomy information
-panel; it is not attached to the headset. API Gateway's HTTP API sends the
+Unity scene creates an in-world quiz station on the room's right wall; it is
+not attached to the headset. API Gateway's HTTP API sends the
 client's HTTPS requests to a Python Lambda function. Lambda reads the packaged
 question CSV and ONNX mastery-delta model, then persists the current session
 and mastery in DynamoDB. S3 holds the Lambda deployment ZIP only; it is not in
@@ -159,7 +163,11 @@ demo configuration, model inputs, security boundary, and verification record.
 1. Navigation starts in G0 and installs selection filters on the model interactables.
 2. `DivisionSelection` requests G1; the axial detail model represents axial G1.
 3. A configured group transition requests G2. A division transition
-   does not also advance for the same selection event.
+   does not also advance for the same selection event. On each G0 division
+   root, `DivisionSelection` and `ViewTransitionOnSelect` must reference the
+   same navigation controller; otherwise a legacy direct view switch can
+   bypass history. See the appendicular incident in
+   [`KNOWN_ISSUES.md`](KNOWN_ISSUES.md).
 4. `BoneSelection` highlights a single bone and requests G3. Navigation records
    G2's transform, clears highlighting, hides the group, and presents mesh copies.
 5. G3 reserves conflicting controller bindings while retaining ray/UI selection.
@@ -174,7 +182,7 @@ demo configuration, model inputs, security boundary, and verification record.
 - Complete G2 coverage for all major axial and appendicular bone groups
 - G3 per-bone grab and return-to-origin behavior
 - Socket-based assembly or correctness matching
-- G3 inspection outside the vertebral-column, ribcage, limb, pectoral, and
+- G3 inspection outside the skull, vertebral-column, ribcage, limb, pectoral, and
   pelvic groups
 
 Colored socket materials and older grab scripts remain in the repository, but
