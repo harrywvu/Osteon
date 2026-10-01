@@ -14,6 +14,11 @@ using UnityEngine.XR.Interaction.Toolkit.UI;
 /// </summary>
 public sealed class OsteonQuizDemo : MonoBehaviour
 {
+    // The hospital room's right wall is near X=4.59 at Z=0.9. Leave a small
+    // gap so the world-space UI and its grab handle remain ray-selectable.
+    private static readonly Vector3 QuizWallPosition = new Vector3(4.54f, 1.4f, 0.9f);
+    private static readonly Quaternion QuizWallRotation = Quaternion.Euler(0f, 90f, 0f);
+
     [Serializable] private sealed class Config
     {
         public string baseUrl;
@@ -112,25 +117,11 @@ public sealed class OsteonQuizDemo : MonoBehaviour
 
     private void BuildUi(Camera viewer)
     {
-        // Keep the station beside the existing anatomy information board. It
-        // belongs to the scene, not the HMD, so looking away does not move it.
+        // Start on the room wall, independent of both the anatomy panel and HMD.
+        // The learner can still move the station with its XR grab handle.
         Transform station = new GameObject("Quiz station").transform;
         station.SetParent(transform, false);
-        GameObject anatomyPanel = GameObject.Find("Anatomy information panel");
-        if (anatomyPanel != null)
-        {
-            Transform reference = anatomyPanel.transform;
-            station.SetPositionAndRotation(reference.position + reference.right * 0.95f,
-                reference.rotation);
-        }
-        else
-        {
-            Vector3 forward = Vector3.ProjectOnPlane(viewer.transform.forward, Vector3.up).normalized;
-            if (forward.sqrMagnitude < 0.01f) forward = Vector3.forward;
-            station.SetPositionAndRotation(viewer.transform.position + forward * 1.55f,
-                Quaternion.LookRotation(forward, Vector3.up));
-            Debug.LogWarning("[OsteonQuiz] Anatomy panel not found; using a fixed fallback position.");
-        }
+        station.SetPositionAndRotation(QuizWallPosition, QuizWallRotation);
 
         Canvas launcher = CreateCanvas("Quiz launcher", viewer, station);
         launcherObject = launcher.gameObject;
@@ -178,7 +169,7 @@ public sealed class OsteonQuizDemo : MonoBehaviour
         PanelMoveHandle.Configure(station, panelRect, TMP_Settings.defaultFontAsset,
             new Vector2(0, -520), new Vector2(700, 58));
         panel.SetActive(false);
-        Debug.Log("[OsteonQuiz] Stationary quiz station created beside the anatomy panel.");
+        Debug.Log("[OsteonQuiz] Quiz station created on the right wall.");
         // Show the menu first. The learner explicitly starts or resumes practice.
         Open();
     }

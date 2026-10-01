@@ -184,15 +184,16 @@ saved result, not advance twice. Answering changes the demo learner's stored
 progress, so do not use a shared live session as disposable test data.
 
 In the enabled `CONTROLLERS MIGRATION` scene, `OsteonQuizDemo` creates a
-world-space quiz station beside `Anatomy information panel`. The
+world-space quiz station on the room's right wall. The
 menu initially shows **Start / Resume Practice**. **Stop** returns to the
 menu without erasing saved server progress. **Hide** collapses the menu to a
 small launcher at the station's current position; selecting it reopens the menu.
 The blue Move bar below the quiz panel lets the user grab and reposition the
-station, including its launcher. It does not follow the headset and is not saved as a hand-authored
-scene object. If the anatomy panel cannot be found, it uses a fixed position
-computed once from the camera at startup. The web client is not implemented;
-it needs its own UI, allowed CORS origin, and release-grade authentication.
+station, including its launcher. It does not follow the headset and is not
+saved as a hand-authored scene object. Its initial wall position is configured
+in the Unity script.
+The web client is not implemented; it needs its own UI, allowed CORS origin,
+and release-grade authentication.
 
 ## Verification record and remaining work
 

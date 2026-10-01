@@ -6,9 +6,9 @@ service uses the approved question CSV and exported ONNX model in `assets/`.
 
 ## One-learner Quest presentation
 
-The current Unity scene creates a fixed, world-space quiz station beside the
-anatomy information panel. It stays in the scene when the learner turns their
-head. **Start / Resume Practice** begins or resumes the saved quiz, **Stop**
+The current Unity scene creates a world-space quiz station on the room's right
+wall. It stays in place when the learner turns their head, but can be moved
+with its XR grab bar. **Start / Resume Practice** begins or resumes the saved quiz, **Stop**
 returns to the menu, and **Hide** collapses it to a small **Practice Quiz**
 launcher at that same location. Selecting the launcher reopens the menu. The
 station uses this API to show feedback and mastery in the headset. Physical
