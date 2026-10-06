@@ -1,6 +1,6 @@
 # Known Issues and Project History
 
-> Current-state update: 2026-10-01. Historical entries are retained below so
+> Current-state update: 2026-10-06. Historical entries are retained below so
 > previous recovery work is not lost.
 
 ## Current open issues
@@ -41,6 +41,11 @@
   cleanup candidate after confirming it is not needed.
 - G3 display placement, controller feel/reconnection, targeting, and text
   readability still require physical Quest verification. See `G3_INSPECTION.md`.
+- The lower-limb, upper-limb, and pectoral G2 views previously revolved around
+  offset object origins when turned with the right thumbstick. Their six yaw
+  rotators now use the visible model bounds center. The current-scene Play Mode
+  suite passed 10,559 assertions across 207 entries on 2026-10-06, including
+  90-degree center checks for all six views. Physical Quest confirmation is pending.
 - User review on 2026-09-09 found the expected inspection output but identified
   rough interaction and placement. Stationary use, smooth viewpoint turning,
   and controller grabbing are planned in
@@ -62,7 +67,7 @@
 - Hand-tracking packages/features and controller profiles are enabled together.
   The right-thumbstick rotation script is explicitly controller-based, and the
   end-to-end hand/controller paths have not been verified on current hardware.
-- The full, axial, vertebral, and ribcage views have yaw rotators. G3 uses
+- The full, division, and G2 group views have yaw rotators. G3 uses
   independent turning/tilt on its inspection copy; the reference group stays
   stationary.
 - Batch Play Mode emits an `ArgumentOutOfRangeException` in imported
@@ -124,6 +129,8 @@
 ## Verification still required
 
 - [x] Automated Play Mode G0–G3 flow: 10,535 assertions, all 207 entries on 2026-10-01
+- [x] Automated G2 limb and pectoral rotation-center checks: 10,559-assertion
+      current-scene suite on 2026-10-06
 - [x] Repeat all-bone validation from the restored default branch on 2026-09-24
 - [x] Back callbacks across the implemented model-view transitions
 - [x] Two-ray bone highlighting and material restoration in both G2 views

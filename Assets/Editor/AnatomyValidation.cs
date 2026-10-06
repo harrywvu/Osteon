@@ -193,6 +193,22 @@ public static class AnatomyValidation
         var rightUpperLimbView = AnatomySceneSetup.Reference<GameObject>(nav, "rightUpperLimbView");
         Require(rightLowerLimbView != null && leftUpperLimbView != null && rightUpperLimbView != null,
             "Remaining limb G3 views are not assigned.");
+        foreach (var view in new[] { leftLowerLimbView, rightLowerLimbView,
+                     leftUpperLimbView, rightUpperLimbView, leftPectoralView, rightPectoralView })
+        {
+            var rotator = view.GetComponent<SkeletonYawRotator>();
+            Require(rotator != null, $"G2 view has no yaw rotator: {view.name}.");
+            Vector3 center = WorldModelCenter(view);
+            Vector3 position = view.transform.localPosition;
+            Quaternion rotation = view.transform.localRotation;
+            rotator.RotateYaw(90f);
+            Vector3 rotatedCenter = WorldModelCenter(view);
+            Require(Vector2.Distance(new Vector2(center.x, center.z),
+                    new Vector2(rotatedCenter.x, rotatedCenter.z)) < 0.001f,
+                $"G2 view revolves around an offset pivot: {view.name}.");
+            view.transform.localPosition = position;
+            view.transform.localRotation = rotation;
+        }
         var board = AnatomySceneSetup.Reference<InfoBoardController>(nav, "infoBoard");
         var title = AnatomySceneSetup.Reference<TMPro.TextMeshProUGUI>(board, "titleText");
         var description = AnatomySceneSetup.Reference<TMPro.TextMeshProUGUI>(board, "descriptionText");
@@ -668,6 +684,28 @@ public static class AnatomyValidation
         var reloaded = UnityEngine.Object.FindFirstObjectByType<AnatomyNavigationController>();
         Require(reloaded != null && reloaded.Level == AnatomyLevel.Whole, "Scene reload did not restart at G0.");
         Require(projectErrors.Count == 0, "Project runtime errors: " + string.Join("\n", projectErrors));
+    }
+
+    private static Vector3 WorldModelCenter(GameObject view)
+    {
+        Bounds bounds = default;
+        bool hasBounds = false;
+        foreach (var mesh in view.GetComponentsInChildren<MeshFilter>(true))
+        {
+            if (mesh.sharedMesh == null || mesh.GetComponent<MeshRenderer>() == null) continue;
+            Bounds local = mesh.sharedMesh.bounds;
+            for (int corner = 0; corner < 8; corner++)
+            {
+                Vector3 sign = new Vector3((corner & 1) == 0 ? -1 : 1,
+                    (corner & 2) == 0 ? -1 : 1, (corner & 4) == 0 ? -1 : 1);
+                Vector3 point = mesh.transform.TransformPoint(
+                    local.center + Vector3.Scale(local.extents, sign));
+                if (!hasBounds) { bounds = new Bounds(point, Vector3.zero); hasBounds = true; }
+                else bounds.Encapsulate(point);
+            }
+        }
+        Require(hasBounds, $"G2 view has no rendered geometry: {view.name}.");
+        return bounds.center;
     }
 
     private static void CheckPanelMovementSetup(AnatomyNavigationController nav)

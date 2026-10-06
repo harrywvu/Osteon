@@ -79,8 +79,9 @@ when their serialized navigation reference is assigned; their legacy behavior
 remains available in older scenes.
 
 `SkeletonYawRotator` reads the right XR controller's `primary2DAxis` directly
-through `UnityEngine.XR.InputDevices`. Instances on the full low-poly, axial,
-vertebral, and ribcage roots rotate those views about their model centers. During G3,
+through `UnityEngine.XR.InputDevices`. Instances on the full, division, and G2
+group roots rotate those views. The lower limbs, upper limbs, and pectoral
+girdles use the visible model bounds center as their yaw pivot. During G3,
 those roots are inactive. Separate turning and tilt values rotate only the
 inspection copy; the reference group stays stationary. A and B reset the axes
 independently. The controller must return to neutral after entry or reconnection.
