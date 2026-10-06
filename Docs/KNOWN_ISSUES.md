@@ -41,6 +41,12 @@
   cleanup candidate after confirming it is not needed.
 - G3 display placement, controller feel/reconnection, targeting, and text
   readability still require physical Quest verification. See `G3_INSPECTION.md`.
+- Skull G2 explosion passed the saved-scene Play Mode suite on 2026-10-06
+  (10,571 assertions across 207 entries). The physical Quest pass still needs
+  to check slider dragging, small interior-bone ray targets, spread-view
+  readability, frame rate, and comfort.
+  The updated Android development APK built with zero errors at
+  `Builds/Anatomy-skull-explosion-Quest.apk`; ADB showed no connected device.
 - The lower-limb, upper-limb, and pectoral G2 views previously revolved around
   offset object origins when turned with the right thumbstick. Their six yaw
   rotators now use the visible model bounds center. The current-scene Play Mode

@@ -21,6 +21,9 @@ selectable bones.
 ## Interaction
 
 - In G2, point at a bone to highlight it and preview its name on the information panel.
+- In Skull G2, drag **Spread skull** on the anatomy panel to move all 29 bones
+  outward or return them to their assembled positions. Right-stick sideways
+  turns the skull around its assembled center so interior bones can be targeted.
 - Select using the existing XRI selection binding to open a centered inspection copy.
 - A stationary reference group remains beside the inspected bone and highlights its location.
 - The information panel shows a breadcrumb, name, introductory description, and controls.
@@ -31,6 +34,8 @@ selectable bones.
   panel, then release. The quiz launcher moves with its panel.
 - The panel Back button or left X returns one level: bone → its G2 group → axial or appendicular division → whole skeleton.
   The previous view's position, rotation, and scale are restored.
+  Returning from a skull bone also restores its spread amount; leaving Skull G2
+  and opening it again starts assembled.
   Release X before pressing again. In the XR Device Simulator, select **Left Controller**
   and press **B** for X.
 - In pectoral G2, press left Y to switch between the right and left models without
@@ -45,6 +50,8 @@ selectable bones.
 | Right B button | Reset tilt independently |
 | Panel Back or left X | Return one G level |
 | Left Y in pectoral G2 | Switch between right and left pectoral models |
+| Skull G2 panel slider | Spread or assemble the 29 skull bones |
+| Right thumbstick sideways in Skull G2 | Turn the assembled or spread skull |
 
 Each bone starts in the model's authored anatomical orientation. The controller
 must return to neutral on entry or reconnection before inspection movement starts.
@@ -67,6 +74,12 @@ and a fitted non-convex `MeshCollider`.
 The mesh collider is used for ray selection; these bones have no grab rigidbody.
 The G2 skull uses separate low-detail meshes from `skull_ray_colliders.fbx` for
 its 29 ray colliders. The visible `skull.fbx` remains full detail for G2 and G3.
+`SkullExplosionController` moves each bone object, which keeps its visual mesh,
+authored ray collider, and XRI interactable aligned. Its directions are based on
+the assembled skull with explicit directions for central bones and ear ossicles.
+The two teeth context renderers hide while spread and return when assembled.
+The G3 reference copy uses assembled source positions while the G2 spread amount
+is held for Back navigation.
 If the skull FBX changes, regenerate the collider asset and run
 `Tools/Build-SkullRayColliders.py` with Blender 4.5, then run
 **Anatomy → Optimize skull ray targets** before building.
@@ -108,6 +121,9 @@ Use **Anatomy → Configure skull inspection** to connect the G1 skull group to
 the imported `G2_skull` model and bind its 29 named bones for G3. It authors
 the skull's G1 and G2 collider targets in the scene for Quest builds and
 replaces descriptions from `SkullBoneCatalog` when rerun.
+Use **Anatomy → Configure skull explosion** to bind the 29 existing selections,
+add the centered G2 yaw control, and add the conditional anatomy-panel slider
+without replacing the skull models or colliders.
 
 Use **Anatomy → Configure left lower limb inspection** to rebuild only the 30
 left lower-limb G3 bindings. `LeftLowerLimbBoneCatalog` supplies introductory
@@ -195,6 +211,21 @@ level and the model's anatomical fidelity before classroom use.
 - [OpenStax, Anatomy and Physiology 2e, The Pelvic Girdle and Pelvis](https://openstax.org/books/anatomy-and-physiology-2e/pages/8-3-the-pelvic-girdle-and-pelvis): hip bone and pelvic context.
 
 ## Verification record
+
+On 2026-10-06, Skull G2 gained the Spread skull slider, centered yaw, 29-bone
+outward motion, and exact reassembly. G3 retains the spread setting for Back
+while its reference copy uses assembled positions. The saved enabled scene
+passed **10,571 Play Mode assertions across all 207 G3 entries** in an isolated
+Unity 6000.3.2f1 project copy. The added checks exercised the slider callback,
+all 29 bone movements, slider sizing, teeth context visibility, a spread interior-bone ray
+target and selection, assembled G3 reference pose, Back restoration, and full
+reassembly on exit. Physical Quest targeting, UI dragging, performance, and
+comfort remain unverified.
+The ARM64 IL2CPP Android development build completed with zero errors and
+produced `Builds/Anatomy-skull-explosion-Quest.apk` (SHA-256
+`F3178079BBBB2816C3E72AF4E10DB553A00113C876F0390CA9AE47D5E270B673`).
+ADB showed no connected Quest, so installation and headset interaction were
+not checked in this run.
 
 On 2026-10-01, the appendicular division's transition was connected to
 navigation and given a runtime fallback to its sibling `DivisionSelection`.

@@ -12,6 +12,9 @@
 > collider raycasts passed 9,947 assertions across 178 entries on 2026-10-01.
 > The appendicular callback repair passed 10,535 assertions across all 207
 > entries; a new Android development APK built with zero errors on 2026-10-01.
+> Skull explosion passed 10,571 saved-scene Play Mode assertions across all
+> 207 entries on 2026-10-06. Its Android development APK built with zero
+> errors; physical Quest interaction is pending.
 
 ## 1. Install the required tools
 
@@ -107,6 +110,9 @@ both lower limbs, both upper limbs, both pectoral sides, and the pelvic hip bone
       pectoral bone, or pelvic hip bone highlights only that
       bone and previews its name. Selecting opens an enlarged bone and a
       stationary reference group.
+- [ ] **Skull G2:** Drag Spread skull from assembled to full spread, turn with
+      right stick, and select an interior bone. Back restores the spread amount;
+      leaving Skull and opening it again starts assembled.
 - [ ] **G3:** Right-stick sideways turns the bone; up/down tilts it. A resets
       turning without changing tilt, and B resets tilt without changing turning.
 - [ ] **G3:** The name, breadcrumb, introductory description, and controls are readable.

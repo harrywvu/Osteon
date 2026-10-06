@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit.Filtering;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.UI;
 
 public enum AnatomyLevel { Whole, Division, Group, Bone }
 
@@ -30,6 +31,8 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     [SerializeField] private AnatomyInputReservation inputReservation;
     [SerializeField] private BoneSelection[] bones;
     [SerializeField] private BoneSelection[] skullBones;
+    [SerializeField] private SkullExplosionController skullExplosion;
+    [SerializeField] private Slider skullSpreadSlider;
     [SerializeField] private BoneSelection[] ribBones;
     [SerializeField] private BoneSelection[] leftLowerLimbBones;
     [SerializeField] private BoneSelection[] rightPectoralBones;
@@ -82,6 +85,8 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     public BoneInspectionDisplay InspectionDisplay => inspectionDisplay;
     public BoneSelection[] Bones => bones;
     public BoneSelection[] SkullBones => skullBones;
+    public SkullExplosionController SkullExplosion => skullExplosion;
+    public Slider SkullSpreadSlider => skullSpreadSlider;
     public BoneSelection[] RibBones => ribBones;
     public BoneSelection[] LeftLowerLimbBones => leftLowerLimbBones;
     public BoneSelection[] RightPectoralBones => rightPectoralBones;
@@ -286,6 +291,13 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         return true;
     }
 
+    public void SetSkullSpread(float value)
+    {
+        if (!initialized || Level != AnatomyLevel.Group || current.root != skullView ||
+            skullExplosion == null) return;
+        skullExplosion.SetSpread(value);
+    }
+
     private static bool IsControllerPressed(XRNode hand)
     {
         var device = InputDevices.GetDeviceAtXRNode(hand);
@@ -418,7 +430,9 @@ public sealed class AnatomyNavigationController : MonoBehaviour
             group == rightLowerLimbView ? authoredRightLowerLimbOrientation :
             group == leftUpperLimbView ? authoredLeftUpperLimbOrientation :
             authoredRightUpperLimbOrientation;
-        try { inspectionDisplay.Show(bone, group.transform, orientation); }
+        SkullExplosionController reference = group == skullView ? skullExplosion : null;
+        if (reference != null) reference.CompleteTransition();
+        try { inspectionDisplay.Show(bone, group.transform, orientation, reference); }
         catch (System.Exception error)
         {
             Debug.LogError($"Unable to inspect {bone.name}: {error.Message}", bone);
@@ -468,6 +482,8 @@ public sealed class AnatomyNavigationController : MonoBehaviour
 
     private void ShowFrame(ViewFrame frame)
     {
+        if (skullExplosion != null && frame.root != skullView && frame.level != AnatomyLevel.Bone)
+            skullExplosion.ResetImmediate();
         ClearHighlights();
         overviewRoot.SetActive(false);
         axialView.SetActive(false);
@@ -533,6 +549,14 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     private void Present()
     {
         if (current == null || infoBoard == null) return;
+        if (skullSpreadSlider != null)
+        {
+            bool showSpread = Level == AnatomyLevel.Group && current.root == skullView;
+            if (skullSpreadSlider.transform.parent.gameObject.activeSelf != showSpread)
+                skullSpreadSlider.transform.parent.gameObject.SetActive(showSpread);
+            if (showSpread && skullExplosion != null)
+                skullSpreadSlider.SetValueWithoutNotify(skullExplosion.Spread);
+        }
         string body = current.description;
         if (!string.IsNullOrEmpty(current.breadcrumb)) body = current.breadcrumb + "\n\n" + body;
         if (previewBone != null && previewBone.Info != null)

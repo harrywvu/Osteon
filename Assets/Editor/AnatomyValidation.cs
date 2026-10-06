@@ -342,6 +342,59 @@ public static class AnatomyValidation
                 skullView.GetComponentsInChildren<MeshFilter>(true).Count(m =>
                     m.name.StartsWith("Context -")) == 2,
             "Skull bone selection or teeth context is incomplete.");
+        var explosion = nav.SkullExplosion;
+        var spreadSlider = nav.SkullSpreadSlider;
+        Require(explosion != null && explosion.BoneCount == 29 &&
+                spreadSlider != null && spreadSlider.transform.parent.gameObject.activeSelf,
+            "Skull spread control is not configured or visible in G2.");
+        Require(Mathf.Abs(spreadSlider.fillRect.rect.height - 12f) < 1f &&
+                Mathf.Abs(spreadSlider.handleRect.rect.height - 38f) < 1f,
+            "Skull slider fill or handle is stretched beyond its intended height.");
+        Vector3 assembledCenter = BoneInspectionDisplay.LocalBounds(skullView.transform).center;
+        Vector3 pivot = skullView.transform.TransformPoint(assembledCenter);
+        Vector3[] assembled = nav.SkullBones.Select(b => b.transform.localPosition).ToArray();
+        spreadSlider.value = 1f;
+        explosion.CompleteTransition();
+        Require(Mathf.Approximately(explosion.Spread, 1f) &&
+                nav.SkullBones.Select((b, i) => Vector3.Distance(b.transform.localPosition, assembled[i]))
+                    .All(distance => distance > 0.0001f),
+            "The slider did not move all 29 skull bones.");
+        var teeth = skullView.GetComponentsInChildren<Renderer>(true)
+            .Where(r => r.name.StartsWith("Context -")).ToArray();
+        Require(teeth.Length == 2 && teeth.All(r => !r.enabled),
+            "Nonselectable skull teeth should hide during explosion.");
+        var skullYaw = skullView.GetComponent<SkeletonYawRotator>();
+        Require(skullYaw != null, "The skull has no centered yaw control.");
+        skullYaw.RotateYaw(90f);
+        Require(Vector3.Distance(skullView.transform.TransformPoint(assembledCenter), pivot) < 0.02f,
+            "Skull yaw moved the explosion out of its viewing area.");
+        skullYaw.ResetOrientation();
+        BoneSelection innerBone = nav.SkullBones.Single(b => b.name == "Sphenoid");
+        Physics.SyncTransforms();
+        Require(CanRaycastCollider(innerBone.GetComponent<MeshCollider>()),
+            "The spread sphenoid collider cannot be hit by a ray.");
+        yield return null; yield return null;
+        manager.SelectEnter((IXRSelectInteractor)ray1,
+            (IXRSelectInteractable)innerBone.GetComponent<XRSimpleInteractable>());
+        Require(nav.Level == AnatomyLevel.Bone && nav.SelectedBone == innerBone &&
+                !spreadSlider.transform.parent.gameObject.activeSelf,
+            "Spread skull selection did not enter G3 or hide the slider.");
+        var referenceSphenoid = nav.InspectionDisplay.ReferenceVisual
+            .GetComponentsInChildren<MeshFilter>().Single(m => m.name == "Sphenoid");
+        Require(Vector3.Distance(referenceSphenoid.transform.localPosition,
+                    explosion.AssembledRelativeMatrix(innerBone.Renderers[0]).GetColumn(3)) < 0.0001f,
+            "G3 reference skull did not show the assembled bone position.");
+        yield return null; yield return null;
+        back.onClick.Invoke();
+        Require(nav.Level == AnatomyLevel.Group && Mathf.Approximately(explosion.Spread, 1f) &&
+                spreadSlider.transform.parent.gameObject.activeSelf,
+            "G3 Back did not restore the spread skull.");
+        spreadSlider.value = 0f;
+        explosion.CompleteTransition();
+        Require(nav.SkullBones.Select((b, i) => b.transform.localPosition == assembled[i]).All(equal => equal),
+            "Assembling the skull did not restore all authored local positions.");
+        Require(teeth.All(r => r.enabled), "Skull teeth did not return when assembled.");
+        yield return null; yield return null;
         foreach (BoneSelection bone in nav.SkullBones)
         {
             Require(bone.Info != null && !string.IsNullOrWhiteSpace(bone.Info.PartDescription),
@@ -387,8 +440,12 @@ public static class AnatomyValidation
                 $"Skull G3 Back did not restore G2: {bone.name}");
             yield return null; yield return null;
         }
+        spreadSlider.value = 1f;
+        explosion.CompleteTransition();
         nav.GoBack();
-        Require(nav.Level == AnatomyLevel.Division && !skullView.activeSelf,
+        Require(nav.Level == AnatomyLevel.Division && !skullView.activeSelf &&
+                Mathf.Approximately(explosion.Spread, 0f) &&
+                nav.SkullBones.Select((b, i) => b.transform.localPosition == assembled[i]).All(equal => equal),
             "Skull G2 Back did not restore axial G1.");
         yield return null; yield return null;
         var ribcageTransition = nav.CurrentView.GetComponentsInChildren<ViewTransitionOnSelect>(true)

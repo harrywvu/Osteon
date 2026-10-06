@@ -16,16 +16,19 @@ public sealed class BoneInspectionDisplay : MonoBehaviour
     public Transform BoneVisual => boneVisual != null ? boneVisual.transform : null;
     public Transform ReferenceVisual => referenceVisual != null ? referenceVisual.transform : null;
 
-    public void Show(BoneSelection bone, Transform group, Quaternion authoredOrientation)
+    public void Show(BoneSelection bone, Transform group, Quaternion authoredOrientation,
+        SkullExplosionController assembledReference = null)
     {
         Clear();
         try
         {
             boneVisual = CreateVisual("Inspected bone", bone.Renderers, group, authoredOrientation,
-                boneAnchor, null);
+                boneAnchor, null, null);
             Fit(boneVisual.transform, boneDiameter, false);
-            referenceVisual = CreateVisual("Reference column", group.GetComponentsInChildren<Renderer>(true),
-                group, authoredOrientation, referenceAnchor, new HashSet<Renderer>(bone.Renderers));
+            referenceVisual = CreateVisual(assembledReference != null ? "Reference skull" : "Reference column",
+                group.GetComponentsInChildren<Renderer>(true),
+                group, authoredOrientation, referenceAnchor, new HashSet<Renderer>(bone.Renderers),
+                assembledReference);
             Fit(referenceVisual.transform, referenceHeight, true);
         }
         catch
@@ -36,7 +39,8 @@ public sealed class BoneInspectionDisplay : MonoBehaviour
     }
 
     private GameObject CreateVisual(string label, Renderer[] renderers, Transform sourceRoot,
-        Quaternion orientation, Transform anchor, HashSet<Renderer> selected)
+        Quaternion orientation, Transform anchor, HashSet<Renderer> selected,
+        SkullExplosionController assembledReference)
     {
         var root = new GameObject(label);
         root.transform.SetParent(anchor, false);
@@ -51,7 +55,9 @@ public sealed class BoneInspectionDisplay : MonoBehaviour
             if (filter == null || filter.sharedMesh == null) continue;
             var part = new GameObject(source.name);
             part.transform.SetParent(geometry, false);
-            Matrix4x4 relative = sourceRoot.worldToLocalMatrix * source.transform.localToWorldMatrix;
+            Matrix4x4 relative = assembledReference != null
+                ? assembledReference.AssembledRelativeMatrix(source)
+                : sourceRoot.worldToLocalMatrix * source.transform.localToWorldMatrix;
             part.transform.localPosition = relative.GetColumn(3);
             part.transform.localRotation = relative.rotation;
             part.transform.localScale = relative.lossyScale;

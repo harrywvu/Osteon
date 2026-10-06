@@ -56,12 +56,139 @@ public static class AnatomySceneSetup
         Material highlight = AssetDatabase.LoadAssetAtPath<Material>("Assets/HighlightMst.mat");
         if (highlight == null) throw new InvalidOperationException("Highlight material was not imported.");
         ConfigureSkull(navigation, axial, skullView, highlight);
+        var board = objects.Select(o => o.GetComponent<InfoBoardController>()).Single(c => c != null);
+        ConfigureSkullExplosionInScene(navigation, skullView, board);
         AssignOwnedColliders(axial, skullView);
         skullView.SetActive(false);
         EditorSceneManager.MarkSceneDirty(scene);
         EditorSceneManager.SaveScene(scene);
         AssetDatabase.SaveAssets();
         Debug.Log("Skull G1-to-G3 configured with 29 selectable bones and authored Quest ray targets.");
+    }
+
+    [MenuItem("Anatomy/Configure skull explosion")]
+    public static void ConfigureSkullExplosion()
+    {
+        if (EditorApplication.isPlaying) throw new InvalidOperationException("Leave Play Mode before configuring anatomy.");
+        if (SceneManager.GetActiveScene().isDirty)
+            throw new InvalidOperationException("Save your scene changes before configuring anatomy.");
+        Scene scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+        var objects = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<Transform>(true))
+            .Select(t => t.gameObject).ToArray();
+        var navigation = objects.Select(o => o.GetComponent<AnatomyNavigationController>()).Single(c => c != null);
+        GameObject skullView = Named(objects, "G2_skull");
+        var board = objects.Select(o => o.GetComponent<InfoBoardController>()).Single(c => c != null);
+        ConfigureSkullExplosionInScene(navigation, skullView, board);
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+        AssetDatabase.SaveAssets();
+        Debug.Log("Skull explosion configured in the enabled scene.");
+    }
+
+    private static void ConfigureSkullExplosionInScene(AnatomyNavigationController navigation,
+        GameObject skullView, InfoBoardController board)
+    {
+        var selections = ReferenceSkullBones(navigation);
+        var explosion = Add<SkullExplosionController>(skullView);
+        SetArray(explosion, "bones", selections);
+        Set(navigation, "skullExplosion", explosion);
+        var yaw = Add<SkeletonYawRotator>(skullView);
+        var yawSettings = new SerializedObject(yaw);
+        yawSettings.FindProperty("centerMode").enumValueIndex =
+            (int)SkeletonYawRotator.RotationCenter.ModelCenter;
+        yawSettings.ApplyModifiedPropertiesWithoutUndo();
+
+        var panel = Reference<GameObject>(board, "infoPanel");
+        if (panel == null) throw new InvalidOperationException("Anatomy information panel is missing.");
+        var panelRect = (RectTransform)panel.transform;
+        panelRect.sizeDelta = new Vector2(560, 800);
+        Layout((RectTransform)Reference<TextMeshProUGUI>(board, "titleText").transform,
+            new Vector2(0, 336), new Vector2(508, 70));
+        Layout((RectTransform)Reference<TextMeshProUGUI>(board, "descriptionText").transform,
+            new Vector2(0, 56), new Vector2(508, 472));
+        var back = Reference<GameObject>(board, "backButton");
+        Layout((RectTransform)back.transform, new Vector2(0, -352), new Vector2(508, 56));
+        TMP_FontAsset font = Reference<TextMeshProUGUI>(board, "titleText").font;
+        Transform existing = panelRect.Find("Skull spread control");
+        GameObject control = existing != null ? existing.gameObject :
+            new GameObject("Skull spread control", typeof(RectTransform), typeof(Image));
+        control.transform.SetParent(panelRect, false);
+        Layout((RectTransform)control.transform, new Vector2(0, -252), new Vector2(508, 112));
+        Image controlImage = Add<Image>(control);
+        controlImage.color = new Color(0.055f, 0.11f, 0.15f, 1f);
+        controlImage.raycastTarget = false;
+        var label = Text((RectTransform)control.transform, "Skull spread label", font, 22, FontStyles.Normal);
+        label.text = "Spread skull";
+        label.alignment = TextAlignmentOptions.Center;
+        Layout(label.rectTransform, new Vector2(0, 30), new Vector2(460, 34));
+
+        Transform existingSlider = control.transform.Find("Spread slider");
+        GameObject sliderObject = existingSlider != null ? existingSlider.gameObject :
+            new GameObject("Spread slider", typeof(RectTransform), typeof(Image), typeof(Slider));
+        sliderObject.transform.SetParent(control.transform, false);
+        Layout((RectTransform)sliderObject.transform, new Vector2(0, -19), new Vector2(460, 48));
+        var hitImage = Add<Image>(sliderObject);
+        hitImage.color = new Color(0.12f, 0.27f, 0.34f, 0.35f);
+        hitImage.raycastTarget = true;
+        var track = Add<Image>(ChildRect(sliderObject.transform, "Track", new Vector2(0, 0),
+            new Vector2(430, 12)).gameObject);
+        track.color = new Color(0.16f, 0.30f, 0.38f, 1f);
+        track.raycastTarget = false;
+        // Slider stretches fill and handle on its sliding axis. Give each its own
+        // fixed-height area so Unity's driven anchors do not enlarge the visuals.
+        foreach (string legacy in new[] { "Fill", "Handle" })
+        {
+            Transform old = sliderObject.transform.Find(legacy);
+            if (old != null) UnityEngine.Object.DestroyImmediate(old.gameObject);
+        }
+        RectTransform fillArea = ChildRect(sliderObject.transform, "Fill area",
+            Vector2.zero, new Vector2(430, 12));
+        var fill = Add<Image>(ChildRect(fillArea, "Fill", Vector2.zero,
+            Vector2.zero).gameObject);
+        fill.color = new Color(0.18f, 0.68f, 0.87f, 1f);
+        fill.raycastTarget = false;
+        RectTransform handleArea = ChildRect(sliderObject.transform, "Handle area",
+            Vector2.zero, new Vector2(430, 38));
+        var handle = Add<Image>(ChildRect(handleArea, "Handle", Vector2.zero,
+            new Vector2(28, 0)).gameObject);
+        handle.color = new Color(0.75f, 0.94f, 1f, 1f);
+        handle.raycastTarget = true;
+        var slider = Add<Slider>(sliderObject);
+        slider.minValue = 0f;
+        slider.maxValue = 1f;
+        slider.wholeNumbers = false;
+        slider.direction = Slider.Direction.LeftToRight;
+        slider.fillRect = fill.rectTransform;
+        slider.handleRect = handle.rectTransform;
+        slider.targetGraphic = handle;
+        while (slider.onValueChanged.GetPersistentEventCount() > 0)
+            UnityEventTools.RemovePersistentListener(slider.onValueChanged, 0);
+        UnityEventTools.AddPersistentListener<float>(slider.onValueChanged, navigation.SetSkullSpread);
+        slider.SetValueWithoutNotify(0f);
+        Set(navigation, "skullSpreadSlider", slider);
+        control.SetActive(false);
+        Transform station = panel.transform.parent;
+        PanelMoveHandle.Configure(station, panelRect, font,
+            new Vector2(0, -445), new Vector2(508, 58));
+    }
+
+    private static UnityEngine.Object[] ReferenceSkullBones(AnatomyNavigationController navigation)
+    {
+        var bones = navigation.SkullBones;
+        if (bones == null || bones.Length != 29 || bones.Any(b => b == null))
+            throw new InvalidOperationException("Configure the 29 skull inspection bones first.");
+        return bones.Cast<UnityEngine.Object>().ToArray();
+    }
+
+    private static RectTransform ChildRect(Transform parent, string name, Vector2 position, Vector2 size)
+    {
+        Transform existing = parent.Find(name);
+        GameObject child = existing != null ? existing.gameObject :
+            new GameObject(name, typeof(RectTransform));
+        child.transform.SetParent(parent, false);
+        var rect = (RectTransform)child.transform;
+        Layout(rect, position, size);
+        return rect;
     }
 
     private static void ConfigureSkull(AnatomyNavigationController navigation,
@@ -486,6 +613,7 @@ public static class AnatomySceneSetup
             foreach (var card in step.cards) if (card != null) card.SetActive(false);
         }
         ConfigurePanel(owner.transform, board, back, viewer, center, facing);
+        ConfigureSkullExplosionInScene(navigation, skullView, board);
         board.ShowNavigationInfo(board.DefaultTitle, board.DefaultDescription, "Back to skeleton", false);
         overview.SetActive(true);
         axialDivision.SetActive(true);
