@@ -1,6 +1,6 @@
 # Known Issues and Project History
 
-> Current-state update: 2026-10-01. Historical entries are retained below so
+> Current-state update: 2026-10-06. Historical entries are retained below so
 > previous recovery work is not lost.
 
 ## Current open issues
@@ -11,15 +11,28 @@
   `Assets/_Recovery/CONTROLLERS MIGRATION.unity`. Earlier documentation named
   `0 (8).unity`; that is now a historical recovery snapshot.
 - The enabled scene has G3 selection-based inspection for 26 vertebral-column
-  entries, 25 ribcage entries (24 ribs and the sternum), 30 left lower-limb
+  entries, 29 skull entries, 25 ribcage entries (24 ribs and the sternum), 30 left lower-limb
   bones, 32 right lower-limb meshes, 60 upper-limb bones, 4 pectoral bones,
   and 1 pelvic hip bone. `BonePartInfo`
   supplies their descriptions. Grabbing, physical return, and assembly remain
   outside the current experience.
-- G0 whole skeleton, G1 axial/appendicular divisions, and the G2 vertebral
+- G0 whole skeleton, G1 axial/appendicular divisions, and the G2 skull, vertebral
   column, Ribcage, limb, pectoral, and pelvic views are connected in
   the enabled scene. Left Y switches between the two pectoral G2 models.
   Other major groups remain outside the implemented G2 flow.
+- A 2026-10-01 Quest build showed controller rays passing through the ribcage
+  and appendicular G1 groups and highlighting the vertebral group behind them.
+  Those groups had created colliders at runtime from imported meshes with
+  Read/Write disabled; PC Play Mode callback tests did not exercise physics
+  ray hits. The current scene now serializes 140 G1 mesh targets and the Quest
+  build settings prebake collision meshes. The skull adds 30 authored G1
+  collider targets and 29 authored G2 bone targets. Automated raycast and G0–G3 checks
+  pass, and a new Android APK built with zero errors; headset confirmation is
+  still pending.
+- Appendicular selection and Back were repaired after the skull optimization,
+  but the new APK has not yet been tried on a physical Quest. The cause, repair,
+  and regression test are recorded under the appendicular navigation incident
+  below.
 - No project-owned socket-matching logic was found, and the enabled scene does
   not contain an `XRSocketInteractor`. Socket materials are present, but an
   assembly/matching exercise is not currently implemented.
@@ -28,6 +41,17 @@
   cleanup candidate after confirming it is not needed.
 - G3 display placement, controller feel/reconnection, targeting, and text
   readability still require physical Quest verification. See `G3_INSPECTION.md`.
+- Skull G2 explosion passed the saved-scene Play Mode suite on 2026-10-06
+  (10,571 assertions across 207 entries). The physical Quest pass still needs
+  to check slider dragging, small interior-bone ray targets, spread-view
+  readability, frame rate, and comfort.
+  The updated Android development APK built with zero errors at
+  `Builds/Anatomy-skull-explosion-Quest.apk`; ADB showed no connected device.
+- The lower-limb, upper-limb, and pectoral G2 views previously revolved around
+  offset object origins when turned with the right thumbstick. Their six yaw
+  rotators now use the visible model bounds center. The current-scene Play Mode
+  suite passed 10,559 assertions across 207 entries on 2026-10-06, including
+  90-degree center checks for all six views. Physical Quest confirmation is pending.
 - User review on 2026-09-09 found the expected inspection output but identified
   rough interaction and placement. Stationary use, smooth viewpoint turning,
   and controller grabbing are planned in
@@ -49,7 +73,7 @@
 - Hand-tracking packages/features and controller profiles are enabled together.
   The right-thumbstick rotation script is explicitly controller-based, and the
   end-to-end hand/controller paths have not been verified on current hardware.
-- The full, axial, vertebral, and ribcage views have yaw rotators. G3 uses
+- The full, division, and G2 group views have yaw rotators. G3 uses
   independent turning/tilt on its inspection copy; the reference group stays
   stationary.
 - Batch Play Mode emits an `ArgumentOutOfRangeException` in imported
@@ -81,8 +105,9 @@
   native compilation but failed to package an APK. Gradle reported
   `Unable to establish loopback connection`; a Meta manifest callback also
   failed on a missing generated `xrmanifest.androidlib` intermediate manifest
-  in the isolated validation copy. Successful APK packaging and installation
-  remain unverified. This is a recorded failure, not a confirmed diagnosis or fix.
+  in the isolated validation copy. A later APK was built and installed by the
+  user for Quest testing, but that build exposed the G1 ray-target defect above.
+  The earlier automated packaging failure remains a separate recorded issue.
 - The product name is `VRSKULL`, but the committed company and Android package
   identity are still the Unity template defaults:
   `DefaultCompany` / `com.DefaultCompany.VRTemplate`.
@@ -109,7 +134,9 @@
 
 ## Verification still required
 
-- [x] Automated Play Mode G0–G3 flow: 9,774 assertions, all 178 entries on 2026-10-01
+- [x] Automated Play Mode G0–G3 flow: 10,535 assertions, all 207 entries on 2026-10-01
+- [x] Automated G2 limb and pectoral rotation-center checks: 10,559-assertion
+      current-scene suite on 2026-10-06
 - [x] Repeat all-bone validation from the restored default branch on 2026-09-24
 - [x] Back callbacks across the implemented model-view transitions
 - [x] Two-ray bone highlighting and material restoration in both G2 views
@@ -120,6 +147,45 @@
 - [ ] Installation and launch of that APK on supported Quest hardware
 - [ ] Quiz station stays in the scene, and its menu, hide/reopen, start/stop,
       answer flow, and error recovery work in Play Mode and on Quest
+
+## 2026-10-01 — Appendicular selection and Back regression
+
+- **Observed:** After the skull model and ray-target work, appendicular bones
+  still highlighted, but selecting them did not reach G3. Both panel Back and
+  left X appeared inert in Play Mode and the then-current Quest build.
+- **Cause:** The appendicular division root's `DivisionSelection.navigation`
+  referenced `AnatomyNavigationController`, while its sibling
+  `ViewTransitionOnSelect.navigation` was null in the enabled scene. The
+  transition's legacy path could activate a view directly without recording a
+  navigation frame. A visible view could therefore disagree with the
+  controller's level and history. Highlighting alone did not prove that the
+  selection callback had entered G1 through navigation. The earlier automated
+  test called `SelectDivision` directly and missed the broken XRI callback.
+- **Repair:** Assign the appendicular `ViewTransitionOnSelect.navigation` to
+  the same scene controller as `DivisionSelection.navigation`. At runtime,
+  `ViewTransitionOnSelect.Prepare` now also adopts its sibling
+  `DivisionSelection.Navigation` when its own reference is missing. The
+  validation selects the appendicular G0 ray target through
+  `XRInteractionManager.SelectEnter` and checks G1 history, G2/G3 selection,
+  and Back. Changing the selection gate did not resolve this wiring defect.
+- **If it recurs:** Leave Play Mode and reopen
+  `Assets/_Recovery/CONTROLLERS MIGRATION.unity` from disk after external scene
+  edits. On the appendicular division root, inspect both components and set
+  their **Navigation** fields to the scene's `AnatomyNavigation` controller;
+  save the scene. Run `Tools/Invoke-AnatomyValidation.ps1 -Current` in a
+  temporary project copy so the test uses the saved scene. Confirm selecting
+  appendicular from G0 records one G1 history frame, then test a limb bone and
+  both Back inputs. Rebuild and install a new APK; an older Quest build still
+  contains its original scene. The Anatomy setup menu can also rewrite scene
+  references, but it replaces catalog descriptions, so save authored content
+  before using it.
+- **Evidence:** With the original null reference and no runtime fallback, the
+  corrected callback test failed at appendicular G0→G1 after 8,024 assertions.
+  The repaired scene passed **10,535 assertions across 207 entries**. The
+  runtime fallback also passed all 10,535 against the old null-reference
+  scene. A fresh ARM64 IL2CPP development build completed with zero errors and
+  produced `Builds/Anatomy-G3-navigation-fix.apk`. No Quest was connected, so
+  physical targeting, selection, and Back remain unverified for this APK.
 
 ## 2026-10-01 — Inspection placement and movable panels
 

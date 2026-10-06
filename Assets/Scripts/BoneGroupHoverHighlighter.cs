@@ -11,12 +11,14 @@ public class BoneGroupHoverHighlighter : MonoBehaviour
 
     private Renderer[] renderers;
     private Material[][] originalMaterials;
+    private Material[][] highlightMaterials;
     private readonly List<XRBaseInteractable> interactables = new List<XRBaseInteractable>();
     private int hoverCount;
 
     public void Configure(Material material)
     {
         highlightMaterial = material;
+        if (renderers != null) CacheHighlightMaterials();
     }
 
     private void Awake()
@@ -27,7 +29,19 @@ public class BoneGroupHoverHighlighter : MonoBehaviour
         for (int i = 0; i < renderers.Length; i++)
             originalMaterials[i] = renderers[i].sharedMaterials;
 
+        CacheHighlightMaterials();
         RefreshInteractables();
+    }
+
+    private void CacheHighlightMaterials()
+    {
+        highlightMaterials = new Material[renderers.Length][];
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            highlightMaterials[i] = new Material[originalMaterials[i].Length];
+            for (int j = 0; j < highlightMaterials[i].Length; j++)
+                highlightMaterials[i][j] = highlightMaterial;
+        }
     }
 
     public void RefreshInteractables()
@@ -55,21 +69,15 @@ public class BoneGroupHoverHighlighter : MonoBehaviour
     {
         if (!isActiveAndEnabled || highlightMaterial == null) return;
         hoverCount++;
-
-        foreach (var renderer in renderers)
-        {
-            var highlighted = new Material[renderer.sharedMaterials.Length];
-
-            for (int i = 0; i < highlighted.Length; i++)
-                highlighted[i] = highlightMaterial;
-
-            renderer.sharedMaterials = highlighted;
-        }
+        if (hoverCount > 1) return;
+        for (int i = 0; i < renderers.Length; i++)
+            if (renderers[i] != null) renderers[i].sharedMaterials = highlightMaterials[i];
     }
 
     private void OnHoverExited(HoverExitEventArgs args)
     {
-        hoverCount = Mathf.Max(0, hoverCount - 1);
+        if (hoverCount == 0) return;
+        hoverCount--;
 
         if (hoverCount > 0) return;
 

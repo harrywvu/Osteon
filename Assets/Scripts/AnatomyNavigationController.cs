@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit.Filtering;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.UI;
 
 public enum AnatomyLevel { Whole, Division, Group, Bone }
 
@@ -15,6 +16,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     [SerializeField] private GameObject axialView;
     [SerializeField] private GameObject appendicularView;
     [SerializeField] private GameObject vertebralView;
+    [SerializeField] private GameObject skullView;
     [SerializeField] private GameObject ribView;
     [SerializeField] private GameObject leftLowerLimbView;
     [SerializeField] private GameObject rightPectoralView;
@@ -28,6 +30,9 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     [SerializeField] private BoneInspectionDisplay inspectionDisplay;
     [SerializeField] private AnatomyInputReservation inputReservation;
     [SerializeField] private BoneSelection[] bones;
+    [SerializeField] private BoneSelection[] skullBones;
+    [SerializeField] private SkullExplosionController skullExplosion;
+    [SerializeField] private Slider skullSpreadSlider;
     [SerializeField] private BoneSelection[] ribBones;
     [SerializeField] private BoneSelection[] leftLowerLimbBones;
     [SerializeField] private BoneSelection[] rightPectoralBones;
@@ -47,6 +52,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     private ViewFrame current;
     private BoneSelection previewBone;
     private Quaternion authoredGroupOrientation;
+    private Quaternion authoredSkullOrientation;
     private Quaternion authoredRibOrientation;
     private Quaternion authoredLeftLowerLimbOrientation;
     private Quaternion authoredRightPectoralOrientation;
@@ -78,6 +84,9 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     public BoneInspectionPose InspectionPose => inspectionPose;
     public BoneInspectionDisplay InspectionDisplay => inspectionDisplay;
     public BoneSelection[] Bones => bones;
+    public BoneSelection[] SkullBones => skullBones;
+    public SkullExplosionController SkullExplosion => skullExplosion;
+    public Slider SkullSpreadSlider => skullSpreadSlider;
     public BoneSelection[] RibBones => ribBones;
     public BoneSelection[] LeftLowerLimbBones => leftLowerLimbBones;
     public BoneSelection[] RightPectoralBones => rightPectoralBones;
@@ -150,6 +159,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
             return;
         }
         authoredGroupOrientation = vertebralView.transform.rotation;
+        if (skullView != null) authoredSkullOrientation = skullView.transform.rotation;
         if (ribView != null) authoredRibOrientation = ribView.transform.rotation;
         if (leftLowerLimbView != null)
             authoredLeftLowerLimbOrientation = leftLowerLimbView.transform.rotation;
@@ -281,6 +291,13 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         return true;
     }
 
+    public void SetSkullSpread(float value)
+    {
+        if (!initialized || Level != AnatomyLevel.Group || current.root != skullView ||
+            skullExplosion == null) return;
+        skullExplosion.SetSpread(value);
+    }
+
     private static bool IsControllerPressed(XRNode hand)
     {
         var device = InputDevices.GetDeviceAtXRNode(hand);
@@ -353,6 +370,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         yield return axialView;
         yield return appendicularView;
         yield return vertebralView;
+        yield return skullView;
         yield return ribView;
         yield return leftLowerLimbView;
         yield return rightPectoralView;
@@ -367,6 +385,8 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     private IEnumerable<BoneSelection> AllBones()
     {
         foreach (var bone in bones) yield return bone;
+        if (skullBones != null)
+            foreach (var bone in skullBones) yield return bone;
         if (ribBones != null)
             foreach (var bone in ribBones) yield return bone;
         if (leftLowerLimbBones != null)
@@ -390,6 +410,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         if (!CanNavigate || Level != AnatomyLevel.Group || bone == null || bone.Info == null) return false;
         GameObject group = current.root;
         BoneSelection[] entries = group == vertebralView ? bones :
+            group == skullView ? skullBones :
             group == ribView ? ribBones : group == leftLowerLimbView ? leftLowerLimbBones :
             group == rightPectoralView ? rightPectoralBones :
             group == leftPectoralView ? leftPectoralBones : group == pelvicView ? pelvicBones :
@@ -400,6 +421,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
             !bone.transform.IsChildOf(group.transform)) return false;
         ClearHighlights();
         Quaternion orientation = group == vertebralView ? authoredGroupOrientation :
+            group == skullView ? authoredSkullOrientation :
             group == ribView ? authoredRibOrientation :
             group == leftLowerLimbView ? authoredLeftLowerLimbOrientation :
             group == rightPectoralView ? authoredRightPectoralOrientation :
@@ -408,7 +430,9 @@ public sealed class AnatomyNavigationController : MonoBehaviour
             group == rightLowerLimbView ? authoredRightLowerLimbOrientation :
             group == leftUpperLimbView ? authoredLeftUpperLimbOrientation :
             authoredRightUpperLimbOrientation;
-        try { inspectionDisplay.Show(bone, group.transform, orientation); }
+        SkullExplosionController reference = group == skullView ? skullExplosion : null;
+        if (reference != null) reference.CompleteTransition();
+        try { inspectionDisplay.Show(bone, group.transform, orientation, reference); }
         catch (System.Exception error)
         {
             Debug.LogError($"Unable to inspect {bone.name}: {error.Message}", bone);
@@ -458,11 +482,14 @@ public sealed class AnatomyNavigationController : MonoBehaviour
 
     private void ShowFrame(ViewFrame frame)
     {
+        if (skullExplosion != null && frame.root != skullView && frame.level != AnatomyLevel.Bone)
+            skullExplosion.ResetImmediate();
         ClearHighlights();
         overviewRoot.SetActive(false);
         axialView.SetActive(false);
         if (appendicularView != null) appendicularView.SetActive(false);
         vertebralView.SetActive(false);
+        if (skullView != null) skullView.SetActive(false);
         if (ribView != null) ribView.SetActive(false);
         if (leftLowerLimbView != null) leftLowerLimbView.SetActive(false);
         if (rightPectoralView != null) rightPectoralView.SetActive(false);
@@ -522,6 +549,14 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     private void Present()
     {
         if (current == null || infoBoard == null) return;
+        if (skullSpreadSlider != null)
+        {
+            bool showSpread = Level == AnatomyLevel.Group && current.root == skullView;
+            if (skullSpreadSlider.transform.parent.gameObject.activeSelf != showSpread)
+                skullSpreadSlider.transform.parent.gameObject.SetActive(showSpread);
+            if (showSpread && skullExplosion != null)
+                skullSpreadSlider.SetValueWithoutNotify(skullExplosion.Spread);
+        }
         string body = current.description;
         if (!string.IsNullOrEmpty(current.breadcrumb)) body = current.breadcrumb + "\n\n" + body;
         if (previewBone != null && previewBone.Info != null)

@@ -8,6 +8,13 @@
 > The expanded limb suite passed 9,774 assertions across 178 entries on 2026-10-01.
 > With the inspection placement and panel handles, 9,780 assertions passed
 > across 178 entries on 2026-10-01.
+> After Quest testing exposed missing G1 ray hits, baked G1 targets and
+> collider raycasts passed 9,947 assertions across 178 entries on 2026-10-01.
+> The appendicular callback repair passed 10,535 assertions across all 207
+> entries; a new Android development APK built with zero errors on 2026-10-01.
+> Skull explosion passed 10,571 saved-scene Play Mode assertions across all
+> 207 entries on 2026-10-06. Its Android development APK built with zero
+> errors; physical Quest interaction is pending.
 
 ## 1. Install the required tools
 
@@ -78,7 +85,7 @@ global scene list and serialize the same core Android values. Prefer
 ## 5. Play Mode smoke test
 
 The current scene is selection-based and follows the G0–G3 granularity model
-defined in `Docs/ARCHITECTURE.md`. G3 covers the vertebral column, ribcage,
+defined in `Docs/ARCHITECTURE.md`. G3 covers the skull, vertebral column, ribcage,
 both lower limbs, both upper limbs, both pectoral sides, and the pelvic hip bone:
 
 - [ ] **G0:** The hospital room and complete low-poly skeleton render correctly.
@@ -88,7 +95,7 @@ both lower limbs, both upper limbs, both pectoral sides, and the pelvic hip bone
 - [ ] **G1:** Selecting a division hides the other division and updates the
       title and description on the in-world information panel.
 - [ ] **G2 (partial):** Selecting the axial division opens its detailed view;
-      selecting the vertebral-column or Ribcage group opens its G2 view. Back
+      selecting Skull, vertebral column, or Ribcage opens its G2 view. Back
       returns from either group to axial G1.
 - [ ] **G2 (partial):** Selecting Left lower limb from appendicular G1 opens its
       G2 model. Back returns to appendicular G1.
@@ -99,10 +106,13 @@ both lower limbs, both upper limbs, both pectoral sides, and the pelvic hip bone
       its G2 model. Back returns to appendicular G1.
 - [ ] Moving the right thumbstick horizontally rotates the full-skeleton
       selection view.
-- [ ] **G3:** Pointing at a vertebral entry, rib, sternum, limb bone,
+- [ ] **G3:** Pointing at a skull bone, vertebral entry, rib, sternum, limb bone,
       pectoral bone, or pelvic hip bone highlights only that
       bone and previews its name. Selecting opens an enlarged bone and a
       stationary reference group.
+- [ ] **Skull G2:** Drag Spread skull from assembled to full spread, turn with
+      right stick, and select an interior bone. Back restores the spread amount;
+      leaving Skull and opening it again starts assembled.
 - [ ] **G3:** Right-stick sideways turns the bone; up/down tilts it. A resets
       turning without changing tilt, and B resets tilt without changing turning.
 - [ ] **G3:** The name, breadcrumb, introductory description, and controls are readable.
@@ -123,8 +133,8 @@ Play Mode regression checks. Grabbing and assembly are excluded from this smoke 
 The optional one-learner practice quiz uses an AWS API. To test it, copy
 `Docs/QuizDemoConfig.example.json` to the ignored
 `Assets/Resources/QuizDemoConfig.json` and fill in the private HTTPS API base
-URL and temporary demo token. In Play Mode, find the quiz station beside the
-anatomy information panel. Start/resume, answer, stop, hide, reopen, and turn
+URL and temporary demo token. In Play Mode, find the quiz station on the room's
+right wall. Start/resume, answer, stop, hide, reopen, and turn
 your head to confirm the station stays in its current room position until
 grabbed. Do not commit the filled config or distribute an APK containing its
 token. The quiz's XR grab interaction and physical Quest input still need
@@ -149,7 +159,9 @@ Add `-Capture` to the complete run when a desktop rendering is also required.
    Android profile.
 4. Confirm `Assets/_Recovery/CONTROLLERS MIGRATION.unity` is the only enabled
    scene.
-5. Choose **Build and Run**, or build an APK and install it manually:
+5. Confirm **Prebake Collision Meshes** is enabled. Reopen the scene from disk
+   if it was open while scene files were updated externally.
+6. Choose **Build and Run**, or build an APK and install it manually:
 
 ```powershell
 adb devices
@@ -170,6 +182,12 @@ If Unity reports many compile errors:
 3. Confirm Android Build Support belongs to Unity 6000.3.2f1.
 4. Review the package risks in `Docs/KNOWN_ISSUES.md` before upgrading or
    removing XR packages.
+
+If appendicular bones highlight but selection, panel Back, and left X do not
+advance or return, follow the appendicular incident in
+[`KNOWN_ISSUES.md`](KNOWN_ISSUES.md). Reopen the enabled scene from disk after
+external edits, check both navigation references on the appendicular division,
+and run the saved-scene `-Current` validation before rebuilding the Quest APK.
 
 If models are missing or invisible:
 
