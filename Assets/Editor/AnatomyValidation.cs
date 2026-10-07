@@ -792,6 +792,22 @@ public static class AnatomyValidation
             "Anatomy Back is not a clickable UI button.");
         CheckPanelGrabHandle(anatomyStation, anatomyPanel.transform);
         CheckPanelGrabHandle(quizStation.transform, quizStation.transform.Find("Quiz panel"));
+        var settingsStation = GameObject.Find("Settings station");
+        var settings = OsteonSettings.Instance;
+        Require(settingsStation != null && settings != null &&
+                anatomyPanel.transform.Find("Settings button") == null &&
+                Mathf.Abs(settingsStation.transform.position.y - quizStation.transform.position.y) < 0.001f &&
+                Vector3.Distance(settingsStation.transform.position, quizStation.transform.position) >= 0.9f,
+            "Settings launcher is not independently placed on the quiz wall.");
+        CheckPanelGrabHandle(settingsStation.transform, settingsStation.transform.Find("Settings panel"));
+        var level = nav.Level;
+        int history = nav.HistoryCount;
+        settings.Open();
+        Require(settings.IsOpen && nav.Level == level && nav.HistoryCount == history,
+            "Opening Settings changed anatomy navigation.");
+        settings.Close();
+        Require(!settings.IsOpen && nav.Level == level && nav.HistoryCount == history,
+            "Closing Settings changed anatomy navigation.");
     }
 
     private static void CheckPanelGrabHandle(Transform movable, Transform panel)

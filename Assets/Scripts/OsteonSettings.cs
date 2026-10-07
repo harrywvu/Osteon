@@ -1,8 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.XR.Interaction.Toolkit.UI;
 
 /// <summary>Local appearance preferences and the ray-selectable anatomy settings page.</summary>
 public sealed class OsteonSettings : MonoBehaviour
@@ -55,6 +57,7 @@ public sealed class OsteonSettings : MonoBehaviour
     private readonly Dictionary<TextMeshProUGUI, float> baseFontSizes = new Dictionary<TextMeshProUGUI, float>();
     private readonly Dictionary<TextMeshProUGUI, bool> baseAutoSizing = new Dictionary<TextMeshProUGUI, bool>();
     private GameObject page;
+    private GameObject launcher;
     private int roomChoice;
     private int themeChoice;
     private int textChoice;
@@ -81,18 +84,24 @@ public sealed class OsteonSettings : MonoBehaviour
         textChoice = SafeChoice(PlayerPrefs.GetInt(TextKey, 1), TextNames.Length, 1);
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
         var room = GameObject.Find("hospital room");
         var panel = GameObject.Find("Anatomy information panel");
         if (room == null || panel == null)
         {
             Debug.LogError("Osteon settings need the hospital room and anatomy information panel.");
-            return;
+            yield break;
         }
 
         CaptureRoom(room.transform);
-        BuildPage((RectTransform)panel.transform);
+        Camera viewer = Camera.main != null ? Camera.main : FindFirstObjectByType<Camera>();
+        while (viewer == null)
+        {
+            yield return null;
+            viewer = Camera.main != null ? Camera.main : FindFirstObjectByType<Camera>();
+        }
+        BuildPage((RectTransform)panel.transform, viewer);
         var description = panel.transform.Find("Anatomy description")?.GetComponent<TextMeshProUGUI>();
         if (description != null) MakeScrollable(description);
         ApplyRoom();
@@ -112,8 +121,19 @@ public sealed class OsteonSettings : MonoBehaviour
         UpdateRoomButtons();
     }
 
-    public void Open() { if (page != null) page.SetActive(true); }
-    public void Close() { if (page != null) page.SetActive(false); }
+    public void Open()
+    {
+        if (page == null || launcher == null) return;
+        launcher.SetActive(false);
+        page.SetActive(true);
+    }
+
+    public void Close()
+    {
+        if (page == null || launcher == null) return;
+        page.SetActive(false);
+        launcher.SetActive(true);
+    }
 
     public void SetThemeChoice(int choice)
     {
@@ -182,34 +202,42 @@ public sealed class OsteonSettings : MonoBehaviour
         }
     }
 
-    private void BuildPage(RectTransform panel)
+    private void BuildPage(RectTransform panel, Camera viewer)
     {
         var font = panel.GetComponentInChildren<TextMeshProUGUI>(true)?.font;
         var existing = panel.Find("Settings button");
         if (existing != null) Destroy(existing.gameObject);
-        var settings = MakeButton(panel, "Settings button", "Settings", new Vector2(180, -352),
-            new Vector2(144, 56), font, Open);
-        settings.GetComponent<Image>().color = new Color(0.10f, 0.30f, 0.42f, 1f);
         var back = panel.Find("Back Button") as RectTransform;
         if (back != null)
         {
-            back.anchoredPosition = new Vector2(-87, -352);
-            back.sizeDelta = new Vector2(322, 56);
+            back.anchoredPosition = new Vector2(0, -352);
+            back.sizeDelta = new Vector2(508, 56);
             var backLabel = back.Find("Anatomy back label") as RectTransform;
-            if (backLabel != null) backLabel.sizeDelta = new Vector2(306, 52);
-        }
-        var title = panel.Find("Anatomy title") as RectTransform;
-        if (title != null)
-        {
-            title.anchoredPosition = new Vector2(0, 325);
-            title.sizeDelta = new Vector2(508, 90);
+            if (backLabel != null) backLabel.sizeDelta = new Vector2(484, 52);
         }
 
-        page = MakeRect(panel, "Settings page", Vector2.zero, panel.sizeDelta).gameObject;
-        var background = page.AddComponent<Image>();
+        Transform station = new GameObject("Settings station").transform;
+        station.SetPositionAndRotation(new Vector3(4.54f, 1.4f, 1.9f), Quaternion.Euler(0f, 90f, 0f));
+        var launcherCanvas = MakeCanvas(station, "Settings launcher", viewer);
+        launcher = launcherCanvas.gameObject;
+        var launcherRect = (RectTransform)launcher.transform;
+        launcherRect.sizeDelta = new Vector2(360, 100);
+        launcherRect.localScale = Vector3.one * 0.001f;
+        var launcherImage = launcher.GetComponent<Image>();
+        launcherImage.color = new Color(0.09f, 0.27f, 0.38f, 1f);
+        var openButton = launcher.AddComponent<Button>();
+        openButton.targetGraphic = launcherImage;
+        openButton.onClick.AddListener(Open);
+        MakeText(launcherRect, "Settings", Vector2.zero, new Vector2(350, 90),
+            30, font, TextAlignmentOptions.Center);
+
+        page = MakeCanvas(station, "Settings panel", viewer).gameObject;
+        var pageRect = (RectTransform)page.transform;
+        pageRect.sizeDelta = new Vector2(560, 800);
+        pageRect.localScale = Vector3.one * 0.001f;
+        var background = page.GetComponent<Image>();
         background.color = new Color(0.035f, 0.055f, 0.075f, 1f);
         background.raycastTarget = true;
-        var pageRect = (RectTransform)page.transform;
         MakeText(pageRect, "Appearance settings", new Vector2(-58, 330), new Vector2(360, 65),
             30, font, TextAlignmentOptions.Left);
         MakeButton(pageRect, "Close settings", "Close", new Vector2(205, 330),
@@ -251,7 +279,22 @@ public sealed class OsteonSettings : MonoBehaviour
         UpdateRoomButtons();
         UpdateThemeButtons();
         UpdateTextButtons();
+        PanelMoveHandle.Configure(station, pageRect, font,
+            new Vector2(0, -510), new Vector2(508, 58));
         page.SetActive(false);
+    }
+
+    private static Canvas MakeCanvas(Transform station, string name, Camera viewer)
+    {
+        var obj = new GameObject(name, typeof(RectTransform), typeof(Canvas),
+            typeof(TrackedDeviceGraphicRaycaster), typeof(Image));
+        int layer = LayerMask.NameToLayer("UI");
+        if (layer >= 0) obj.layer = layer;
+        obj.transform.SetParent(station, false);
+        var canvas = obj.GetComponent<Canvas>();
+        canvas.renderMode = RenderMode.WorldSpace;
+        canvas.worldCamera = viewer;
+        return canvas;
     }
 
     private void UpdateRoomButtons()
@@ -281,6 +324,8 @@ public sealed class OsteonSettings : MonoBehaviour
         if (anatomy != null) ApplyThemeTo(anatomy.transform);
         var quiz = GameObject.Find("Quiz station");
         if (quiz != null) ApplyThemeTo(quiz.transform);
+        var settings = GameObject.Find("Settings station");
+        if (settings != null) ApplyThemeTo(settings.transform);
         UpdateRoomButtons();
         UpdateThemeButtons();
         UpdateTextButtons();
@@ -304,6 +349,7 @@ public sealed class OsteonSettings : MonoBehaviour
     {
         ApplyTextSizeTo(GameObject.Find("Anatomy information panel"));
         ApplyTextSizeTo(GameObject.Find("Quiz station"));
+        ApplyTextSizeTo(GameObject.Find("Settings station"));
         UpdateTextButtons();
     }
 
@@ -372,7 +418,9 @@ public sealed class OsteonSettings : MonoBehaviour
                 button.colors = states;
             }
             else if (image.name == "Anatomy information panel" || image.name == "Settings page" ||
-                image.name == "Quiz panel" || image.name == "Quiz launcher") image.color = palette.background;
+                image.name == "Quiz panel" || image.name == "Quiz launcher" ||
+                image.name == "Settings panel" || image.name == "Settings launcher")
+                image.color = palette.background;
             else if (image.name == "Skull spread control") image.color = palette.inset;
             else if (image.name == "Move handle") image.color = palette.button;
             else if (image.name == "Track") image.color = palette.track;
