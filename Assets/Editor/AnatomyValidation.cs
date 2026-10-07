@@ -807,6 +807,20 @@ public static class AnatomyValidation
                 body != null && body.isKinematic && grab != null && grab.enabled &&
                 grab.colliders.Count == 1 && grab.colliders[0] == collider,
             $"Move handle is not configured for XR grabbing: {movable.name}");
+        var corners = new Vector3[4];
+        ((RectTransform)handle).GetWorldCorners(corners);
+        float handleTop = corners.Max(corner => panel.InverseTransformPoint(corner).y);
+        float lowestButton = float.PositiveInfinity;
+        foreach (var button in panel.GetComponentsInChildren<UnityEngine.UI.Button>(true))
+        {
+            var rect = button.transform as RectTransform;
+            if (rect == null) continue;
+            rect.GetWorldCorners(corners);
+            lowestButton = Mathf.Min(lowestButton,
+                corners.Min(corner => panel.InverseTransformPoint(corner).y));
+        }
+        Require(lowestButton - handleTop >= 90f,
+            $"Move handle is too close to a panel button: {movable.name}");
     }
 
     private static IEnumerator CheckGirdleBones(AnatomyNavigationController nav, GameObject view,

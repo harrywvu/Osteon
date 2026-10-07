@@ -169,7 +169,7 @@ public static class AnatomySceneSetup
         control.SetActive(false);
         Transform station = panel.transform.parent;
         PanelMoveHandle.Configure(station, panelRect, font,
-            new Vector2(0, -445), new Vector2(508, 58));
+            new Vector2(0, -510), new Vector2(508, 58));
     }
 
     private static UnityEngine.Object[] ReferenceSkullBones(AnatomyNavigationController navigation)
@@ -320,7 +320,7 @@ public static class AnatomySceneSetup
         if (panel == null) throw new InvalidOperationException("Anatomy information panel is missing.");
         TMP_FontAsset font = panel.Find("Anatomy title").GetComponent<TextMeshProUGUI>().font;
         Transform station = EnsureAnatomyPanelStation(owner, panel);
-        PanelMoveHandle.Configure(station, panel, font, new Vector2(0, -385), new Vector2(508, 58));
+        PanelMoveHandle.Configure(station, panel, font, new Vector2(0, -510), new Vector2(508, 58));
         EditorSceneManager.MarkSceneDirty(scene);
         EditorSceneManager.SaveScene(scene);
         AssetDatabase.SaveAssets();
@@ -875,7 +875,7 @@ public static class AnatomySceneSetup
         panel.SetActive(true);
         Transform station = EnsureAnatomyPanelStation(owner, panelRect);
         PanelMoveHandle.Configure(station, panelRect, font,
-            new Vector2(0, -385), new Vector2(508, 58));
+            new Vector2(0, -510), new Vector2(508, 58));
     }
 
     private static Transform EnsureAnatomyPanelStation(Transform owner, RectTransform panel)
