@@ -808,6 +808,21 @@ public static class AnatomyValidation
         settings.Close();
         Require(!settings.IsOpen && nav.Level == level && nav.HistoryCount == history,
             "Closing Settings changed anatomy navigation.");
+        var highlight = settings.HighlightMaterial;
+        Require(highlight != null && nav.InspectionDisplay.HighlightMaterial == highlight &&
+                UnityEngine.Object.FindObjectsByType<BoneSelection>(
+                    FindObjectsInactive.Include, FindObjectsSortMode.None)
+                    .All(bone => bone.HighlightMaterial == highlight) &&
+                UnityEngine.Object.FindObjectsByType<BoneGroupHoverHighlighter>(
+                    FindObjectsInactive.Include, FindObjectsSortMode.None)
+                    .All(group => group.HighlightMaterial == highlight),
+            "Highlight color is not shared by group, bone, and reference views.");
+        int previousColor = settings.HighlightChoice;
+        Color beforeColor = highlight.GetColor("_EmissionColor");
+        settings.SetHighlightChoice(previousColor == 1 ? 2 : 1);
+        Require(highlight.GetColor("_EmissionColor") != beforeColor,
+            "Highlight color control did not change the active material.");
+        settings.SetHighlightChoice(previousColor);
     }
 
     private static void CheckPanelGrabHandle(Transform movable, Transform panel)

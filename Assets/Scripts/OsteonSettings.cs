@@ -6,13 +6,15 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.UI;
 
-/// <summary>Local appearance preferences and the ray-selectable anatomy settings page.</summary>
+/// <summary>Local appearance preferences and the ray-selectable wall settings station.</summary>
 public sealed class OsteonSettings : MonoBehaviour
 {
     private const string RoomKey = "Osteon.RoomColor.v1";
     private const string ThemeKey = "Osteon.PanelTheme.v1";
     private const string TextKey = "Osteon.TextSize.v1";
+    private const string HighlightKey = "Osteon.HighlightColor.v1";
     private static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
+    private static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
     private static readonly string[] RoomNames = { "Original", "Cool blue", "Sage", "Warm" };
     private static readonly Color[] RoomColors =
     {
@@ -24,6 +26,14 @@ public sealed class OsteonSettings : MonoBehaviour
     private static readonly string[] ThemeNames = { "Default dark", "Light", "High contrast" };
     private static readonly string[] TextNames = { "Small", "Standard", "Large" };
     private static readonly float[] TextScales = { 0.9f, 1f, 1.2f };
+    private static readonly string[] HighlightNames = { "Original blue", "Amber", "Violet", "Lime" };
+    private static readonly Color[] HighlightColors =
+    {
+        new Color(0f, 0.23814607f, 1f),
+        new Color(1f, 0.45f, 0.02f),
+        new Color(0.55f, 0.15f, 1f),
+        new Color(0.35f, 0.9f, 0.05f)
+    };
 
     private struct Palette
     {
@@ -54,18 +64,25 @@ public sealed class OsteonSettings : MonoBehaviour
     private readonly List<Image> roomButtons = new List<Image>();
     private readonly List<Image> themeButtons = new List<Image>();
     private readonly List<Image> textButtons = new List<Image>();
+    private readonly List<Image> highlightButtons = new List<Image>();
     private readonly Dictionary<TextMeshProUGUI, float> baseFontSizes = new Dictionary<TextMeshProUGUI, float>();
     private readonly Dictionary<TextMeshProUGUI, bool> baseAutoSizing = new Dictionary<TextMeshProUGUI, bool>();
     private GameObject page;
     private GameObject launcher;
+    private Material highlightCopy;
+    private Color originalHighlightBase;
+    private Color originalHighlightEmission;
     private int roomChoice;
     private int themeChoice;
     private int textChoice;
+    private int highlightChoice;
 
     public static OsteonSettings Instance { get; private set; }
     public int RoomChoice => roomChoice;
     public int ThemeChoice => themeChoice;
     public int TextChoice => textChoice;
+    public int HighlightChoice => highlightChoice;
+    public Material HighlightMaterial => highlightCopy;
     public bool IsOpen => page != null && page.activeSelf;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -82,6 +99,7 @@ public sealed class OsteonSettings : MonoBehaviour
         roomChoice = SafeChoice(PlayerPrefs.GetInt(RoomKey, 0), RoomNames.Length);
         themeChoice = SafeChoice(PlayerPrefs.GetInt(ThemeKey, 0), ThemeNames.Length);
         textChoice = SafeChoice(PlayerPrefs.GetInt(TextKey, 1), TextNames.Length, 1);
+        highlightChoice = SafeChoice(PlayerPrefs.GetInt(HighlightKey, 0), HighlightNames.Length);
     }
 
     private IEnumerator Start()
@@ -95,6 +113,8 @@ public sealed class OsteonSettings : MonoBehaviour
         }
 
         CaptureRoom(room.transform);
+        BindHighlightMaterial();
+        ApplyHighlightColor();
         Camera viewer = Camera.main != null ? Camera.main : FindFirstObjectByType<Camera>();
         while (viewer == null)
         {
@@ -151,11 +171,55 @@ public sealed class OsteonSettings : MonoBehaviour
         ApplyTextSize();
     }
 
+    public void SetHighlightChoice(int choice)
+    {
+        highlightChoice = SafeChoice(choice, HighlightNames.Length);
+        PlayerPrefs.SetInt(HighlightKey, highlightChoice);
+        PlayerPrefs.Save();
+        ApplyHighlightColor();
+        UpdateHighlightButtons();
+    }
+
     public void ResetToDefaults()
     {
         SetRoomChoice(0);
         SetThemeChoice(0);
         SetTextChoice(1);
+        SetHighlightChoice(0);
+    }
+
+    private void BindHighlightMaterial()
+    {
+        var navigation = FindFirstObjectByType<AnatomyNavigationController>();
+        Material source = navigation != null ? navigation.GroupHighlightMaterial : null;
+        if (source == null)
+        {
+            Debug.LogError("Osteon settings could not find the anatomy highlight material.");
+            return;
+        }
+        highlightCopy = new Material(source) { name = source.name + " (Osteon highlight color)" };
+        originalHighlightBase = source.HasProperty(BaseColor) ? source.GetColor(BaseColor) : Color.white;
+        originalHighlightEmission = source.HasProperty(EmissionColor)
+            ? source.GetColor(EmissionColor) : HighlightColors[0];
+        foreach (var highlighter in FindObjectsByType<BoneGroupHoverHighlighter>(
+            FindObjectsInactive.Include, FindObjectsSortMode.None)) highlighter.Configure(highlightCopy);
+        foreach (var transition in FindObjectsByType<ViewTransitionOnSelect>(
+            FindObjectsInactive.Include, FindObjectsSortMode.None)) transition.ConfigureHighlight(highlightCopy);
+        foreach (var selection in FindObjectsByType<BoneSelection>(
+            FindObjectsInactive.Include, FindObjectsSortMode.None)) selection.ConfigureHighlight(highlightCopy);
+        if (navigation.InspectionDisplay != null)
+            navigation.InspectionDisplay.ConfigureHighlight(highlightCopy);
+    }
+
+    private void ApplyHighlightColor()
+    {
+        if (highlightCopy == null) return;
+        Color emission = highlightChoice == 0
+            ? originalHighlightEmission : HighlightColors[highlightChoice];
+        Color baseTint = highlightChoice == 0
+            ? originalHighlightBase : Color.Lerp(Color.white, emission, 0.35f);
+        if (highlightCopy.HasProperty(BaseColor)) highlightCopy.SetColor(BaseColor, baseTint);
+        if (highlightCopy.HasProperty(EmissionColor)) highlightCopy.SetColor(EmissionColor, emission);
     }
 
     private void CaptureRoom(Transform root)
@@ -233,54 +297,65 @@ public sealed class OsteonSettings : MonoBehaviour
 
         page = MakeCanvas(station, "Settings panel", viewer).gameObject;
         var pageRect = (RectTransform)page.transform;
-        pageRect.sizeDelta = new Vector2(560, 800);
+        pageRect.sizeDelta = new Vector2(560, 980);
         pageRect.localScale = Vector3.one * 0.001f;
         var background = page.GetComponent<Image>();
         background.color = new Color(0.035f, 0.055f, 0.075f, 1f);
         background.raycastTarget = true;
-        MakeText(pageRect, "Appearance settings", new Vector2(-58, 330), new Vector2(360, 65),
+        MakeText(pageRect, "Appearance settings", new Vector2(-58, 420), new Vector2(360, 65),
             30, font, TextAlignmentOptions.Left);
-        MakeButton(pageRect, "Close settings", "Close", new Vector2(205, 330),
+        MakeButton(pageRect, "Close settings", "Close", new Vector2(205, 420),
             new Vector2(110, 58), font, Close);
-        MakeText(pageRect, "Hospital color", new Vector2(0, 220), new Vector2(460, 48),
+        MakeText(pageRect, "Hospital color", new Vector2(0, 310), new Vector2(460, 48),
             26, font, TextAlignmentOptions.Left);
         for (int i = 0; i < RoomNames.Length; i++)
         {
             int choice = i;
             var button = MakeButton(pageRect, "Room " + RoomNames[i], RoomNames[i],
-                new Vector2(-187 + 125 * i, 145), new Vector2(115, 74), font,
+                new Vector2(-187 + 125 * i, 238), new Vector2(115, 74), font,
                 () => SetRoomChoice(choice));
             roomButtons.Add(button.GetComponent<Image>());
         }
         MakeText(pageRect, "Changes apply to the hospital room surfaces.",
-            new Vector2(0, 55), new Vector2(470, 80), 22, font, TextAlignmentOptions.Center);
-        MakeText(pageRect, "Panel theme", new Vector2(0, -22), new Vector2(460, 45),
+            new Vector2(0, 150), new Vector2(470, 60), 22, font, TextAlignmentOptions.Center);
+        MakeText(pageRect, "Panel theme", new Vector2(0, 80), new Vector2(460, 45),
             26, font, TextAlignmentOptions.Left);
         for (int i = 0; i < ThemeNames.Length; i++)
         {
             int choice = i;
             var button = MakeButton(pageRect, "Theme " + ThemeNames[i], ThemeNames[i],
-                new Vector2(-160 + 160 * i, -92), new Vector2(150, 66), font,
+                new Vector2(-160 + 160 * i, 15), new Vector2(150, 66), font,
                 () => SetThemeChoice(choice));
             themeButtons.Add(button.GetComponent<Image>());
         }
-        MakeText(pageRect, "Text size", new Vector2(0, -169), new Vector2(460, 45),
+        MakeText(pageRect, "Text size", new Vector2(0, -95), new Vector2(460, 45),
             26, font, TextAlignmentOptions.Left);
         for (int i = 0; i < TextNames.Length; i++)
         {
             int choice = i;
             var button = MakeButton(pageRect, "Text " + TextNames[i], TextNames[i],
-                new Vector2(-160 + 160 * i, -240), new Vector2(150, 66), font,
+                new Vector2(-160 + 160 * i, -165), new Vector2(150, 66), font,
                 () => SetTextChoice(choice));
             textButtons.Add(button.GetComponent<Image>());
         }
-        MakeButton(pageRect, "Reset settings", "Reset to defaults", new Vector2(0, -335),
+        MakeText(pageRect, "Highlight color", new Vector2(0, -260), new Vector2(460, 45),
+            26, font, TextAlignmentOptions.Left);
+        for (int i = 0; i < HighlightNames.Length; i++)
+        {
+            int choice = i;
+            var button = MakeButton(pageRect, "Highlight " + HighlightNames[i], HighlightNames[i],
+                new Vector2(-187 + 125 * i, -330), new Vector2(115, 74), font,
+                () => SetHighlightChoice(choice));
+            highlightButtons.Add(button.GetComponent<Image>());
+        }
+        MakeButton(pageRect, "Reset settings", "Reset to defaults", new Vector2(0, -420),
             new Vector2(300, 66), font, ResetToDefaults);
         UpdateRoomButtons();
         UpdateThemeButtons();
         UpdateTextButtons();
+        UpdateHighlightButtons();
         PanelMoveHandle.Configure(station, pageRect, font,
-            new Vector2(0, -510), new Vector2(508, 58));
+            new Vector2(0, -590), new Vector2(508, 58));
         page.SetActive(false);
     }
 
@@ -318,6 +393,13 @@ public sealed class OsteonSettings : MonoBehaviour
             textButtons[i].color = i == textChoice ? palette.selected : palette.button;
     }
 
+    private void UpdateHighlightButtons()
+    {
+        Palette palette = Palettes[themeChoice];
+        for (int i = 0; i < highlightButtons.Count; i++)
+            highlightButtons[i].color = i == highlightChoice ? palette.selected : palette.button;
+    }
+
     public void ApplyTheme()
     {
         var anatomy = GameObject.Find("Anatomy information panel");
@@ -329,6 +411,7 @@ public sealed class OsteonSettings : MonoBehaviour
         UpdateRoomButtons();
         UpdateThemeButtons();
         UpdateTextButtons();
+        UpdateHighlightButtons();
     }
 
     public void PrepareQuizText(params TextMeshProUGUI[] regions)
@@ -482,6 +565,7 @@ public sealed class OsteonSettings : MonoBehaviour
             if (pair.Key != null) pair.Key.sharedMaterials = pair.Value;
         foreach (var copy in roomCopies.Values)
             if (copy != null) Destroy(copy);
+        if (highlightCopy != null) Destroy(highlightCopy);
         if (Instance == this) Instance = null;
     }
 }

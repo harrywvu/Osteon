@@ -15,6 +15,9 @@ public sealed class BoneInspectionDisplay : MonoBehaviour
     private GameObject referenceVisual;
     public Transform BoneVisual => boneVisual != null ? boneVisual.transform : null;
     public Transform ReferenceVisual => referenceVisual != null ? referenceVisual.transform : null;
+    public Material HighlightMaterial => highlightMaterial;
+
+    public void ConfigureHighlight(Material material) => highlightMaterial = material;
 
     public void Show(BoneSelection bone, Transform group, Quaternion authoredOrientation,
         SkullExplosionController assembledReference = null)

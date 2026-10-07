@@ -18,7 +18,11 @@ public class BoneGroupHoverHighlighter : MonoBehaviour
     public void Configure(Material material)
     {
         highlightMaterial = material;
-        if (renderers != null) CacheHighlightMaterials();
+        if (renderers == null) return;
+        CacheHighlightMaterials();
+        if (hoverCount > 0)
+            for (int i = 0; i < renderers.Length; i++)
+                if (renderers[i] != null) renderers[i].sharedMaterials = highlightMaterials[i];
     }
 
     private void Awake()

@@ -14,7 +14,20 @@ public sealed class BoneSelection : MonoBehaviour
     private Material[][] originals;
     public BonePartInfo Info { get; private set; }
     public Renderer[] Renderers => boneRenderers;
+    public Material HighlightMaterial => highlightMaterial;
     public bool IsHovered => interactable != null && interactable.isHovered;
+
+    public void ConfigureHighlight(Material material)
+    {
+        highlightMaterial = material;
+        if (IsHovered && originals != null)
+            for (int i = 0; i < boneRenderers.Length; i++)
+            {
+                var materials = new Material[originals[i].Length];
+                for (int j = 0; j < materials.Length; j++) materials[j] = material;
+                boneRenderers[i].sharedMaterials = materials;
+            }
+    }
 
     private void Awake()
     {
