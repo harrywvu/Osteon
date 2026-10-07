@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public sealed class OsteonSettings : MonoBehaviour
 {
     private const string RoomKey = "Osteon.RoomColor.v1";
+    private const string ThemeKey = "Osteon.PanelTheme.v1";
     private static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
     private static readonly string[] RoomNames = { "Original", "Cool blue", "Sage", "Warm" };
     private static readonly Color[] RoomColors =
@@ -17,16 +18,43 @@ public sealed class OsteonSettings : MonoBehaviour
         new Color(0.55f, 0.77f, 0.62f),
         new Color(0.93f, 0.71f, 0.53f)
     };
+    private static readonly string[] ThemeNames = { "Default dark", "Light", "High contrast" };
+
+    private struct Palette
+    {
+        public Color background, inset, button, selected, text, buttonText, track, fill, handle;
+    }
+
+    private static readonly Palette[] Palettes =
+    {
+        new Palette { background = new Color(0.035f, 0.055f, 0.075f, 0.98f),
+            inset = new Color(0.055f, 0.11f, 0.15f), button = new Color(0.09f, 0.27f, 0.38f),
+            selected = new Color(0.18f, 0.58f, 0.72f), text = new Color(0.94f, 0.97f, 1f),
+            buttonText = Color.white, track = new Color(0.16f, 0.30f, 0.38f),
+            fill = new Color(0.18f, 0.68f, 0.87f), handle = new Color(0.75f, 0.94f, 1f) },
+        new Palette { background = new Color(0.92f, 0.95f, 0.97f),
+            inset = new Color(0.78f, 0.85f, 0.89f), button = new Color(0.12f, 0.31f, 0.45f),
+            selected = new Color(0.12f, 0.49f, 0.39f), text = new Color(0.08f, 0.14f, 0.20f),
+            buttonText = Color.white, track = new Color(0.45f, 0.57f, 0.64f),
+            fill = new Color(0.10f, 0.46f, 0.64f), handle = Color.white },
+        new Palette { background = Color.black, inset = new Color(0.12f, 0.12f, 0.12f),
+            button = new Color(0.18f, 0.18f, 0.18f), selected = new Color(0.24f, 0.39f, 0.02f),
+            text = Color.white, buttonText = Color.white, track = new Color(0.48f, 0.48f, 0.48f),
+            fill = new Color(0.95f, 0.85f, 0.12f), handle = Color.white }
+    };
 
     private readonly Dictionary<Renderer, Material[]> originalRendererMaterials = new Dictionary<Renderer, Material[]>();
     private readonly Dictionary<Material, Material> roomCopies = new Dictionary<Material, Material>();
     private readonly Dictionary<Material, Color> originalColors = new Dictionary<Material, Color>();
     private readonly List<Image> roomButtons = new List<Image>();
+    private readonly List<Image> themeButtons = new List<Image>();
     private GameObject page;
     private int roomChoice;
+    private int themeChoice;
 
     public static OsteonSettings Instance { get; private set; }
     public int RoomChoice => roomChoice;
+    public int ThemeChoice => themeChoice;
     public bool IsOpen => page != null && page.activeSelf;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -41,6 +69,7 @@ public sealed class OsteonSettings : MonoBehaviour
     {
         Instance = this;
         roomChoice = SafeChoice(PlayerPrefs.GetInt(RoomKey, 0), RoomNames.Length);
+        themeChoice = SafeChoice(PlayerPrefs.GetInt(ThemeKey, 0), ThemeNames.Length);
     }
 
     private void Start()
@@ -56,6 +85,7 @@ public sealed class OsteonSettings : MonoBehaviour
         CaptureRoom(room.transform);
         BuildPage((RectTransform)panel.transform);
         ApplyRoom();
+        ApplyTheme();
     }
 
     private static int SafeChoice(int choice, int count) => choice >= 0 && choice < count ? choice : 0;
@@ -72,9 +102,18 @@ public sealed class OsteonSettings : MonoBehaviour
     public void Open() { if (page != null) page.SetActive(true); }
     public void Close() { if (page != null) page.SetActive(false); }
 
+    public void SetThemeChoice(int choice)
+    {
+        themeChoice = SafeChoice(choice, ThemeNames.Length);
+        PlayerPrefs.SetInt(ThemeKey, themeChoice);
+        PlayerPrefs.Save();
+        ApplyTheme();
+    }
+
     public void ResetToDefaults()
     {
         SetRoomChoice(0);
+        SetThemeChoice(0);
     }
 
     private void CaptureRoom(Transform root)
@@ -165,18 +204,76 @@ public sealed class OsteonSettings : MonoBehaviour
         }
         MakeText(pageRect, "Changes apply to the hospital room surfaces.",
             new Vector2(0, 55), new Vector2(470, 80), 22, font, TextAlignmentOptions.Center);
+        MakeText(pageRect, "Panel theme", new Vector2(0, -22), new Vector2(460, 45),
+            26, font, TextAlignmentOptions.Left);
+        for (int i = 0; i < ThemeNames.Length; i++)
+        {
+            int choice = i;
+            var button = MakeButton(pageRect, "Theme " + ThemeNames[i], ThemeNames[i],
+                new Vector2(-160 + 160 * i, -92), new Vector2(150, 66), font,
+                () => SetThemeChoice(choice));
+            themeButtons.Add(button.GetComponent<Image>());
+        }
         MakeButton(pageRect, "Reset settings", "Reset to defaults", new Vector2(0, -315),
             new Vector2(300, 66), font, ResetToDefaults);
         UpdateRoomButtons();
+        UpdateThemeButtons();
         page.SetActive(false);
     }
 
     private void UpdateRoomButtons()
     {
+        Palette palette = Palettes[themeChoice];
         for (int i = 0; i < roomButtons.Count; i++)
-            roomButtons[i].color = i == roomChoice
-                ? new Color(0.18f, 0.58f, 0.72f, 1f)
-                : new Color(0.09f, 0.27f, 0.38f, 1f);
+            roomButtons[i].color = i == roomChoice ? palette.selected : palette.button;
+    }
+
+    private void UpdateThemeButtons()
+    {
+        Palette palette = Palettes[themeChoice];
+        for (int i = 0; i < themeButtons.Count; i++)
+            themeButtons[i].color = i == themeChoice ? palette.selected : palette.button;
+    }
+
+    public void ApplyTheme()
+    {
+        var anatomy = GameObject.Find("Anatomy information panel");
+        if (anatomy != null) ApplyThemeTo(anatomy.transform);
+        var quiz = GameObject.Find("Quiz station");
+        if (quiz != null) ApplyThemeTo(quiz.transform);
+        UpdateRoomButtons();
+        UpdateThemeButtons();
+    }
+
+    private void ApplyThemeTo(Transform root)
+    {
+        Palette palette = Palettes[themeChoice];
+        foreach (var image in root.GetComponentsInChildren<Image>(true))
+        {
+            var button = image.GetComponent<Button>();
+            if (button != null)
+            {
+                image.color = palette.button;
+                var states = button.colors;
+                states.normalColor = Color.white;
+                states.highlightedColor = new Color(0.8f, 0.95f, 1f);
+                states.pressedColor = new Color(0.62f, 0.75f, 0.8f);
+                states.disabledColor = new Color(0.43f, 0.43f, 0.43f);
+                button.colors = states;
+            }
+            else if (image.name == "Anatomy information panel" || image.name == "Settings page" ||
+                image.name == "Quiz panel" || image.name == "Quiz launcher") image.color = palette.background;
+            else if (image.name == "Skull spread control") image.color = palette.inset;
+            else if (image.name == "Move handle") image.color = palette.button;
+            else if (image.name == "Track") image.color = palette.track;
+            else if (image.name == "Fill") image.color = palette.fill;
+            else if (image.name == "Handle") image.color = palette.handle;
+            else if (image.name == "Spread slider")
+                image.color = new Color(palette.inset.r, palette.inset.g, palette.inset.b, 0.35f);
+        }
+        foreach (var label in root.GetComponentsInChildren<TextMeshProUGUI>(true))
+            label.color = label.GetComponentInParent<Button>() != null
+                ? palette.buttonText : palette.text;
     }
 
     private static RectTransform MakeRect(Transform parent, string name, Vector2 position, Vector2 size)

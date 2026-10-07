@@ -172,6 +172,7 @@ public sealed class OsteonQuizDemo : MonoBehaviour
         Debug.Log("[OsteonQuiz] Quiz station created on the right wall.");
         // Show the menu first. The learner explicitly starts or resumes practice.
         Open();
+        OsteonSettings.Instance?.ApplyTheme();
     }
 
     private void Open()
