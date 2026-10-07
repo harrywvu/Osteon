@@ -5,12 +5,14 @@
 
 ## Current open issues
 
-- The in-world appearance settings compile through the generated Unity C#
-  project, but Play Mode and Quest interaction have not been verified. Two
-  batch validation attempts on 2026-10-07 stopped during Unity Licensing Client
-  startup before the saved scene could run. Retry `-Current` validation when
-  licensing is available, then check room colors, both panel themes, larger
-  text and scrolling, persistence, and XR ray targeting on Quest.
+- The wall Settings station, highlight color, lower Move bars, and shared G2
+  Spread compile through the generated Unity C# projects, but Play Mode and
+  Quest interaction have not been verified. Batch validation attempts on
+  2026-10-07 stopped during Unity Licensing Client startup before the saved
+  scene could run. Retry `-Current` validation when licensing is available,
+  then check station reach and ray priority, all nine spread views and G3 Back,
+  room and panel colors, text scrolling, highlight contrast, and persistence
+  on Quest.
 
 ### Current scene and incomplete feature migration
 

@@ -31737,7 +31737,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1767297585}
         m_TargetAssemblyTypeName: AnatomyNavigationController, Assembly-CSharp
-        m_MethodName: SetSkullSpread
+        m_MethodName: SetGroupSpread
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -53158,7 +53158,7 @@ MonoBehaviour:
   - {fileID: 680983166}
   - {fileID: 1881582660}
   skullExplosion: {fileID: 1881582668}
-  skullSpreadSlider: {fileID: 1118184860}
+  groupSpreadSlider: {fileID: 1118184860}
   ribBones:
   - {fileID: 2074278890}
   - {fileID: 799061175}
@@ -53349,7 +53349,7 @@ GameObject:
   - component: {fileID: 1769314352}
   - component: {fileID: 1769314351}
   m_Layer: 0
-  m_Name: Skull spread control
+  m_Name: Group spread control
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

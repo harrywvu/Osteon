@@ -504,7 +504,7 @@ public sealed class OsteonSettings : MonoBehaviour
                 image.name == "Quiz panel" || image.name == "Quiz launcher" ||
                 image.name == "Settings panel" || image.name == "Settings launcher")
                 image.color = palette.background;
-            else if (image.name == "Skull spread control") image.color = palette.inset;
+            else if (image.name == "Group spread control") image.color = palette.inset;
             else if (image.name == "Move handle") image.color = palette.button;
             else if (image.name == "Track") image.color = palette.track;
             else if (image.name == "Fill") image.color = palette.fill;

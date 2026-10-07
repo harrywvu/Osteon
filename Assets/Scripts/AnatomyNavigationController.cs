@@ -4,6 +4,7 @@ using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit.Filtering;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.UI;
+using TMPro;
 
 public enum AnatomyLevel { Whole, Division, Group, Bone }
 
@@ -32,7 +33,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     [SerializeField] private BoneSelection[] bones;
     [SerializeField] private BoneSelection[] skullBones;
     [SerializeField] private SkullExplosionController skullExplosion;
-    [SerializeField] private Slider skullSpreadSlider;
+    [SerializeField] private Slider groupSpreadSlider;
     [SerializeField] private BoneSelection[] ribBones;
     [SerializeField] private BoneSelection[] leftLowerLimbBones;
     [SerializeField] private BoneSelection[] rightPectoralBones;
@@ -48,6 +49,8 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     private readonly List<XRBaseInteractable> filtered = new List<XRBaseInteractable>();
     private readonly List<ViewTransitionOnSelect> groupTransitions = new List<ViewTransitionOnSelect>();
     private readonly List<GameObject> groupViews = new List<GameObject>();
+    private readonly Dictionary<GameObject, BoneGroupSpreadController> groupSpreads =
+        new Dictionary<GameObject, BoneGroupSpreadController>();
     private XRSelectFilterDelegate selectFilter;
     private ViewFrame current;
     private BoneSelection previewBone;
@@ -86,7 +89,10 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     public BoneSelection[] Bones => bones;
     public BoneSelection[] SkullBones => skullBones;
     public SkullExplosionController SkullExplosion => skullExplosion;
-    public Slider SkullSpreadSlider => skullSpreadSlider;
+    public Slider SkullSpreadSlider => groupSpreadSlider;
+    public Slider GroupSpreadSlider => groupSpreadSlider;
+    public BoneGroupSpreadController SpreadFor(GameObject group) =>
+        group != null && groupSpreads.TryGetValue(group, out var spread) ? spread : null;
     public BoneSelection[] RibBones => ribBones;
     public BoneSelection[] LeftLowerLimbBones => leftLowerLimbBones;
     public BoneSelection[] RightPectoralBones => rightPectoralBones;
@@ -174,6 +180,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
             authoredLeftUpperLimbOrientation = leftUpperLimbView.transform.rotation;
         if (rightUpperLimbView != null)
             authoredRightUpperLimbOrientation = rightUpperLimbView.transform.rotation;
+        ConfigureGroupSpreads();
         pectoralSwitchAction = new UnityEngine.InputSystem.InputAction("Pectoral side switch",
             UnityEngine.InputSystem.InputActionType.Button,
             "<XRController>{LeftHand}/{SecondaryButton}");
@@ -291,12 +298,43 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         return true;
     }
 
-    public void SetSkullSpread(float value)
+    private void ConfigureGroupSpreads()
     {
-        if (!initialized || Level != AnatomyLevel.Group || current.root != skullView ||
-            skullExplosion == null) return;
-        skullExplosion.SetSpread(value);
+        if (skullView != null && skullExplosion != null)
+        {
+            // The authored component retains its tuning; older scene serializations
+            // can still initialize from the navigation bindings after this refactor.
+            if (skullExplosion.BoneCount == 0 && skullBones != null && skullBones.Length >= 2)
+                skullExplosion.Configure(skullBones, 0.8f, Vector3.one);
+            groupSpreads[skullView] = skullExplosion;
+        }
+        AddGroupSpread(vertebralView, bones, 0.22f, new Vector3(1.25f, 0.5f, 1.25f));
+        AddGroupSpread(ribView, ribBones, 0.35f, new Vector3(1.15f, 0.65f, 1.15f));
+        AddGroupSpread(leftLowerLimbView, leftLowerLimbBones, 0.24f, new Vector3(1.1f, 0.7f, 1.1f));
+        AddGroupSpread(rightLowerLimbView, rightLowerLimbBones, 0.24f, new Vector3(1.1f, 0.7f, 1.1f));
+        AddGroupSpread(leftUpperLimbView, leftUpperLimbBones, 0.28f, new Vector3(1.1f, 0.7f, 1.1f));
+        AddGroupSpread(rightUpperLimbView, rightUpperLimbBones, 0.28f, new Vector3(1.1f, 0.7f, 1.1f));
+        AddGroupSpread(leftPectoralView, leftPectoralBones, 0.45f, new Vector3(1f, 0.5f, 1f));
+        AddGroupSpread(rightPectoralView, rightPectoralBones, 0.45f, new Vector3(1f, 0.5f, 1f));
     }
+
+    private void AddGroupSpread(GameObject root, BoneSelection[] entries, float distance, Vector3 weights)
+    {
+        if (root == null || entries == null || entries.Length < 2) return;
+        var spread = root.GetComponent<BoneGroupSpreadController>();
+        if (spread == null) spread = root.AddComponent<BoneGroupSpreadController>();
+        if (spread.BoneCount == 0) spread.Configure(entries, distance, weights);
+        groupSpreads[root] = spread;
+    }
+
+    public void SetGroupSpread(float value)
+    {
+        if (!initialized || Level != AnatomyLevel.Group) return;
+        SpreadFor(current.root)?.SetSpread(value);
+    }
+
+    // Supports older saved slider callbacks until the scene is reconfigured.
+    public void SetSkullSpread(float value) => SetGroupSpread(value);
 
     private static bool IsControllerPressed(XRNode hand)
     {
@@ -430,7 +468,7 @@ public sealed class AnatomyNavigationController : MonoBehaviour
             group == rightLowerLimbView ? authoredRightLowerLimbOrientation :
             group == leftUpperLimbView ? authoredLeftUpperLimbOrientation :
             authoredRightUpperLimbOrientation;
-        SkullExplosionController reference = group == skullView ? skullExplosion : null;
+        BoneGroupSpreadController reference = SpreadFor(group);
         if (reference != null) reference.CompleteTransition();
         try { inspectionDisplay.Show(bone, group.transform, orientation, reference); }
         catch (System.Exception error)
@@ -482,8 +520,9 @@ public sealed class AnatomyNavigationController : MonoBehaviour
 
     private void ShowFrame(ViewFrame frame)
     {
-        if (skullExplosion != null && frame.root != skullView && frame.level != AnatomyLevel.Bone)
-            skullExplosion.ResetImmediate();
+        if (frame.level != AnatomyLevel.Bone)
+            foreach (var entry in groupSpreads)
+                if (entry.Key != frame.root) entry.Value.ResetImmediate();
         ClearHighlights();
         overviewRoot.SetActive(false);
         axialView.SetActive(false);
@@ -549,13 +588,19 @@ public sealed class AnatomyNavigationController : MonoBehaviour
     private void Present()
     {
         if (current == null || infoBoard == null) return;
-        if (skullSpreadSlider != null)
+        if (groupSpreadSlider != null)
         {
-            bool showSpread = Level == AnatomyLevel.Group && current.root == skullView;
-            if (skullSpreadSlider.transform.parent.gameObject.activeSelf != showSpread)
-                skullSpreadSlider.transform.parent.gameObject.SetActive(showSpread);
-            if (showSpread && skullExplosion != null)
-                skullSpreadSlider.SetValueWithoutNotify(skullExplosion.Spread);
+            BoneGroupSpreadController spread = Level == AnatomyLevel.Group
+                ? SpreadFor(current.root) : null;
+            bool showSpread = spread != null;
+            if (groupSpreadSlider.transform.parent.gameObject.activeSelf != showSpread)
+                groupSpreadSlider.transform.parent.gameObject.SetActive(showSpread);
+            if (showSpread)
+            {
+                groupSpreadSlider.SetValueWithoutNotify(spread.Spread);
+                var label = groupSpreadSlider.transform.parent.GetComponentInChildren<TextMeshProUGUI>(true);
+                if (label != null) label.text = "Spread " + current.title.ToLowerInvariant();
+            }
         }
         string body = current.description;
         if (!string.IsNullOrEmpty(current.breadcrumb)) body = current.breadcrumb + "\n\n" + body;

@@ -1,5 +1,9 @@
 # PLAN-004 — Appearance and text settings
 
+> The original anatomy-panel Settings placement below is historical. PLAN-005
+> moved Settings to its own wall station and added highlight color; see
+> [PLAN-005](2026-10-07_PLAN-005_Panel-Spacing-Shared-Spread-and-Wall-Settings.md).
+
 **Date:** 2026-10-07
 **Status:** Implemented in code; Play Mode and physical Quest verification pending
 

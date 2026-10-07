@@ -109,9 +109,10 @@ public static class AnatomySceneSetup
         var back = Reference<GameObject>(board, "backButton");
         Layout((RectTransform)back.transform, new Vector2(0, -352), new Vector2(508, 56));
         TMP_FontAsset font = Reference<TextMeshProUGUI>(board, "titleText").font;
-        Transform existing = panelRect.Find("Skull spread control");
+        Transform existing = panelRect.Find("Group spread control") ?? panelRect.Find("Skull spread control");
         GameObject control = existing != null ? existing.gameObject :
-            new GameObject("Skull spread control", typeof(RectTransform), typeof(Image));
+            new GameObject("Group spread control", typeof(RectTransform), typeof(Image));
+        control.name = "Group spread control";
         control.transform.SetParent(panelRect, false);
         Layout((RectTransform)control.transform, new Vector2(0, -252), new Vector2(508, 112));
         Image controlImage = Add<Image>(control);
@@ -163,9 +164,9 @@ public static class AnatomySceneSetup
         slider.targetGraphic = handle;
         while (slider.onValueChanged.GetPersistentEventCount() > 0)
             UnityEventTools.RemovePersistentListener(slider.onValueChanged, 0);
-        UnityEventTools.AddPersistentListener<float>(slider.onValueChanged, navigation.SetSkullSpread);
+        UnityEventTools.AddPersistentListener<float>(slider.onValueChanged, navigation.SetGroupSpread);
         slider.SetValueWithoutNotify(0f);
-        Set(navigation, "skullSpreadSlider", slider);
+        Set(navigation, "groupSpreadSlider", slider);
         control.SetActive(false);
         Transform station = panel.transform.parent;
         PanelMoveHandle.Configure(station, panelRect, font,

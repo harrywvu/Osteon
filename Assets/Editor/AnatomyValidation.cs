@@ -143,6 +143,7 @@ public static class AnatomyValidation
         Require(nav.LeftUpperLimbBones.Select(b => b.name).Distinct().Count() == 30 &&
                 nav.RightUpperLimbBones.Select(b => b.name).Distinct().Count() == 30,
             "Duplicate upper-limb bindings.");
+        CheckGroupSpreads(nav);
         Require(PlayerSettings.bakeCollisionMeshes, "Quest build must prebake collision meshes.");
         var overview = nav.CurrentView;
         foreach (var divisionView in new[] {
@@ -763,6 +764,47 @@ public static class AnatomyValidation
         }
         Require(hasBounds, $"G2 view has no rendered geometry: {view.name}.");
         return bounds.center;
+    }
+
+    private static void CheckGroupSpreads(AnatomyNavigationController nav)
+    {
+        var views = new[] {
+            AnatomySceneSetup.Reference<GameObject>(nav, "skullView"),
+            AnatomySceneSetup.Reference<GameObject>(nav, "vertebralView"),
+            AnatomySceneSetup.Reference<GameObject>(nav, "ribView"),
+            AnatomySceneSetup.Reference<GameObject>(nav, "leftLowerLimbView"),
+            AnatomySceneSetup.Reference<GameObject>(nav, "rightLowerLimbView"),
+            AnatomySceneSetup.Reference<GameObject>(nav, "leftUpperLimbView"),
+            AnatomySceneSetup.Reference<GameObject>(nav, "rightUpperLimbView"),
+            AnatomySceneSetup.Reference<GameObject>(nav, "leftPectoralView"),
+            AnatomySceneSetup.Reference<GameObject>(nav, "rightPectoralView")
+        };
+        var selections = new[] { nav.SkullBones, nav.Bones, nav.RibBones,
+            nav.LeftLowerLimbBones, nav.RightLowerLimbBones, nav.LeftUpperLimbBones,
+            nav.RightUpperLimbBones, nav.LeftPectoralBones, nav.RightPectoralBones };
+        Require(nav.GroupSpreadSlider != null &&
+                nav.GroupSpreadSlider.transform.parent.name == "Group spread control" &&
+                nav.SpreadFor(AnatomySceneSetup.Reference<GameObject>(nav, "pelvicView")) == null,
+            "The shared G2 slider or one-bone pelvic exclusion is missing.");
+        for (int group = 0; group < views.Length; group++)
+        {
+            var view = views[group];
+            var entries = selections[group];
+            var spread = nav.SpreadFor(view);
+            Require(view != null && spread != null && entries != null &&
+                    spread.BoneCount == entries.Length,
+                $"G2 spread is not configured for {view?.name}.");
+            var assembled = entries.Select(entry => entry.transform.localPosition).ToArray();
+            spread.SetSpread(1f);
+            spread.CompleteTransition();
+            Require(entries.Select((entry, i) =>
+                    Vector3.Distance(entry.transform.localPosition, assembled[i]))
+                    .All(distance => distance > 0.0001f),
+                $"Full spread did not move every bone in {view.name}.");
+            spread.ResetImmediate();
+            Require(entries.Select((entry, i) => entry.transform.localPosition == assembled[i]).All(equal => equal),
+                $"G2 spread did not restore exact authored poses in {view.name}.");
+        }
     }
 
     private static void CheckPanelMovementSetup(AnatomyNavigationController nav)

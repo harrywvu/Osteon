@@ -20,7 +20,7 @@ public sealed class BoneInspectionDisplay : MonoBehaviour
     public void ConfigureHighlight(Material material) => highlightMaterial = material;
 
     public void Show(BoneSelection bone, Transform group, Quaternion authoredOrientation,
-        SkullExplosionController assembledReference = null)
+        BoneGroupSpreadController assembledReference = null)
     {
         Clear();
         try
@@ -28,7 +28,7 @@ public sealed class BoneInspectionDisplay : MonoBehaviour
             boneVisual = CreateVisual("Inspected bone", bone.Renderers, group, authoredOrientation,
                 boneAnchor, null, null);
             Fit(boneVisual.transform, boneDiameter, false);
-            referenceVisual = CreateVisual(assembledReference != null ? "Reference skull" : "Reference column",
+            referenceVisual = CreateVisual("Reference group",
                 group.GetComponentsInChildren<Renderer>(true),
                 group, authoredOrientation, referenceAnchor, new HashSet<Renderer>(bone.Renderers),
                 assembledReference);
@@ -43,7 +43,7 @@ public sealed class BoneInspectionDisplay : MonoBehaviour
 
     private GameObject CreateVisual(string label, Renderer[] renderers, Transform sourceRoot,
         Quaternion orientation, Transform anchor, HashSet<Renderer> selected,
-        SkullExplosionController assembledReference)
+        BoneGroupSpreadController assembledReference)
     {
         var root = new GameObject(label);
         root.transform.SetParent(anchor, false);
