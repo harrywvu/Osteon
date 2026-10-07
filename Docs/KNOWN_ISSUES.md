@@ -1,9 +1,16 @@
 # Known Issues and Project History
 
-> Current-state update: 2026-10-06. Historical entries are retained below so
+> Current-state update: 2026-10-07. Historical entries are retained below so
 > previous recovery work is not lost.
 
 ## Current open issues
+
+- The in-world appearance settings compile through the generated Unity C#
+  project, but Play Mode and Quest interaction have not been verified. Two
+  batch validation attempts on 2026-10-07 stopped during Unity Licensing Client
+  startup before the saved scene could run. Retry `-Current` validation when
+  licensing is available, then check room colors, both panel themes, larger
+  text and scrolling, persistence, and XR ray targeting on Quest.
 
 ### Current scene and incomplete feature migration
 

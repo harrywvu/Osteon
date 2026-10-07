@@ -159,7 +159,7 @@ public sealed class OsteonQuizDemo : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             string letter = Letters[i];
-            optionButtons[i] = AddButton(panelRect, "", new Vector2(0, 82 - i * 99), new Vector2(700, 84));
+            optionButtons[i] = AddButton(panelRect, "", new Vector2(0, 74 - i * 99), new Vector2(700, 96));
             optionButtons[i].onClick.AddListener(() => Choose(letter));
         }
         feedbackText = AddText(panelRect, "", new Vector2(0, -332),
@@ -173,6 +173,7 @@ public sealed class OsteonQuizDemo : MonoBehaviour
         // Show the menu first. The learner explicitly starts or resumes practice.
         Open();
         OsteonSettings.Instance?.ApplyTheme();
+        OsteonSettings.Instance?.PrepareQuizText(statusText, questionText, feedbackText);
     }
 
     private void Open()
@@ -331,6 +332,7 @@ public sealed class OsteonQuizDemo : MonoBehaviour
         }
         statusText.text = status;
         questionText.text = question.bone_name + " | " + question.difficulty_level + "\n" + question.question_text;
+        OsteonSettings.ScrollToTop(questionText);
         feedbackText.text = "Select one answer";
         for (int i = 0; i < 4; i++)
         {
@@ -351,6 +353,7 @@ public sealed class OsteonQuizDemo : MonoBehaviour
     private void ShowMessage(string message, string action, Action callback)
     {
         statusText.text = message;
+        OsteonSettings.ScrollToTop(statusText);
         questionText.text = "";
         feedbackText.text = "";
         HideChoices();
@@ -425,7 +428,7 @@ public sealed class OsteonQuizDemo : MonoBehaviour
         image.color = new Color(0.07f, 0.27f, 0.39f, 1f);
         Button button = obj.GetComponent<Button>();
         button.targetGraphic = image;
-        AddText(rect, label, Vector2.zero, size - new Vector2(24, 12), 25, TextAlignmentOptions.Center);
+        AddText(rect, label, Vector2.zero, size - new Vector2(12, 4), 25, TextAlignmentOptions.Center);
         return button;
     }
 

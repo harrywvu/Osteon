@@ -102,6 +102,7 @@ independently. The controller must return to neutral after entry or reconnection
 | `Assets/Scripts/SkeletonYawRotator.cs` | Rotates a model about its center with the right thumbstick | Attached to the full, axial, vertebral, and ribcage model roots |
 | `Assets/Scripts/OsteonQuizDemo.cs` | Creates the world-space, user-movable practice-quiz station and calls the shared HTTP API | Runtime-created only in the enabled scene; Quest placement still needs verification |
 | `Assets/Scripts/PanelMoveHandle.cs` | Gives the anatomy and quiz panels a separate XR grab bar below their controls | Scene-authored for anatomy; runtime-created for quiz |
+| `Assets/Scripts/OsteonSettings.cs` | Builds the anatomy settings page, saves local preferences, colors hospital room material copies, and applies panel themes and text sizes | Runtime-created in the enabled scene; Quest interaction pending verification |
 | `Assets/BonePartGrabRelease.cs` | Shows `BonePartInfo` on grab, hides it on release, then lerps the object back to its original parent/local transform | Not referenced by the current scene; used by older recovery scenes |
 | `Assets/Scripts/BonePartInfo.cs` | Stores a serialized part name and anatomical description | Used by G3 and older recovery scenes |
 | `Assets/Scripts/AxialDivisionSelection.cs` | Older axial-only selection implementation that hides a configured appendicular object | Not referenced by any scene or prefab |

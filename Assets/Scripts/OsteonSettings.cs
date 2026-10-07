@@ -9,6 +9,7 @@ public sealed class OsteonSettings : MonoBehaviour
 {
     private const string RoomKey = "Osteon.RoomColor.v1";
     private const string ThemeKey = "Osteon.PanelTheme.v1";
+    private const string TextKey = "Osteon.TextSize.v1";
     private static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
     private static readonly string[] RoomNames = { "Original", "Cool blue", "Sage", "Warm" };
     private static readonly Color[] RoomColors =
@@ -19,6 +20,8 @@ public sealed class OsteonSettings : MonoBehaviour
         new Color(0.93f, 0.71f, 0.53f)
     };
     private static readonly string[] ThemeNames = { "Default dark", "Light", "High contrast" };
+    private static readonly string[] TextNames = { "Small", "Standard", "Large" };
+    private static readonly float[] TextScales = { 0.9f, 1f, 1.2f };
 
     private struct Palette
     {
@@ -48,13 +51,18 @@ public sealed class OsteonSettings : MonoBehaviour
     private readonly Dictionary<Material, Color> originalColors = new Dictionary<Material, Color>();
     private readonly List<Image> roomButtons = new List<Image>();
     private readonly List<Image> themeButtons = new List<Image>();
+    private readonly List<Image> textButtons = new List<Image>();
+    private readonly Dictionary<TextMeshProUGUI, float> baseFontSizes = new Dictionary<TextMeshProUGUI, float>();
+    private readonly Dictionary<TextMeshProUGUI, bool> baseAutoSizing = new Dictionary<TextMeshProUGUI, bool>();
     private GameObject page;
     private int roomChoice;
     private int themeChoice;
+    private int textChoice;
 
     public static OsteonSettings Instance { get; private set; }
     public int RoomChoice => roomChoice;
     public int ThemeChoice => themeChoice;
+    public int TextChoice => textChoice;
     public bool IsOpen => page != null && page.activeSelf;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -70,6 +78,7 @@ public sealed class OsteonSettings : MonoBehaviour
         Instance = this;
         roomChoice = SafeChoice(PlayerPrefs.GetInt(RoomKey, 0), RoomNames.Length);
         themeChoice = SafeChoice(PlayerPrefs.GetInt(ThemeKey, 0), ThemeNames.Length);
+        textChoice = SafeChoice(PlayerPrefs.GetInt(TextKey, 1), TextNames.Length, 1);
     }
 
     private void Start()
@@ -84,11 +93,15 @@ public sealed class OsteonSettings : MonoBehaviour
 
         CaptureRoom(room.transform);
         BuildPage((RectTransform)panel.transform);
+        var description = panel.transform.Find("Anatomy description")?.GetComponent<TextMeshProUGUI>();
+        if (description != null) MakeScrollable(description);
         ApplyRoom();
         ApplyTheme();
+        ApplyTextSize();
     }
 
-    private static int SafeChoice(int choice, int count) => choice >= 0 && choice < count ? choice : 0;
+    private static int SafeChoice(int choice, int count, int fallback = 0) =>
+        choice >= 0 && choice < count ? choice : fallback;
 
     public void SetRoomChoice(int choice)
     {
@@ -110,10 +123,19 @@ public sealed class OsteonSettings : MonoBehaviour
         ApplyTheme();
     }
 
+    public void SetTextChoice(int choice)
+    {
+        textChoice = SafeChoice(choice, TextNames.Length, 1);
+        PlayerPrefs.SetInt(TextKey, textChoice);
+        PlayerPrefs.Save();
+        ApplyTextSize();
+    }
+
     public void ResetToDefaults()
     {
         SetRoomChoice(0);
         SetThemeChoice(0);
+        SetTextChoice(1);
     }
 
     private void CaptureRoom(Transform root)
@@ -165,22 +187,22 @@ public sealed class OsteonSettings : MonoBehaviour
         var font = panel.GetComponentInChildren<TextMeshProUGUI>(true)?.font;
         var existing = panel.Find("Settings button");
         if (existing != null) Destroy(existing.gameObject);
-        var settings = MakeButton(panel, "Settings button", "Settings", new Vector2(201, 336),
-            new Vector2(110, 58), font, Open);
+        var settings = MakeButton(panel, "Settings button", "Settings", new Vector2(180, -352),
+            new Vector2(144, 56), font, Open);
         settings.GetComponent<Image>().color = new Color(0.10f, 0.30f, 0.42f, 1f);
-
+        var back = panel.Find("Back Button") as RectTransform;
+        if (back != null)
+        {
+            back.anchoredPosition = new Vector2(-87, -352);
+            back.sizeDelta = new Vector2(322, 56);
+            var backLabel = back.Find("Anatomy back label") as RectTransform;
+            if (backLabel != null) backLabel.sizeDelta = new Vector2(306, 52);
+        }
         var title = panel.Find("Anatomy title") as RectTransform;
         if (title != null)
         {
-            title.anchoredPosition = new Vector2(-74, 336);
-            title.sizeDelta = new Vector2(354, 70);
-            var text = title.GetComponent<TextMeshProUGUI>();
-            if (text != null)
-            {
-                text.enableAutoSizing = true;
-                text.fontSizeMin = 24;
-                text.fontSizeMax = 32;
-            }
+            title.anchoredPosition = new Vector2(0, 325);
+            title.sizeDelta = new Vector2(508, 90);
         }
 
         page = MakeRect(panel, "Settings page", Vector2.zero, panel.sizeDelta).gameObject;
@@ -214,10 +236,21 @@ public sealed class OsteonSettings : MonoBehaviour
                 () => SetThemeChoice(choice));
             themeButtons.Add(button.GetComponent<Image>());
         }
-        MakeButton(pageRect, "Reset settings", "Reset to defaults", new Vector2(0, -315),
+        MakeText(pageRect, "Text size", new Vector2(0, -169), new Vector2(460, 45),
+            26, font, TextAlignmentOptions.Left);
+        for (int i = 0; i < TextNames.Length; i++)
+        {
+            int choice = i;
+            var button = MakeButton(pageRect, "Text " + TextNames[i], TextNames[i],
+                new Vector2(-160 + 160 * i, -240), new Vector2(150, 66), font,
+                () => SetTextChoice(choice));
+            textButtons.Add(button.GetComponent<Image>());
+        }
+        MakeButton(pageRect, "Reset settings", "Reset to defaults", new Vector2(0, -335),
             new Vector2(300, 66), font, ResetToDefaults);
         UpdateRoomButtons();
         UpdateThemeButtons();
+        UpdateTextButtons();
         page.SetActive(false);
     }
 
@@ -235,6 +268,13 @@ public sealed class OsteonSettings : MonoBehaviour
             themeButtons[i].color = i == themeChoice ? palette.selected : palette.button;
     }
 
+    private void UpdateTextButtons()
+    {
+        Palette palette = Palettes[themeChoice];
+        for (int i = 0; i < textButtons.Count; i++)
+            textButtons[i].color = i == textChoice ? palette.selected : palette.button;
+    }
+
     public void ApplyTheme()
     {
         var anatomy = GameObject.Find("Anatomy information panel");
@@ -243,6 +283,76 @@ public sealed class OsteonSettings : MonoBehaviour
         if (quiz != null) ApplyThemeTo(quiz.transform);
         UpdateRoomButtons();
         UpdateThemeButtons();
+        UpdateTextButtons();
+    }
+
+    public void PrepareQuizText(params TextMeshProUGUI[] regions)
+    {
+        foreach (var region in regions)
+            if (region != null) MakeScrollable(region);
+        ApplyTextSize();
+    }
+
+    public static void ScrollToTop(TextMeshProUGUI label)
+    {
+        if (label == null) return;
+        var scroll = label.GetComponentInParent<ScrollRect>();
+        if (scroll != null) scroll.verticalNormalizedPosition = 1f;
+    }
+
+    public void ApplyTextSize()
+    {
+        ApplyTextSizeTo(GameObject.Find("Anatomy information panel"));
+        ApplyTextSizeTo(GameObject.Find("Quiz station"));
+        UpdateTextButtons();
+    }
+
+    private void ApplyTextSizeTo(GameObject root)
+    {
+        if (root == null) return;
+        foreach (var label in root.GetComponentsInChildren<TextMeshProUGUI>(true))
+        {
+            if (!baseFontSizes.TryGetValue(label, out float baseline))
+            {
+                baseline = label.fontSize;
+                baseFontSizes.Add(label, baseline);
+                baseAutoSizing.Add(label, label.enableAutoSizing);
+            }
+            label.fontSize = baseline * TextScales[textChoice];
+            // A selected size must remain the displayed size; long reading areas scroll.
+            label.enableAutoSizing = textChoice == 1 && baseAutoSizing[label];
+        }
+    }
+
+    private static void MakeScrollable(TextMeshProUGUI label)
+    {
+        if (label.GetComponentInParent<ScrollRect>() != null) return;
+        var original = label.rectTransform;
+        Transform parent = original.parent;
+        int sibling = original.GetSiblingIndex();
+        var viewport = MakeRect(parent, label.name + " scroll viewport",
+            original.anchoredPosition, original.sizeDelta);
+        viewport.SetSiblingIndex(sibling);
+        var image = viewport.gameObject.AddComponent<Image>();
+        image.color = Color.clear;
+        image.raycastTarget = true;
+        viewport.gameObject.AddComponent<RectMask2D>();
+        var scroll = viewport.gameObject.AddComponent<ScrollRect>();
+        scroll.horizontal = false;
+        scroll.vertical = true;
+        scroll.movementType = ScrollRect.MovementType.Clamped;
+        scroll.viewport = viewport;
+        original.SetParent(viewport, false);
+        original.anchorMin = new Vector2(0f, 1f);
+        original.anchorMax = Vector2.one;
+        original.pivot = new Vector2(0.5f, 1f);
+        original.anchoredPosition = Vector2.zero;
+        original.sizeDelta = new Vector2(0f, original.sizeDelta.y);
+        var fitter = label.gameObject.AddComponent<ContentSizeFitter>();
+        fitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
+        fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+        scroll.content = original;
+        scroll.verticalNormalizedPosition = 1f;
     }
 
     private void ApplyThemeTo(Transform root)

@@ -117,7 +117,10 @@ public class InfoBoardController : MonoBehaviour
             titleText.text = title;
 
         if (descriptionText != null)
+        {
             descriptionText.text = description;
+            OsteonSettings.ScrollToTop(descriptionText);
+        }
 
         if (infoPanel != null)
             infoPanel.SetActive(true);

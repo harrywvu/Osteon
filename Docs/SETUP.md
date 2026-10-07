@@ -120,6 +120,11 @@ both lower limbs, both upper limbs, both pectoral sides, and the pelvic hip bone
       anatomy and quiz panels independently, then release. Quiz Hide/Open keeps
       the launcher with the moved panel. Confirm the anatomy Back button can be
       selected without grabbing the Move bar.
+- [ ] **Settings:** Use the anatomy panel's Settings button to switch hospital
+      surface colors, the theme shared by both panels, and text size. Close Settings and
+      confirm the same anatomy view and Back path. Check that both panels retain
+      their theme, large descriptions and quiz prompts scroll, Reset restores
+      defaults, and choices return after restarting the app.
 - [ ] Panel Back and left X each follow bone → its G2 group → its division → whole skeleton,
       restoring the previous view's transform and information.
 - [ ] In the XR Device Simulator, select Left Controller and press B for X;
