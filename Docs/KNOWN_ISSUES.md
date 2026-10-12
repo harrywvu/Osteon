@@ -5,12 +5,20 @@
 
 ## Current open issues
 
+- The first-run tutorial is implemented as a separate left-side Field Guide
+  with glowing world arrows. Its Play Mode step flow, target placement,
+  controller-ray buttons, large-text layout, and Quest comfort still need
+  verification. Replay returns to the whole skeleton; the guide does not play
+  voice-over audio.
+
 - Saved-scene batch validation was retried on 2026-10-12 before refactoring.
   Unity exited with code 1 during startup, before running `AnatomyValidation`,
   both inside and outside the sandbox. The outside-sandbox attempt connected
   to licensing but still exited before scene loading; the cause is unresolved.
-  The small highlight refactors described below still need Play Mode and Quest
-  verification.
+  A further `-Current` attempt after adding the tutorial also exited during
+  licensing startup. The small highlight refactors and tutorial still need
+  Play Mode and Quest verification. The generated C# runtime and Editor projects
+  compile through Visual Studio MSBuild.
 
 - Panel narration tabs now call Android's installed offline English TTS voice
   for the anatomy, quiz, and Settings panels. The voice's presence on the

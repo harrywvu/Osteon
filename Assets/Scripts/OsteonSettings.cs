@@ -418,6 +418,8 @@ public sealed class OsteonSettings : MonoBehaviour
     {
         var anatomy = GameObject.Find("Anatomy information panel");
         if (anatomy != null) ApplyThemeTo(anatomy.transform);
+        var tutorial = GameObject.Find("Tutorial station");
+        if (tutorial != null) ApplyThemeTo(tutorial.transform);
         var quiz = GameObject.Find("Quiz station");
         if (quiz != null) ApplyThemeTo(quiz.transform);
         var settings = GameObject.Find("Settings station");
@@ -445,6 +447,7 @@ public sealed class OsteonSettings : MonoBehaviour
     public void ApplyTextSize()
     {
         ApplyTextSizeTo(GameObject.Find("Anatomy information panel"));
+        ApplyTextSizeTo(GameObject.Find("Tutorial station"));
         ApplyTextSizeTo(GameObject.Find("Quiz station"));
         ApplyTextSizeTo(GameObject.Find("Settings station"));
         UpdateTextButtons();
@@ -514,7 +517,8 @@ public sealed class OsteonSettings : MonoBehaviour
                 states.disabledColor = new Color(0.43f, 0.43f, 0.43f);
                 button.colors = states;
             }
-            else if (image.name == "Anatomy information panel" || image.name == "Settings page" ||
+            else if (image.name == "Anatomy information panel" || image.name == "Tutorial panel" ||
+                image.name == "Settings page" ||
                 image.name == "Quiz panel" || image.name == "Quiz launcher" ||
                 image.name == "Settings panel" || image.name == "Settings launcher")
                 image.color = palette.background;

@@ -7,7 +7,7 @@ selectable skeleton divisions, an in-world anatomical information panel,
 hover-group highlighting, axial drill-down views, controller-based yaw rotation,
 shared G2 Spread for the nine multi-bone views, centered group rotation,
 movable anatomy, quiz, and wall Settings panels, room/panel/text/highlight preferences,
-and G3 inspection of 207 entries across the skull, vertebral column, ribcage,
+the first-run Field Guide with glowing visual arrows, and G3 inspection of 207 entries across the skull, vertebral column, ribcage,
 both lower limbs, both upper limbs, both pectoral sides, and the pelvic model. See
 `Docs/G3_INSPECTION.md` for controls, setup, and the verification record.
 `Plans and Features/README.md` indexes dated future work. Stationary viewing,
@@ -16,6 +16,7 @@ do not describe them as implemented. The latest G3 Android development APK
 built successfully with skull explosion; the newer shared Spread and Settings
 changes compile but have not completed Play Mode or Quest verification. See
 `Docs/KNOWN_ISSUES.md`.
+The tutorial compiles; its Play Mode and Quest interaction are also unverified.
 
 The conceptual navigation model uses anatomical granularity levels: G0 whole
 skeleton, G1 axial/appendicular division, G2 major bone group, and G3 individual
@@ -58,6 +59,7 @@ verifying it first.
 | `Assets/Scripts/BoneInspectionDisplay.cs` | Centered inspection copy and stationary reference group | Active |
 | `Assets/Scripts/PanelMoveHandle.cs` | Adds XR grab bars below the anatomy, quiz, and Settings panels | Active |
 | `Assets/Scripts/OsteonSettings.cs` | Wall Settings station and saved room, panel, text, and highlight choices | Runtime-created; Quest interaction unverified |
+| `Assets/Scripts/AnatomyTutorial.cs` | First-run Field Guide, world arrows, Skip, and replay | Runtime-created; Play Mode and Quest interaction unverified |
 | `Assets/Scripts/AnatomyInputReservation.cs` | Reserves and restores competing G3 input bindings | Active |
 | `Assets/BonePartGrabRelease.cs` | Legacy XR grab, info display, and return-to-origin coroutine | Older recovery scenes only |
 | `Assets/Scripts/BonePartInfo.cs` | Per-bone title and description data | G3 and older recovery scenes |
@@ -90,6 +92,8 @@ the previous view. Per-bone grabbing is not a current-scene test. Automated chec
 In each multi-bone G2 view, drag its Spread slider, turn the spread view with
 the right stick, inspect a bone, and verify Back retains the spread setting.
 The one-bone pelvic view has no Spread slider.
+On a fresh preference profile, check tutorial advancement through any G0–G3
+route, right-stick turn and tilt, and Back to G0. Check Skip and replay from G3.
 
 ## Critical Gotchas
 
