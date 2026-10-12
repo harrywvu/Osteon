@@ -21,8 +21,7 @@ public class BoneGroupHoverHighlighter : MonoBehaviour
         if (renderers == null) return;
         CacheHighlightMaterials();
         if (hoverCount > 0)
-            for (int i = 0; i < renderers.Length; i++)
-                if (renderers[i] != null) renderers[i].sharedMaterials = highlightMaterials[i];
+            ApplyMaterials(highlightMaterials);
     }
 
     private void Awake()
@@ -74,8 +73,7 @@ public class BoneGroupHoverHighlighter : MonoBehaviour
         if (!isActiveAndEnabled || highlightMaterial == null) return;
         hoverCount++;
         if (hoverCount > 1) return;
-        for (int i = 0; i < renderers.Length; i++)
-            if (renderers[i] != null) renderers[i].sharedMaterials = highlightMaterials[i];
+        ApplyMaterials(highlightMaterials);
     }
 
     private void OnHoverExited(HoverExitEventArgs args)
@@ -92,8 +90,13 @@ public class BoneGroupHoverHighlighter : MonoBehaviour
     {
         hoverCount = 0;
         if (renderers == null) return;
+        ApplyMaterials(originalMaterials);
+    }
+
+    private void ApplyMaterials(Material[][] materials)
+    {
         for (int i = 0; i < renderers.Length; i++)
-            if (renderers[i] != null) renderers[i].sharedMaterials = originalMaterials[i];
+            if (renderers[i] != null) renderers[i].sharedMaterials = materials[i];
     }
 
     private void OnDisable() => ClearHighlight();

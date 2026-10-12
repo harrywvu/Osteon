@@ -1,9 +1,16 @@
 # Known Issues and Project History
 
-> Current-state update: 2026-10-07. Historical entries are retained below so
+> Current-state update: 2026-10-12. Historical entries are retained below so
 > previous recovery work is not lost.
 
 ## Current open issues
+
+- Saved-scene batch validation was retried on 2026-10-12 before refactoring.
+  Unity exited with code 1 during startup, before running `AnatomyValidation`,
+  both inside and outside the sandbox. The outside-sandbox attempt connected
+  to licensing but still exited before scene loading; the cause is unresolved.
+  The small highlight refactors described below still need Play Mode and Quest
+  verification.
 
 - Panel narration tabs now call Android's installed offline English TTS voice
   for the anatomy, quiz, and Settings panels. The voice's presence on the
@@ -162,6 +169,24 @@
 - [ ] Installation and launch of that APK on supported Quest hardware
 - [ ] Quiz station stays in the scene, and its menu, hide/reopen, start/stop,
       answer flow, and error recovery work in Play Mode and on Quest
+
+## 2026-10-12 — Small refactors with preserved behavior
+
+- Shared the question-bank lookup used by quiz display and scoring. All 14
+  backend tests pass, including display/scoring checks for all 50 question IDs,
+  answer-key hiding, and unknown-ID rejection before model inference. These
+  tests use a fake model and in-memory store; AWS was not updated or retested.
+- Extracted duplicate material-assignment loops in `BoneSelection` and
+  `BoneGroupHoverHighlighter`. Existing caller guards, hover counts, callbacks,
+  null checks, serialized fields, and material restoration remain in place.
+- Unity runtime and editor C# projects compile through Visual Studio MSBuild.
+  Expanding all five new helper calls reproduces the complete original classes
+  from `d7a71bf`, ignoring whitespace. This is a source comparison, not a
+  runtime interaction test. Existing assembly-conflict, source-generator, and
+  unassigned-field warnings remain.
+- Play Mode validation could not start, as recorded above. Controller hover,
+  color changes while hovered, disable/re-enable, and Back still require the
+  existing saved-scene suite and physical Quest checks.
 
 ## 2026-10-01 — Appendicular selection and Back regression
 
