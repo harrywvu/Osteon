@@ -24,6 +24,13 @@ public class ViewTransitionOnSelect : MonoBehaviour
 
     public GameObject NextView => nextView;
 
+    public void ConfigureHighlight(Material material)
+    {
+        highlightMaterial = material;
+        var highlighter = GetComponent<BoneGroupHoverHighlighter>();
+        if (highlighter != null) highlighter.Configure(material);
+    }
+
     private void Awake() => Prepare();
 
     private void OnEnable() => BindInteractables();

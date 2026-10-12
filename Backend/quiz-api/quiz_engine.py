@@ -72,13 +72,18 @@ def next_question(mastery, asked_question_ids):
     return question_by_id(question["question_id"])
 
 
-def question_by_id(question_id):
-    """Return a question for display without exposing its answer key."""
+def _find_question(question_id):
     question = next(
         (q for q in _questions() if q["question_id"] == question_id), None
     )
     if question is None:
         raise ValueError(f"unknown question_id: {question_id}")
+    return question
+
+
+def question_by_id(question_id):
+    """Return a question for display without exposing its answer key."""
+    question = _find_question(question_id)
     return {
         "question_id": question["question_id"],
         "bone_group": question["bone_group"],
@@ -105,12 +110,7 @@ def score_answer(question_id, choice, response_seconds, mastery):
         raise ValueError("choice must be A, B, C, or D")
     choice = choice.strip().upper()
 
-    question = next(
-        (q for q in _questions() if q["question_id"] == question_id), None
-    )
-    if question is None:
-        raise ValueError(f"unknown question_id: {question_id}")
-
+    question = _find_question(question_id)
     correct_option = question["correct_option"].strip().upper()
     correct = choice == correct_option
     difficulty = question["difficulty_level"].strip().lower()

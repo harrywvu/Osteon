@@ -143,6 +143,7 @@ public static class AnatomyValidation
         Require(nav.LeftUpperLimbBones.Select(b => b.name).Distinct().Count() == 30 &&
                 nav.RightUpperLimbBones.Select(b => b.name).Distinct().Count() == 30,
             "Duplicate upper-limb bindings.");
+        CheckGroupSpreads(nav);
         Require(PlayerSettings.bakeCollisionMeshes, "Quest build must prebake collision meshes.");
         var overview = nav.CurrentView;
         foreach (var divisionView in new[] {
@@ -765,6 +766,47 @@ public static class AnatomyValidation
         return bounds.center;
     }
 
+    private static void CheckGroupSpreads(AnatomyNavigationController nav)
+    {
+        var views = new[] {
+            AnatomySceneSetup.Reference<GameObject>(nav, "skullView"),
+            AnatomySceneSetup.Reference<GameObject>(nav, "vertebralView"),
+            AnatomySceneSetup.Reference<GameObject>(nav, "ribView"),
+            AnatomySceneSetup.Reference<GameObject>(nav, "leftLowerLimbView"),
+            AnatomySceneSetup.Reference<GameObject>(nav, "rightLowerLimbView"),
+            AnatomySceneSetup.Reference<GameObject>(nav, "leftUpperLimbView"),
+            AnatomySceneSetup.Reference<GameObject>(nav, "rightUpperLimbView"),
+            AnatomySceneSetup.Reference<GameObject>(nav, "leftPectoralView"),
+            AnatomySceneSetup.Reference<GameObject>(nav, "rightPectoralView")
+        };
+        var selections = new[] { nav.SkullBones, nav.Bones, nav.RibBones,
+            nav.LeftLowerLimbBones, nav.RightLowerLimbBones, nav.LeftUpperLimbBones,
+            nav.RightUpperLimbBones, nav.LeftPectoralBones, nav.RightPectoralBones };
+        Require(nav.GroupSpreadSlider != null &&
+                nav.GroupSpreadSlider.transform.parent.name == "Group spread control" &&
+                nav.SpreadFor(AnatomySceneSetup.Reference<GameObject>(nav, "pelvicView")) == null,
+            "The shared G2 slider or one-bone pelvic exclusion is missing.");
+        for (int group = 0; group < views.Length; group++)
+        {
+            var view = views[group];
+            var entries = selections[group];
+            var spread = nav.SpreadFor(view);
+            Require(view != null && spread != null && entries != null &&
+                    spread.BoneCount == entries.Length,
+                $"G2 spread is not configured for {view?.name}.");
+            var assembled = entries.Select(entry => entry.transform.localPosition).ToArray();
+            spread.SetSpread(1f);
+            spread.CompleteTransition();
+            Require(entries.Select((entry, i) =>
+                    Vector3.Distance(entry.transform.localPosition, assembled[i]))
+                    .All(distance => distance > 0.0001f),
+                $"Full spread did not move every bone in {view.name}.");
+            spread.ResetImmediate();
+            Require(entries.Select((entry, i) => entry.transform.localPosition == assembled[i]).All(equal => equal),
+                $"G2 spread did not restore exact authored poses in {view.name}.");
+        }
+    }
+
     private static void CheckPanelMovementSetup(AnatomyNavigationController nav)
     {
         var display = nav.InspectionDisplay;
@@ -792,6 +834,37 @@ public static class AnatomyValidation
             "Anatomy Back is not a clickable UI button.");
         CheckPanelGrabHandle(anatomyStation, anatomyPanel.transform);
         CheckPanelGrabHandle(quizStation.transform, quizStation.transform.Find("Quiz panel"));
+        var settingsStation = GameObject.Find("Settings station");
+        var settings = OsteonSettings.Instance;
+        Require(settingsStation != null && settings != null &&
+                anatomyPanel.transform.Find("Settings button") == null &&
+                Mathf.Abs(settingsStation.transform.position.y - quizStation.transform.position.y) < 0.001f &&
+                Vector3.Distance(settingsStation.transform.position, quizStation.transform.position) >= 0.9f,
+            "Settings launcher is not independently placed on the quiz wall.");
+        CheckPanelGrabHandle(settingsStation.transform, settingsStation.transform.Find("Settings panel"));
+        var level = nav.Level;
+        int history = nav.HistoryCount;
+        settings.Open();
+        Require(settings.IsOpen && nav.Level == level && nav.HistoryCount == history,
+            "Opening Settings changed anatomy navigation.");
+        settings.Close();
+        Require(!settings.IsOpen && nav.Level == level && nav.HistoryCount == history,
+            "Closing Settings changed anatomy navigation.");
+        var highlight = settings.HighlightMaterial;
+        Require(highlight != null && nav.InspectionDisplay.HighlightMaterial == highlight &&
+                UnityEngine.Object.FindObjectsByType<BoneSelection>(
+                    FindObjectsInactive.Include, FindObjectsSortMode.None)
+                    .All(bone => bone.HighlightMaterial == highlight) &&
+                UnityEngine.Object.FindObjectsByType<BoneGroupHoverHighlighter>(
+                    FindObjectsInactive.Include, FindObjectsSortMode.None)
+                    .All(group => group.HighlightMaterial == highlight),
+            "Highlight color is not shared by group, bone, and reference views.");
+        int previousColor = settings.HighlightChoice;
+        Color beforeColor = highlight.GetColor("_EmissionColor");
+        settings.SetHighlightChoice(previousColor == 1 ? 2 : 1);
+        Require(highlight.GetColor("_EmissionColor") != beforeColor,
+            "Highlight color control did not change the active material.");
+        settings.SetHighlightChoice(previousColor);
     }
 
     private static void CheckPanelGrabHandle(Transform movable, Transform panel)
@@ -807,6 +880,20 @@ public static class AnatomyValidation
                 body != null && body.isKinematic && grab != null && grab.enabled &&
                 grab.colliders.Count == 1 && grab.colliders[0] == collider,
             $"Move handle is not configured for XR grabbing: {movable.name}");
+        var corners = new Vector3[4];
+        ((RectTransform)handle).GetWorldCorners(corners);
+        float handleTop = corners.Max(corner => panel.InverseTransformPoint(corner).y);
+        float lowestButton = float.PositiveInfinity;
+        foreach (var button in panel.GetComponentsInChildren<UnityEngine.UI.Button>(true))
+        {
+            var rect = button.transform as RectTransform;
+            if (rect == null) continue;
+            rect.GetWorldCorners(corners);
+            lowestButton = Mathf.Min(lowestButton,
+                corners.Min(corner => panel.InverseTransformPoint(corner).y));
+        }
+        Require(lowestButton - handleTop >= 90f,
+            $"Move handle is too close to a panel button: {movable.name}");
     }
 
     private static IEnumerator CheckGirdleBones(AnatomyNavigationController nav, GameObject view,

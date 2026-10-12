@@ -68,6 +68,30 @@ class QuizEngineTests(unittest.TestCase):
             with self.subTest(choice=choice), self.assertRaises(ValueError):
                 quiz_engine.score_answer("rib_01", choice, 3.0, 0.5)
 
+    def test_every_question_can_be_displayed_and_scored_without_leaking_answers(self):
+        for row in quiz_engine._questions():
+            question_id = row["question_id"]
+            with self.subTest(question_id=question_id):
+                question = quiz_engine.question_by_id(question_id)
+                self.assertEqual(set(question), {
+                    "question_id", "bone_group", "bone_name", "difficulty_level",
+                    "question_text", "options",
+                })
+                self.assertEqual(question["question_id"], question_id)
+                self.assertEqual(question["question_text"], row["question_text"])
+                with patch.object(quiz_engine, "_model_session", return_value=FakeSession(0.1)):
+                    result = quiz_engine.score_answer(question_id, row["correct_option"], 3.0, 0.5)
+                self.assertTrue(result["correct"])
+                self.assertEqual(result["question_id"], question_id)
+
+    def test_unknown_question_is_rejected_before_model_inference(self):
+        with patch.object(quiz_engine, "_model_session") as model:
+            with self.assertRaisesRegex(ValueError, "^unknown question_id: missing$"):
+                quiz_engine.question_by_id("missing")
+            with self.assertRaisesRegex(ValueError, "^unknown question_id: missing$"):
+                quiz_engine.score_answer("missing", "A", 3.0, 0.5)
+        model.assert_not_called()
+
 
 if __name__ == "__main__":
     unittest.main()

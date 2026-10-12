@@ -14,7 +14,15 @@ public sealed class BoneSelection : MonoBehaviour
     private Material[][] originals;
     public BonePartInfo Info { get; private set; }
     public Renderer[] Renderers => boneRenderers;
+    public Material HighlightMaterial => highlightMaterial;
     public bool IsHovered => interactable != null && interactable.isHovered;
+
+    public void ConfigureHighlight(Material material)
+    {
+        highlightMaterial = material;
+        if (IsHovered && originals != null)
+            ApplyHighlight(material);
+    }
 
     private void Awake()
     {
@@ -46,13 +54,18 @@ public sealed class BoneSelection : MonoBehaviour
     {
         if (navigation == null || navigation.Level != AnatomyLevel.Group) return;
         if (highlightMaterial != null)
-            for (int i = 0; i < boneRenderers.Length; i++)
-            {
-                var materials = new Material[originals[i].Length];
-                for (int j = 0; j < materials.Length; j++) materials[j] = highlightMaterial;
-                boneRenderers[i].sharedMaterials = materials;
-            }
+            ApplyHighlight(highlightMaterial);
         navigation.Preview(this);
+    }
+
+    private void ApplyHighlight(Material material)
+    {
+        for (int i = 0; i < boneRenderers.Length; i++)
+        {
+            var materials = new Material[originals[i].Length];
+            for (int j = 0; j < materials.Length; j++) materials[j] = material;
+            boneRenderers[i].sharedMaterials = materials;
+        }
     }
 
     private void OnUnhover(HoverExitEventArgs args)

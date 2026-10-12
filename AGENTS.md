@@ -5,14 +5,16 @@
 VR anatomy exploration app for Meta Quest. The current enabled experience uses
 selectable skeleton divisions, an in-world anatomical information panel,
 hover-group highlighting, axial drill-down views, controller-based yaw rotation,
-the Skull G2 spread slider and centered skull rotation,
-movable anatomy and quiz panels, and G3 inspection of 207 entries across the skull, vertebral column, ribcage,
+shared G2 Spread for the nine multi-bone views, centered group rotation,
+movable anatomy, quiz, and wall Settings panels, room/panel/text/highlight preferences,
+and G3 inspection of 207 entries across the skull, vertebral column, ribcage,
 both lower limbs, both upper limbs, both pectoral sides, and the pelvic model. See
 `Docs/G3_INSPECTION.md` for controls, setup, and the verification record.
 `Plans and Features/README.md` indexes dated future work. Stationary viewing,
 smooth viewpoint turning, controller grabbing, and further group expansion are planned;
 do not describe them as implemented. The latest G3 Android development APK
-built successfully with skull explosion; physical Quest interaction is still unverified. See
+built successfully with skull explosion; the newer shared Spread and Settings
+changes compile but have not completed Play Mode or Quest verification. See
 `Docs/KNOWN_ISSUES.md`.
 
 The conceptual navigation model uses anatomical granularity levels: G0 whole
@@ -52,8 +54,10 @@ verifying it first.
 | `Assets/Scripts/AnatomyNavigationController.cs` | Owns view history, Back, G3 selection and controller input | Active |
 | `Assets/Scripts/BoneSelection.cs` | Per-bone selection and hover highlighting | Active on 207 entries across ten group models |
 | `Assets/Scripts/SkullExplosionController.cs` | Moves 29 Skull G2 bones and restores their assembled poses | Active on Skull G2 |
-| `Assets/Scripts/BoneInspectionDisplay.cs` | Centered inspection copy and stationary reference column | Active |
-| `Assets/Scripts/PanelMoveHandle.cs` | Adds XR grab bars below the anatomy and quiz panels | Active |
+| `Assets/Scripts/BoneGroupSpreadController.cs` | Shared G2 Spread motion and assembled G3 reference poses | Runtime-added to eight other multi-bone G2 views |
+| `Assets/Scripts/BoneInspectionDisplay.cs` | Centered inspection copy and stationary reference group | Active |
+| `Assets/Scripts/PanelMoveHandle.cs` | Adds XR grab bars below the anatomy, quiz, and Settings panels | Active |
+| `Assets/Scripts/OsteonSettings.cs` | Wall Settings station and saved room, panel, text, and highlight choices | Runtime-created; Quest interaction unverified |
 | `Assets/Scripts/AnatomyInputReservation.cs` | Reserves and restores competing G3 input bindings | Active |
 | `Assets/BonePartGrabRelease.cs` | Legacy XR grab, info display, and return-to-origin coroutine | Older recovery scenes only |
 | `Assets/Scripts/BonePartInfo.cs` | Per-bone title and description data | G3 and older recovery scenes |
@@ -83,8 +87,9 @@ right-thumbstick rotation, and G3 inspection. In G3, right-stick sideways turns,
 up/down tilts, A resets turning, and B resets tilt. Panel Back or left X restores
 the previous view. Per-bone grabbing is not a current-scene test. Automated checks are in
 `Assets/Editor/AnatomyValidation.cs` and `Tools/Invoke-AnatomyValidation.ps1`.
-In Skull G2, drag the Spread skull slider, turn the spread view with the right
-stick, inspect an interior bone, and verify Back retains the spread setting.
+In each multi-bone G2 view, drag its Spread slider, turn the spread view with
+the right stick, inspect a bone, and verify Back retains the spread setting.
+The one-bone pelvic view has no Spread slider.
 
 ## Critical Gotchas
 
@@ -148,5 +153,8 @@ stick, inspect an interior bone, and verify Back retains the spread setting.
   passed on 2026-09-30; the 178-entry suite passed 9,780 assertions after
   panel placement and handle configuration on 2026-10-01)
 - Controller and hand paths on physical Quest hardware
+- Shared G2 Spread, wall Settings, highlight colors, and lowered Move bars in
+  Play Mode and on Quest; Unity batch validation stopped at licensing startup
+  on 2026-10-07
 - Clean Android build from a fresh clone
 - Socket/assembly behavior (no implementation was found)

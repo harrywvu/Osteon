@@ -110,16 +110,23 @@ both lower limbs, both upper limbs, both pectoral sides, and the pelvic hip bone
       pectoral bone, or pelvic hip bone highlights only that
       bone and previews its name. Selecting opens an enlarged bone and a
       stationary reference group.
-- [ ] **Skull G2:** Drag Spread skull from assembled to full spread, turn with
-      right stick, and select an interior bone. Back restores the spread amount;
-      leaving Skull and opening it again starts assembled.
+- [ ] **G2 Spread:** In skull, vertebral, ribcage, both lower limbs, both upper
+      limbs, and both pectoral sides, drag Spread from assembled to full spread,
+      turn with the right stick, and select a small or interior bone. Back
+      restores that group's spread amount; leaving and reopening it starts
+      assembled. The one-bone pelvic view has no Spread slider.
 - [ ] **G3:** Right-stick sideways turns the bone; up/down tilts it. A resets
       turning without changing tilt, and B resets tilt without changing turning.
 - [ ] **G3:** The name, breadcrumb, introductory description, and controls are readable.
 - [ ] **Panels:** Aim at each blue Move bar, hold select/grab, reposition the
-      anatomy and quiz panels independently, then release. Quiz Hide/Open keeps
-      the launcher with the moved panel. Confirm the anatomy Back button can be
-      selected without grabbing the Move bar.
+      anatomy, quiz, and Settings panels independently, then release. Quiz and
+      Settings launchers stay with their moved panels. Confirm nearby buttons
+      can be selected without grabbing a Move bar.
+- [ ] **Settings:** Use the wall Settings launcher beside the quiz launcher to
+      switch hospital surface colors, the theme shared by all three panels,
+      text size, and anatomy highlight color. Close Settings and confirm the
+      same anatomy view and Back path. Check large descriptions and quiz prompts
+      scroll, Reset restores defaults, and choices return after restarting the app.
 - [ ] Panel Back and left X each follow bone → its G2 group → its division → whole skeleton,
       restoring the previous view's transform and information.
 - [ ] In the XR Device Simulator, select Left Controller and press B for X;

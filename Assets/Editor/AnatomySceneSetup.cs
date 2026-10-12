@@ -109,9 +109,10 @@ public static class AnatomySceneSetup
         var back = Reference<GameObject>(board, "backButton");
         Layout((RectTransform)back.transform, new Vector2(0, -352), new Vector2(508, 56));
         TMP_FontAsset font = Reference<TextMeshProUGUI>(board, "titleText").font;
-        Transform existing = panelRect.Find("Skull spread control");
+        Transform existing = panelRect.Find("Group spread control") ?? panelRect.Find("Skull spread control");
         GameObject control = existing != null ? existing.gameObject :
-            new GameObject("Skull spread control", typeof(RectTransform), typeof(Image));
+            new GameObject("Group spread control", typeof(RectTransform), typeof(Image));
+        control.name = "Group spread control";
         control.transform.SetParent(panelRect, false);
         Layout((RectTransform)control.transform, new Vector2(0, -252), new Vector2(508, 112));
         Image controlImage = Add<Image>(control);
@@ -163,13 +164,13 @@ public static class AnatomySceneSetup
         slider.targetGraphic = handle;
         while (slider.onValueChanged.GetPersistentEventCount() > 0)
             UnityEventTools.RemovePersistentListener(slider.onValueChanged, 0);
-        UnityEventTools.AddPersistentListener<float>(slider.onValueChanged, navigation.SetSkullSpread);
+        UnityEventTools.AddPersistentListener<float>(slider.onValueChanged, navigation.SetGroupSpread);
         slider.SetValueWithoutNotify(0f);
-        Set(navigation, "skullSpreadSlider", slider);
+        Set(navigation, "groupSpreadSlider", slider);
         control.SetActive(false);
         Transform station = panel.transform.parent;
         PanelMoveHandle.Configure(station, panelRect, font,
-            new Vector2(0, -445), new Vector2(508, 58));
+            new Vector2(0, -510), new Vector2(508, 58));
     }
 
     private static UnityEngine.Object[] ReferenceSkullBones(AnatomyNavigationController navigation)
@@ -320,7 +321,7 @@ public static class AnatomySceneSetup
         if (panel == null) throw new InvalidOperationException("Anatomy information panel is missing.");
         TMP_FontAsset font = panel.Find("Anatomy title").GetComponent<TextMeshProUGUI>().font;
         Transform station = EnsureAnatomyPanelStation(owner, panel);
-        PanelMoveHandle.Configure(station, panel, font, new Vector2(0, -385), new Vector2(508, 58));
+        PanelMoveHandle.Configure(station, panel, font, new Vector2(0, -510), new Vector2(508, 58));
         EditorSceneManager.MarkSceneDirty(scene);
         EditorSceneManager.SaveScene(scene);
         AssetDatabase.SaveAssets();
@@ -875,7 +876,7 @@ public static class AnatomySceneSetup
         panel.SetActive(true);
         Transform station = EnsureAnatomyPanelStation(owner, panelRect);
         PanelMoveHandle.Configure(station, panelRect, font,
-            new Vector2(0, -385), new Vector2(508, 58));
+            new Vector2(0, -510), new Vector2(508, 58));
     }
 
     private static Transform EnsureAnatomyPanelStation(Transform owner, RectTransform panel)

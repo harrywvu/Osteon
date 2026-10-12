@@ -21,21 +21,24 @@ selectable bones.
 ## Interaction
 
 - In G2, point at a bone to highlight it and preview its name on the information panel.
-- In Skull G2, drag **Spread skull** on the anatomy panel to move all 29 bones
-  outward or return them to their assembled positions. Right-stick sideways
-  turns the skull around its assembled center so interior bones can be targeted.
+- In any G2 view with at least two selectable bones, drag **Spread [group]** on
+  the anatomy panel to separate the bones or return them to their assembled
+  positions. The one-bone pelvic view has no Spread control. Right-stick
+  sideways turns the group around its assembled center.
 - Select using the existing XRI selection binding to open a centered inspection copy.
 - A stationary reference group remains beside the inspected bone and highlights its location.
 - The information panel shows a breadcrumb, name, introductory description, and controls.
 - The bone inspection anchor is at world X **2.477991**, Z **-1.173756**;
   the reference group keeps its 42 cm offset and both retain their height.
-- The anatomy and quiz panels have a blue **Move** bar below their controls.
+- The anatomy, quiz, and wall Settings panels have a blue **Move** bar below their controls.
   Aim at a bar, hold the controller's select/grab input while positioning the
-  panel, then release. The quiz launcher moves with its panel.
+  panel, then release. The quiz and Settings launchers move with their panels.
+- Use the **Settings** launcher on the wall near the quiz launcher to change
+  room surface colors, panel theme, text size, and anatomy highlight color.
 - The panel Back button or left X returns one level: bone → its G2 group → axial or appendicular division → whole skeleton.
   The previous view's position, rotation, and scale are restored.
-  Returning from a skull bone also restores its spread amount; leaving Skull G2
-  and opening it again starts assembled.
+  Returning from a bone restores its group's spread amount; leaving that G2
+  group and opening it again starts assembled.
   Release X before pressing again. In the XR Device Simulator, select **Left Controller**
   and press **B** for X.
 - In pectoral G2, press left Y to switch between the right and left models without
@@ -50,8 +53,8 @@ selectable bones.
 | Right B button | Reset tilt independently |
 | Panel Back or left X | Return one G level |
 | Left Y in pectoral G2 | Switch between right and left pectoral models |
-| Skull G2 panel slider | Spread or assemble the 29 skull bones |
-| Right thumbstick sideways in Skull G2 | Turn the assembled or spread skull |
+| G2 panel slider (except pelvis) | Spread or assemble the active group's bones |
+| Right thumbstick sideways in G2 | Turn the assembled or spread group |
 
 Each bone starts in the model's authored anatomical orientation. The controller
 must return to neutral on entry or reconnection before inspection movement starts.
@@ -74,12 +77,14 @@ and a fitted non-convex `MeshCollider`.
 The mesh collider is used for ray selection; these bones have no grab rigidbody.
 The G2 skull uses separate low-detail meshes from `skull_ray_colliders.fbx` for
 its 29 ray colliders. The visible `skull.fbx` remains full detail for G2 and G3.
-`SkullExplosionController` moves each bone object, which keeps its visual mesh,
-authored ray collider, and XRI interactable aligned. Its directions are based on
-the assembled skull with explicit directions for central bones and ear ossicles.
+`BoneGroupSpreadController` moves each bone object, which keeps its visual mesh,
+authored ray collider, and XRI interactable aligned. Runtime group profiles set
+the spread distance and axis weights. `SkullExplosionController` preserves
+explicit directions for central skull bones and ear ossicles.
 The two teeth context renderers hide while spread and return when assembled.
-The G3 reference copy uses assembled source positions while the G2 spread amount
-is held for Back navigation.
+The G3 reference copy uses assembled source positions while each G2 spread amount
+is held for Back navigation. Leaving a group resets its spread; switching
+pectoral sides resets the side being left.
 If the skull FBX changes, regenerate the collider asset and run
 `Tools/Build-SkullRayColliders.py` with Blender 4.5, then run
 **Anatomy → Optimize skull ray targets** before building.

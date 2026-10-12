@@ -23,7 +23,7 @@ level-of-detail (LOD), graphics-quality, or difficulty setting.
 |---|---|---|---|
 | **G0 — Whole skeleton** | The complete skeleton as the overview/entry view | View the complete structure and select a top-level division | Present through `low-poly-skeleton-prefab.fbx` |
 | **G1 — Skeletal division** | Axial or appendicular skeleton | Select a division to isolate it and show its overview information | Present through the two `DivisionSelection` roots |
-| **G2 — Major bone group** | A major group or region within the selected division—for example skull, vertebral column, thoracic cage, shoulder/upper-limb grouping, lower-limb grouping, or pelvis | Explore the group and select one of its bones | Skull (with a spread slider), vertebral column, ribcage, both lower limbs, both upper limbs, both pectoral sides, and pelvic girdle have G2 views that continue to G3 |
+| **G2 — Major bone group** | A major group or region within the selected division—for example skull, vertebral column, thoracic cage, shoulder/upper-limb grouping, lower-limb grouping, or pelvis | Explore the group and select one of its bones | Skull, vertebral column, ribcage, both lower limbs, both upper limbs, both pectoral sides, and pelvic girdle continue to G3; the nine multi-bone views have Spread |
 | **G3 — Individual bone** | One named bone | Select, turn, and tilt an enlarged inspection copy with information and a reference group | Implemented for 207 entries: 29 skull, 26 vertebral, 25 ribcage, 30 left lower-limb, 32 right lower-limb, 60 upper-limb, 4 pectoral, and 1 pelvic |
 
 The intended navigation direction is `G0 -> G1 -> G2 -> G3` as the user makes
@@ -93,6 +93,7 @@ independently. The controller must return to neutral after entry or reconnection
 | `Assets/Scripts/AnatomyNavigationController.cs` | View history, model visibility, bone selection, information, and G3 controller input | Attached to `AnatomyNavigation` |
 | `Assets/Scripts/BoneSelection.cs` | Per-bone selection and first/last-ray hover highlighting | Attached to 207 entries across ten group models |
 | `Assets/Scripts/SkullExplosionController.cs` | Skull G2 spread, exact reassembly, and assembled reference poses | Attached to `G2_skull` |
+| `Assets/Scripts/BoneGroupSpreadController.cs` | Shared G2 Spread motion and assembled reference poses | Added at runtime to the eight other multi-bone G2 views |
 | `Assets/Scripts/BoneInspectionDisplay.cs` | Builds centered visual-only inspection and reference copies | Attached to `AnatomyNavigation` |
 | `Assets/Scripts/AnatomyInputReservation.cs` | Temporarily reserves conflicting right-controller bindings and restores them on exit | Attached to `AnatomyNavigation` |
 | `Assets/Scripts/InfoBoardController.cs` | Information-panel presentation; legacy division behavior when navigation is unassigned | Attached once to `CoachingCardRoot` |
@@ -101,7 +102,8 @@ independently. The controller must return to neutral after entry or reconnection
 | `Assets/Scripts/BoneGroupHoverHighlighter.cs` | Highlights a hovered division/group and restores shared materials on exit or disable | Used before individual-bone selection |
 | `Assets/Scripts/SkeletonYawRotator.cs` | Rotates a model about its center with the right thumbstick | Attached to the full, axial, vertebral, and ribcage model roots |
 | `Assets/Scripts/OsteonQuizDemo.cs` | Creates the world-space, user-movable practice-quiz station and calls the shared HTTP API | Runtime-created only in the enabled scene; Quest placement still needs verification |
-| `Assets/Scripts/PanelMoveHandle.cs` | Gives the anatomy and quiz panels a separate XR grab bar below their controls | Scene-authored for anatomy; runtime-created for quiz |
+| `Assets/Scripts/PanelMoveHandle.cs` | Gives anatomy, quiz, and Settings separate XR grab bars below their controls | Scene-authored for anatomy; runtime-created for quiz and Settings |
+| `Assets/Scripts/OsteonSettings.cs` | Builds the wall Settings station, saves local preferences, colors hospital room material copies, and applies panel themes, text sizes, and highlight color | Runtime-created in the enabled scene; Quest interaction pending verification |
 | `Assets/BonePartGrabRelease.cs` | Shows `BonePartInfo` on grab, hides it on release, then lerps the object back to its original parent/local transform | Not referenced by the current scene; used by older recovery scenes |
 | `Assets/Scripts/BonePartInfo.cs` | Stores a serialized part name and anatomical description | Used by G3 and older recovery scenes |
 | `Assets/Scripts/AxialDivisionSelection.cs` | Older axial-only selection implementation that hides a configured appendicular object | Not referenced by any scene or prefab |
