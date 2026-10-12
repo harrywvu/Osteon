@@ -5,6 +5,12 @@
 
 ## Current open issues
 
+- Panel narration tabs now call Android's installed offline English TTS voice
+  for the anatomy, quiz, and Settings panels. The voice's presence on the
+  target Quest is assumed. Windows Editor speech preview is implemented, but
+  full Play Mode, Quest build, and physical headset checks remain pending.
+  See `Docs/TTS.md`.
+
 - The wall Settings station, highlight color, lower Move bars, and shared G2
   Spread compile through the generated Unity C# projects, but Play Mode and
   Quest interaction have not been verified. Batch validation attempts on

@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class InfoBoardController : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class InfoBoardController : MonoBehaviour
     [SerializeField] private string defaultTitle = "Human Skeleton";
     [TextArea(2, 4)]
     [SerializeField] private string defaultDescription = "Select a division to start";
+    private PanelNarration narration;
+    private string narrationTitle;
+    private string narrationDescription;
 
     public string DefaultTitle => defaultTitle;
     public string DefaultDescription => defaultDescription;
@@ -34,6 +38,12 @@ public class InfoBoardController : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        if (infoPanel != null && infoPanel.TryGetComponent<RectTransform>(out var panel))
+            narration = PanelNarration.Attach(panel, NarrationContent,
+                titleText != null ? titleText.font : null);
+        narrationTitle = titleText != null ? titleText.text : defaultTitle;
+        narrationDescription = descriptionText != null ? descriptionText.text : defaultDescription;
 
         if (navigation == null) ReturnToDivisionSelection();
     }
@@ -93,9 +103,15 @@ public class InfoBoardController : MonoBehaviour
             instance.infoPanel.SetActive(false);
     }
 
-    public void ShowNavigationInfo(string title, string description, string backText, bool canGoBack)
+    public void ShowNavigationInfo(string title, string description, string backText,
+        bool canGoBack, string spokenDescription = null)
     {
         Show(title, description);
+        if (spokenDescription != null)
+        {
+            narrationDescription = spokenDescription;
+            narration?.ContentChanged();
+        }
         if (backLabel != null) backLabel.text = backText;
         if (backButton != null) backButton.SetActive(canGoBack);
     }
@@ -113,6 +129,9 @@ public class InfoBoardController : MonoBehaviour
 
     private void Show(string title, string description)
     {
+        narrationTitle = title;
+        narrationDescription = description;
+        narration?.ContentChanged();
         if (titleText != null)
             titleText.text = title;
 
@@ -124,5 +143,11 @@ public class InfoBoardController : MonoBehaviour
 
         if (infoPanel != null)
             infoPanel.SetActive(true);
+    }
+
+    private IEnumerable<string> NarrationContent()
+    {
+        yield return narrationTitle;
+        yield return narrationDescription;
     }
 }

@@ -356,7 +356,21 @@ public sealed class OsteonSettings : MonoBehaviour
         UpdateHighlightButtons();
         PanelMoveHandle.Configure(station, pageRect, font,
             new Vector2(0, -590), new Vector2(508, 58));
+        PanelNarration.Attach(pageRect, NarrationContent, font);
         page.SetActive(false);
+    }
+
+    private IEnumerable<string> NarrationContent()
+    {
+        yield return "Appearance settings";
+        yield return "Hospital color";
+        yield return RoomNames[roomChoice];
+        yield return "Panel theme";
+        yield return ThemeNames[themeChoice];
+        yield return "Text size";
+        yield return TextNames[textChoice];
+        yield return "Highlight color";
+        yield return HighlightNames[highlightChoice];
     }
 
     private static Canvas MakeCanvas(Transform station, string name, Camera viewer)

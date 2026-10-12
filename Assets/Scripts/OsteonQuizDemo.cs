@@ -88,6 +88,7 @@ public sealed class OsteonQuizDemo : MonoBehaviour
     private AnswerRequest pendingAnswer;
     private bool busy;
     private bool inPractice;
+    private PanelNarration narration;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Bootstrap()
@@ -166,6 +167,7 @@ public sealed class OsteonQuizDemo : MonoBehaviour
             new Vector2(700, 80), 24, TextAlignmentOptions.Center);
         actionButton = AddButton(panelRect, "", new Vector2(0, -416), new Vector2(700, 76));
         actionLabel = actionButton.GetComponentInChildren<TextMeshProUGUI>();
+        narration = PanelNarration.Attach(panelRect, NarrationContent, TMP_Settings.defaultFontAsset);
         PanelMoveHandle.Configure(station, panelRect, TMP_Settings.defaultFontAsset,
             new Vector2(0, -585), new Vector2(700, 58));
         panel.SetActive(false);
@@ -261,6 +263,7 @@ public sealed class OsteonQuizDemo : MonoBehaviour
     private void Choose(string letter)
     {
         if (!inPractice || busy || currentQuestion == null) return;
+        narration?.ContentChanged();
         pendingAnswer = new AnswerRequest {
             question_id = currentQuestion.question_id,
             choice = letter,
@@ -379,6 +382,25 @@ public sealed class OsteonQuizDemo : MonoBehaviour
     {
         foreach (Button button in optionButtons)
             if (button != null) button.interactable = value;
+    }
+
+    private System.Collections.Generic.IEnumerable<string> NarrationContent()
+    {
+        if (currentQuestion != null && !string.IsNullOrWhiteSpace(questionText.text))
+        {
+            yield return currentQuestion.bone_name + ". " +
+                currentQuestion.difficulty_level + ". " + currentQuestion.question_text;
+            foreach (Button option in optionButtons)
+                if (option != null && option.gameObject.activeSelf)
+                    yield return option.GetComponentInChildren<TextMeshProUGUI>().text;
+        }
+        else if (!string.IsNullOrWhiteSpace(feedbackText.text) &&
+                 feedbackText.text != "Select one answer")
+            yield return feedbackText.text;
+        else if (!string.IsNullOrWhiteSpace(questionText.text))
+            yield return questionText.text;
+        else if (!string.IsNullOrWhiteSpace(statusText.text))
+            yield return statusText.text;
     }
 
     private static string Percent(float mastery) => Mathf.RoundToInt(mastery * 100f) + "%";

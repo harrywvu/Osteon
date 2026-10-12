@@ -614,7 +614,8 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         string back = Level == AnatomyLevel.Bone && history.Count > 0 ? "Back to " + history.Peek().title :
             Level == AnatomyLevel.Group && history.Count > 0 ? "Back to " + history.Peek().breadcrumb + " division" :
             "Back to skeleton";
-        infoBoard.ShowNavigationInfo(current.title, body, back, history.Count > 0);
+        infoBoard.ShowNavigationInfo(current.title, body, back, history.Count > 0,
+            current.description);
     }
 
     private void OnDisable()
