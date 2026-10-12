@@ -71,6 +71,8 @@ deployment template still need to be chosen before a public release.
 
 Run `python -m unittest discover -s Backend/quiz-api -p 'test_*.py'` from the
 repository root. These tests use a fake ONNX session and an in-memory store.
-Twelve tests passed locally on 2026-09-30. A separate real-model inference
-check and a deployed DynamoDB/API Gateway smoke test also passed. The Quest
+Fourteen tests passed locally on 2026-10-12 after consolidating question lookup,
+including display/scoring coverage for all 50 questions and unknown-ID rejection.
+A separate real-model inference check and a deployed DynamoDB/API Gateway smoke
+test passed on 2026-09-30; those external checks were not repeated for the refactor. The Quest
 headset UI and a clean Android build still need verification.
