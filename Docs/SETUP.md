@@ -90,6 +90,13 @@ both lower limbs, both upper limbs, both pectoral sides, and the pelvic hip bone
 
 - [ ] **G0:** The hospital room and complete low-poly skeleton render correctly.
 - [ ] The XR origin initializes and controller rays can select objects.
+- [ ] **First-run tutorial:** On a fresh preference profile, the left-side Field
+      Guide and glowing arrows show the division choices, then follow a hovered
+      group or bone. Check any division → group → bone route, deliberate right-stick
+      turn and tilt, and Back through every level. Skip collapses it to Tutorial;
+      Replay from G3 returns to the whole skeleton. Restart after Skip or completion
+      and confirm the card stays collapsed. Check the guide with large text,
+      all panel themes, and after moving the anatomy panel.
 - [ ] **G1:** Hovering the axial or appendicular division applies group
       highlighting.
 - [ ] **G1:** Selecting a division hides the other division and updates the

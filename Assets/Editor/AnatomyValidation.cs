@@ -112,6 +112,43 @@ public static class AnatomyValidation
         pose.Reset();
         pose.Apply(new Vector2(0.1f, -0.1f), 10, false, false);
         Require(pose.Rotation == Quaternion.identity, "Dead zone should not move the bone.");
+        CheckTutorialProgress();
+    }
+
+    private static void CheckTutorialProgress()
+    {
+        var tutorial = new AnatomyTutorialProgress();
+        tutorial.Restart();
+        tutorial.Observe(AnatomyLevel.Division, 0, 0);
+        Require(tutorial.Step == AnatomyTutorialStep.Group, "Tutorial should accept either division.");
+        tutorial.Observe(AnatomyLevel.Group, 0, 0);
+        tutorial.Observe(AnatomyLevel.Bone, 0, 0);
+        Require(tutorial.Step == AnatomyTutorialStep.Turn, "Any inspected bone should enter turn practice.");
+        tutorial.Observe(AnatomyLevel.Bone, 9.9f, 90);
+        Require(tutorial.Step == AnatomyTutorialStep.Turn, "Small turning must not finish practice.");
+        tutorial.Observe(AnatomyLevel.Bone, 10f, 0);
+        tutorial.Observe(AnatomyLevel.Bone, 10f, 7.9f);
+        Require(tutorial.Step == AnatomyTutorialStep.Tilt, "Small tilt must not finish practice.");
+        tutorial.Observe(AnatomyLevel.Group, 0, 0);
+        Require(tutorial.Step == AnatomyTutorialStep.Bone, "Early Back should restore the current-view prompt.");
+        tutorial.Observe(AnatomyLevel.Bone, 0, 0);
+        tutorial.Observe(AnatomyLevel.Bone, -10f, 0);
+        tutorial.Observe(AnatomyLevel.Bone, -10f, -8f);
+        Require(tutorial.Step == AnatomyTutorialStep.Back, "Both stick axes should unlock Back practice.");
+        tutorial.Observe(AnatomyLevel.Whole, 0, 0);
+        Require(tutorial.Step == AnatomyTutorialStep.Division,
+            "Jumping to overview must not count as stepping through Back.");
+        tutorial.Observe(AnatomyLevel.Division, 0, 0);
+        tutorial.Observe(AnatomyLevel.Group, 0, 0);
+        tutorial.Observe(AnatomyLevel.Bone, 0, 0);
+        tutorial.Observe(AnatomyLevel.Bone, 10f, 0);
+        tutorial.Observe(AnatomyLevel.Bone, 10f, 8f);
+        tutorial.Observe(AnatomyLevel.Group, 0, 0);
+        tutorial.Observe(AnatomyLevel.Division, 0, 0);
+        tutorial.Observe(AnatomyLevel.Whole, 0, 0);
+        Require(tutorial.Step == AnatomyTutorialStep.Complete, "Back through all levels should finish tutorial.");
+        tutorial.Restart();
+        Require(tutorial.Step == AnatomyTutorialStep.Division, "Replay should restart at the first step.");
     }
 
     private static IEnumerator CheckScene()
@@ -121,6 +158,21 @@ public static class AnatomyValidation
         var nav = UnityEngine.Object.FindFirstObjectByType<AnatomyNavigationController>();
         Require(nav != null && nav.CanNavigate, "Navigation did not initialize.");
         Require(nav.Level == AnatomyLevel.Whole && nav.HistoryCount == 0, "Initial view must be G0.");
+        GameObject tutorialStation = GameObject.Find("Tutorial station");
+        for (int frame = 0; tutorialStation == null && frame < 30; frame++)
+        {
+            yield return null;
+            tutorialStation = GameObject.Find("Tutorial station");
+        }
+        Require(tutorialStation != null, "The first-run Field Guide did not initialize.");
+        Require(tutorialStation.GetComponent<UnityEngine.XR.Interaction.Toolkit.UI.TrackedDeviceGraphicRaycaster>() != null,
+            "The Field Guide needs a controller-ray UI target.");
+        Require(tutorialStation.transform.Find("Tutorial panel") != null &&
+                tutorialStation.transform.Find("Tutorial launcher") != null,
+            "The Field Guide needs both its practice card and replay button.");
+        var tutorial = UnityEngine.Object.FindFirstObjectByType<AnatomyTutorial>();
+        Require(tutorial != null && tutorial.GetComponentsInChildren<Collider>(true).Length == 0,
+            "Visual guide arrows must not block anatomy or UI rays.");
         Require(nav.Bones.Length == SessionState.GetInt(CountKey, 26), "Unexpected bone coverage.");
         Require(nav.Bones.Select(b => b.name).Distinct().Count() == nav.Bones.Length, "Duplicate bone bindings.");
         Require(nav.SkullBones != null && nav.SkullBones.Length == 29 &&
