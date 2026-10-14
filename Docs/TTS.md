@@ -22,6 +22,10 @@ If initialization, voice selection, or speech synthesis fails, the tab shows
 **Audio unavailable**. On other Editor platforms, a speech preview is not yet
 implemented.
 
+Run `./Tools/Test-SpeechCleanup.ps1` on Windows to check that stopping narration
+releases running and completed processes and that repeated cleanup is safe.
+The check does not play audio.
+
 ## Quest verification
 
 1. Build the enabled controller-migration scene and check that all three tabs

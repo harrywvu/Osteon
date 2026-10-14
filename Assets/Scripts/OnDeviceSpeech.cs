@@ -74,6 +74,7 @@ internal static class OnDeviceSpeech
 
     public static void Shutdown()
     {
+        unavailable = false;
         if (engine == null) return;
         try { engine.Call("shutdown"); }
         catch (AndroidJavaException exception)
@@ -141,6 +142,8 @@ internal static class OnDeviceSpeech
         if (speechProcess == null) return;
         try { if (!speechProcess.HasExited) speechProcess.Kill(); }
         catch (System.InvalidOperationException) { }
+        catch (System.ComponentModel.Win32Exception exception)
+        { UnityEngine.Debug.LogWarning("Editor TTS stop failed: " + exception.Message); }
         finally
         {
             speechProcess.Dispose();

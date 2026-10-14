@@ -11,7 +11,6 @@ public sealed class PanelNarration : MonoBehaviour
     private static PanelNarration activePanel;
     private Func<IEnumerable<string>> content;
     private TextMeshProUGUI label;
-    private Coroutine playback;
     private string spokenContent;
 
     public static PanelNarration Attach(RectTransform panel,
@@ -71,7 +70,7 @@ public sealed class PanelNarration : MonoBehaviour
         }
         activePanel = this;
         SetLabel("Loading");
-        playback = StartCoroutine(Speak(spokenContent));
+        StartCoroutine(Speak(spokenContent));
     }
 
     private IEnumerator Speak(string text)
@@ -82,7 +81,7 @@ public sealed class PanelNarration : MonoBehaviour
             yield return null;
         if (OnDeviceSpeech.State != 1 || !OnDeviceSpeech.Speak(text))
         {
-            FailPlayback();
+            FinishPlayback("Audio unavailable");
             yield break;
         }
 
@@ -90,12 +89,11 @@ public sealed class PanelNarration : MonoBehaviour
         deadline = Time.realtimeSinceStartup + 10f;
         while (activePanel == this)
         {
-            if (spokenContent != CurrentContent()) { StopPlayback(); yield break; }
             int state = OnDeviceSpeech.PlaybackState;
             if (state == 2) { FinishPlayback(); yield break; }
             if (state < 0 || (state == 0 && Time.realtimeSinceStartup >= deadline))
             {
-                FailPlayback();
+                FinishPlayback("Audio unavailable");
                 yield break;
             }
             yield return null;
@@ -118,30 +116,18 @@ public sealed class PanelNarration : MonoBehaviour
 
     private void StopPlayback()
     {
-        if (playback != null) { StopCoroutine(playback); playback = null; }
+        StopAllCoroutines();
         FinishPlayback();
     }
 
-    private void FailPlayback()
+    private void FinishPlayback(string finalLabel = "Read")
     {
         if (activePanel == this)
         {
             OnDeviceSpeech.Stop();
             activePanel = null;
         }
-        playback = null;
-        SetLabel("Audio unavailable");
-    }
-
-    private void FinishPlayback()
-    {
-        playback = null;
-        if (activePanel == this)
-        {
-            OnDeviceSpeech.Stop();
-            activePanel = null;
-        }
-        SetLabel("Read");
+        SetLabel(finalLabel);
     }
 
     private void OnDisable() { if (activePanel == this) StopPlayback(); }
