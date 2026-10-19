@@ -24,6 +24,7 @@ Install these before opening the project for the first time.
 |---|---|---|
 | Unity Editor | **6000.3.2f1** | This exact editor is pinned in `ProjectSettings/ProjectVersion.txt`; XR and Meta packages are version-sensitive. |
 | Android Build Support | Module for Unity 6000.3.2f1, including SDK/NDK Tools and OpenJDK | Required for the Android/Quest IL2CPP build. |
+| Web Build Support | Module for Unity 6000.3.2f1 | Required to build the desktop WebGL player. |
 | Blender | **4.5.x** with `.blend` file association | Unity invokes Blender to import the live Blender source assets. Without it, models can appear invisible after an import or cache rebuild. |
 | Git LFS | Current stable version | `.blend`, `.fbx`, textures, audio, video, and other large binary assets are LFS-managed. |
 | ADB | Installed with Unity's Android SDK or Android platform tools | Used to install and inspect APKs on a Quest. |
@@ -77,10 +78,11 @@ The committed configuration should resolve to:
 - OpenXR loader for Android
 - URP 17.3.0
 
-Unity 6 uses **File -> Build Profiles**. The repository currently contains
-`Meta Quest` and a duplicate-looking `Meta Quest 1` profile. Both inherit the
-global scene list and serialize the same core Android values. Prefer
-`Meta Quest` unless the team confirms a reason to use the duplicate.
+Unity 6 uses **File -> Build Profiles**. The repository contains `Meta Quest`,
+the duplicate-looking `Meta Quest 1`, and `Web - Desktop - Development`.
+All inherit the global scene list. The two Quest profiles serialize the same
+core Android values; prefer `Meta Quest` for Android. Use the Web profile for
+desktop browser builds.
 
 ## 5. Play Mode smoke test
 
@@ -165,7 +167,20 @@ or worktree while the main project is closed or open elsewhere:
 
 Add `-Capture` to the complete run when a desktop rendering is also required.
 
-## 6. Build and run on Quest
+## 6. Build and explore in a desktop browser
+
+With Web Build Support installed, select `Web - Desktop - Development` in
+**File → Build Profiles**, then choose **Build and Run**. The profile uses the
+same enabled controller-migration scene. Use Unity's served build for browser testing;
+`Builds/` is a local, ignored output directory. The existing WebGL output
+predates the latest desktop input and profile commits. Rebuild it before testing;
+the mouse and keyboard path has no recorded browser acceptance pass.
+
+See [Desktop WebGL](WEB_DESKTOP.md) for controls and the browser test checklist.
+`AnatomyDesktopInput` runs in a WebGL player only, so the Windows Editor Play
+Mode smoke test above exercises the XR path, not the desktop browser controls.
+
+## 7. Build and run on Quest
 
 1. Enable Developer Mode for the headset in the Meta Horizon mobile app.
 2. Connect the Quest by USB and accept the headset's USB-debugging prompt.
@@ -186,7 +201,7 @@ The committed Android application identifier is still
 `com.DefaultCompany.VRTemplate`. Replace the company name, package identifier,
 version, and release signing configuration before distributing the app.
 
-## 7. Troubleshooting the first import
+## 8. Troubleshooting the first import
 
 If Unity reports many compile errors:
 
@@ -218,7 +233,7 @@ folders such as `Library/`, `Library_*`, `Temp/`, `obj/`, and `Logs/`. Never
 delete `Assets/`, `Packages/`, `ProjectSettings/`, or `.meta` files as a cache
 repair step.
 
-## 8. Before handing off a change
+## 9. Before handing off a change
 
 - [ ] Reopen the current entry scene with no project-owned compile errors.
 - [ ] Run the Play Mode smoke test above.

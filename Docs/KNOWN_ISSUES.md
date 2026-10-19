@@ -1,9 +1,16 @@
 # Known Issues and Project History
 
-> Current-state update: 2026-10-12. Historical entries are retained below so
+> Current-state update: 2026-10-19. Historical entries are retained below so
 > previous recovery work is not lost.
 
 ## Current open issues
+
+- Desktop WebGL mouse and keyboard input and a `Web - Desktop - Development`
+  profile were added on 2026-10-19. Local build output predates the latest
+  desktop input and profile commits. No browser acceptance pass is recorded for
+  anatomy navigation, ray targeting, panels,
+  Settings, quiz requests, or performance. The desktop controller activates in
+  a WebGL player, not Windows Editor Play Mode. See [Desktop WebGL](WEB_DESKTOP.md).
 
 - The first-run tutorial is implemented as a separate left-side Field Guide
   with glowing world arrows. Its Play Mode step flow, target placement,
@@ -119,9 +126,11 @@
   maps every valid demo token to one learner ID. It is suitable for the
   controlled one-headset presentation, not multiple independent learners or a
   public Quest/web release. The token is extractable from a Unity build.
-- The web UI, per-learner authentication, API Gateway authorizer, deliberate
-  browser CORS configuration, automated AWS deployment/rollback, and school
-  ownership of AWS billing and learner data are not implemented or verified.
+- The WebGL player reuses the Unity quiz station, but its browser API requests
+  are unverified. A separate browser-native quiz UI, per-learner authentication,
+  API Gateway authorizer, deliberate browser CORS configuration, automated AWS
+  deployment/rollback, and school ownership of AWS billing and learner data
+  are not implemented or verified.
 - The quiz is a world-space station with an XR grab bar. Automated Play Mode
   checks confirm the station and grab components, while controller targeting
   and movement still need physical Quest acceptance.
@@ -144,6 +153,8 @@
 - Two very similar Android build profiles exist: `Meta Quest` and
   `Meta Quest 1`. Both inherit the global scene list and serialize the same core
   Android settings. Consolidate them once ownership of the duplicate is known.
+- `Web - Desktop - Development` is a separate WebGL profile that inherits the
+  same scene list. Its older local build output is not a browser verification record.
 - The build profiles serialize Android target SDK 32, while the custom Android
   manifest declares Horizon OS SDK minimum 60 and target 83. Validate the final
   merged manifest and current Meta store requirements before release.

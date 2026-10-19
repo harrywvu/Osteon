@@ -2,8 +2,8 @@
 
 ## Project Overview
 
-VR anatomy exploration app for Meta Quest. The current enabled experience uses
-selectable skeleton divisions, an in-world anatomical information panel,
+Anatomy exploration app for Meta Quest and desktop WebGL. The current enabled
+experience uses selectable skeleton divisions, an in-world anatomical information panel,
 hover-group highlighting, axial drill-down views, controller-based yaw rotation,
 shared G2 Spread for the nine multi-bone views, centered group rotation,
 movable anatomy, quiz, and wall Settings panels, room/panel/text/highlight preferences,
@@ -17,6 +17,10 @@ built successfully with skull explosion; the newer shared Spread and Settings
 changes compile but have not completed Play Mode or Quest verification. See
 `Docs/KNOWN_ISSUES.md`.
 The tutorial compiles; its Play Mode and Quest interaction are also unverified.
+The same enabled scene now has desktop WebGL mouse and keyboard input and a
+development build profile. Local WebGL output predates the latest desktop input
+and profile commits; browser acceptance has not been recorded. See
+`Docs/WEB_DESKTOP.md`.
 
 The conceptual navigation model uses anatomical granularity levels: G0 whole
 skeleton, G1 axial/appendicular division, G2 major bone group, and G3 individual
@@ -32,7 +36,7 @@ verifying it first.
 - **Render pipeline:** URP (`com.unity.render-pipelines.universal` 17.3.0)
 - **XR stack:** OpenXR 1.16.0, Meta XR Interaction/Core 83.0.0, XR Interaction
   Toolkit 3.2.1, XR Hands 1.7.1
-- **Target:** Android, ARM64, IL2CPP, minimum SDK 32
+- **Targets:** Meta Quest Android (ARM64, IL2CPP, minimum SDK 32) and desktop WebGL
 - **3D source assets:** Blender 4.5.x (`.blend` import requires Blender)
 - **Entry scene:** `Assets/_Recovery/CONTROLLERS MIGRATION.unity`
 
@@ -42,6 +46,7 @@ verifying it first.
 2. `Docs/ARCHITECTURE.md`
 3. `Docs/KNOWN_ISSUES.md`
 4. `Docs/ACCOUNTS.md` for device or release work
+5. `Docs/WEB_DESKTOP.md` for desktop browser work
 
 ## Project-Owned Scripts
 
@@ -53,6 +58,7 @@ verifying it first.
 | `Assets/Scripts/BoneGroupHoverHighlighter.cs` | Applies one highlight material to all renderers in a hovered group | Active |
 | `Assets/Scripts/SkeletonYawRotator.cs` | Rotates the full, axial, vertebral, and ribcage models from the right thumbstick | Active |
 | `Assets/Scripts/AnatomyNavigationController.cs` | Owns view history, Back, G3 selection and controller input | Active |
+| `Assets/Scripts/AnatomyDesktopInput.cs` | Mouse and keyboard navigation, camera movement, panel dragging, and inspection in WebGL | Runtime-created only in the enabled WebGL player |
 | `Assets/Scripts/BoneSelection.cs` | Per-bone selection and hover highlighting | Active on 207 entries across ten group models |
 | `Assets/Scripts/SkullExplosionController.cs` | Moves 29 Skull G2 bones and restores their assembled poses | Active on Skull G2 |
 | `Assets/Scripts/BoneGroupSpreadController.cs` | Shared G2 Spread motion and assembled G3 reference poses | Runtime-added to eight other multi-bone G2 views |
@@ -76,6 +82,10 @@ verifying it first.
 5. Confirm ARM64, IL2CPP, and minimum SDK 32.
 6. Enable Developer Mode on Quest through the Meta Horizon app.
 7. Connect by USB, accept USB debugging, then use Build and Run.
+
+For desktop browser exploration, install Web Build Support and use **File ->
+Build Profiles -> Web - Desktop - Development -> Build and Run**. The browser
+controls and unverified acceptance checklist are in `Docs/WEB_DESKTOP.md`.
 
 Manual installation:
 
@@ -143,7 +153,7 @@ route, right-stick turn and tilt, and Back to G0. Check Skip and replay from G3.
 - `Assets/VRTemplateAssets/` — imported VR template dependency used by the
   active XR rig and coaching UI; avoid editing
 - `Assets/Samples/` — package sample content; do not edit
-- `Assets/Settings/Build Profiles/` — Unity 6 Android build profiles
+- `Assets/Settings/Build Profiles/` — Unity 6 Android and WebGL build profiles
 - `Docs/` — maintained project documentation
 - `ProjectSettings/EditorBuildSettings.asset` — authoritative enabled-scene
   list
@@ -161,4 +171,5 @@ route, right-stick turn and tilt, and Back to G0. Check Skip and replay from G3.
   Play Mode and on Quest; Unity batch validation stopped at licensing startup
   on 2026-10-07
 - Clean Android build from a fresh clone
+- Desktop WebGL browser acceptance, quiz API behavior, and performance
 - Socket/assembly behavior (no implementation was found)

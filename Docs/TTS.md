@@ -20,7 +20,8 @@ may sound different from the Quest voice.
 
 If initialization, voice selection, or speech synthesis fails, the tab shows
 **Audio unavailable**. On other Editor platforms, a speech preview is not yet
-implemented.
+implemented. WebGL has no speech implementation in `OnDeviceSpeech`, so its
+**Read / Stop** tab reports **Audio unavailable**.
 
 Run `./Tools/Test-SpeechCleanup.ps1` on Windows to check that stopping narration
 releases running and completed processes and that repeated cleanup is safe.

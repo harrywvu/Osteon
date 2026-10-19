@@ -192,8 +192,10 @@ The blue Move bar below the quiz panel lets the user grab and reposition the
 station, including its launcher. It does not follow the headset and is not
 saved as a hand-authored scene object. Its initial wall position is configured
 in the Unity script.
-The web client is not implemented; it needs its own UI, allowed CORS origin,
-and release-grade authentication.
+The desktop WebGL player now reuses this Unity quiz station, but quiz requests
+from a browser have not been verified. Browser use needs a deliberately allowed
+CORS origin and release-grade authentication; the shared demo token must not be
+published in a WebGL build. A separate browser-native quiz UI is not implemented.
 
 ## Verification record and remaining work
 

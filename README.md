@@ -1,9 +1,9 @@
 # Osteon
 
-Osteon is a Unity VR anatomy explorer for Meta Quest. Users move from the whole
-skeleton (G0) through divisions (G1) and bone groups (G2) to inspection of 207
-individual entries (G3). The enabled scene also includes an in-world information
-panel, group highlighting, controller-based rotation, G2 Spread, movable panels,
+Osteon is a Unity anatomy explorer for Meta Quest and desktop WebGL. Users move
+from the whole skeleton (G0) through divisions (G1) and bone groups (G2) to
+inspection of 207 individual entries (G3). The enabled scene also includes an in-world information
+panel, group highlighting, model rotation, G2 Spread, movable panels,
 a first-run Field Guide, Settings, and an optional practice quiz.
 
 ## Get started
@@ -18,6 +18,10 @@ a first-run Field Guide, Settings, and an optional practice quiz.
 4. For a Quest build, use **File → Build Profiles → Meta Quest**. The target is
    Android ARM64, IL2CPP, minimum SDK 32.
 
+For desktop browsers, install Unity's Web Build Support module and use
+**File → Build Profiles → Web - Desktop - Development → Build and Run**. See
+[Desktop WebGL](Docs/WEB_DESKTOP.md) for mouse and keyboard controls.
+
 See [Setup](Docs/SETUP.md) for the full import, Play Mode, and device workflow.
 
 ## Current status
@@ -29,6 +33,10 @@ See [Setup](Docs/SETUP.md) for the full import, Play Mode, and device workflow.
   Shared G2 Spread, Settings, and the Field Guide compile but still need Play
   Mode and physical Quest interaction checks. Controller and hand paths on
   Quest also remain unverified.
+- Desktop WebGL input is committed for the same anatomy scene. Local WebGL
+  output predates the latest desktop input and profile commits; a browser
+  acceptance pass is not recorded. Browser narration and public quiz
+  authentication are not implemented.
 - Per-bone grabbing and socket assembly are not part of the enabled scene.
 
 ## Developer docs
@@ -37,6 +45,7 @@ See [Setup](Docs/SETUP.md) for the full import, Play Mode, and device workflow.
 |---|---|
 | [Architecture](Docs/ARCHITECTURE.md) | G0–G3 flow, scene wiring, and script map |
 | [G3 inspection](Docs/G3_INSPECTION.md) | Controls, authoring, and verification record |
+| [Desktop WebGL](Docs/WEB_DESKTOP.md) | Browser build, controls, and acceptance checklist |
 | [Known issues](Docs/KNOWN_ISSUES.md) | Open risks and troubleshooting history |
 | [Quiz integration](Docs/QUIZ_INTEGRATION.md) | Optional quiz API and demo configuration |
 | [Accounts](Docs/ACCOUNTS.md) | Device and release access |

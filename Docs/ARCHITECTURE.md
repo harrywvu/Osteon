@@ -1,13 +1,14 @@
 # Architecture Overview
 
-> G3 implementation updated on 2026-10-01. See `Docs/G3_INSPECTION.md` for the
-> validation record and remaining physical-headset checks.
+> Quest G3 validation is recorded in `Docs/G3_INSPECTION.md`. Desktop WebGL
+> input was added on 2026-10-19; see `Docs/WEB_DESKTOP.md` for its controls and
+> pending browser acceptance checks.
 
 ## Runtime entry point
 
 `Assets/_Recovery/CONTROLLERS MIGRATION.unity` is the only enabled scene in
-`ProjectSettings/EditorBuildSettings.asset`. It is also the scene most recently
-opened in the local Unity workspace.
+`ProjectSettings/EditorBuildSettings.asset`. Both the `Meta Quest` Android and
+`Web - Desktop - Development` WebGL profiles inherit that global scene list.
 
 The scene name reflects its recovery history; it is the current source of truth
 despite the unusual name. `Assets/_Recovery/0 (8).unity` and the other numbered
@@ -86,11 +87,19 @@ those roots are inactive. Separate turning and tilt values rotate only the
 inspection copy; the reference group stays stationary. A and B reset the axes
 independently. The controller must return to neutral after entry or reconnection.
 
+In a WebGL player, `AnatomyDesktopInput` starts after that same scene loads and
+uses the camera ray, mouse, and keyboard for selection and movement. It calls
+the existing division, group, and bone navigation paths, and enables mouse
+raycasts on world-space canvases. Its runtime platform check leaves Windows
+Editor Play Mode and Quest input unchanged. Browser behavior is not yet covered
+by the recorded Play Mode and Quest validation. See [Desktop WebGL](WEB_DESKTOP.md).
+
 ## Project-owned scripts
 
 | Script | Responsibility | Status in current scene |
 |---|---|---|
 | `Assets/Scripts/AnatomyNavigationController.cs` | View history, model visibility, bone selection, information, and G3 controller input | Attached to `AnatomyNavigation` |
+| `Assets/Scripts/AnatomyDesktopInput.cs` | Mouse and keyboard selection, camera movement, panel dragging, and G3 input in a WebGL player | Runtime-created in the enabled scene on WebGL only |
 | `Assets/Scripts/BoneSelection.cs` | Per-bone selection and first/last-ray hover highlighting | Attached to 207 entries across ten group models |
 | `Assets/Scripts/SkullExplosionController.cs` | Skull G2 spread, exact reassembly, and assembled reference poses | Attached to `G2_skull` |
 | `Assets/Scripts/BoneGroupSpreadController.cs` | Shared G2 Spread motion and assembled reference poses | Added at runtime to the eight other multi-bone G2 views |
@@ -143,6 +152,9 @@ scene instances rather than imported template scripts.
 - Hand Tracking Subsystem and Meta Hand Tracking Aim are enabled in the OpenXR
   settings, and XR Hands 1.7.1 is installed.
 - The active scene uses the Unity VR template XR Origin and XRI interactables.
+- The desktop WebGL path uses the same scene camera and colliders, with its own
+  mouse and keyboard controller. A saved WebGL development profile exists;
+  browser input and visual acceptance have not been recorded.
 - `SkeletonYawRotator` is explicitly controller-oriented. Installed hand
   packages and enabled features do not, by themselves, prove that every action
   has a working hand-tracking binding.
@@ -159,8 +171,10 @@ client's HTTPS requests to a Python Lambda function. Lambda reads the packaged
 question CSV and ONNX mastery-delta model, then persists the current session
 and mastery in DynamoDB. S3 holds the Lambda deployment ZIP only; it is not in
 the live question/answer request path. The notebook is a training artifact,
-not a hosted service. A future web UI can use the same API contract but is not
-yet implemented. See [`QUIZ_INTEGRATION.md`](QUIZ_INTEGRATION.md) for the exact
+not a hosted service. The new WebGL player reuses the Unity quiz station; its
+browser API path has not been verified and requires deliberate CORS and suitable
+authentication before public use. A separate browser-native quiz UI is not
+implemented. See [`QUIZ_INTEGRATION.md`](QUIZ_INTEGRATION.md) for the exact
 demo configuration, model inputs, security boundary, and verification record.
 
 ## UI and selection lifecycle
