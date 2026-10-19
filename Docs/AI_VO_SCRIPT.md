@@ -1,0 +1,2756 @@
+# Osteon — AI voice-over script
+
+Exact app text extracted on 2026-10-14 from the enabled controller-migration scene and current source files. Titles, wording, punctuation, and decoded line breaks are preserved; scene YAML wrapping is not a displayed line break.
+
+Includes 207 individual bone entries, 50 quiz questions with all four choices, anatomy overviews, Settings phrases, quiz feedback, and seven optional tutorial prompts.
+
+Each ID identifies a recording block. Record the text inside the quote, not the ID, source reference, or production note. Identical text can share one recording. The quiz question bank is the repository bank; content returned by a changed online bank may differ.
+
+Settings labels and values are separate phrases so they can be combined for the selected settings. The completion percentage is dynamic and is marked as a template. Tutorial prompts are included for a possible narration addition; that panel is not currently wired for speech.
+
+## Anatomy: overview, divisions, and groups
+
+### anatomy-overview — Human Skeleton
+
+> Human Skeleton
+> The skeleton supports the body, protects internal organs, and helps produce movement. Select the axial or appendicular skeleton to explore its bones.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (InfoBoardController 167457188)`
+
+### anatomy-division-01 — Axial Skeleton
+
+> Axial Skeleton
+> Forms the body’s central axis and includes the skull, vertebral column, and thoracic cage. It primarily provides structural support and protects vital organs such as the brain, spinal cord, heart, and lungs.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (DivisionSelection 1268313932)`
+
+### anatomy-division-02 — Appendicular Division
+
+> Appendicular Division
+> Includes the bones of the upper and lower limbs and the pectoral and pelvic girdles that connect them to the axial skeleton. It is primarily involved in movement, locomotion, and interaction with the environment.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (DivisionSelection 1268313935)`
+
+### anatomy-group-01 — Left lower limb
+
+> Left lower limb
+> The left lower limb includes the thigh, leg, and foot. Its bones support body weight and work together for standing, walking, and balance.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (ViewTransitionOnSelect 197334652)`
+
+### anatomy-group-02 — Right pectoral girdle
+
+> Right pectoral girdle
+> The right clavicle and scapula connect the upper limb to the trunk. They position the shoulder and provide a base for a wide range of arm movements.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (ViewTransitionOnSelect 773174294)`
+
+### anatomy-group-03 — Left upper limb
+
+> Left upper limb
+> The left upper limb includes the arm, forearm, wrist, and hand. Its bones allow reaching, grasping, and precise movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (ViewTransitionOnSelect 788150962)`
+
+### anatomy-group-06 — Pelvic girdle
+
+> Pelvic girdle
+> The two hip bones form the pelvic girdle. They transfer body weight to the lower limbs, support the trunk, and help protect organs in the pelvis.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (ViewTransitionOnSelect 1280096900)`
+
+### anatomy-group-07 — Vertebral column
+
+> Vertebral column
+> Explore the vertebral column. Point at an individual bone and select it for inspection.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (ViewTransitionOnSelect 1290350101)`
+
+### anatomy-group-08 — Right upper limb
+
+> Right upper limb
+> The right upper limb includes the arm, forearm, wrist, and hand. Its bones allow reaching, grasping, and precise movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (ViewTransitionOnSelect 1364325950)`
+
+### anatomy-group-09 — Skull
+
+> Skull
+> The skull protects the brain and forms the framework of the face. Point at a named bone to inspect it.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (ViewTransitionOnSelect 1370918681)`
+
+### anatomy-group-10 — Right lower limb
+
+> Right lower limb
+> The right lower limb includes the thigh, leg, and foot. Its bones support body weight and work together for standing, walking, and balance.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (ViewTransitionOnSelect 1634257078)`
+
+### anatomy-group-11 — Rib cage
+
+> Rib cage
+> The ribs curve around the chest and connect to the sternum directly or indirectly. Together with the thoracic vertebrae, they help protect the heart and lungs.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (ViewTransitionOnSelect 1968321021)`
+
+### anatomy-pectoral-switch-1 — Left pectoral girdle
+
+> Left pectoral girdle
+> The left clavicle and scapula connect the upper limb to the trunk. They position the shoulder and support arm movement.
+
+Source: `Assets/Scripts/AnatomyNavigationController.cs (SwitchPectoralSide)`
+
+### anatomy-pectoral-switch-2 — Right pectoral girdle
+
+> Right pectoral girdle
+> The right clavicle and scapula connect the upper limb to the trunk. They position the shoulder and support arm movement.
+
+Source: `Assets/Scripts/AnatomyNavigationController.cs (SwitchPectoralSide)`
+
+## Individual bones: Skull
+
+### bone-skullBones-01 — Ethmoid bone
+
+> Ethmoid bone
+> Location: between the eyes, behind the nasal cavity.
+> Role: forms part of the nasal roof and the eye sockets.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 322348358)`
+
+### bone-skullBones-02 — Frontal bone
+
+> Frontal bone
+> Location: the forehead and front of the cranial vault.
+> Role: protects the frontal lobes and forms the upper eye sockets.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 123350813)`
+
+### bone-skullBones-03 — Hyoid bone
+
+> Hyoid bone
+> Location: the front of the neck below the mandible.
+> Role: supports the tongue and larynx without joining another bone directly.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 553963290)`
+
+### bone-skullBones-04 — Left Incus bone
+
+> Left Incus bone
+> Location: the middle ear.
+> Role: passes sound vibrations from the malleus to the stapes.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 182088253)`
+
+### bone-skullBones-05 — Left Inferior Nasal Concha bone
+
+> Left Inferior Nasal Concha bone
+> Location: the lower side wall of the nasal cavity.
+> Role: helps warm and humidify inhaled air.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1726890696)`
+
+### bone-skullBones-06 — Left Lacrimal bone
+
+> Left Lacrimal bone
+> Location: the inner wall of the eye socket.
+> Role: provides a channel for tear drainage.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1297966273)`
+
+### bone-skullBones-07 — Left Malleus bone
+
+> Left Malleus bone
+> Location: the middle ear.
+> Role: passes sound vibrations from the eardrum to the incus.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1845023139)`
+
+### bone-skullBones-08 — Left Maxilla bone
+
+> Left Maxilla bone
+> Location: the upper jaw.
+> Role: holds the upper teeth and forms part of the hard palate and eye socket.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 989516886)`
+
+### bone-skullBones-09 — Left Nasal bone
+
+> Left Nasal bone
+> Location: the bridge of the nose.
+> Role: supports the upper nose.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 870518647)`
+
+### bone-skullBones-10 — Left Palatine bone
+
+> Left Palatine bone
+> Location: the back of the hard palate.
+> Role: separates the mouth from the nasal cavity.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1257069854)`
+
+### bone-skullBones-11 — Left Parietal bone
+
+> Left Parietal bone
+> Location: the upper side of the cranial vault.
+> Role: protects the brain.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 581873519)`
+
+### bone-skullBones-12 — Left Stapes bone
+
+> Left Stapes bone
+> Location: the middle ear.
+> Role: transmits vibrations into the inner ear.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1341705490)`
+
+### bone-skullBones-13 — Left Temporal bone
+
+> Left Temporal bone
+> Location: the side and base of the skull.
+> Role: houses the ear structures and forms part of the jaw joint.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1712585866)`
+
+### bone-skullBones-14 — Left Zygomatic bone
+
+> Left Zygomatic bone
+> Location: the cheek and outer eye socket.
+> Role: forms the cheekbone and supports the eye socket.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1275364843)`
+
+### bone-skullBones-15 — Right Incus bone
+
+> Right Incus bone
+> Location: the middle ear.
+> Role: passes sound vibrations from the malleus to the stapes.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 726674862)`
+
+### bone-skullBones-16 — Right Inferior Nasal Concha bone
+
+> Right Inferior Nasal Concha bone
+> Location: the lower side wall of the nasal cavity.
+> Role: helps warm and humidify inhaled air.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 229429085)`
+
+### bone-skullBones-17 — Right Lacrimal bone
+
+> Right Lacrimal bone
+> Location: the inner wall of the eye socket.
+> Role: provides a channel for tear drainage.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 757834661)`
+
+### bone-skullBones-18 — Right Malleus bone
+
+> Right Malleus bone
+> Location: the middle ear.
+> Role: passes sound vibrations from the eardrum to the incus.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1450525921)`
+
+### bone-skullBones-19 — Right Maxilla bone
+
+> Right Maxilla bone
+> Location: the upper jaw.
+> Role: holds the upper teeth and forms part of the hard palate and eye socket.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 223699453)`
+
+### bone-skullBones-20 — Right Nasal bone
+
+> Right Nasal bone
+> Location: the bridge of the nose.
+> Role: supports the upper nose.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 437732869)`
+
+### bone-skullBones-21 — Right Palatine bone
+
+> Right Palatine bone
+> Location: the back of the hard palate.
+> Role: separates the mouth from the nasal cavity.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1332119660)`
+
+### bone-skullBones-22 — Right Parietal bone
+
+> Right Parietal bone
+> Location: the upper side of the cranial vault.
+> Role: protects the brain.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1363236691)`
+
+### bone-skullBones-23 — Right Stapes bone
+
+> Right Stapes bone
+> Location: the middle ear.
+> Role: transmits vibrations into the inner ear.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1310403021)`
+
+### bone-skullBones-24 — Right Temporal bone
+
+> Right Temporal bone
+> Location: the side and base of the skull.
+> Role: houses the ear structures and forms part of the jaw joint.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 733991784)`
+
+### bone-skullBones-25 — Right Zygomatic bone
+
+> Right Zygomatic bone
+> Location: the cheek and outer eye socket.
+> Role: forms the cheekbone and supports the eye socket.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1318716529)`
+
+### bone-skullBones-26 — Mandible bone
+
+> Mandible bone
+> Location: the lower jaw.
+> Role: holds the lower teeth and moves during chewing and speech.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 666452052)`
+
+### bone-skullBones-27 — Occipital bone
+
+> Occipital bone
+> Location: the back and base of the skull.
+> Role: protects the rear of the brain and surrounds the opening for the spinal cord.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1467996071)`
+
+### bone-skullBones-28 — Sphenoid bone
+
+> Sphenoid bone
+> Location: the central skull base behind the eyes.
+> Role: links many skull bones and supports the pituitary gland.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 680983165)`
+
+### bone-skullBones-29 — Vomer bone
+
+> Vomer bone
+> Location: the lower part of the nasal septum.
+> Role: divides the left and right nasal cavities.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1881582663)`
+
+## Individual bones: Vertebral column
+
+### bone-bones-01 — C1 — Atlas
+
+> C1 — Atlas
+> Location: top of the neck, between the skull and C2.
+> Role: supports the head and contributes to nodding.
+> Look for: the bony ring and broad lateral masses; there is no vertebral body.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 892903092)`
+
+### bone-bones-02 — C2 — Axis
+
+> C2 — Axis
+> Location: below C1 in the upper neck.
+> Role: provides the pivot for turning the atlas and head.
+> Look for: the upward projection called the dens.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1879568838)`
+
+### bone-bones-03 — C3 — Cervical vertebra
+
+> C3 — Cervical vertebra
+> Location: neck, between C2 and C4.
+> Role: supports the neck and allows movement.
+> Look for: a small body and openings in the transverse processes.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1008820799)`
+
+### bone-bones-04 — C4 — Cervical vertebra
+
+> C4 — Cervical vertebra
+> Location: neck, between C3 and C5.
+> Role: supports the neck and allows movement.
+> Look for: a small body and openings in the transverse processes.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1878756173)`
+
+### bone-bones-05 — C5 — Cervical vertebra
+
+> C5 — Cervical vertebra
+> Location: neck, between C4 and C6.
+> Role: supports the neck and allows movement.
+> Look for: a small body and openings in the transverse processes.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1506301920)`
+
+### bone-bones-06 — C6 — Cervical vertebra
+
+> C6 — Cervical vertebra
+> Location: neck, between C5 and C7.
+> Role: supports the neck and allows movement.
+> Look for: a small body and openings in the transverse processes.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 996075141)`
+
+### bone-bones-07 — C7 — Cervical vertebra
+
+> C7 — Cervical vertebra
+> Location: base of the neck, between C6 and T1.
+> Role: joins the neck to the thoracic region.
+> Look for: its long spinous process.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1105354102)`
+
+### bone-bones-08 — T1 — Thoracic vertebra
+
+> T1 — Thoracic vertebra
+> Location: thoracic region, between C7 and T2.
+> Role: supports the trunk and articulates with ribs.
+> Look for: rib articulation surfaces on the body and transverse processes.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 141030586)`
+
+### bone-bones-09 — T2 — Thoracic vertebra
+
+> T2 — Thoracic vertebra
+> Location: thoracic region, between T1 and T3.
+> Role: supports the trunk and articulates with ribs.
+> Look for: rib articulation surfaces on the body and transverse processes.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1817782757)`
+
+### bone-bones-10 — T3 — Thoracic vertebra
+
+> T3 — Thoracic vertebra
+> Location: thoracic region, between T2 and T4.
+> Role: supports the trunk and articulates with ribs.
+> Look for: rib articulation surfaces on the body and transverse processes.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2139106345)`
+
+### bone-bones-11 — T4 — Thoracic vertebra
+
+> T4 — Thoracic vertebra
+> Location: thoracic region, between T3 and T5.
+> Role: supports the trunk and articulates with ribs.
+> Look for: rib articulation surfaces on the body and transverse processes.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1795531471)`
+
+### bone-bones-12 — T5 — Thoracic vertebra
+
+> T5 — Thoracic vertebra
+> Location: thoracic region, between T4 and T6.
+> Role: supports the trunk and articulates with ribs.
+> Look for: rib articulation surfaces on the body and transverse processes.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 646470236)`
+
+### bone-bones-13 — T6 — Thoracic vertebra
+
+> T6 — Thoracic vertebra
+> Location: thoracic region, between T5 and T7.
+> Role: supports the trunk and articulates with ribs.
+> Look for: rib articulation surfaces on the body and transverse processes.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1489596518)`
+
+### bone-bones-14 — T7 — Thoracic vertebra
+
+> T7 — Thoracic vertebra
+> Location: thoracic region, between T6 and T8.
+> Role: supports the trunk and articulates with ribs.
+> Look for: rib articulation surfaces on the body and transverse processes.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 511791642)`
+
+### bone-bones-15 — T8 — Thoracic vertebra
+
+> T8 — Thoracic vertebra
+> Location: thoracic region, between T7 and T9.
+> Role: supports the trunk and articulates with ribs.
+> Look for: rib articulation surfaces on the body and transverse processes.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1386474620)`
+
+### bone-bones-16 — T9 — Thoracic vertebra
+
+> T9 — Thoracic vertebra
+> Location: thoracic region, between T8 and T10.
+> Role: supports the trunk and articulates with ribs.
+> Look for: rib articulation surfaces on the body and transverse processes.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 680183467)`
+
+### bone-bones-17 — T10 — Thoracic vertebra
+
+> T10 — Thoracic vertebra
+> Location: thoracic region, between T9 and T11.
+> Role: supports the trunk and articulates with ribs.
+> Look for: rib articulation surfaces on the body and transverse processes.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1395828629)`
+
+### bone-bones-18 — T11 — Thoracic vertebra
+
+> T11 — Thoracic vertebra
+> Location: thoracic region, between T10 and T12.
+> Role: supports the trunk and articulates with ribs.
+> Look for: rib articulation on the body; no transverse costal facet.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 624769646)`
+
+### bone-bones-19 — T12 — Thoracic vertebra
+
+> T12 — Thoracic vertebra
+> Location: thoracic region, between T11 and L1.
+> Role: supports the trunk and articulates with ribs.
+> Look for: rib articulation on the body; no transverse costal facet.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1848810544)`
+
+### bone-bones-20 — L1 — Lumbar vertebra
+
+> L1 — Lumbar vertebra
+> Location: lower back, between T12 and L2.
+> Role: carries substantial body weight and supports trunk movement.
+> Look for: the large vertebral body and broad spinous process.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 596812544)`
+
+### bone-bones-21 — L2 — Lumbar vertebra
+
+> L2 — Lumbar vertebra
+> Location: lower back, between L1 and L3.
+> Role: carries substantial body weight and supports trunk movement.
+> Look for: the large vertebral body and broad spinous process.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2112090854)`
+
+### bone-bones-22 — L3 — Lumbar vertebra
+
+> L3 — Lumbar vertebra
+> Location: lower back, between L2 and L4.
+> Role: carries substantial body weight and supports trunk movement.
+> Look for: the large vertebral body and broad spinous process.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 577443248)`
+
+### bone-bones-23 — L4 — Lumbar vertebra
+
+> L4 — Lumbar vertebra
+> Location: lower back, between L3 and L5.
+> Role: carries substantial body weight and supports trunk movement.
+> Look for: the large vertebral body and broad spinous process.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 362733971)`
+
+### bone-bones-24 — L5 — Lumbar vertebra
+
+> L5 — Lumbar vertebra
+> Location: lower back, between L4 and the sacrum.
+> Role: carries substantial body weight and supports trunk movement.
+> Look for: the large vertebral body and broad spinous process.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 808308808)`
+
+### bone-bones-25 — Sacrum
+
+> Sacrum
+> Location: between L5 and the coccyx, at the back of the pelvis.
+> Role: transfers weight from the spine to the pelvic girdle.
+> Look for: its triangular shape and paired sacral foramina; five vertebrae fuse to form this bone.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1311911093)`
+
+### bone-bones-26 — Coccyx — Tailbone
+
+> Coccyx — Tailbone
+> Location: below the sacrum at the end of the column.
+> Role: anchors pelvic-floor muscles and ligaments.
+> Look for: the small tapering series of segments. The number and fusion of these segments vary.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1594136857)`
+
+## Individual bones: Rib cage
+
+### bone-ribBones-01 — Left rib 1
+
+> Left rib 1
+> Location: left side of the chest, rib pair 1 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its costal cartilage connects directly to the sternum.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2074278889)`
+
+### bone-ribBones-02 — Left rib 2
+
+> Left rib 2
+> Location: left side of the chest, rib pair 2 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its costal cartilage connects directly to the sternum.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 799061174)`
+
+### bone-ribBones-03 — Left rib 3
+
+> Left rib 3
+> Location: left side of the chest, rib pair 3 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its costal cartilage connects directly to the sternum.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 515622961)`
+
+### bone-ribBones-04 — Left rib 4
+
+> Left rib 4
+> Location: left side of the chest, rib pair 4 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its costal cartilage connects directly to the sternum.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1204656388)`
+
+### bone-ribBones-05 — Left rib 5
+
+> Left rib 5
+> Location: left side of the chest, rib pair 5 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its costal cartilage connects directly to the sternum.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1249100989)`
+
+### bone-ribBones-06 — Left rib 6
+
+> Left rib 6
+> Location: left side of the chest, rib pair 6 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its costal cartilage connects directly to the sternum.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 96898443)`
+
+### bone-ribBones-07 — Left rib 7
+
+> Left rib 7
+> Location: left side of the chest, rib pair 7 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its costal cartilage connects directly to the sternum.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 245036724)`
+
+### bone-ribBones-08 — Left rib 8
+
+> Left rib 8
+> Location: left side of the chest, rib pair 8 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its costal cartilage connects indirectly to the sternum through the cartilage above.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1376515842)`
+
+### bone-ribBones-09 — Left rib 9
+
+> Left rib 9
+> Location: left side of the chest, rib pair 9 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its costal cartilage connects indirectly to the sternum through the cartilage above.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1352919851)`
+
+### bone-ribBones-10 — Left rib 10
+
+> Left rib 10
+> Location: left side of the chest, rib pair 10 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its costal cartilage connects indirectly to the sternum through the cartilage above.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1207539159)`
+
+### bone-ribBones-11 — Left rib 11
+
+> Left rib 11
+> Location: left side of the chest, rib pair 11 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its anterior end does not attach to the sternum.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 456715959)`
+
+### bone-ribBones-12 — Left rib 12
+
+> Left rib 12
+> Location: left side of the chest, rib pair 12 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its anterior end does not attach to the sternum.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1997452419)`
+
+### bone-ribBones-13 — Right rib 1
+
+> Right rib 1
+> Location: right side of the chest, rib pair 1 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its costal cartilage connects directly to the sternum.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 277932970)`
+
+### bone-ribBones-14 — Right rib 2
+
+> Right rib 2
+> Location: right side of the chest, rib pair 2 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its costal cartilage connects directly to the sternum.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1874228580)`
+
+### bone-ribBones-15 — Right rib 3
+
+> Right rib 3
+> Location: right side of the chest, rib pair 3 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its costal cartilage connects directly to the sternum.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 183293661)`
+
+### bone-ribBones-16 — Right rib 4
+
+> Right rib 4
+> Location: right side of the chest, rib pair 4 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its costal cartilage connects directly to the sternum.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 220028065)`
+
+### bone-ribBones-17 — Right rib 5
+
+> Right rib 5
+> Location: right side of the chest, rib pair 5 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its costal cartilage connects directly to the sternum.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 210664184)`
+
+### bone-ribBones-18 — Right rib 6
+
+> Right rib 6
+> Location: right side of the chest, rib pair 6 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its costal cartilage connects directly to the sternum.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1200903547)`
+
+### bone-ribBones-19 — Right rib 7
+
+> Right rib 7
+> Location: right side of the chest, rib pair 7 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its costal cartilage connects directly to the sternum.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1923005708)`
+
+### bone-ribBones-20 — Right rib 8
+
+> Right rib 8
+> Location: right side of the chest, rib pair 8 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its costal cartilage connects indirectly to the sternum through the cartilage above.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1677483471)`
+
+### bone-ribBones-21 — Right rib 9
+
+> Right rib 9
+> Location: right side of the chest, rib pair 9 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its costal cartilage connects indirectly to the sternum through the cartilage above.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1646608029)`
+
+### bone-ribBones-22 — Right rib 10
+
+> Right rib 10
+> Location: right side of the chest, rib pair 10 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its costal cartilage connects indirectly to the sternum through the cartilage above.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 288657787)`
+
+### bone-ribBones-23 — Right rib 11
+
+> Right rib 11
+> Location: right side of the chest, rib pair 11 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its anterior end does not attach to the sternum.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1145743145)`
+
+### bone-ribBones-24 — Right rib 12
+
+> Right rib 12
+> Location: right side of the chest, rib pair 12 of 12.
+> Role: part of the thoracic cage that helps protect the heart and lungs.
+> Connection: Its anterior end does not attach to the sternum.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 220303159)`
+
+### bone-ribBones-25 — Sternum — Breastbone
+
+> Sternum — Breastbone
+> Location: center of the front of the chest.
+> Role: anchors the anterior thoracic cage and connects to the costal cartilages of the true ribs.
+> Look for: the broad upper manubrium, long body, and lower xiphoid process.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 976390802)`
+
+## Individual bones: Left lower limb
+
+### bone-leftLowerLimbBones-01 — Left femur — Thigh bone
+
+> Left femur — Thigh bone
+> Location: thigh, between the hip and knee.
+> Role: supports body weight and forms the hip and knee joints.
+> Look for: the rounded head and broad lower end.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1906426239)`
+
+### bone-leftLowerLimbBones-02 — Left patella — Kneecap
+
+> Left patella — Kneecap
+> Location: front of the knee.
+> Role: protects the tendon at the knee and helps the thigh muscles extend the leg.
+> Look for: its small, roughly triangular shape.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 493370594)`
+
+### bone-leftLowerLimbBones-03 — Left tibia — Shinbone
+
+> Left tibia — Shinbone
+> Location: medial side of the leg, between knee and ankle.
+> Role: bears most of the leg's weight.
+> Look for: its broad upper end and inner ankle projection.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1748049612)`
+
+### bone-leftLowerLimbBones-04 — Left fibula
+
+> Left fibula
+> Location: lateral side of the leg, beside the tibia.
+> Role: helps stabilize the ankle and provides muscle attachments.
+> Look for: its slender shaft and outer ankle projection.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1138974769)`
+
+### bone-leftLowerLimbBones-05 — Left talus
+
+> Left talus
+> Location: upper rear foot, below the tibia and fibula.
+> Role: forms the ankle joint and passes weight toward the heel.
+> Look for: its joint surfaces above the calcaneus.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1364176618)`
+
+### bone-leftLowerLimbBones-06 — Left calcaneus — Heel bone
+
+> Left calcaneus — Heel bone
+> Location: back and underside of the foot.
+> Role: forms the heel and supports the talus.
+> Look for: the large heel projection.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1848510050)`
+
+### bone-leftLowerLimbBones-07 — Left navicular
+
+> Left navicular
+> Location: medial midfoot, in front of the talus.
+> Role: links the talus to the cuneiform bones.
+> Look for: its curved, boat-like outline.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1030681667)`
+
+### bone-leftLowerLimbBones-08 — Left cuboid
+
+> Left cuboid
+> Location: lateral midfoot, in front of the calcaneus.
+> Role: links the heel region to the outer metatarsals.
+> Look for: its block-like shape.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 141479940)`
+
+### bone-leftLowerLimbBones-09 — Left medial cuneiform
+
+> Left medial cuneiform
+> Location: medial part of the midfoot, between the navicular and metatarsals.
+> Role: helps connect the rear foot to the forefoot and supports the foot's arches.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1845223801)`
+
+### bone-leftLowerLimbBones-10 — Left intermediate cuneiform
+
+> Left intermediate cuneiform
+> Location: intermediate part of the midfoot, between the navicular and metatarsals.
+> Role: helps connect the rear foot to the forefoot and supports the foot's arches.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 372117776)`
+
+### bone-leftLowerLimbBones-11 — Left lateral cuneiform
+
+> Left lateral cuneiform
+> Location: lateral part of the midfoot, between the navicular and metatarsals.
+> Role: helps connect the rear foot to the forefoot and supports the foot's arches.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 821635572)`
+
+### bone-leftLowerLimbBones-12 — Left metatarsal 1
+
+> Left metatarsal 1
+> Location: forefoot, in line with toe 1; numbering begins at the big toe.
+> Role: links the tarsal bones to the toes and helps form the ball of the foot.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1896121249)`
+
+### bone-leftLowerLimbBones-13 — Left metatarsal 2
+
+> Left metatarsal 2
+> Location: forefoot, in line with toe 2; numbering begins at the big toe.
+> Role: links the tarsal bones to the toes and helps form the ball of the foot.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1728593726)`
+
+### bone-leftLowerLimbBones-14 — Left metatarsal 3
+
+> Left metatarsal 3
+> Location: forefoot, in line with toe 3; numbering begins at the big toe.
+> Role: links the tarsal bones to the toes and helps form the ball of the foot.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 755898914)`
+
+### bone-leftLowerLimbBones-15 — Left metatarsal 4
+
+> Left metatarsal 4
+> Location: forefoot, in line with toe 4; numbering begins at the big toe.
+> Role: links the tarsal bones to the toes and helps form the ball of the foot.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1901963225)`
+
+### bone-leftLowerLimbBones-16 — Left metatarsal 5
+
+> Left metatarsal 5
+> Location: forefoot, in line with toe 5; numbering begins at the big toe.
+> Role: links the tarsal bones to the toes and helps form the ball of the foot.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1573481066)`
+
+### bone-leftLowerLimbBones-17 — Left toe 1 — proximal phalanx
+
+> Left toe 1 — proximal phalanx
+> Location: proximal segment of left toe 1.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1677063108)`
+
+### bone-leftLowerLimbBones-18 — Left toe 1 — distal phalanx
+
+> Left toe 1 — distal phalanx
+> Location: distal segment of left toe 1.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1804170739)`
+
+### bone-leftLowerLimbBones-19 — Left toe 2 — proximal phalanx
+
+> Left toe 2 — proximal phalanx
+> Location: proximal segment of left toe 2.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 591754789)`
+
+### bone-leftLowerLimbBones-20 — Left toe 2 — middle phalanx
+
+> Left toe 2 — middle phalanx
+> Location: middle segment of left toe 2.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 471065881)`
+
+### bone-leftLowerLimbBones-21 — Left toe 2 — distal phalanx
+
+> Left toe 2 — distal phalanx
+> Location: distal segment of left toe 2.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 898734800)`
+
+### bone-leftLowerLimbBones-22 — Left toe 3 — proximal phalanx
+
+> Left toe 3 — proximal phalanx
+> Location: proximal segment of left toe 3.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2014903860)`
+
+### bone-leftLowerLimbBones-23 — Left toe 3 — middle phalanx
+
+> Left toe 3 — middle phalanx
+> Location: middle segment of left toe 3.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 814954254)`
+
+### bone-leftLowerLimbBones-24 — Left toe 3 — distal phalanx
+
+> Left toe 3 — distal phalanx
+> Location: distal segment of left toe 3.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 949868021)`
+
+### bone-leftLowerLimbBones-25 — Left toe 4 — proximal phalanx
+
+> Left toe 4 — proximal phalanx
+> Location: proximal segment of left toe 4.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 518702394)`
+
+### bone-leftLowerLimbBones-26 — Left toe 4 — middle phalanx
+
+> Left toe 4 — middle phalanx
+> Location: middle segment of left toe 4.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 408033937)`
+
+### bone-leftLowerLimbBones-27 — Left toe 4 — distal phalanx
+
+> Left toe 4 — distal phalanx
+> Location: distal segment of left toe 4.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1837029302)`
+
+### bone-leftLowerLimbBones-28 — Left toe 5 — proximal phalanx
+
+> Left toe 5 — proximal phalanx
+> Location: proximal segment of left toe 5.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1960847144)`
+
+### bone-leftLowerLimbBones-29 — Left toe 5 — middle phalanx
+
+> Left toe 5 — middle phalanx
+> Location: middle segment of left toe 5.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1884076016)`
+
+### bone-leftLowerLimbBones-30 — Left toe 5 — distal phalanx
+
+> Left toe 5 — distal phalanx
+> Location: distal segment of left toe 5.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 555085717)`
+
+## Individual bones: Right lower limb
+
+### bone-rightLowerLimbBones-01 — Right femur — Thigh bone
+
+> Right femur — Thigh bone
+> Location: thigh, between the hip and knee.
+> Role: supports body weight and forms the hip and knee joints.
+> Look for: the rounded head and broad lower end.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 917579078)`
+
+### bone-rightLowerLimbBones-02 — Right patella — Kneecap
+
+> Right patella — Kneecap
+> Location: front of the knee.
+> Role: protects the tendon at the knee and helps the thigh muscles extend the leg.
+> Look for: its small, roughly triangular shape.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 417459154)`
+
+### bone-rightLowerLimbBones-03 — Right tibia — Shinbone
+
+> Right tibia — Shinbone
+> Location: medial side of the leg, between knee and ankle.
+> Role: bears most of the leg's weight.
+> Look for: its broad upper end and inner ankle projection.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1720068996)`
+
+### bone-rightLowerLimbBones-04 — Right fibula
+
+> Right fibula
+> Location: lateral side of the leg, beside the tibia.
+> Role: helps stabilize the ankle and provides muscle attachments.
+> Look for: its slender shaft and outer ankle projection.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 65710603)`
+
+### bone-rightLowerLimbBones-05 — Right talus
+
+> Right talus
+> Location: upper rear foot, below the tibia and fibula.
+> Role: forms the ankle joint and passes weight toward the heel.
+> Look for: its joint surfaces above the calcaneus.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 58287936)`
+
+### bone-rightLowerLimbBones-06 — Right calcaneus — Heel bone
+
+> Right calcaneus — Heel bone
+> Location: back and underside of the foot.
+> Role: forms the heel and supports the talus.
+> Look for: the large heel projection.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 294868690)`
+
+### bone-rightLowerLimbBones-07 — Right navicular
+
+> Right navicular
+> Location: medial midfoot, in front of the talus.
+> Role: links the talus to the cuneiform bones.
+> Look for: its curved, boat-like outline.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1945284237)`
+
+### bone-rightLowerLimbBones-08 — Right cuboid
+
+> Right cuboid
+> Location: lateral midfoot, in front of the calcaneus.
+> Role: links the heel region to the outer metatarsals.
+> Look for: its block-like shape.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 681784762)`
+
+### bone-rightLowerLimbBones-09 — Right medial cuneiform
+
+> Right medial cuneiform
+> Location: medial part of the midfoot, between the navicular and metatarsals.
+> Role: helps connect the rear foot to the forefoot and supports the foot's arches.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 312797523)`
+
+### bone-rightLowerLimbBones-10 — Right intermediate cuneiform
+
+> Right intermediate cuneiform
+> Location: intermediate part of the midfoot, between the navicular and metatarsals.
+> Role: helps connect the rear foot to the forefoot and supports the foot's arches.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 381020037)`
+
+### bone-rightLowerLimbBones-11 — Right lateral cuneiform
+
+> Right lateral cuneiform
+> Location: lateral part of the midfoot, between the navicular and metatarsals.
+> Role: helps connect the rear foot to the forefoot and supports the foot's arches.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1985808930)`
+
+### bone-rightLowerLimbBones-12 — Right metatarsal 1
+
+> Right metatarsal 1
+> Location: forefoot, in line with toe 1; numbering begins at the big toe.
+> Role: links the tarsal bones to the toes and helps form the ball of the foot.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1125409685)`
+
+### bone-rightLowerLimbBones-13 — Right metatarsal 2
+
+> Right metatarsal 2
+> Location: forefoot, in line with toe 2; numbering begins at the big toe.
+> Role: links the tarsal bones to the toes and helps form the ball of the foot.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 499065931)`
+
+### bone-rightLowerLimbBones-14 — Right metatarsal 3
+
+> Right metatarsal 3
+> Location: forefoot, in line with toe 3; numbering begins at the big toe.
+> Role: links the tarsal bones to the toes and helps form the ball of the foot.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2078235473)`
+
+### bone-rightLowerLimbBones-15 — Right metatarsal 4
+
+> Right metatarsal 4
+> Location: forefoot, in line with toe 4; numbering begins at the big toe.
+> Role: links the tarsal bones to the toes and helps form the ball of the foot.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1828164204)`
+
+### bone-rightLowerLimbBones-16 — Right metatarsal 5
+
+> Right metatarsal 5
+> Location: forefoot, in line with toe 5; numbering begins at the big toe.
+> Role: links the tarsal bones to the toes and helps form the ball of the foot.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 612319566)`
+
+### bone-rightLowerLimbBones-17 — Right toe 1 — proximal phalanx
+
+> Right toe 1 — proximal phalanx
+> Location: proximal segment of right toe 1.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1157365520)`
+
+### bone-rightLowerLimbBones-18 — Right toe 1 — distal phalanx
+
+> Right toe 1 — distal phalanx
+> Location: distal segment of right toe 1.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 349169387)`
+
+### bone-rightLowerLimbBones-19 — Right toe 2 — proximal phalanx
+
+> Right toe 2 — proximal phalanx
+> Location: proximal segment of right toe 2.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 336108943)`
+
+### bone-rightLowerLimbBones-20 — Right toe 2 — middle phalanx
+
+> Right toe 2 — middle phalanx
+> Location: middle segment of right toe 2.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 203412632)`
+
+### bone-rightLowerLimbBones-21 — Right toe 2 — distal phalanx
+
+> Right toe 2 — distal phalanx
+> Location: distal segment of right toe 2.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 516909752)`
+
+### bone-rightLowerLimbBones-22 — Right toe 3 — proximal phalanx
+
+> Right toe 3 — proximal phalanx
+> Location: proximal segment of right toe 3.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1974314064)`
+
+### bone-rightLowerLimbBones-23 — Right toe 3 — middle phalanx
+
+> Right toe 3 — middle phalanx
+> Location: middle segment of right toe 3.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1991020000)`
+
+### bone-rightLowerLimbBones-24 — Right toe 3 — distal phalanx
+
+> Right toe 3 — distal phalanx
+> Location: distal segment of right toe 3.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 199897243)`
+
+### bone-rightLowerLimbBones-25 — Right toe 4 — proximal phalanx
+
+> Right toe 4 — proximal phalanx
+> Location: proximal segment of right toe 4.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1915630994)`
+
+### bone-rightLowerLimbBones-26 — Right toe 4 — middle phalanx
+
+> Right toe 4 — middle phalanx
+> Location: middle segment of right toe 4.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 670783516)`
+
+### bone-rightLowerLimbBones-27 — Right toe 4 — distal phalanx
+
+> Right toe 4 — distal phalanx
+> Location: distal segment of right toe 4.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 535826874)`
+
+### bone-rightLowerLimbBones-28 — Right toe 5 — proximal phalanx
+
+> Right toe 5 — proximal phalanx
+> Location: proximal segment of right toe 5.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 488182590)`
+
+### bone-rightLowerLimbBones-29 — Right toe 5 — middle phalanx
+
+> Right toe 5 — middle phalanx
+> Location: middle segment of right toe 5.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 184972981)`
+
+### bone-rightLowerLimbBones-30 — Right toe 5 — distal phalanx
+
+> Right toe 5 — distal phalanx
+> Location: distal segment of right toe 5.
+> Role: forms part of the toe and helps the foot balance and push off during movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 285165835)`
+
+### bone-rightLowerLimbBones-31 — Right medial sesamoid
+
+> Right medial sesamoid
+> Location: beneath the big-toe joint, near the first metatarsal.
+> Role: a small bone within a tendon that helps protect it and guide movement.
+> Look for: the small rounded shape under the forefoot.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 320916827)`
+
+### bone-rightLowerLimbBones-32 — Right lateral sesamoid
+
+> Right lateral sesamoid
+> Location: beneath the big-toe joint, near the first metatarsal.
+> Role: a small bone within a tendon that helps protect it and guide movement.
+> Look for: the small rounded shape under the forefoot.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1805490577)`
+
+## Individual bones: Left upper limb
+
+### bone-leftUpperLimbBones-01 — Left humerus — Upper arm
+
+> Left humerus — Upper arm
+> Location: upper arm, between shoulder and elbow.
+> Role: forms the shoulder and elbow joints.
+> Look for: the rounded head and broad lower end.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 154396501)`
+
+### bone-leftUpperLimbBones-02 — Left radius
+
+> Left radius
+> Location: thumb side of the forearm.
+> Role: rotates around the ulna and contributes to the wrist joint.
+> Look for: its small rounded head near the elbow.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 929720188)`
+
+### bone-leftUpperLimbBones-03 — Left ulna
+
+> Left ulna
+> Location: little-finger side of the forearm.
+> Role: forms the main hinge of the elbow.
+> Look for: the prominent upper end that forms the elbow point.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 14251104)`
+
+### bone-leftUpperLimbBones-04 — Left scaphoid
+
+> Left scaphoid
+> Location: wrist, between the forearm and palm.
+> Role: one of eight carpal bones that give the wrist its flexibility.
+> Look for: its position among the two rows of wrist bones.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1849603604)`
+
+### bone-leftUpperLimbBones-05 — Left lunate
+
+> Left lunate
+> Location: wrist, between the forearm and palm.
+> Role: one of eight carpal bones that give the wrist its flexibility.
+> Look for: its position among the two rows of wrist bones.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 919916229)`
+
+### bone-leftUpperLimbBones-06 — Left triquetrum
+
+> Left triquetrum
+> Location: wrist, between the forearm and palm.
+> Role: one of eight carpal bones that give the wrist its flexibility.
+> Look for: its position among the two rows of wrist bones.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1944784439)`
+
+### bone-leftUpperLimbBones-07 — Left pisiform
+
+> Left pisiform
+> Location: wrist, between the forearm and palm.
+> Role: one of eight carpal bones that give the wrist its flexibility.
+> Look for: its position among the two rows of wrist bones.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1310540579)`
+
+### bone-leftUpperLimbBones-08 — Left trapezium
+
+> Left trapezium
+> Location: wrist, between the forearm and palm.
+> Role: one of eight carpal bones that give the wrist its flexibility.
+> Look for: its position among the two rows of wrist bones.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 755611434)`
+
+### bone-leftUpperLimbBones-09 — Left trapezoid
+
+> Left trapezoid
+> Location: wrist, between the forearm and palm.
+> Role: one of eight carpal bones that give the wrist its flexibility.
+> Look for: its position among the two rows of wrist bones.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1374576501)`
+
+### bone-leftUpperLimbBones-10 — Left capitate
+
+> Left capitate
+> Location: wrist, between the forearm and palm.
+> Role: one of eight carpal bones that give the wrist its flexibility.
+> Look for: its position among the two rows of wrist bones.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 178066893)`
+
+### bone-leftUpperLimbBones-11 — Left hamate
+
+> Left hamate
+> Location: wrist, between the forearm and palm.
+> Role: one of eight carpal bones that give the wrist its flexibility.
+> Look for: its position among the two rows of wrist bones.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 747043992)`
+
+### bone-leftUpperLimbBones-12 — Left metacarpal 1
+
+> Left metacarpal 1
+> Location: palm, aligned with digit 1; numbering begins at the thumb.
+> Role: links the wrist bones to the fingers and helps form the knuckles.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1584414923)`
+
+### bone-leftUpperLimbBones-13 — Left metacarpal 2
+
+> Left metacarpal 2
+> Location: palm, aligned with digit 2; numbering begins at the thumb.
+> Role: links the wrist bones to the fingers and helps form the knuckles.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 113057101)`
+
+### bone-leftUpperLimbBones-14 — Left metacarpal 3
+
+> Left metacarpal 3
+> Location: palm, aligned with digit 3; numbering begins at the thumb.
+> Role: links the wrist bones to the fingers and helps form the knuckles.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2027451646)`
+
+### bone-leftUpperLimbBones-15 — Left metacarpal 4
+
+> Left metacarpal 4
+> Location: palm, aligned with digit 4; numbering begins at the thumb.
+> Role: links the wrist bones to the fingers and helps form the knuckles.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1296343311)`
+
+### bone-leftUpperLimbBones-16 — Left metacarpal 5
+
+> Left metacarpal 5
+> Location: palm, aligned with digit 5; numbering begins at the thumb.
+> Role: links the wrist bones to the fingers and helps form the knuckles.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1905602575)`
+
+### bone-leftUpperLimbBones-17 — Left thumb — proximal phalanx
+
+> Left thumb — proximal phalanx
+> Location: proximal segment of the thumb.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1723419989)`
+
+### bone-leftUpperLimbBones-18 — Left thumb — distal phalanx
+
+> Left thumb — distal phalanx
+> Location: distal segment of the thumb.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1300786457)`
+
+### bone-leftUpperLimbBones-19 — Left index — proximal phalanx
+
+> Left index — proximal phalanx
+> Location: proximal segment of the index.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1057182331)`
+
+### bone-leftUpperLimbBones-20 — Left index — middle phalanx
+
+> Left index — middle phalanx
+> Location: middle segment of the index.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 800137614)`
+
+### bone-leftUpperLimbBones-21 — Left index — distal phalanx
+
+> Left index — distal phalanx
+> Location: distal segment of the index.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 599168178)`
+
+### bone-leftUpperLimbBones-22 — Left middle — proximal phalanx
+
+> Left middle — proximal phalanx
+> Location: proximal segment of the middle.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1677456066)`
+
+### bone-leftUpperLimbBones-23 — Left middle — middle phalanx
+
+> Left middle — middle phalanx
+> Location: middle segment of the middle.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 830506302)`
+
+### bone-leftUpperLimbBones-24 — Left middle — distal phalanx
+
+> Left middle — distal phalanx
+> Location: distal segment of the middle.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1429562819)`
+
+### bone-leftUpperLimbBones-25 — Left ring — proximal phalanx
+
+> Left ring — proximal phalanx
+> Location: proximal segment of the ring.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 250539020)`
+
+### bone-leftUpperLimbBones-26 — Left ring — middle phalanx
+
+> Left ring — middle phalanx
+> Location: middle segment of the ring.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 571603795)`
+
+### bone-leftUpperLimbBones-27 — Left ring — distal phalanx
+
+> Left ring — distal phalanx
+> Location: distal segment of the ring.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 754965203)`
+
+### bone-leftUpperLimbBones-28 — Left little — proximal phalanx
+
+> Left little — proximal phalanx
+> Location: proximal segment of the little.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 227554163)`
+
+### bone-leftUpperLimbBones-29 — Left little — middle phalanx
+
+> Left little — middle phalanx
+> Location: middle segment of the little.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1672032463)`
+
+### bone-leftUpperLimbBones-30 — Left little — distal phalanx
+
+> Left little — distal phalanx
+> Location: distal segment of the little.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 193476994)`
+
+## Individual bones: Right upper limb
+
+### bone-rightUpperLimbBones-01 — Right humerus — Upper arm
+
+> Right humerus — Upper arm
+> Location: upper arm, between shoulder and elbow.
+> Role: forms the shoulder and elbow joints.
+> Look for: the rounded head and broad lower end.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 215999437)`
+
+### bone-rightUpperLimbBones-02 — Right radius
+
+> Right radius
+> Location: thumb side of the forearm.
+> Role: rotates around the ulna and contributes to the wrist joint.
+> Look for: its small rounded head near the elbow.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 332458555)`
+
+### bone-rightUpperLimbBones-03 — Right ulna
+
+> Right ulna
+> Location: little-finger side of the forearm.
+> Role: forms the main hinge of the elbow.
+> Look for: the prominent upper end that forms the elbow point.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1463808217)`
+
+### bone-rightUpperLimbBones-04 — Right scaphoid
+
+> Right scaphoid
+> Location: wrist, between the forearm and palm.
+> Role: one of eight carpal bones that give the wrist its flexibility.
+> Look for: its position among the two rows of wrist bones.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 529552624)`
+
+### bone-rightUpperLimbBones-05 — Right lunate
+
+> Right lunate
+> Location: wrist, between the forearm and palm.
+> Role: one of eight carpal bones that give the wrist its flexibility.
+> Look for: its position among the two rows of wrist bones.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 717773467)`
+
+### bone-rightUpperLimbBones-06 — Right triquetrum
+
+> Right triquetrum
+> Location: wrist, between the forearm and palm.
+> Role: one of eight carpal bones that give the wrist its flexibility.
+> Look for: its position among the two rows of wrist bones.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 75974445)`
+
+### bone-rightUpperLimbBones-07 — Right pisiform
+
+> Right pisiform
+> Location: wrist, between the forearm and palm.
+> Role: one of eight carpal bones that give the wrist its flexibility.
+> Look for: its position among the two rows of wrist bones.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 937663882)`
+
+### bone-rightUpperLimbBones-08 — Right trapezium
+
+> Right trapezium
+> Location: wrist, between the forearm and palm.
+> Role: one of eight carpal bones that give the wrist its flexibility.
+> Look for: its position among the two rows of wrist bones.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 584123698)`
+
+### bone-rightUpperLimbBones-09 — Right trapezoid
+
+> Right trapezoid
+> Location: wrist, between the forearm and palm.
+> Role: one of eight carpal bones that give the wrist its flexibility.
+> Look for: its position among the two rows of wrist bones.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 833833240)`
+
+### bone-rightUpperLimbBones-10 — Right capitate
+
+> Right capitate
+> Location: wrist, between the forearm and palm.
+> Role: one of eight carpal bones that give the wrist its flexibility.
+> Look for: its position among the two rows of wrist bones.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1083675025)`
+
+### bone-rightUpperLimbBones-11 — Right hamate
+
+> Right hamate
+> Location: wrist, between the forearm and palm.
+> Role: one of eight carpal bones that give the wrist its flexibility.
+> Look for: its position among the two rows of wrist bones.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 228978773)`
+
+### bone-rightUpperLimbBones-12 — Right metacarpal 1
+
+> Right metacarpal 1
+> Location: palm, aligned with digit 1; numbering begins at the thumb.
+> Role: links the wrist bones to the fingers and helps form the knuckles.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1830390360)`
+
+### bone-rightUpperLimbBones-13 — Right metacarpal 2
+
+> Right metacarpal 2
+> Location: palm, aligned with digit 2; numbering begins at the thumb.
+> Role: links the wrist bones to the fingers and helps form the knuckles.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 556332999)`
+
+### bone-rightUpperLimbBones-14 — Right metacarpal 3
+
+> Right metacarpal 3
+> Location: palm, aligned with digit 3; numbering begins at the thumb.
+> Role: links the wrist bones to the fingers and helps form the knuckles.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1621206481)`
+
+### bone-rightUpperLimbBones-15 — Right metacarpal 4
+
+> Right metacarpal 4
+> Location: palm, aligned with digit 4; numbering begins at the thumb.
+> Role: links the wrist bones to the fingers and helps form the knuckles.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 411825065)`
+
+### bone-rightUpperLimbBones-16 — Right metacarpal 5
+
+> Right metacarpal 5
+> Location: palm, aligned with digit 5; numbering begins at the thumb.
+> Role: links the wrist bones to the fingers and helps form the knuckles.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 685540388)`
+
+### bone-rightUpperLimbBones-17 — Right thumb — proximal phalanx
+
+> Right thumb — proximal phalanx
+> Location: proximal segment of the thumb.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 172024055)`
+
+### bone-rightUpperLimbBones-18 — Right thumb — distal phalanx
+
+> Right thumb — distal phalanx
+> Location: distal segment of the thumb.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 876630155)`
+
+### bone-rightUpperLimbBones-19 — Right index — proximal phalanx
+
+> Right index — proximal phalanx
+> Location: proximal segment of the index.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 11549036)`
+
+### bone-rightUpperLimbBones-20 — Right index — middle phalanx
+
+> Right index — middle phalanx
+> Location: middle segment of the index.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1749329785)`
+
+### bone-rightUpperLimbBones-21 — Right index — distal phalanx
+
+> Right index — distal phalanx
+> Location: distal segment of the index.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2132271906)`
+
+### bone-rightUpperLimbBones-22 — Right middle — proximal phalanx
+
+> Right middle — proximal phalanx
+> Location: proximal segment of the middle.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1318046989)`
+
+### bone-rightUpperLimbBones-23 — Right middle — middle phalanx
+
+> Right middle — middle phalanx
+> Location: middle segment of the middle.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 401467376)`
+
+### bone-rightUpperLimbBones-24 — Right middle — distal phalanx
+
+> Right middle — distal phalanx
+> Location: distal segment of the middle.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 66606602)`
+
+### bone-rightUpperLimbBones-25 — Right ring — proximal phalanx
+
+> Right ring — proximal phalanx
+> Location: proximal segment of the ring.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 893528747)`
+
+### bone-rightUpperLimbBones-26 — Right ring — middle phalanx
+
+> Right ring — middle phalanx
+> Location: middle segment of the ring.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 948446142)`
+
+### bone-rightUpperLimbBones-27 — Right ring — distal phalanx
+
+> Right ring — distal phalanx
+> Location: distal segment of the ring.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 242935870)`
+
+### bone-rightUpperLimbBones-28 — Right little — proximal phalanx
+
+> Right little — proximal phalanx
+> Location: proximal segment of the little.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1193942484)`
+
+### bone-rightUpperLimbBones-29 — Right little — middle phalanx
+
+> Right little — middle phalanx
+> Location: middle segment of the little.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 559565871)`
+
+### bone-rightUpperLimbBones-30 — Right little — distal phalanx
+
+> Right little — distal phalanx
+> Location: distal segment of the little.
+> Role: forms part of the digit for grasping and fine hand movement.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2130824767)`
+
+## Individual bones: Right pectoral girdle
+
+### bone-rightPectoralBones-01 — Right clavicle — Collarbone
+
+> Right clavicle — Collarbone
+> Location: across the upper chest, between the sternum and shoulder.
+> Role: braces the shoulder away from the trunk and transfers forces from the arm.
+> Look for: the slender curved shaft.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1482026722)`
+
+### bone-rightPectoralBones-02 — Right scapula — Shoulder blade
+
+> Right scapula — Shoulder blade
+> Location: upper back, behind the rib cage.
+> Role: anchors shoulder muscles and forms the shoulder socket for the humerus.
+> Look for: the broad triangular blade and projecting spine.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1146079466)`
+
+## Individual bones: Left pectoral girdle
+
+### bone-leftPectoralBones-01 — Left clavicle — Collarbone
+
+> Left clavicle — Collarbone
+> Location: across the upper chest, between the sternum and shoulder.
+> Role: braces the shoulder away from the trunk and transfers forces from the arm.
+> Look for: the slender curved shaft.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1265485111)`
+
+### bone-leftPectoralBones-02 — Left scapula — Shoulder blade
+
+> Left scapula — Shoulder blade
+> Location: upper back, behind the rib cage.
+> Role: anchors shoulder muscles and forms the shoulder socket for the humerus.
+> Look for: the broad triangular blade and projecting spine.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1117057901)`
+
+## Individual bones: Pelvic girdle
+
+### bone-pelvicBones-01 — Left hip bone — Os coxae
+
+> Left hip bone — Os coxae
+> Location: left side of the pelvis, between the sacrum and thigh.
+> Role: transfers body weight to the lower limb and forms the hip socket.
+> Look for: the broad iliac wing and cup-shaped acetabulum.
+
+Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1428180037)`
+
+## Quiz: current question bank
+
+### quiz-rib_01 — rib_01
+
+> Rib | Easy
+> What major body cavity do the ribs primarily enclose and protect?
+> A. Abdominal cavity
+> B. Thoracic cavity
+> C. Pelvic cavity
+> D. Cranial cavity
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-rib_02 — rib_02
+
+> Rib | Easy
+> Which vital organs are shielded directly by the rib cage?
+> A. Brain and spinal cord
+> B. Stomach and liver
+> C. Heart and lungs
+> D. Kidneys and bladder
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-rib_03 — rib_03
+
+> Rib | Easy
+> Anteriorly, most ribs attach directly or indirectly to which central axial bone?
+> A. Clavicle
+> B. Scapula
+> C. Sternum
+> D. Vertebrae
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-rib_04 — rib_04
+
+> Rib | Medium
+> Posteriorly, all 12 pairs of ribs articulate with which specific segment of the vertebral column?
+> A. Cervical vertebrae
+> B. Thoracic vertebrae
+> C. Lumbar vertebrae
+> D. Sacral vertebrae
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-rib_05 — rib_05
+
+> Rib | Medium
+> How many total pairs of ribs make up the human rib cage?
+> A. 10 pairs
+> B. 12 pairs
+> C. 14 pairs
+> D. 8 pairs
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-rib_06 — rib_06
+
+> Rib | Medium
+> Which structure connects the ribs to the sternum, providing flexibility during breathing?
+> A. Hyaline costal cartilage
+> B. Fibrocartilage disc
+> C. Synovial fluid
+> D. Interosseous membrane
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-rib_07 — rib_07
+
+> Rib | Medium
+> Ribs 11 and 12 are classified as 'floating ribs' because they:
+> A. Do not articulate with the spine
+> B. Are not attached anteriorly to the sternum or costal cartilage
+> C. Have no muscular attachments
+> D. Are made entirely of cartilage
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-rib_08 — rib_08
+
+> Rib | Hard
+> During inhalation, the motion of the upper ribs increases the anterior-posterior diameter of the thorax, commonly referred to as what biomechanical movement?
+> A. Bucket-handle movement
+> B. Pump-handle movement
+> C. Caliper movement
+> D. Reciprocal glide
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-rib_09 — rib_09
+
+> Rib | Hard
+> Which intercostal muscle layer is primarily active during forced expiration by pulling the ribs downward?
+> A. External intercostals
+> B. Internal intercostals
+> C. Diaphragm
+> D. Scalenes
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-rib_10 — rib_10
+
+> Rib | Hard
+> In Physical Therapy rib mobility assessments, the lateral expansion of ribs 7 through 10 during deep inspiration is described as:
+> A. Pump-handle movement
+> B. Bucket-handle movement
+> C. Torsion rotation
+> D. Anteroposterior translation
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-skull_01 — skull_01
+
+> Skull | Easy
+> What is the primary anatomical function of the skull?
+> A. Pumping blood
+> B. Protecting the brain
+> C. Filter oxygen
+> D. Supporting lower limbs
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-skull_02 — skull_02
+
+> Skull | Easy
+> Which bone forms the lower jaw and is the only movable bone of the skull?
+> A. Mandible
+> B. Maxilla
+> C. Frontal bone
+> D. Vomer
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-skull_03 — skull_03
+
+> Skull | Easy
+> The large opening at the base of the skull through which the spinal cord passes is called the:
+> A. Obturator foramen
+> B. Foramen ovale
+> C. Foramen magnum
+> D. Jugular foramen
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-skull_04 — skull_04
+
+> Skull | Medium
+> Which skull bone forms the forehead and the upper margins of the eye sockets?
+> A. Frontal bone
+> B. Parietal bone
+> C. Occipital bone
+> D. Temporal bone
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-skull_05 — skull_05
+
+> Skull | Medium
+> Immovable fibrous joints that connect the individual bones of the adult skull are known as:
+> A. Synovial joints
+> B. Sutures
+> C. Cartilaginous discs
+> D. Gomphoses
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-skull_06 — skull_06
+
+> Skull | Medium
+> Which cranial bone houses the middle and inner ear structures?
+> A. Sphenoid bone
+> B. Ethmoid bone
+> C. Occipital bone
+> D. Temporal bone
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-skull_07 — skull_07
+
+> Skull | Medium
+> The facial bone that forms the prominent structure of the cheekbone is the:
+> A. Maxilla
+> B. Lacrimal bone
+> C. Zygomatic bone
+> D. Nasal bone
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-skull_08 — skull_08
+
+> Skull | Hard
+> The sphenoid bone is considered the keystone of the cranium because it:
+> A. Is the largest bone in the head
+> B. Articulates with all other cranial bones
+> C. Contains the auditory ossicles
+> D. Forms the anterior nasal septum
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-skull_09 — skull_09
+
+> Skull | Hard
+> In clinical PT cranial evaluation, trauma to the pterion region is critical due to the risk of rupturing which underlying vessel?
+> A. Middle meningeal artery
+> B. Internal carotid artery
+> C. Basilar artery
+> D. Vertebral artery
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-skull_10 — skull_10
+
+> Skull | Hard
+> Which bone structure contains the sella turcica, the bony depression that cradles the pituitary gland?
+> A. Ethmoid bone
+> B. Temporal bone
+> C. Sphenoid bone
+> D. Occipital bone
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-pelvis_01 — pelvis_01
+
+> Pelvis | Easy
+> Which bowl-shaped anatomical structure connects the axial skeleton to the lower limbs?
+> A. Pelvic girdle
+> B. Pectoral girdle
+> C. Thoracic cage
+> D. Vertebral column
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-pelvis_02 — pelvis_02
+
+> Pelvis | Easy
+> Each hip bone (coxal bone) is formed by the fusion of which three bones?
+> A. Ilium Ischium and Pubis
+> B. Femur Tibia and Fibula
+> C. Sacrum Coccyx and Lumbar
+> D. Talus Calcaneus and Navicular
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-pelvis_03 — pelvis_03
+
+> Pelvis | Easy
+> Which joint connects the posterior aspect of the pelvic girdle directly to the spine?
+> A. Sacroiliac joint
+> B. Glenohumeral joint
+> C. Pubic symphysis
+> D. Tibiofemoral joint
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-pelvis_04 — pelvis_04
+
+> Pelvis | Medium
+> The deep cup-like socket on the pelvic bone that articulates with the head of the femur is the:
+> A. Acetabulum
+> B. Obturator foramen
+> C. Glenoid fossa
+> D. Ischial spine
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-pelvis_05 — pelvis_05
+
+> Pelvis | Medium
+> Which prominent pelvic landmark is easily palpated along the upper boundary of the waistline?
+> A. Iliac crest
+> B. Ischial tuberosity
+> C. Pubic tubercle
+> D. Lesser trochanter
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-pelvis_06 — pelvis_06
+
+> Pelvis | Medium
+> The fibrocartilaginous joint that unites the left and right pubic bones anteriorly is called the:
+> A. Pubic symphysis
+> B. Sacroiliac joint
+> C. Acetabular labrum
+> D. Lineal alba
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-pelvis_07 — pelvis_07
+
+> Pelvis | Medium
+> Which part of the ischium bears the majority of body weight when sitting in an upright position?
+> A. Ischial tuberosity
+> B. Iliac fossa
+> C. Greater sciatic notch
+> D. Pectineal line
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-pelvis_08 — pelvis_08
+
+> Pelvis | Hard
+> In physical therapy gait analysis, weakness in the gluteus medius causes the pelvis to drop on the unweighted side, known as:
+> A. Trendelenburg sign
+> B. Thomas sign
+> C. Lachman test
+> D. Babinski reflex
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-pelvis_09 — pelvis_09
+
+> Pelvis | Hard
+> An anterior pelvic tilt is characteristically accompanied by which spinal postural adjustment?
+> A. Increased lumbar lordosis
+> B. Decreased lumbar lordosis
+> C. Thoracic kyphosis reversal
+> D. Cervical protraction
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-pelvis_10 — pelvis_10
+
+> Pelvis | Hard
+> Which anatomical ligament converts the greater sciatic notch of the pelvis into the greater sciatic foramen?
+> A. Sacrospinous ligament
+> B. Inguinal ligament
+> C. Iliofemoral ligament
+> D. Pubofemoral ligament
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-arm_01 — arm_01
+
+> Humerus | Easy
+> Which long bone forms the upper arm, extending from the shoulder to the elbow?
+> A. Humerus
+> B. Radius
+> C. Ulna
+> D. Femur
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-arm_02 — arm_02
+
+> Radius | Easy
+> In the anatomical position, which forearm bone is located laterally on the thumb side?
+> A. Radius
+> B. Ulna
+> C. Humerus
+> D. Tibia
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-arm_03 — arm_03
+
+> Ulna | Easy
+> Which medial bone of the forearm runs parallel to the radius on the pinky side?
+> A. Ulna
+> B. Radius
+> C. Fibula
+> D. Clavicle
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-arm_04 — arm_04
+
+> Ulna | Medium
+> What prominent proximal projection of the ulna forms the elbow point?
+> A. Olecranon process
+> B. Coracoid process
+> C. Acromion process
+> D. Styloid process
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-arm_05 — arm_05
+
+> Humerus | Medium
+> The head of the humerus articulates with which shallow socket of the scapula?
+> A. Glenoid fossa
+> B. Acetabulum
+> C. Trochlear notch
+> D. Radial fossa
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-arm_06 — arm_06
+
+> Carpals | Medium
+> How many individual carpal bones make up the human wrist joint?
+> A. 8 bones
+> B. 7 bones
+> C. 5 bones
+> D. 14 bones
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-arm_07 — arm_07
+
+> Carpals | Medium
+> Which carpal bone is most commonly fractured during a fall on an outstretched hand (FOOSH)?
+> A. Scaphoid
+> B. Lunate
+> C. Triquetrum
+> D. Pisiform
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-arm_08 — arm_08
+
+> Radius | Hard
+> During forearm pronation and supination, which bone rotates around the stationary ulna?
+> A. Radius
+> B. Humerus
+> C. Scapula
+> D. Clavicle
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-arm_09 — arm_09
+
+> Humerus | Hard
+> In PT rehabilitation, a fracture at the surgical neck of the humerus poses the highest risk to which nerve?
+> A. Axillary nerve
+> B. Radial nerve
+> C. Ulnar nerve
+> D. Median nerve
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-arm_10 — arm_10
+
+> Radius | Hard
+> What type of joint articulation between the radius and ulna allows rotational forearm motion?
+> A. Pivot joint
+> B. Hinge joint
+> C. Saddle joint
+> D. Ball and socket joint
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-leg_01 — leg_01
+
+> Femur | Easy
+> Which bone is the longest, heaviest, and strongest long bone in the human body?
+> A. Femur
+> B. Tibia
+> C. Fibula
+> D. Humerus
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-leg_02 — leg_02
+
+> Tibia | Easy
+> In the lower leg, which larger bone serves as the primary weight-bearing shin bone?
+> A. Tibia
+> B. Fibula
+> C. Femur
+> D. Patella
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-leg_03 — leg_03
+
+> Patella | Easy
+> The kneecap is a sesamoid bone embedded within the quadriceps tendon known as the:
+> A. Patella
+> B. Pisiform
+> C. Talus
+> D. Calcaneus
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-leg_04 — leg_04
+
+> Fibula | Medium
+> Which slender lateral bone of the lower leg provides muscle attachments rather than direct weight-bearing?
+> A. Fibula
+> B. Tibia
+> C. Femur
+> D. Radius
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-leg_05 — leg_05
+
+> Tarsals | Medium
+> Which tarsal bone forms the heel of the foot and serves as the insertion point for the Achilles tendon?
+> A. Calcaneus
+> B. Talus
+> C. Navicular
+> D. Cuboid
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-leg_06 — leg_06
+
+> Tibia | Medium
+> The prominent bony bump felt on the anterior surface of the proximal tibia where the patellar ligament attaches is the:
+> A. Tibial tuberosity
+> B. Medial malleolus
+> C. Lateral condyle
+> D. Intercondylar eminence
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-leg_07 — leg_07
+
+> Femur | Medium
+> The large, blunt projection located laterally at the junction of the femoral neck and shaft is the:
+> A. Greater trochanter
+> B. Lesser trochanter
+> C. Adductor tubercle
+> D. Lineal aspera
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-leg_08 — leg_08
+
+> Tarsals | Hard
+> Which tarsal bone articulates directly superiorly with the tibia and fibula to form the ankle mortise joint?
+> A. Talus
+> B. Calcaneus
+> C. Navicular
+> D. Medial cuneiform
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-leg_09 — leg_09
+
+> Fibula | Hard
+> In PT clinical evaluation, impact trauma to the fibular head poses a high risk of injury to which nerve, leading to 'foot drop'?
+> A. Common peroneal nerve
+> B. Tibial nerve
+> C. Femoral nerve
+> D. Saphenous nerve
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+### quiz-leg_10 — leg_10
+
+> Femur | Hard
+> During the terminal 20 degrees of full knee extension, the femur medially rotates on the fixed tibia in a biomechanical event known as the:
+> A. Screw-home mechanism
+> B. Reciprocal translation
+> C. Bucket-handle glide
+> D. Valgus alignment
+
+Source: `Backend/quiz-api/assets/questions_datasets.csv`
+
+Production note: Question and choices only; correct answer is not spoken before answering.
+
+## Quiz: introduction and feedback
+
+### quiz-intro — Quiz introduction
+
+> Test your anatomy knowledge.
+> Your progress is saved when you stop.
+
+Source: `Assets/Scripts/OsteonQuizDemo.cs (ShowMenu)`
+
+### quiz-correct — Correct answer
+
+> Correct!
+
+Source: `Assets/Scripts/OsteonQuizDemo.cs (SubmitAnswer)`
+
+### quiz-incorrect-A — Incorrect answer: A
+
+> Not quite. Correct answer: A
+
+Source: `Assets/Scripts/OsteonQuizDemo.cs (SubmitAnswer)`
+
+### quiz-incorrect-B — Incorrect answer: B
+
+> Not quite. Correct answer: B
+
+Source: `Assets/Scripts/OsteonQuizDemo.cs (SubmitAnswer)`
+
+### quiz-incorrect-C — Incorrect answer: C
+
+> Not quite. Correct answer: C
+
+Source: `Assets/Scripts/OsteonQuizDemo.cs (SubmitAnswer)`
+
+### quiz-incorrect-D — Incorrect answer: D
+
+> Not quite. Correct answer: D
+
+Source: `Assets/Scripts/OsteonQuizDemo.cs (SubmitAnswer)`
+
+## Quiz: dynamic completion template
+
+### quiz-completion-template — Completion with mastery
+
+> Practice complete. Mastery: {mastery_percent}%
+
+Source: `Assets/Scripts/OsteonQuizDemo.cs (StartSession)`
+
+Production note: The app inserts the current mastery percentage. This is a template, not a literal fixed clip.
+
+## Settings: reusable labels and values
+
+### settings-01 — Appearance settings
+
+> Appearance settings
+
+Source: `Assets/Scripts/OsteonSettings.cs (NarrationContent and choice arrays)`
+
+### settings-02 — Hospital color
+
+> Hospital color
+
+Source: `Assets/Scripts/OsteonSettings.cs (NarrationContent and choice arrays)`
+
+### settings-03 — Original
+
+> Original
+
+Source: `Assets/Scripts/OsteonSettings.cs (NarrationContent and choice arrays)`
+
+### settings-04 — Cool blue
+
+> Cool blue
+
+Source: `Assets/Scripts/OsteonSettings.cs (NarrationContent and choice arrays)`
+
+### settings-05 — Sage
+
+> Sage
+
+Source: `Assets/Scripts/OsteonSettings.cs (NarrationContent and choice arrays)`
+
+### settings-06 — Warm
+
+> Warm
+
+Source: `Assets/Scripts/OsteonSettings.cs (NarrationContent and choice arrays)`
+
+### settings-07 — Panel theme
+
+> Panel theme
+
+Source: `Assets/Scripts/OsteonSettings.cs (NarrationContent and choice arrays)`
+
+### settings-08 — Default dark
+
+> Default dark
+
+Source: `Assets/Scripts/OsteonSettings.cs (NarrationContent and choice arrays)`
+
+### settings-09 — Light
+
+> Light
+
+Source: `Assets/Scripts/OsteonSettings.cs (NarrationContent and choice arrays)`
+
+### settings-10 — High contrast
+
+> High contrast
+
+Source: `Assets/Scripts/OsteonSettings.cs (NarrationContent and choice arrays)`
+
+### settings-11 — Text size
+
+> Text size
+
+Source: `Assets/Scripts/OsteonSettings.cs (NarrationContent and choice arrays)`
+
+### settings-12 — Small
+
+> Small
+
+Source: `Assets/Scripts/OsteonSettings.cs (NarrationContent and choice arrays)`
+
+### settings-13 — Standard
+
+> Standard
+
+Source: `Assets/Scripts/OsteonSettings.cs (NarrationContent and choice arrays)`
+
+### settings-14 — Large
+
+> Large
+
+Source: `Assets/Scripts/OsteonSettings.cs (NarrationContent and choice arrays)`
+
+### settings-15 — Highlight color
+
+> Highlight color
+
+Source: `Assets/Scripts/OsteonSettings.cs (NarrationContent and choice arrays)`
+
+### settings-16 — Original blue
+
+> Original blue
+
+Source: `Assets/Scripts/OsteonSettings.cs (NarrationContent and choice arrays)`
+
+### settings-17 — Amber
+
+> Amber
+
+Source: `Assets/Scripts/OsteonSettings.cs (NarrationContent and choice arrays)`
+
+### settings-18 — Violet
+
+> Violet
+
+Source: `Assets/Scripts/OsteonSettings.cs (NarrationContent and choice arrays)`
+
+### settings-19 — Lime
+
+> Lime
+
+Source: `Assets/Scripts/OsteonSettings.cs (NarrationContent and choice arrays)`
+
+## Field Guide tutorial: optional narration addition
+
+### tutorial-01 — Tutorial step 1
+
+> Aim your controller ray at the skeleton and press Select. Choose Axial or Appendicular.
+
+Source: `Assets/Scripts/AnatomyTutorial.cs (Prompts)`
+
+Production note: Exact displayed prompt. Tutorial has no narration wiring yet.
+
+### tutorial-02 — Tutorial step 2
+
+> Select a highlighted bone group to look closer.
+
+Source: `Assets/Scripts/AnatomyTutorial.cs (Prompts)`
+
+Production note: Exact displayed prompt. Tutorial has no narration wiring yet.
+
+### tutorial-03 — Tutorial step 3
+
+> Point at a bone to see its name, then select it.
+
+Source: `Assets/Scripts/AnatomyTutorial.cs (Prompts)`
+
+Production note: Exact displayed prompt. Tutorial has no narration wiring yet.
+
+### tutorial-04 — Tutorial step 4
+
+> Move the right stick sideways to turn the bone.
+
+Source: `Assets/Scripts/AnatomyTutorial.cs (Prompts)`
+
+Production note: Exact displayed prompt. Tutorial has no narration wiring yet.
+
+### tutorial-05 — Tutorial step 5
+
+> Move the right stick up or down to tilt it.
+
+Source: `Assets/Scripts/AnatomyTutorial.cs (Prompts)`
+
+Production note: Exact displayed prompt. Tutorial has no narration wiring yet.
+
+### tutorial-06 — Tutorial step 6
+
+> Press left X or use Back on the panel. Keep going until you reach the whole skeleton.
+
+Source: `Assets/Scripts/AnatomyTutorial.cs (Prompts)`
+
+Production note: Exact displayed prompt. Tutorial has no narration wiring yet.
+
+### tutorial-07 — Tutorial completion
+
+> You're ready to explore. A resets turn; B resets tilt. Use Spread in multi-bone groups.
+
+Source: `Assets/Scripts/AnatomyTutorial.cs (Prompts)`
+
+Production note: Exact displayed prompt. Tutorial has no narration wiring yet.

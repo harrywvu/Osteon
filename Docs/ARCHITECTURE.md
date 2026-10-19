@@ -151,7 +151,8 @@ Controller and hand behavior still require verification on a physical headset.
 
 ## Practice quiz service
 
-The one-learner practice quiz has a separate client/server path. The current
+The [AWS architecture diagram](AWS_ARCHITECTURE.md) shows the one-learner
+practice quiz's runtime and deployment paths. The current
 Unity scene creates an in-world quiz station on the room's right wall; it is
 not attached to the headset. API Gateway's HTTP API sends the
 client's HTTPS requests to a Python Lambda function. Lambda reads the packaged
