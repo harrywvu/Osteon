@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -15,12 +16,15 @@ public sealed class AnatomyDesktopInput : MonoBehaviour
     private readonly List<RaycastResult> uiHits = new List<RaycastResult>();
     private AnatomyNavigationController navigation;
     private Camera viewer;
+    private Transform cameraRig;
+    private XRUIInputModule uiInput;
     private PointerEventData pointer;
     private Component hovered;
     private Transform draggedPanel;
     private Plane dragPlane;
     private Vector3 dragOffset;
     private bool rightDragStartedOverUi;
+    private bool middleDragStartedOverUi;
     private float nextCanvasScan;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -40,7 +44,7 @@ public sealed class AnatomyDesktopInput : MonoBehaviour
             yield return null;
         }
 
-        var uiInput = EventSystem.current.GetComponent<XRUIInputModule>();
+        uiInput = EventSystem.current.GetComponent<XRUIInputModule>();
         if (uiInput == null)
         {
             Debug.LogError("Web input needs the scene XR UI input module.", this);
@@ -49,6 +53,11 @@ public sealed class AnatomyDesktopInput : MonoBehaviour
         }
         uiInput.enableMouseInput = true;
         uiInput.enableXRInput = false;
+#if UNITY_WEBGL && !UNITY_EDITOR
+        WebGLInput.stickyCursorLock = false;
+#endif
+        XROrigin origin = viewer.GetComponentInParent<XROrigin>();
+        cameraRig = origin != null ? origin.transform : viewer.transform.root;
         pointer = new PointerEventData(EventSystem.current);
         AddScreenRaycasters();
         if (FindFirstObjectByType<GraphicRaycaster>() == null)
@@ -61,6 +70,28 @@ public sealed class AnatomyDesktopInput : MonoBehaviour
         var mouse = Mouse.current;
         if (mouse == null) return;
 
+        Keyboard keys = Keyboard.current;
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            if (keys != null && (keys.fKey.wasPressedThisFrame ||
+                                 keys.tabKey.wasPressedThisFrame || keys.escapeKey.wasPressedThisFrame))
+            {
+                ReleaseMouse();
+                return;
+            }
+            HoverAt(null);
+            HandleKeyboard();
+            LookCamera(mouse.delta.ReadValue());
+            return;
+        }
+        Cursor.visible = true;
+        if (!uiInput.enableMouseInput) ReleaseMouse();
+        if (keys != null && keys.fKey.wasPressedThisFrame)
+        {
+            CaptureMouse();
+            return;
+        }
+
         if (Time.unscaledTime >= nextCanvasScan)
         {
             AddScreenRaycasters();
@@ -70,6 +101,7 @@ public sealed class AnatomyDesktopInput : MonoBehaviour
         Vector2 position = mouse.position.ReadValue();
         bool overUi = IsOverUi(position);
         if (mouse.rightButton.wasPressedThisFrame) rightDragStartedOverUi = overUi;
+        if (mouse.middleButton.wasPressedThisFrame) middleDragStartedOverUi = overUi;
         if (mouse.leftButton.wasReleasedThisFrame) draggedPanel = null;
 
         if (draggedPanel != null)
@@ -77,7 +109,16 @@ public sealed class AnatomyDesktopInput : MonoBehaviour
         else if (mouse.leftButton.wasPressedThisFrame && !overUi)
         {
             EventSystem.current.SetSelectedGameObject(null);
-            if (!TryBeginPanelDrag(position)) SelectAt(position);
+            if (!TryBeginPanelDrag(position))
+            {
+                Component target = TargetAt(position);
+                if (target != null) SelectTarget(target);
+                else
+                {
+                    CaptureMouse();
+                    return;
+                }
+            }
         }
 
         if (draggedPanel == null && !mouse.leftButton.isPressed)
@@ -87,6 +128,31 @@ public sealed class AnatomyDesktopInput : MonoBehaviour
 
         HandleKeyboard();
         HandleMouseMotion(mouse, overUi);
+    }
+
+    private void CaptureMouse()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        HoverAt(null);
+        uiInput.enableMouseInput = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    private void ReleaseMouse()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        if (uiInput != null) uiInput.enableMouseInput = true;
+    }
+
+    private void LookCamera(Vector2 delta)
+    {
+        const float sensitivity = 0.15f;
+        cameraRig.Rotate(Vector3.up, delta.x * sensitivity, Space.World);
+        float pitch = Mathf.Asin(Mathf.Clamp(viewer.transform.forward.y, -1f, 1f)) * Mathf.Rad2Deg;
+        float nextPitch = Mathf.Clamp(pitch + delta.y * sensitivity, -80f, 80f);
+        cameraRig.Rotate(viewer.transform.right, pitch - nextPitch, Space.World);
     }
 
     private void AddScreenRaycasters()
@@ -144,9 +210,8 @@ public sealed class AnatomyDesktopInput : MonoBehaviour
         return nearest;
     }
 
-    private void SelectAt(Vector2 position)
+    private void SelectTarget(Component target)
     {
-        Component target = TargetAt(position);
         if (target is DivisionSelection division) division.SelectFromDesktop();
         else if (target is ViewTransitionOnSelect group) group.SelectFromDesktop();
         else if (target is BoneSelection bone) navigation.InspectBone(bone);
@@ -205,22 +270,38 @@ public sealed class AnatomyDesktopInput : MonoBehaviour
         if (keys == null) return;
         if (keys.backspaceKey.wasPressedThisFrame) navigation.GoBack();
         if (keys.yKey.wasPressedThisFrame) navigation.SwitchPectoralSide();
-        if (EventSystem.current.currentSelectedGameObject != null) return;
+        MoveCamera(keys);
+        bool uiSelected = EventSystem.current.currentSelectedGameObject != null;
 
         if (navigation.Level == AnatomyLevel.Bone)
         {
-            Vector2 direction = new Vector2(
+            Vector2 direction = uiSelected ? Vector2.zero : new Vector2(
                 (keys.rightArrowKey.isPressed ? 1f : 0f) - (keys.leftArrowKey.isPressed ? 1f : 0f),
                 (keys.upArrowKey.isPressed ? 1f : 0f) - (keys.downArrowKey.isPressed ? 1f : 0f));
             navigation.ApplyDesktopInspection(direction, Time.deltaTime,
                 keys.rKey.wasPressedThisFrame, keys.tKey.wasPressedThisFrame);
         }
-        else
+        else if (!uiSelected)
         {
             float direction = (keys.rightArrowKey.isPressed ? 1f : 0f) -
                               (keys.leftArrowKey.isPressed ? 1f : 0f);
             RotateModel(-direction * 90f * Time.deltaTime);
         }
+    }
+
+    private void MoveCamera(Keyboard keys)
+    {
+        Vector3 forward = Vector3.ProjectOnPlane(viewer.transform.forward, Vector3.up).normalized;
+        Vector3 right = Vector3.Cross(Vector3.up, forward);
+        Vector3 direction = forward * ((keys.wKey.isPressed ? 1f : 0f) -
+                                       (keys.sKey.isPressed ? 1f : 0f)) +
+                            right * ((keys.dKey.isPressed ? 1f : 0f) -
+                                     (keys.aKey.isPressed ? 1f : 0f)) +
+                            Vector3.up * ((keys.spaceKey.isPressed ? 1f : 0f) -
+                                          (keys.cKey.isPressed ? 1f : 0f));
+        if (direction.sqrMagnitude > 1f) direction.Normalize();
+        float speed = keys.leftShiftKey.isPressed || keys.rightShiftKey.isPressed ? 4f : 2f;
+        cameraRig.position += direction * speed * Time.deltaTime;
     }
 
     private void HandleMouseMotion(Mouse mouse, bool overUi)
@@ -236,15 +317,15 @@ public sealed class AnatomyDesktopInput : MonoBehaviour
             else
                 RotateModel(-delta.x * 0.35f);
         }
-        if (draggedPanel == null && mouse.middleButton.isPressed && !overUi)
-            viewer.transform.position -= (viewer.transform.right * delta.x +
+        if (draggedPanel == null && mouse.middleButton.isPressed && !middleDragStartedOverUi)
+            cameraRig.position -= (viewer.transform.right * delta.x +
                 viewer.transform.up * delta.y) * 0.003f;
         float scroll = mouse.scroll.ReadValue().y;
         if (draggedPanel == null && !overUi && Mathf.Abs(scroll) > 0f)
         {
             float distance = Vector3.Distance(viewer.transform.position, ViewCenter());
             float step = Mathf.Clamp(scroll * 0.002f * distance, -0.5f, 0.5f);
-            if (distance - step > 0.3f) viewer.transform.position += viewer.transform.forward * step;
+            if (distance - step > 0.3f) cameraRig.position += viewer.transform.forward * step;
         }
     }
 
@@ -257,9 +338,8 @@ public sealed class AnatomyDesktopInput : MonoBehaviour
     private void OrbitCamera(Vector2 delta)
     {
         Vector3 center = ViewCenter();
-        viewer.transform.RotateAround(center, Vector3.up, delta.x * 0.2f);
-        viewer.transform.RotateAround(center, viewer.transform.right, -delta.y * 0.2f);
-        viewer.transform.LookAt(center);
+        cameraRig.RotateAround(center, Vector3.up, delta.x * 0.2f);
+        cameraRig.RotateAround(center, viewer.transform.right, -delta.y * 0.2f);
     }
 
     private Vector3 ViewCenter()
@@ -279,5 +359,9 @@ public sealed class AnatomyDesktopInput : MonoBehaviour
         return found ? bounds.center : root.position;
     }
 
-    private void OnDisable() => HoverAt(null);
+    private void OnDisable()
+    {
+        HoverAt(null);
+        ReleaseMouse();
+    }
 }

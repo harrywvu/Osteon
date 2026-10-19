@@ -79,7 +79,7 @@ public sealed class AnatomyTutorial : MonoBehaviour
     };
     private static readonly string[] DesktopPrompts =
     {
-        "Click the skeleton to choose Axial or Appendicular.",
+        "Click a division. WASD moves; F toggles mouse look. Tab or Esc frees the cursor.",
         "Click a highlighted bone group to look closer.",
         "Hover over a bone to see its name, then click it.",
         "Right drag sideways or use the left/right arrows to turn the bone.",
