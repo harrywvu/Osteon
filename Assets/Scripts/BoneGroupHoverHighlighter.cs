@@ -9,18 +9,27 @@ public class BoneGroupHoverHighlighter : MonoBehaviour
 
     public Material HighlightMaterial => highlightMaterial;
 
+    public void SetDesktopHover(bool hovered)
+    {
+        desktopHovered = hovered;
+        if (renderers == null) return;
+        if (hovered && highlightMaterial != null) ApplyMaterials(highlightMaterials);
+        else ClearHighlight();
+    }
+
     private Renderer[] renderers;
     private Material[][] originalMaterials;
     private Material[][] highlightMaterials;
     private readonly List<XRBaseInteractable> interactables = new List<XRBaseInteractable>();
     private int hoverCount;
+    private bool desktopHovered;
 
     public void Configure(Material material)
     {
         highlightMaterial = material;
         if (renderers == null) return;
         CacheHighlightMaterials();
-        if (hoverCount > 0)
+        if (hoverCount > 0 || desktopHovered)
             ApplyMaterials(highlightMaterials);
     }
 
@@ -99,5 +108,9 @@ public class BoneGroupHoverHighlighter : MonoBehaviour
             if (renderers[i] != null) renderers[i].sharedMaterials = materials[i];
     }
 
-    private void OnDisable() => ClearHighlight();
+    private void OnDisable()
+    {
+        desktopHovered = false;
+        ClearHighlight();
+    }
 }

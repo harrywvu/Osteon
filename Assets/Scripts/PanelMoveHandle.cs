@@ -40,7 +40,8 @@ public static class PanelMoveHandle
         var label = labelObject.GetComponent<TextMeshProUGUI>();
         if (label == null) label = labelObject.AddComponent<TextMeshProUGUI>();
         if (font != null) label.font = font;
-        label.text = "Move — hold select to reposition";
+        label.text = Application.platform == RuntimePlatform.WebGLPlayer
+            ? "Move — drag to reposition" : "Move — hold select to reposition";
         label.fontSize = 23;
         label.alignment = TextAlignmentOptions.Center;
         label.color = new Color(0.94f, 0.97f, 1f, 1f);

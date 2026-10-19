@@ -23,6 +23,10 @@ public class ViewTransitionOnSelect : MonoBehaviour
     private bool hasTransitioned;
 
     public GameObject NextView => nextView;
+    public bool SelectFromDesktop() => isActiveAndEnabled && navigation != null &&
+        navigation.EnterGroup(nextView,
+            string.IsNullOrWhiteSpace(nextTitle) ? gameObject.name : nextTitle,
+            nextDescription);
 
     public void ConfigureHighlight(Material material)
     {

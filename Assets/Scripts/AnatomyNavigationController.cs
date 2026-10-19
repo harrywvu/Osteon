@@ -373,6 +373,14 @@ public sealed class AnatomyNavigationController : MonoBehaviour
         lastB = b;
     }
 
+    public void ApplyDesktopInspection(Vector2 direction, float seconds,
+        bool resetTurning = false, bool resetTilt = false)
+    {
+        if (!initialized || Level != AnatomyLevel.Bone) return;
+        inspectionPose.Apply(direction, seconds, resetTurning, resetTilt, deadZone: 0f);
+        inspectionDisplay.SetRotation(inspectionPose.Rotation);
+    }
+
     public bool SelectDivision(GameObject division, string title, string description)
     {
         if (!CanNavigate || Level != AnatomyLevel.Whole ||
@@ -608,9 +616,12 @@ public sealed class AnatomyNavigationController : MonoBehaviour
             body += "\n\nPointing at: " + previewBone.Info.PartName + "\nSelect to inspect.";
         if (Level == AnatomyLevel.Group &&
             (current.root == rightPectoralView || current.root == leftPectoralView))
-            body += "\n\nLeft Y: switch pectoral side";
+            body += Application.platform == RuntimePlatform.WebGLPlayer
+                ? "\n\nY: switch pectoral side" : "\n\nLeft Y: switch pectoral side";
         if (Level == AnatomyLevel.Bone)
-            body += "\n\nRight stick: turn / tilt\nA: reset turn    B: reset tilt";
+            body += Application.platform == RuntimePlatform.WebGLPlayer
+                ? "\n\nRight drag or arrows: turn / tilt\nR: reset turn    T: reset tilt"
+                : "\n\nRight stick: turn / tilt\nA: reset turn    B: reset tilt";
         string back = Level == AnatomyLevel.Bone && history.Count > 0 ? "Back to " + history.Peek().title :
             Level == AnatomyLevel.Group && history.Count > 0 ? "Back to " + history.Peek().breadcrumb + " division" :
             "Back to skeleton";

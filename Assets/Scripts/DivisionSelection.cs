@@ -14,6 +14,8 @@ public class DivisionSelection : MonoBehaviour
     private XRBaseInteractable[] childInteractables;
     private bool selected;
     public AnatomyNavigationController Navigation => navigation;
+    public bool SelectFromDesktop() => isActiveAndEnabled && navigation != null &&
+        navigation.SelectDivision(gameObject, divisionTitle, divisionDescription);
 
     private void Awake()
     {

@@ -77,6 +77,16 @@ public sealed class AnatomyTutorial : MonoBehaviour
         "Press left X or use Back on the panel. Keep going until you reach the whole skeleton.",
         "You're ready to explore. A resets turn; B resets tilt. Use Spread in multi-bone groups."
     };
+    private static readonly string[] DesktopPrompts =
+    {
+        "Click the skeleton to choose Axial or Appendicular.",
+        "Click a highlighted bone group to look closer.",
+        "Hover over a bone to see its name, then click it.",
+        "Right drag sideways or use the left/right arrows to turn the bone.",
+        "Right drag vertically or use the up/down arrows to tilt it.",
+        "Press Backspace or click Back on the panel until you reach the whole skeleton.",
+        "You're ready to explore. R resets turn; T resets tilt. Use Spread in multi-bone groups."
+    };
 
     private readonly AnatomyTutorialProgress progress = new AnatomyTutorialProgress();
     private readonly List<Component> candidates = new List<Component>();
@@ -184,7 +194,8 @@ public sealed class AnatomyTutorial : MonoBehaviour
         int index = (int)progress.Step;
         heading.text = progress.Step == AnatomyTutorialStep.Complete
             ? "Ready to explore" : $"Tutorial {index + 1}/6";
-        prompt.text = Prompts[index];
+        prompt.text = Application.platform == RuntimePlatform.WebGLPlayer
+            ? DesktopPrompts[index] : Prompts[index];
         finishLabel.text = progress.Step == AnatomyTutorialStep.Complete ? "Done" : "Skip";
         for (int i = 0; i < progressMarkers.Length; i++)
             progressMarkers[i].color = i <= index

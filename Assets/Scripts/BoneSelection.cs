@@ -12,15 +12,32 @@ public sealed class BoneSelection : MonoBehaviour
 
     private XRSimpleInteractable interactable;
     private Material[][] originals;
+    private bool desktopHovered;
     public BonePartInfo Info { get; private set; }
     public Renderer[] Renderers => boneRenderers;
     public Material HighlightMaterial => highlightMaterial;
     public bool IsHovered => interactable != null && interactable.isHovered;
 
+    public void SetDesktopHover(bool hovered)
+    {
+        if (navigation == null) return;
+        desktopHovered = hovered;
+        if (hovered && navigation.Level == AnatomyLevel.Group)
+        {
+            if (highlightMaterial != null) ApplyHighlight(highlightMaterial);
+            navigation.Preview(this);
+        }
+        else
+        {
+            ClearHighlight();
+            navigation.EndPreview(this);
+        }
+    }
+
     public void ConfigureHighlight(Material material)
     {
         highlightMaterial = material;
-        if (IsHovered && originals != null)
+        if ((IsHovered || desktopHovered) && originals != null)
             ApplyHighlight(material);
     }
 
@@ -42,6 +59,7 @@ public sealed class BoneSelection : MonoBehaviour
 
     private void OnDisable()
     {
+        desktopHovered = false;
         interactable.firstHoverEntered.RemoveListener(OnHover);
         interactable.lastHoverExited.RemoveListener(OnUnhover);
         interactable.selectEntered.RemoveListener(OnSelected);
