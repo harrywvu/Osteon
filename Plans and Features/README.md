@@ -1,6 +1,6 @@
 # Plans and Features
 
-**Updated:** 2026-10-07
+**Updated:** 2026-10-28
 
 This directory tracks dated feature decisions and their status. See
 [G3 inspection](../Docs/G3_INSPECTION.md) for current controls and verification.
@@ -12,6 +12,7 @@ This directory tracks dated feature decisions and their status. See
 | PLAN-003 | 2026-10-06 | Implemented; Quest verification pending | [Skull explosion](2026-10-06_PLAN-003_Skull-Explosion.md) |
 | PLAN-004 | 2026-10-07 | Implemented in code; Play Mode and Quest verification pending | [Appearance and text settings](2026-10-07_PLAN-004_Appearance-and-Text-Settings.md) |
 | PLAN-005 | 2026-10-07 | Implemented in code; Play Mode and Quest verification pending | [Panel spacing, shared G2 spread, and wall settings](2026-10-07_PLAN-005_Panel-Spacing-Shared-Spread-and-Wall-Settings.md) |
+| PLAN-006 | 2026-10-28 | Simulator/UI implemented; interaction verification and live backend pending | [Anonymous user accounts for Quest and WebGL](2026-10-28_PLAN-006_Anonymous-User-Accounts.md) |
 | FEATURE-STATUS | 2026-09-09 | Historical snapshot | [Implementation and verification status](2026-09-09_FEATURE-STATUS.md) |
 
 Confirmed user choices for PLAN-001: smooth viewpoint turning, controller-based

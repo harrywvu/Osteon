@@ -437,6 +437,15 @@ public sealed class OsteonSettings : MonoBehaviour
         ApplyTextSize();
     }
 
+    public void ReleaseDynamicText(Transform root)
+    {
+        foreach (var label in root.GetComponentsInChildren<TextMeshProUGUI>(true))
+        {
+            baseFontSizes.Remove(label);
+            baseAutoSizing.Remove(label);
+        }
+    }
+
     public static void ScrollToTop(TextMeshProUGUI label)
     {
         if (label == null) return;
@@ -519,7 +528,7 @@ public sealed class OsteonSettings : MonoBehaviour
             }
             else if (image.name == "Anatomy information panel" || image.name == "Tutorial panel" ||
                 image.name == "Settings page" ||
-                image.name == "Quiz panel" || image.name == "Quiz launcher" ||
+                image.name == "Quiz panel" || image.name == "Quiz launcher" || image.name == "Account panel" ||
                 image.name == "Settings panel" || image.name == "Settings launcher")
                 image.color = palette.background;
             else if (image.name == "Group spread control") image.color = palette.inset;

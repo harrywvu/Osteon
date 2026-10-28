@@ -89,6 +89,8 @@ public sealed class OsteonQuizDemo : MonoBehaviour
     private bool busy;
     private bool inPractice;
     private PanelNarration narration;
+    private Button accountButton;
+    private LearnerAccountPanel accounts;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Bootstrap()
@@ -170,6 +172,22 @@ public sealed class OsteonQuizDemo : MonoBehaviour
         narration = PanelNarration.Attach(panelRect, NarrationContent, TMP_Settings.defaultFontAsset);
         PanelMoveHandle.Configure(station, panelRect, TMP_Settings.defaultFontAsset,
             new Vector2(0, -585), new Vector2(700, 58));
+        if (Application.isEditor || Debug.isDebugBuild)
+        {
+            accounts = gameObject.AddComponent<LearnerAccountPanel>();
+            accounts.Initialize(viewer, station, () => {
+                PanelMoveHandle.Configure(station, panelRect, TMP_Settings.defaultFontAsset,
+                    new Vector2(0, -585), new Vector2(700, 58));
+                panel.SetActive(true);
+                ShowMenu();
+            });
+            accountButton = AddButton(panelRect, "Accounts (simulation)", new Vector2(0, -310), new Vector2(700, 60));
+            accountButton.onClick.AddListener(() => {
+                narration?.ContentChanged();
+                panel.SetActive(false);
+                accounts.Open();
+            });
+        }
         panel.SetActive(false);
         Debug.Log("[OsteonQuiz] Quiz station created on the right wall.");
         // Show the menu first. The learner explicitly starts or resumes practice.
@@ -194,6 +212,7 @@ public sealed class OsteonQuizDemo : MonoBehaviour
 
     private void ShowMenu()
     {
+        if (accountButton != null) accountButton.gameObject.SetActive(true);
         inPractice = false;
         currentQuestion = null;
         modeLabel.text = "Hide";
@@ -223,6 +242,7 @@ public sealed class OsteonQuizDemo : MonoBehaviour
     private IEnumerator StartSession()
     {
         if (busy || !Configured()) yield break;
+        if (accountButton != null) accountButton.gameObject.SetActive(false);
         inPractice = true;
         modeLabel.text = "Stop";
         busy = true;
@@ -405,7 +425,7 @@ public sealed class OsteonQuizDemo : MonoBehaviour
 
     private static string Percent(float mastery) => Mathf.RoundToInt(mastery * 100f) + "%";
 
-    private static Canvas CreateCanvas(string name, Camera viewer, Transform parent)
+    internal static Canvas CreateCanvas(string name, Camera viewer, Transform parent)
     {
         GameObject root = new GameObject(name, typeof(RectTransform), typeof(Canvas),
             typeof(TrackedDeviceGraphicRaycaster), typeof(Image));
@@ -418,7 +438,7 @@ public sealed class OsteonQuizDemo : MonoBehaviour
         return canvas;
     }
 
-    private static TextMeshProUGUI AddText(RectTransform parent, string value, Vector2 position,
+    internal static TextMeshProUGUI AddText(RectTransform parent, string value, Vector2 position,
         Vector2 size, float fontSize, TextAlignmentOptions alignment)
     {
         GameObject obj = new GameObject("Text", typeof(RectTransform), typeof(TextMeshProUGUI));
@@ -439,7 +459,7 @@ public sealed class OsteonQuizDemo : MonoBehaviour
         return text;
     }
 
-    private static Button AddButton(RectTransform parent, string label, Vector2 position, Vector2 size)
+    internal static Button AddButton(RectTransform parent, string label, Vector2 position, Vector2 size)
     {
         GameObject obj = new GameObject("Button " + label, typeof(RectTransform), typeof(Image), typeof(Button));
         obj.layer = parent.gameObject.layer;

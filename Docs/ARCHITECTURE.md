@@ -163,6 +163,14 @@ Controller and hand behavior still require verification on a physical headset.
 
 ## Practice quiz service
 
+The quiz menu also hosts a separate development-only account simulation. Its
+`LearnerAccountPanel` provides create/login/switch/sign-out screens and an
+in-memory `LearnerAccountState`; `SimulatedLearnerAccounts` implements the
+asynchronous service contract without HTTP. Its credentials are never used by
+the quiz demo. The account view reuses the station's move handle and appearance
+preferences, and reserves desktop input while open. Release players omit the
+account entry. See [User accounts](USER_ACCOUNTS.md) for the handoff and tests.
+
 The [AWS architecture diagram](AWS_ARCHITECTURE.md) shows the one-learner
 practice quiz's runtime and deployment paths. The current
 Unity scene creates an in-world quiz station on the room's right wall; it is

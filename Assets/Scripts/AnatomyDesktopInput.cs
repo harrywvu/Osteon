@@ -71,6 +71,8 @@ public sealed class AnatomyDesktopInput : MonoBehaviour
         if (mouse == null) return;
 
         Keyboard keys = Keyboard.current;
+        bool accountInput = LearnerAccountPanel.CapturesDesktopInput;
+        if (accountInput && Cursor.lockState == CursorLockMode.Locked) ReleaseMouse();
         if (Cursor.lockState == CursorLockMode.Locked)
         {
             if (keys != null && (keys.fKey.wasPressedThisFrame ||
@@ -86,7 +88,7 @@ public sealed class AnatomyDesktopInput : MonoBehaviour
         }
         Cursor.visible = true;
         if (!uiInput.enableMouseInput) ReleaseMouse();
-        if (keys != null && keys.fKey.wasPressedThisFrame)
+        if (!accountInput && keys != null && keys.fKey.wasPressedThisFrame)
         {
             CaptureMouse();
             return;
@@ -113,7 +115,7 @@ public sealed class AnatomyDesktopInput : MonoBehaviour
             {
                 Component target = TargetAt(position);
                 if (target != null) SelectTarget(target);
-                else
+                else if (!accountInput)
                 {
                     CaptureMouse();
                     return;
@@ -126,8 +128,11 @@ public sealed class AnatomyDesktopInput : MonoBehaviour
         else
             HoverAt(null);
 
-        HandleKeyboard();
-        HandleMouseMotion(mouse, overUi);
+        if (!accountInput)
+        {
+            HandleKeyboard();
+            HandleMouseMotion(mouse, overUi);
+        }
     }
 
     private void CaptureMouse()

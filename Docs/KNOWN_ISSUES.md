@@ -5,6 +5,14 @@
 
 ## Current open issues
 
+- Development builds and the Editor now expose **Accounts (simulation)** from the
+  quiz menu. Anonymous profiles and logins reset on process exit; they are separate
+  from the shared quiz API and do not synchronize between devices. The service/state
+  suite passed 34 assertions and the runtime C# project compiled on 2026-10-28.
+  Unity batch validation hit licensing startup failure and crashed before executing
+  the saved-scene suite. Account UI, controller input, and rebuilt WebGL interaction
+  remain unverified. See [User accounts](USER_ACCOUNTS.md).
+
 - Desktop WebGL mouse and keyboard input and a `Web - Desktop - Development`
   profile were added on 2026-10-19. Local build output predates the latest
   desktop input and profile commits. No browser acceptance pass is recorded for
