@@ -16,13 +16,73 @@ pass.
 3. In **File → Build Profiles**, select `Web - Desktop - Development`. It
    inherits the global scene list, whose only enabled scene is the controller
    migration scene.
-4. Use **Build and Run** to make and serve a development build in a desktop
-   browser. `Builds/` is ignored by Git. A local output exists at
-   `Builds/Web Builds/`; its files predate the latest desktop input and profile
-   commits, so rebuild before evaluating the current code.
+4. Use **Tools → Osteon → Build Optimized WebGL** for account/browser testing.
+   This builds `Builds/Web Desktop Optimized/` with size optimization and LTO,
+   no development/debug symbols, a 128 MiB initial heap, and uncompressed files
+   for the local server. The recipe restores the previous Editor settings and
+   temporarily excludes the private quiz demo configuration from the player.
+   `Builds/` is ignored by Git. **Build and Run** remains available for debugging.
 
 The `Meta Quest` profile remains the Android build path. The WebGL profile is
 for desktop browser exploration; headset WebXR behavior is not established.
+
+## Fixed local address for account testing
+
+Run `./Tools/Start-WebDesktop.ps1` from PowerShell to serve `Builds/Web Desktop Optimized/`
+at **http://localhost:8000**. The background Python server binds only to loopback
+and serves the build directory, not the repository. The command reports its PID;
+stop that process with `Stop-Process -Id <reported PID>` when finished. Logs are
+under `Logs/web-desktop-8000.*.log`. Restart the command after a machine restart.
+
+The optimized build is uncompressed. This launcher does not supply gzip/Brotli
+encoding headers, and refuses those compressed outputs. Configure an appropriate
+server before switching compression. The older output remains in `Builds/Web Builds/`.
+
+For the account HTTP API, allow the exact browser origin `http://localhost:8000`,
+methods GET and POST, and headers authorization, content-type, and x-unity-version in API Gateway
+HTTP API CORS. Leave Allow credentials disabled because the client uses an
+explicit bearer header, not browser cookies. API Gateway handles the OPTIONS
+preflight automatically. Open the site using localhost, not 127.0.0.1 or a different
+port, to match the configured origin. Validate the actual preflight response
+before claiming browser account acceptance.
+
+On 2026-11-03, the loopback server was started and HTTP checks passed for the
+entry page, loader JavaScript, and WebAssembly (including application/wasm MIME).
+These checks establish file serving only; gameplay and browser account/CORS
+acceptance remain pending.
+
+The user reported a Firefox-style `InternalError: out of memory` while compiling
+the old development WebAssembly module on 2026-11-03. Its streaming-failure message
+also suggests checking compression headers. Inspection confirmed a valid uncompressed
+WASM file (73,230,658 bytes), `Content-Type: application/wasm`, and no Content-Encoding
+header. The module declares 32 MiB initial memory and approximately 2 GiB maximum;
+its debug name section alone is about 20 MB. No server encoding or memory limits
+were changed based on this error.
+
+The same localhost build successfully instantiated and rendered the room in the
+Codex in-app browser. This is a browser workaround, not Firefox acceptance or a
+full gameplay pass. Prefer a fresh optimized WebGL build for broader acceptance;
+browser-specific compilation pressure is suspected, not conclusively diagnosed.
+
+On 2026-11-03, a fresh non-development optimized build succeeded with zero errors
+and 400 warnings in 21m57s. WASM decreased from 73,230,658 to 28,958,978 bytes
+(60% smaller), and inspection confirmed that the debug name section was removed.
+The new loopback server serves `Builds/Web Desktop Optimized/`; HEAD checks passed
+for the entry page and application/wasm with no Content-Encoding. The private
+quiz demo configuration was excluded during packaging and restored afterward.
+The user confirmed that Firefox now loads the room at
+`http://localhost:8000/?build=20261103-optimized`. Use this URL or a hard reload
+to avoid the old cached entry page referring to missing `Web Builds.*` assets.
+
+The optimized player also rendered the room in the in-app browser. Clicking empty
+space to capture the mouse produced a Chromium UnknownError there, so that
+browser's interaction pass remains incomplete. Native Firefox automation could
+not proceed because desktop app approval timed out. Firefox room loading is a
+user-reported check; account UI, full navigation, and Quest acceptance are pending.
+The saved API CORS configuration was confirmed and, after propagation, live
+OPTIONS preflight returned 204 with the localhost origin, GET/POST, and all three
+allowed headers: authorization, content-type, and x-unity-version. This verifies
+preflight configuration; the account UI flow still needs a manual browser pass.
 
 ## Controls
 
@@ -58,7 +118,6 @@ desktop prompts when running in WebGL.
 - [ ] Confirm **Read / Stop** reports **Audio unavailable** on WebGL; browser
       narration is not implemented. See [Panel narration](TTS.md).
 
-This checklist is an acceptance target, not a completed test record. The local
-WebGL output establishes that files were generated from an earlier revision,
-but does not establish that the current browser controls, API calls, visual
-layout, or performance passed testing.
+This checklist is an acceptance target, not a completed test record. The optimized
+build and room-loading checks above do not establish that all browser controls,
+API calls, visual layout, or performance passed testing.
