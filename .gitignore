@@ -56,3 +56,9 @@ Assets/Resources/QuizDemoConfig.json
 Assets/Resources/QuizDemoConfig.json.meta
 Backend/quiz-api/dist/
 Backend/quiz-api/__pycache__/
+Backend/accounts-api/dist/
+Backend/accounts-api/.test-deps/
+Backend/accounts-api/__pycache__/
+
+# Local learner sign-in credentials.
+Docs/LOCAL_LEARNER_ACCOUNT.md

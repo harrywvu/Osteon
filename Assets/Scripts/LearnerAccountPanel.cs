@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-/// <summary>Account-only development UI. No quiz or AI requests are issued here.</summary>
+/// <summary>Account-only UI for the live service. No quiz or AI requests are issued here.</summary>
 public sealed class LearnerAccountPanel : MonoBehaviour
 {
     public static bool CapturesDesktopInput { get; private set; }
@@ -38,6 +38,18 @@ public sealed class LearnerAccountPanel : MonoBehaviour
     [ContextMenu("Simulation/Timeout next request")]
     private void TimeoutNext() { if (Simulation != null) Simulation.HangNextRequest = true; }
 
+    [ContextMenu("Simulation/Use simulated accounts (development only)")]
+    private void UseSimulation()
+    {
+        if (!Application.isEditor && !Debug.isDebugBuild) return;
+        State.Clear();
+        issued = null;
+        creationId = null;
+        busy = false;
+        service = new SimulatedLearnerAccounts();
+        if (root != null && root.gameObject.activeSelf) Welcome();
+    }
+
     private void OnEnable()
     {
         textKeyboard = Keyboard.current;
@@ -53,8 +65,7 @@ public sealed class LearnerAccountPanel : MonoBehaviour
 
     public void Initialize(Camera viewer, Transform stationRoot, Action onClose)
     {
-        if (!Application.isEditor && !Debug.isDebugBuild) { Destroy(gameObject); return; }
-        service = new SimulatedLearnerAccounts();
+        service = new HttpLearnerAccounts(this);
         station = stationRoot;
         close = onClose;
         Canvas canvas = OsteonQuizDemo.CreateCanvas("Account panel", viewer, station);
@@ -76,7 +87,14 @@ public sealed class LearnerAccountPanel : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         if (issued != null) ShowIssued();
-        else if (State.Login != null) Profile();
+        else if (State.Login != null)
+        {
+            string token = State.Login.AccessToken;
+            Run(() => service.Current(token), login => {
+                State.Accept(State.Generation, login);
+                Profile();
+            }, Open);
+        }
         else Welcome();
     }
     private void SessionChanged()
@@ -121,8 +139,9 @@ public sealed class LearnerAccountPanel : MonoBehaviour
         digits = null;
         reveal = false;
         screen = view;
-        Text("SIMULATED ACCOUNTS — DEVELOPMENT ONLY", 416, 24, 70);
-        Text("Resets on app close. No cross-device storage or quiz connection.", 350, 21, 65);
+        Text(Simulation != null ? "SIMULATED ACCOUNTS — DEVELOPMENT ONLY" : "OSTEON ACCOUNTS", 416, 24, 70);
+        Text(Simulation != null ? "Resets on app close. No cross-device storage or quiz connection." :
+            "Use your saved code on Quest or web to return to your account.", 350, 21, 65);
         message = Text(text, 220, 28, 170);
         Button("Explore anatomy", -490, Exit);
         Style();
@@ -274,7 +293,7 @@ public sealed class LearnerAccountPanel : MonoBehaviour
         State.CancelPending();
         int generation = State.Generation;
         busy = true;
-        ClearView("loading", "Connecting to simulated accounts...");
+        ClearView("loading", Simulation != null ? "Connecting to simulated accounts..." : "Connecting to your account...");
         Task<T> task = null;
         Exception failure = null;
         try { task = operation(); } catch (Exception error) { failure = error; }
@@ -286,8 +305,13 @@ public sealed class LearnerAccountPanel : MonoBehaviour
         if (task != null && task.Status == TaskStatus.RanToCompletion) { success(task.Result); yield break; }
         var accountFailure = failure as AccountFailure;
         int status = accountFailure != null ? accountFailure.Status : 503;
-        if (status == 401 || status == 400) { Entry("Unable to use this code. Check it and try again."); yield break; }
-        if (status == 429) retryUntil = Time.unscaledTime + accountFailure.RetryAfterSeconds;
+        if (status == 401 || status == 400)
+        {
+            State.Clear();
+            Entry("Unable to use this code. Check it and try again.");
+            yield break;
+        }
+        if (status == 429) retryUntil = Time.unscaledTime + Math.Max(1, accountFailure.RetryAfterSeconds);
         ClearView("error", status == 429 ? "Too many attempts." : "Account service unavailable. You can retry or explore anatomy.");
         var retryButton = Button("Retry", -60, () => { if (Time.unscaledTime >= retryUntil) retry(); });
         StartCoroutine(EnableRetry(retryButton));

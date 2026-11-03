@@ -1,21 +1,21 @@
 # Known Issues and Project History
 
-> Current-state update: 2026-10-19. Historical entries are retained below so
+> Current-state update: 2026-11-03. Historical entries are retained below so
 > previous recovery work is not lost.
 
 ## Current open issues
 
-- Development builds and the Editor now expose **Accounts (simulation)** from the
-  quiz menu. Anonymous profiles and logins reset on process exit; they are separate
-  from the shared quiz API and do not synchronize between devices. The service/state
-  suite passed 34 assertions and the runtime C# project compiled on 2026-10-28.
-  Unity batch validation hit licensing startup failure and crashed before executing
-  the saved-scene suite. Account UI, controller input, and rebuilt WebGL interaction
-  remain unverified. See [User accounts](USER_ACCOUNTS.md).
+- **Accounts** now uses the live Sydney account API in all builds. Profiles
+  persist in DynamoDB and the same code restores an account on Quest or web;
+  tokens remain memory-only. Quiz authentication is still separate. Service/state
+  checks passed 34 assertions, 14 backend tests passed, and live HTTPS checks passed
+  creation/replay/login/session/revocation on 2026-11-03. Rebuilt browser account UI
+  and physical Quest interaction still require acceptance. See [User accounts](USER_ACCOUNTS.md).
 
 - Desktop WebGL mouse and keyboard input and a `Web - Desktop - Development`
-  profile were added on 2026-10-19. Local build output predates the latest
-  desktop input and profile commits. No browser acceptance pass is recorded for
+  profile were added on 2026-10-19. An optimized build with live accounts succeeded
+  on 2026-11-03; the user confirmed that Firefox loads the room. Full browser
+  acceptance remains pending for
   anatomy navigation, ray targeting, panels,
   Settings, quiz requests, or performance. The desktop controller activates in
   a WebGL player, not Windows Editor Play Mode. See [Desktop WebGL](WEB_DESKTOP.md).

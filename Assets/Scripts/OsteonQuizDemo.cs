@@ -172,7 +172,6 @@ public sealed class OsteonQuizDemo : MonoBehaviour
         narration = PanelNarration.Attach(panelRect, NarrationContent, TMP_Settings.defaultFontAsset);
         PanelMoveHandle.Configure(station, panelRect, TMP_Settings.defaultFontAsset,
             new Vector2(0, -585), new Vector2(700, 58));
-        if (Application.isEditor || Debug.isDebugBuild)
         {
             accounts = gameObject.AddComponent<LearnerAccountPanel>();
             accounts.Initialize(viewer, station, () => {
@@ -181,7 +180,7 @@ public sealed class OsteonQuizDemo : MonoBehaviour
                 panel.SetActive(true);
                 ShowMenu();
             });
-            accountButton = AddButton(panelRect, "Accounts (simulation)", new Vector2(0, -310), new Vector2(700, 60));
+            accountButton = AddButton(panelRect, "Accounts", new Vector2(0, -310), new Vector2(700, 60));
             accountButton.onClick.AddListener(() => {
                 narration?.ContentChanged();
                 panel.SetActive(false);
