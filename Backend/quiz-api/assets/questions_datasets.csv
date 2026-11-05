@@ -19,33 +19,33 @@ skull_07,Axial,Skull,Medium,0.6,The facial bone that forms the prominent structu
 skull_08,Axial,Skull,Hard,0.8,The sphenoid bone is considered the keystone of the cranium because it:,Is the largest bone in the head,Articulates with all other cranial bones,Contains the auditory ossicles,Forms the anterior nasal septum,B
 skull_09,Axial,Skull,Hard,0.8,"In clinical PT cranial evaluation, trauma to the pterion region is critical due to the risk of rupturing which underlying vessel?",Middle meningeal artery,Internal carotid artery,Basilar artery,Vertebral artery,A
 skull_10,Axial,Skull,Hard,0.9,"Which bone structure contains the sella turcica, the bony depression that cradles the pituitary gland?",Ethmoid bone,Temporal bone,Sphenoid bone,Occipital bone,C
-pelvis_01,Appendicular,Pelvis,Easy,0.2,Which bowl-shaped anatomical structure connects the axial skeleton to the lower limbs?,Pelvic girdle,Pectoral girdle,Thoracic cage,Vertebral column,A
-pelvis_02,Appendicular,Pelvis,Easy,0.2,Each hip bone (coxal bone) is formed by the fusion of which three bones?,Ilium Ischium and Pubis,Femur Tibia and Fibula,Sacrum Coccyx and Lumbar,Talus Calcaneus and Navicular,A
-pelvis_03,Appendicular,Pelvis,Easy,0.3,Which joint connects the posterior aspect of the pelvic girdle directly to the spine?,Sacroiliac joint,Glenohumeral joint,Pubic symphysis,Tibiofemoral joint,A
-pelvis_04,Appendicular,Pelvis,Medium,0.5,The deep cup-like socket on the pelvic bone that articulates with the head of the femur is the:,Acetabulum,Obturator foramen,Glenoid fossa,Ischial spine,A
-pelvis_05,Appendicular,Pelvis,Medium,0.5,Which prominent pelvic landmark is easily palpated along the upper boundary of the waistline?,Iliac crest,Ischial tuberosity,Pubic tubercle,Lesser trochanter,A
+pelvis_01,Appendicular,Pelvis,Easy,0.2,Which bowl-shaped anatomical structure connects the axial skeleton to the lower limbs?,Pectoral girdle,Thoracic cage,Vertebral column,Pelvic girdle,D
+pelvis_02,Appendicular,Pelvis,Easy,0.2,Each hip bone (coxal bone) is formed by the fusion of which three bones?,Sacrum Coccyx and Lumbar,Talus Calcaneus and Navicular,Ilium Ischium and Pubis,Femur Tibia and Fibula,C
+pelvis_03,Appendicular,Pelvis,Easy,0.3,Which joint connects the posterior aspect of the pelvic girdle directly to the spine?,Glenohumeral joint,Pubic symphysis,Tibiofemoral joint,Sacroiliac joint,D
+pelvis_04,Appendicular,Pelvis,Medium,0.5,The deep cup-like socket on the pelvic bone that articulates with the head of the femur is the:,Obturator foramen,Glenoid fossa,Ischial spine,Acetabulum,D
+pelvis_05,Appendicular,Pelvis,Medium,0.5,Which prominent pelvic landmark is easily palpated along the upper boundary of the waistline?,Lesser trochanter,Iliac crest,Ischial tuberosity,Pubic tubercle,B
 pelvis_06,Appendicular,Pelvis,Medium,0.6,The fibrocartilaginous joint that unites the left and right pubic bones anteriorly is called the:,Pubic symphysis,Sacroiliac joint,Acetabular labrum,Lineal alba,A
-pelvis_07,Appendicular,Pelvis,Medium,0.6,Which part of the ischium bears the majority of body weight when sitting in an upright position?,Ischial tuberosity,Iliac fossa,Greater sciatic notch,Pectineal line,A
-pelvis_08,Appendicular,Pelvis,Hard,0.8,"In physical therapy gait analysis, weakness in the gluteus medius causes the pelvis to drop on the unweighted side, known as:",Trendelenburg sign,Thomas sign,Lachman test,Babinski reflex,A
+pelvis_07,Appendicular,Pelvis,Medium,0.6,Which part of the ischium bears the majority of body weight when sitting in an upright position?,Greater sciatic notch,Pectineal line,Ischial tuberosity,Iliac fossa,C
+pelvis_08,Appendicular,Pelvis,Hard,0.8,"In physical therapy gait analysis, weakness in the gluteus medius causes the pelvis to drop on the unweighted side, known as:",Lachman test,Babinski reflex,Trendelenburg sign,Thomas sign,C
 pelvis_09,Appendicular,Pelvis,Hard,0.8,An anterior pelvic tilt is characteristically accompanied by which spinal postural adjustment?,Increased lumbar lordosis,Decreased lumbar lordosis,Thoracic kyphosis reversal,Cervical protraction,A
-pelvis_10,Appendicular,Pelvis,Hard,0.9,Which anatomical ligament converts the greater sciatic notch of the pelvis into the greater sciatic foramen?,Sacrospinous ligament,Inguinal ligament,Iliofemoral ligament,Pubofemoral ligament,A
+pelvis_10,Appendicular,Pelvis,Hard,0.9,"Which ligament, together with the sacrotuberous ligament, helps form the greater sciatic foramen?",Inguinal ligament,Iliofemoral ligament,Pubofemoral ligament,Sacrospinous ligament,D
 arm_01,Appendicular,Humerus,Easy,0.2,"Which long bone forms the upper arm, extending from the shoulder to the elbow?",Humerus,Radius,Ulna,Femur,A
-arm_02,Appendicular,Radius,Easy,0.2,"In the anatomical position, which forearm bone is located laterally on the thumb side?",Radius,Ulna,Humerus,Tibia,A
+arm_02,Appendicular,Radius,Easy,0.2,"In the anatomical position, which forearm bone is located laterally on the thumb side?",Ulna,Humerus,Tibia,Radius,D
 arm_03,Appendicular,Ulna,Easy,0.3,Which medial bone of the forearm runs parallel to the radius on the pinky side?,Ulna,Radius,Fibula,Clavicle,A
-arm_04,Appendicular,Ulna,Medium,0.5,What prominent proximal projection of the ulna forms the elbow point?,Olecranon process,Coracoid process,Acromion process,Styloid process,A
-arm_05,Appendicular,Humerus,Medium,0.5,The head of the humerus articulates with which shallow socket of the scapula?,Glenoid fossa,Acetabulum,Trochlear notch,Radial fossa,A
-arm_06,Appendicular,Carpals,Medium,0.6,How many individual carpal bones make up the human wrist joint?,8 bones,7 bones,5 bones,14 bones,A
+arm_04,Appendicular,Ulna,Medium,0.5,What prominent proximal projection of the ulna forms the elbow point?,Styloid process,Olecranon process,Coracoid process,Acromion process,B
+arm_05,Appendicular,Humerus,Medium,0.5,The head of the humerus articulates with which shallow socket of the scapula?,Acetabulum,Trochlear notch,Radial fossa,Glenoid fossa,D
+arm_06,Appendicular,Carpals,Medium,0.6,How many carpal bones are in one human wrist?,7 bones,5 bones,14 bones,8 bones,D
 arm_07,Appendicular,Carpals,Medium,0.6,Which carpal bone is most commonly fractured during a fall on an outstretched hand (FOOSH)?,Scaphoid,Lunate,Triquetrum,Pisiform,A
-arm_08,Appendicular,Radius,Hard,0.8,"During forearm pronation and supination, which bone rotates around the stationary ulna?",Radius,Humerus,Scapula,Clavicle,A
-arm_09,Appendicular,Humerus,Hard,0.8,"In PT rehabilitation, a fracture at the surgical neck of the humerus poses the highest risk to which nerve?",Axillary nerve,Radial nerve,Ulnar nerve,Median nerve,A
-arm_10,Appendicular,Radius,Hard,0.9,What type of joint articulation between the radius and ulna allows rotational forearm motion?,Pivot joint,Hinge joint,Saddle joint,Ball and socket joint,A
-leg_01,Appendicular,Femur,Easy,0.2,"Which bone is the longest, heaviest, and strongest long bone in the human body?",Femur,Tibia,Fibula,Humerus,A
-leg_02,Appendicular,Tibia,Easy,0.2,"In the lower leg, which larger bone serves as the primary weight-bearing shin bone?",Tibia,Fibula,Femur,Patella,A
+arm_08,Appendicular,Radius,Hard,0.8,"During forearm pronation and supination, which bone rotates around the stationary ulna?",Scapula,Clavicle,Radius,Humerus,C
+arm_09,Appendicular,Humerus,Hard,0.8,"In PT rehabilitation, a fracture at the surgical neck of the humerus poses the highest risk to which nerve?",Radial nerve,Ulnar nerve,Median nerve,Axillary nerve,D
+arm_10,Appendicular,Radius,Hard,0.9,What type of joint articulation between the radius and ulna allows rotational forearm motion?,Saddle joint,Ball and socket joint,Pivot joint,Hinge joint,C
+leg_01,Appendicular,Femur,Easy,0.2,"Which bone is the longest, heaviest, and strongest long bone in the human body?",Fibula,Humerus,Femur,Tibia,C
+leg_02,Appendicular,Tibia,Easy,0.2,"In the lower leg, which larger bone serves as the primary weight-bearing shin bone?",Fibula,Femur,Patella,Tibia,D
 leg_03,Appendicular,Patella,Easy,0.3,The kneecap is a sesamoid bone embedded within the quadriceps tendon known as the:,Patella,Pisiform,Talus,Calcaneus,A
-leg_04,Appendicular,Fibula,Medium,0.5,Which slender lateral bone of the lower leg provides muscle attachments rather than direct weight-bearing?,Fibula,Tibia,Femur,Radius,A
+leg_04,Appendicular,Fibula,Medium,0.5,Which slender lateral bone of the lower leg provides muscle attachments rather than direct weight-bearing?,Tibia,Femur,Radius,Fibula,D
 leg_05,Appendicular,Tarsals,Medium,0.5,Which tarsal bone forms the heel of the foot and serves as the insertion point for the Achilles tendon?,Calcaneus,Talus,Navicular,Cuboid,A
 leg_06,Appendicular,Tibia,Medium,0.6,The prominent bony bump felt on the anterior surface of the proximal tibia where the patellar ligament attaches is the:,Tibial tuberosity,Medial malleolus,Lateral condyle,Intercondylar eminence,A
-leg_07,Appendicular,Femur,Medium,0.6,"The large, blunt projection located laterally at the junction of the femoral neck and shaft is the:",Greater trochanter,Lesser trochanter,Adductor tubercle,Lineal aspera,A
-leg_08,Appendicular,Tarsals,Hard,0.8,Which tarsal bone articulates directly superiorly with the tibia and fibula to form the ankle mortise joint?,Talus,Calcaneus,Navicular,Medial cuneiform,A
-leg_09,Appendicular,Fibula,Hard,0.8,"In PT clinical evaluation, impact trauma to the fibular head poses a high risk of injury to which nerve, leading to 'foot drop'?",Common peroneal nerve,Tibial nerve,Femoral nerve,Saphenous nerve,A
-leg_10,Appendicular,Femur,Hard,0.9,"During the terminal 20 degrees of full knee extension, the femur medially rotates on the fixed tibia in a biomechanical event known as the:",Screw-home mechanism,Reciprocal translation,Bucket-handle glide,Valgus alignment,A
+leg_07,Appendicular,Femur,Medium,0.6,"The large, blunt projection located laterally at the junction of the femoral neck and shaft is the:",Adductor tubercle,Lineal aspera,Greater trochanter,Lesser trochanter,C
+leg_08,Appendicular,Tarsals,Hard,0.8,Which tarsal bone articulates directly superiorly with the tibia and fibula to form the ankle mortise joint?,Medial cuneiform,Talus,Calcaneus,Navicular,B
+leg_09,Appendicular,Fibula,Hard,0.8,"In PT clinical evaluation, impact trauma to the fibular head poses a high risk of injury to which nerve, leading to 'foot drop'?",Tibial nerve,Femoral nerve,Saphenous nerve,Common peroneal nerve,D
+leg_10,Appendicular,Femur,Hard,0.9,"During the terminal 20 degrees of full knee extension, the femur medially rotates on the fixed tibia in a biomechanical event known as the:",Reciprocal translation,Bucket-handle glide,Valgus alignment,Screw-home mechanism,D
