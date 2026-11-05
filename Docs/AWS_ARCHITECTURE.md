@@ -1,55 +1,39 @@
-# AWS architecture — practice quiz demo
+# AWS architecture — account-aware practice quiz
 
-> Documented demo architecture as of 2026-10-14. The AWS resources are in a
-> maintainer's personal account in `ap-southeast-2`. This diagram reflects the
-> repository documentation; it has not been checked against the AWS console.
+> Current documented deployment, 2026-11-06, in the owner's personal
+> `ap-southeast-2` account. The owner reported deploying the feedback fix and
+> testing the quiz in WebGL and VR. Console configuration has not been read
+> back by this agent since browser access was denied.
 
 ```mermaid
 flowchart LR
-    subgraph Quest[Meta Quest app]
-        Anatomy[Anatomy exploration<br/>G0-G3, local]
-        Quiz[World-space practice quiz<br/>OsteonQuizDemo]
-        Config[Local demo config<br/>API base URL + bearer token]
-        Settings[Local display preferences]
-        Config --> Quiz
-        Settings --> Quiz
-    end
-
-    subgraph AWS[AWS personal demo account - ap-southeast-2]
-        Gateway[API Gateway HTTP API<br/>osteon-quiz-demo-api]
-        Lambda[Python 3.12 Lambda<br/>osteon-quiz-demo]
-        Model[Packaged question CSV<br/>and ONNX mastery model]
-        Table[(DynamoDB<br/>osteon-quiz-demo<br/>session + mastery + revision)]
-        Role[IAM execution role<br/>table-scoped access]
-        Logs[CloudWatch Logs]
-        Bucket[(Private S3 bucket<br/>osteon-quiz-deploy-bucket)]
-
-        Gateway -->|Lambda integration| Lambda
-        Model -->|loaded locally in function| Lambda
-        Lambda <-->|read + conditional write| Table
-        Role -.->|permissions| Lambda
-        Lambda -->|execution logs| Logs
-        Bucket -.->|manual Lambda code update| Lambda
-    end
-
-    Quiz -->|HTTPS JSON + bearer token| Gateway
-    Gateway -->|JSON response| Quiz
-    Package[Local build script<br/>code + CSV + ONNX + dependencies] -.->|upload ZIP| Bucket
+    Web[WebGL Unity quiz panel] --> QuizAPI[Quiz HTTP API Gateway]
+    Quest[Quest Unity quiz panel] --> QuizAPI
+    Web --> AccountsAPI[Accounts HTTP API Gateway]
+    Quest --> AccountsAPI
+    AccountsAPI --> AccountsLambda[Accounts Lambda]
+    AccountsLambda --> AccountsTable[(Accounts DynamoDB table)]
+    QuizAPI --> QuizLambda[osteon-quiz-demo Lambda]
+    QuizLambda -->|Verify bearer token| AccountsAPI
+    QuizLambda --> QuizTable[(Quiz DynamoDB table)]
+    Model[(Packaged CSV and ONNX model)] --> QuizLambda
+    QuizLambda -->|GetSecretValue| Secret[(Gemini key in Secrets Manager)]
+    QuizLambda -->|One bounded request per new answer| Gemini[Gemini API]
+    Package[Local Lambda ZIP] -.-> Bucket[(S3 deployment bucket)]
+    Bucket -.->|Manual code update| QuizLambda
 ```
 
-The live quiz calls are `POST /v1/sessions`, `GET /v1/sessions/current`, and
-`POST /v1/sessions/{session_id}/answers`. Lambda validates the temporary bearer
-token and maps it to one fixed demo learner. It selects questions and scores
-answers using the packaged CSV and ONNX model, then stores progress in DynamoDB.
-The Quest app does not access DynamoDB directly. S3 holds the deployment ZIP;
-it is outside the live request path. The anatomy experience and display
-preferences operate locally without this API.
+Both clients use the same public account and quiz API origins. Account tokens
+remain in client memory. The quiz Lambda verifies each bearer token through
+`/v1/auth/me` at the Accounts API and uses the verified learner ID for quiz
+state. It reads the packaged question CSV and ONNX model, scores the answer,
+optionally requests a Gemini explanation, and saves progress in its DynamoDB
+table. The Gemini key is stored separately in Secrets Manager. Neither client
+contains the key or accesses DynamoDB directly.
 
-**Scope:** The web client, per-learner identity, API Gateway authorizer, school
-AWS account, and automated deployment are future work. The current shared token
-is embedded in controlled demo builds and is unsuitable for distribution.
-Physical Quest behavior for the quiz remains unverified.
-
-Sources: [Architecture overview](ARCHITECTURE.md#practice-quiz-service),
-[quiz integration and AWS runbook](QUIZ_INTEGRATION.md), and
-[account ownership notes](ACCOUNTS.md).
+S3 is used only to deploy Lambda code; it is not in the live quiz request
+path. The anatomy scene and display preferences operate locally. The training
+notebook and `Osteon_Agentic_AI_Pipeline/` prototype are not hosted parts of
+this path. For the per-answer decisions, fallbacks, and feature flags, see the
+[AI pipeline diagram](QUIZ_AI_PIPELINE.md). For the resource history and
+verification record, see [quiz integration](QUIZ_INTEGRATION.md).

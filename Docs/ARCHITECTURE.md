@@ -167,25 +167,29 @@ The quiz menu also hosts **Accounts** in all builds. `LearnerAccountPanel`
 provides create/login/switch/sign-out screens, and `HttpLearnerAccounts` sends
 account requests to the Sydney API Gateway/Lambda service backed by DynamoDB.
 Quest and WebGL use the same endpoint and six-digit account codes. Session
-tokens remain in memory in `LearnerAccountState`. The quiz demo still uses its
-separate credentials. The account view reuses the station's move handle and
+tokens remain in memory in `LearnerAccountState`. The quiz uses that same
+account token and verifies it through the accounts API before each protected
+request. The account view reuses the station's move handle and
 appearance preferences, and reserves desktop input while open. A development
 context menu can explicitly select the in-memory simulator for failure testing.
 See [User accounts](USER_ACCOUNTS.md) for the contract and verification.
 
-The [AWS architecture diagram](AWS_ARCHITECTURE.md) shows the one-learner
+The [AWS architecture diagram](AWS_ARCHITECTURE.md) shows the account-aware
 practice quiz's runtime and deployment paths. The current
 Unity scene creates an in-world quiz station on the room's right wall; it is
 not attached to the headset. API Gateway's HTTP API sends the
 client's HTTPS requests to a Python Lambda function. Lambda reads the packaged
-question CSV and ONNX mastery-delta model, then persists the current session
-and mastery in DynamoDB. S3 holds the Lambda deployment ZIP only; it is not in
+question CSV and ONNX mastery-delta model, optionally requests Gemini feedback,
+then persists the learner's session and mastery in DynamoDB. S3 holds the Lambda
+deployment ZIP only; it is not in
 the live question/answer request path. The notebook is a training artifact,
-not a hosted service. The new WebGL player reuses the Unity quiz station; its
-browser API path has not been verified and requires deliberate CORS and suitable
-authentication before public use. A separate browser-native quiz UI is not
-implemented. See [`QUIZ_INTEGRATION.md`](QUIZ_INTEGRATION.md) for the exact
-demo configuration, model inputs, security boundary, and verification record.
+not a hosted service. The WebGL player reuses the Unity quiz station. The owner
+reports that quiz interactions work in WebGL and VR and that the same learner's
+progress resumes across them. Full platform acceptance remains open. A separate
+browser-native quiz UI is not implemented. See the
+[AI pipeline diagram](QUIZ_AI_PIPELINE.md) for answer processing and
+[`QUIZ_INTEGRATION.md`](QUIZ_INTEGRATION.md) for the API contract, model inputs,
+security boundary, and verification record.
 
 ## UI and selection lifecycle
 

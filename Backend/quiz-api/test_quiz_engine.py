@@ -39,6 +39,12 @@ class QuizEngineTests(unittest.TestCase):
         self.assertEqual(fallback["question_id"], rows[0]["question_id"])
         self.assertIsNone(quiz_engine.next_question(0.50, {q["question_id"] for q in rows}))
 
+    def test_preferred_tier_never_repeats_and_exhaustion_uses_mastery(self):
+        rows = quiz_engine._questions()
+        hard_ids = {q["question_id"] for q in rows if q["difficulty_level"] == "Hard"}
+        self.assertEqual(quiz_engine.next_question(0.5, set(), "hard")["difficulty_level"], "Hard")
+        self.assertEqual(quiz_engine.next_question(0.5, hard_ids, "hard")["difficulty_level"], "Medium")
+
     def test_model_feature_order_and_positive_result(self):
         fake = FakeSession(0.1)
         with patch.object(quiz_engine, "_model_session", return_value=fake):

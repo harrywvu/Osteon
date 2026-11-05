@@ -34,6 +34,28 @@ and serves the build directory, not the repository. The command reports its PID;
 stop that process with `Stop-Process -Id <reported PID>` when finished. Logs are
 under `Logs/web-desktop-8000.*.log`. Restart the command after a machine restart.
 
+The 2026-11-05 source adds public quiz URL configuration and account bearer
+authentication. A new optimized build succeeded on 2026-11-05 with zero errors
+and 386 warnings (194,219,012 bytes reported by Unity; 25m34s build time).
+Artifact inspection found both public service URLs and no embedded demo-token
+configuration or Gemini secret name. A browser interaction attempt was denied
+by the localhost origin approval gate, so browser quiz interaction remains
+unautomated. The user subsequently confirmed WebGL sign-in using a saved
+learner code and visible explanations after wrong quiz answers. The loopback
+server was started at `http://localhost:8000` for manual inspection.
+Screenshots on 2026-11-06 showed the quiz advancing through answered questions,
+with both deterministic fallback and longer generated feedback visible. The
+generated feedback was about mastery rather than anatomy. After the owner
+deployed a feedback fix, two further screenshots showed explanations of the
+correct anatomy answers without mastery or streak commentary; see
+[Quiz integration](QUIZ_INTEGRATION.md). This is a partial browser quiz pass,
+not full browser acceptance.
+The quiz API CORS configuration was saved on 2026-11-05. Live OPTIONS returned
+204 for `http://localhost:8000` with GET/POST and the three required headers;
+an unauthenticated POST returned 401 with the same allowed origin. A direct
+authenticated quiz start also returned the allowed origin. These checks verify
+API CORS, not a browser quiz flow.
+
 The optimized build is uncompressed. This launcher does not supply gzip/Brotli
 encoding headers, and refuses those compressed outputs. Configure an appropriate
 server before switching compression. The older output remains in `Builds/Web Builds/`.
@@ -112,9 +134,9 @@ desktop prompts when running in WebGL.
       that panel controls still receive clicks after mouse look.
 - [ ] Drag each Move bar, use each multi-bone G2 Spread slider, switch pectoral
       sides, and check Settings persistence after reload.
-- [ ] Check quiz requests only against an intentionally configured API with
-      browser CORS and suitable authentication. Do not publish a build containing
-      the shared demo token; see [Quiz integration](QUIZ_INTEGRATION.md).
+- [ ] Sign in through Accounts, then check quiz start, answer feedback, Next,
+      resume, switch, expiry, and the quiz API's CORS success/error responses;
+      see [Quiz integration](QUIZ_INTEGRATION.md).
 - [ ] Confirm **Read / Stop** reports **Audio unavailable** on WebGL; browser
       narration is not implemented. See [Panel narration](TTS.md).
 

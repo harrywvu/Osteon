@@ -1,9 +1,12 @@
 """Session rules shared by the Quest and web API clients."""
 
 import time
+import os
+import re
 from uuid import UUID, uuid4
 
 from quiz_engine import content_version, next_question, question_by_id, score_answer
+from ai_feedback import generate
 
 
 class SessionNotFound(Exception):
@@ -38,6 +41,7 @@ class QuizService:
                 "completed": question is None,
                 "last_attempt_id": None,
                 "last_result": None,
+                "history": previous.get("history", []) if previous and previous.get("content_version") == content_version() else [],
                 "revision": int(previous["revision"]) + 1 if previous else 0,
             }
             saved = (
@@ -69,6 +73,9 @@ class QuizService:
         if state.get("content_version") != content_version():
             raise SessionConflict("quiz content changed; start a new session")
         if state["last_attempt_id"] == attempt_id:
+            if (state["last_result"]["question_id"] != question_id or
+                    state.get("last_choice") != choice):
+                raise SessionConflict("attempt_id belongs to a different answer")
             return state["last_result"]
         if state["completed"]:
             raise SessionConflict("quiz session is complete")
@@ -78,24 +85,69 @@ class QuizService:
         now = self.clock()
         seconds = max(0.0, now - float(state["issued_at"]))
         feedback = score_answer(question_id, choice, seconds, float(state["mastery"]))
+        question = question_by_id(question_id)
+        raw_delta = feedback.pop("raw_model_delta", feedback["mastery_change"])
+        history = [*state.get("history", []), {
+            "question_id": question_id, "bone_group": question["bone_group"],
+            "difficulty": question["difficulty_level"], "choice": choice,
+            "correct": feedback["correct"], "previous_mastery": feedback["previous_mastery"],
+            "updated_mastery": feedback["updated_mastery"], "accepted_at": now,
+        }][-10:]
+        ai = generate(question, {"choice": choice, "correct": feedback["correct"],
+                                 "correct_option": feedback["correct_option"],
+                                 "raw_model_delta": raw_delta,
+                                 "applied_mastery_change": feedback["mastery_change"],
+                                 "updated_mastery": feedback["updated_mastery"]}, history[:-1])
+        if not isinstance(ai, dict):
+            ai = {}
+        explanation = ai.get("explanation")
+        if (not isinstance(explanation, str) or not explanation.strip() or len(explanation) > 600 or
+                re.search(r"\b(?:learner|mastery|streak|progress|performance|difficulty)\b", explanation, re.I)):
+            explanation = ("The correct answer is " + feedback["correct_option"] + ": " +
+                           question["options"][feedback["correct_option"]] + ".")
+            explanation_source = "fallback"
+        else:
+            explanation = explanation.strip()
+            explanation_source = "gemini"
+        action = ai.get("recommended_action")
+        if action not in ("increase", "maintain", "decrease"):
+            action = None
+        tiers = ("easy", "medium", "hard")
+        current_tier = question["difficulty_level"].lower()
+        recommended_tier = tiers[max(0, min(2, tiers.index(current_tier) +
+                                           {"increase": 1, "maintain": 0, "decrease": -1}.get(action, 0)))] if action else None
         asked = [*state["asked_ids"], question_id]
-        following = next_question(feedback["updated_mastery"], asked)
+        preferred = recommended_tier if (os.environ.get("AI_ADAPTATION_ENABLED", "false").lower() == "true"
+                                         and len(history) >= 5) else None
+        baseline = next_question(feedback["updated_mastery"], asked)
+        following = next_question(feedback["updated_mastery"], asked, preferred) if preferred else baseline
+        difficulty_source = ("none" if following is None else "gemini" if preferred and
+                             following["difficulty_level"].lower() == preferred else "mastery")
         result = {
             **feedback,
             "session_id": session_id,
             "answered_count": len(asked),
             "completed": following is None,
             "next_question": following,
+            "explanation": explanation,
+            "explanation_source": explanation_source,
+            "recommended_action": action,
+            "recommended_difficulty": recommended_tier,
+            "selected_difficulty": following["difficulty_level"].lower() if following else None,
+            "difficulty_source": difficulty_source,
         }
+        history[-1]["accepted_at"] = self.clock()
         updated = {
             **state,
             "mastery": feedback["updated_mastery"],
             "asked_ids": asked,
             "current_question_id": following["question_id"] if following else None,
-            "issued_at": now if following else None,
+            "issued_at": self.clock() if following else None,
             "completed": following is None,
             "last_attempt_id": attempt_id,
+            "last_choice": choice,
             "last_result": result,
+            "history": history,
             "revision": state["revision"] + 1,
         }
         if self.store.replace(learner_id, updated, state["revision"]):
@@ -104,6 +156,8 @@ class QuizService:
         # An HTTP retry can race the first request. Replay its saved response.
         latest = self.store.get(learner_id)
         if latest and latest["last_attempt_id"] == attempt_id:
+            if latest["last_result"]["question_id"] != question_id or latest.get("last_choice") != choice:
+                raise SessionConflict("attempt_id belongs to a different answer")
             return latest["last_result"]
         raise SessionConflict("session changed; refresh before answering")
 

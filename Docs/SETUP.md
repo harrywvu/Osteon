@@ -146,15 +146,13 @@ both lower limbs, both upper limbs, both pectoral sides, and the pelvic hip bone
 See `Docs/G3_INSPECTION.md` and `Tools/Invoke-AnatomyValidation.ps1` for automated
 Play Mode regression checks. Grabbing and assembly are excluded from this smoke test.
 
-The optional one-learner practice quiz uses an AWS API. To test it, copy
-`Docs/QuizDemoConfig.example.json` to the ignored
-`Assets/Resources/QuizDemoConfig.json` and fill in the private HTTPS API base
-URL and temporary demo token. In Play Mode, find the quiz station on the room's
-right wall. Start/resume, answer, stop, hide, reopen, and turn
-your head to confirm the station stays in its current room position until
-grabbed. Do not commit the filled config or distribute an APK containing its
-token. The quiz's XR grab interaction and physical Quest input still need
-device verification. Full backend and AWS setup is in
+The practice quiz now uses the signed-in account and the public HTTPS quiz URL
+in `Assets/Resources/QuizServiceConfig.json`. The matching account-aware Lambda
+must be deployed before it can be tested. In Play Mode, sign in through Accounts
+at the quiz station on the room's right wall. Start/resume, answer, stop, hide,
+reopen, and turn your head to confirm the station stays in its current room
+position until grabbed. The quiz's XR grab interaction and physical Quest input
+still need device verification. Full backend and AWS setup is in
 [`QUIZ_INTEGRATION.md`](QUIZ_INTEGRATION.md).
 
 Run a focused vertebral pilot or the complete 178-entry suite from a temporary project copy

@@ -1,10 +1,28 @@
 # Osteon quiz API
 
-This directory contains the server-side practice quiz for both the Quest and
-future web versions of Osteon. The notebook is a training tool; the deployed
+This directory contains the server-side practice quiz for Quest and WebGL.
+The notebook is a training tool; the deployed
 service uses the approved question CSV and exported ONNX model in `assets/`.
 
-## One-learner Quest presentation
+## Account-aware Quest and WebGL presentation
+
+The Unity client reads the public quiz URL from `Assets/Resources/QuizServiceConfig.json`
+and uses the current in-memory account bearer token. Set `ACCOUNTS_API_ORIGIN`
+on the quiz Lambda to the fixed HTTPS account service origin. Every quiz
+request calls `/v1/auth/me`; invalid sessions return 401 and verifier outages
+return 503. Remove `QUIZ_DEMO_TOKEN` from the Lambda environment.
+
+`AI_ENABLED` enables explanations. `AI_ADAPTATION_ENABLED` enables bounded
+difficulty selection after review. Both default off. Set `GEMINI_KEY_SECRET_ARN`
+to a separate Secrets Manager secret containing only the Gemini key, and grant
+the quiz Lambda `secretsmanager:GetSecretValue` for that ARN. `GEMINI_MODEL`
+defaults to `gemini-3.5-flash-lite`.
+See [the AI pipeline diagram](../../Docs/QUIZ_AI_PIPELINE.md) for the request
+path and [the content audit](../../Docs/QUIZ_CONTENT_AUDIT_2026-11-06.md) for
+current validation and the undeployed wording update.
+The previous demo instructions below describe the old deployment.
+
+## Previous one-learner Quest presentation
 
 The current Unity scene creates a world-space quiz station on the room's right
 wall. It stays in place when the learner turns their head, but can be moved

@@ -47,7 +47,7 @@ def _validated_mastery(mastery):
     return value
 
 
-def next_question(mastery, asked_question_ids):
+def next_question(mastery, asked_question_ids, preferred_tier=None):
     """Return the first unasked question in the current difficulty tier.
 
     Return None when the bank is exhausted. The caller must record the returned
@@ -65,6 +65,10 @@ def next_question(mastery, asked_question_ids):
     available = [q for q in _questions() if q["question_id"] not in asked]
     if not available:
         return None
+    if preferred_tier in ("easy", "medium", "hard"):
+        preferred = next((q for q in available if q["difficulty_level"].lower() == preferred_tier), None)
+        if preferred:
+            return question_by_id(preferred["question_id"])
     question = next(
         (q for q in available if q["difficulty_level"].lower() == target),
         available[0],
@@ -131,9 +135,10 @@ def score_answer(question_id, choice, response_seconds, mastery):
     input_name = session.get_inputs()[0].name
     output_name = session.get_outputs()[0].name
     prediction = session.run([output_name], {input_name: features})[0]
-    predicted_delta = float(prediction[0][0])
-    if not math.isfinite(predicted_delta):
+    raw_delta = float(prediction[0][0])
+    if not math.isfinite(raw_delta):
         raise ValueError("model returned a non-finite mastery change")
+    predicted_delta = raw_delta
 
     if not correct and predicted_delta >= 0:
         predicted_delta = {"easy": -0.12, "medium": -0.08, "hard": -0.04}[difficulty]
@@ -148,4 +153,5 @@ def score_answer(question_id, choice, response_seconds, mastery):
         "previous_mastery": mastery,
         "updated_mastery": updated_mastery,
         "mastery_change": updated_mastery - mastery,
+        "raw_model_delta": raw_delta,
     }

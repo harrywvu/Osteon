@@ -27,8 +27,11 @@ starts a quiz or calls an AI service.
 
 Live accounts persist in DynamoDB. Client login tokens are memory-only and are
 lost on app exit or browser reload; entering the saved code returns to the same
-identity. The quiz HTTP client still uses its separate demo contract and is not
-authenticated by these account sessions yet.
+identity. The updated quiz source sends this account token to the quiz API,
+which verifies it with `/v1/auth/me` on every request. The quiz Lambda was
+deployed on 2026-11-05. Direct live HTTP checks with two fresh learners passed
+isolated progress, answer retry, and same-learner resume; test sessions were
+signed out. Unity WebGL and Quest interaction still need acceptance.
 
 For isolated tests, the runtime component's context menu includes **Simulation/Use
 simulated accounts (development only)**. This explicit option is blocked in

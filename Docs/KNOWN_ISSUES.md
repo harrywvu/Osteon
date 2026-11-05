@@ -1,20 +1,33 @@
 # Known Issues and Project History
 
-> Current-state update: 2026-11-03. Historical entries are retained below so
+> Current-state update: 2026-11-05. Historical entries are retained below so
 > previous recovery work is not lost.
 
 ## Current open issues
 
 - **Accounts** now uses the live Sydney account API in all builds. Profiles
   persist in DynamoDB and the same code restores an account on Quest or web;
-  tokens remain memory-only. Quiz authentication is still separate. Service/state
+  tokens remain memory-only. The quiz now verifies account tokens through the
+  account API on every request, and a two-learner live isolation test passed.
+  The user confirmed WebGL sign-in and visible explanations after wrong quiz
+  answers. An earlier 2.5 Flash call returned HTTP 404; the Lambda now selects
+  3.5 Flash-Lite through `GEMINI_MODEL`, but the latest response source has not
+  been read back. Screenshots on 2026-11-06 show longer generated feedback
+  discussing mastery and streaks instead of anatomy. The owner deployed a prompt
+  and validation fix; two later WebGL screenshots show anatomy-focused feedback
+  after wrong answers. The owner also reports a working VR quiz. Review the full
+  question set before enabling Gemini-driven adaptive
+  difficulty.
+  Service/state
   checks passed 34 assertions, 14 backend tests passed, and live HTTPS checks passed
   creation/replay/login/session/revocation on 2026-11-03. Rebuilt browser account UI
   and physical Quest interaction still require acceptance. See [User accounts](USER_ACCOUNTS.md).
 
 - Desktop WebGL mouse and keyboard input and a `Web - Desktop - Development`
   profile were added on 2026-10-19. An optimized build with live accounts succeeded
-  on 2026-11-03; the user confirmed that Firefox loads the room. Full browser
+  on 2026-11-03; the user confirmed that Firefox loads the room. A fresh
+  account-aware quiz build also succeeded on 2026-11-05 with zero errors, but
+  browser automation was denied access to the localhost origin. Full browser
   acceptance remains pending for
   anatomy navigation, ray targeting, panels,
   Settings, quiz requests, or performance. The desktop controller activates in
@@ -34,6 +47,16 @@
   licensing startup. The small highlight refactors and tutorial still need
   Play Mode and Quest verification. The generated C# runtime and Editor projects
   compile through Visual Studio MSBuild.
+
+- A 2026-11-05 `-Current` batch validation started successfully and compiled
+  project scripts, then failed after 915 assertions because the C1 anatomical
+  information text overflowed its panel (measured 319.5). This is separate
+  from the quiz API checks and still needs a UI fix and rerun.
+
+- A fresh 2026-11-05 Android development APK built with zero errors and 352
+  warnings. Its physical Quest interaction has not been checked. See
+  [Quiz integration](QUIZ_INTEGRATION.md) for the account and AI acceptance
+  that remains open.
 
 - Panel narration tabs now call Android's installed offline English TTS voice
   for the anatomy, quiz, and Settings panels. The voice's presence on the
@@ -371,3 +394,13 @@
 - Verification performed
 - Anything still unresolved
 ```
+# Account-aware quiz rollout (2026-11-05)
+
+The source connects the quiz to accounts and includes optional Gemini feedback
+and bounded difficulty selection. The account-compatible Lambda was deployed
+on 2026-11-05 with AI disabled and the legacy demo token removed. No fresh WebGL
+or Quest acceptance has been recorded. Two-learner authenticated scoring,
+retry, and resume passed direct live HTTP checks. Start with AI disabled,
+verify account isolation and CORS, then review all 50 explanations before
+enabling adaptation. Response time still includes feedback reading and idle
+time between issued questions; it is not active thinking time.

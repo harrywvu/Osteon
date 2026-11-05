@@ -10,8 +10,11 @@ import json
 class DynamoQuizStore:
     def __init__(self, table_name):
         import boto3
+        from botocore.config import Config
 
-        self.table = boto3.resource("dynamodb").Table(table_name)
+        self.table = boto3.resource("dynamodb", config=Config(
+            connect_timeout=2, read_timeout=3, retries={"total_max_attempts": 2}
+        )).Table(table_name)
 
     def get(self, learner_id):
         response = self.table.get_item(

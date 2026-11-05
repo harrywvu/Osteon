@@ -1,13 +1,13 @@
 """AWS Lambda entry point for API Gateway HTTP API payload format 2.0."""
 
 import json
-import hmac
 import os
 import re
 from functools import lru_cache
 
 from dynamodb_store import DynamoQuizStore
 from quiz_service import QuizService, SessionConflict, SessionNotFound
+from account_verifier import verify, InvalidCredential, VerifierUnavailable
 
 
 ANSWER_ROUTE = re.compile(r"^/v1/sessions/([^/]+)/answers$")
@@ -47,22 +47,17 @@ def _body(event):
 
 
 def lambda_handler(event, context):
-    """Use verified JWT identity, or the explicitly configured one-learner demo key."""
-    claims = (
-        event.get("requestContext", {})
-        .get("authorizer", {})
-        .get("jwt", {})
-        .get("claims", {})
-    )
-    learner_id = claims.get("sub") if isinstance(claims, dict) else None
-    if not learner_id:
-        demo_key = os.environ.get("QUIZ_DEMO_TOKEN", "")
-        headers = {key.lower(): value for key, value in event.get("headers", {}).items()}
-        authorization = headers.get("authorization", "")
-        if demo_key and hmac.compare_digest(authorization, "Bearer " + demo_key):
-            learner_id = "osteon-demo-learner"
-    if not isinstance(learner_id, str) or not learner_id:
+    """Verify every account request before reading or changing learner progress."""
+    headers = {key.lower(): value for key, value in (event.get("headers") or {}).items()}
+    authorization = headers.get("authorization", "")
+    if not authorization.startswith("Bearer "):
         return _response(401, {"error": "authentication_required"})
+    try:
+        learner_id = verify(authorization[7:])
+    except InvalidCredential:
+        return _response(401, {"error": "authentication_required"})
+    except VerifierUnavailable:
+        return _response(503, {"error": "account_service_unavailable"})
 
     method = event.get("requestContext", {}).get("http", {}).get("method")
     path = event.get("rawPath", "")

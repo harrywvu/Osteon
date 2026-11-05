@@ -1,10 +1,21 @@
 # Practice quiz integration and AWS demo runbook
 
-> Status: 2026-09-30. This records the one-learner demonstration built in a
-> personal AWS account, not a school-owned production deployment. AWS settings
-> and smoke-test outcomes below were reported and exercised during setup; they
-> have not been independently audited from the AWS console. Do not put tokens,
-> personal credentials, or a real API URL in this repository.
+> Status: 2026-11-06. The account-aware Lambda is deployed in the personal
+> AWS account and has passed a two-learner live API test. The owner deployed the
+> feedback fix and supplied WebGL screenshots of two anatomy-focused explanations
+> after wrong answers. The owner also reports the quiz works in both WebGL and
+> VR. Provider source and the detailed platform acceptance cases remain
+> unverified. Do not put tokens or credentials here.
+
+See the [current AI pipeline diagram](QUIZ_AI_PIPELINE.md) for the answer path,
+fallback, and difficulty flags. The older demo instructions below are kept as
+a deployment history.
+
+## Historical one-learner demo (superseded)
+
+The setup details below record the previous shared-token demonstration. The
+current deployment and API contract are described under **API contract and
+client configuration**.
 
 ## What runs where
 
@@ -40,9 +51,14 @@ The local integration includes `assets/questions_datasets.csv` (50 questions:
 `assets/random_forest_mastery_model.onnx` (a Random Forest model that predicts
 the **change** in mastery for one answer). The model file's SHA-256 is
 `18e69421e1e811eb12eee6f4f47675731c4613a6cb27e073432122ab8a4c45b9`;
-the CSV's is
+the original demo CSV's was
 `1f01b40c3146c5d4f4015aebea68ef84f07c890433d5dc4cbad1679a17257f93`.
-These hashes identify the files currently integrated; they do not establish
+The reordered local CSV's is
+`0e5705197381040e11c408d04af6b8d47aac624a3803e7163afa8b6a619593ca`.
+The later wording-corrected local CSV's is
+`f3ef318418e6fa406049e86b36bf06346329383a7a017fa2bb8bb697dba4f92f`;
+it is packaged separately and has not been deployed.
+These hashes identify the files involved; they do not establish
 training quality or content accuracy. Review question correctness and model
 ownership/permission with the school before any wider distribution.
 
@@ -147,6 +163,112 @@ describes the API Gateway-to-Lambda integration.
 
 ## API contract and client configuration
 
+**2026-11-05 source update:** The new client and Lambda source use account
+bearer tokens. Deploy the quiz Lambda with `ACCOUNTS_API_ORIGIN` set to the
+fixed HTTPS accounts origin, `QUIZ_DEMO_TOKEN` removed, and the ZIP containing
+`account_verifier.py` and `ai_feedback.py`. The public quiz URL is in
+`Assets/Resources/QuizServiceConfig.json`. `AI_ENABLED` and
+`AI_ADAPTATION_ENABLED` default off. Set `GEMINI_KEY_SECRET_ARN` to a separate
+Secrets Manager secret containing only the provider key, with quiz Lambda read
+permission; `GEMINI_MODEL` defaults to `gemini-3.5-flash-lite`. Quiz API CORS must allow the exact web
+origin, GET/POST, authorization/content-type/x-unity-version, and OPTIONS
+without credentials. Platform acceptance remains unrecorded.
+The 2026-11-05 local `osteon-quiz-account-aware.zip` was assembled from the
+previous dependency ZIP because PyPI was unavailable. ZIP integrity, source
+contents, and live Lambda execution were checked.
+Review all 50 explanations before enabling adaptation. The next-question
+timer still includes feedback reading and idle time.
+
+**2026-11-05 live rollout:** The previous quiz ZIP was copied to
+`s3://osteon-quiz-deploy-bucket/backup-plan007/osteon-quiz-lambda.zip`.
+`osteon-quiz-account-aware.zip` was uploaded under a separate key and deployed
+to `osteon-quiz-demo`; the Lambda SHA-256 matched the local ZIP. The Lambda
+environment now has the fixed accounts API origin and both AI flags set to
+`false`, with the shared demo token removed. The quiz HTTP API allows
+`http://localhost:8000`, GET/POST, and authorization/content-type/x-unity-version
+without browser credentials; `$default` automatic deployment is enabled.
+Live OPTIONS returned 204 with these headers, and unauthenticated POST returned
+401 with the localhost CORS origin. An unlisted origin received no allow-origin
+header. Two fresh account profiles then passed live quiz start, separate
+progress, one answer each, saved answer retry, same-learner resume using a new
+login, fallback explanation with AI disabled, and success-response CORS. Three
+test sessions were signed out. AI, Unity, and device checks remain pending.
+
+**Gemini test on 2026-11-05:** Secrets Manager contains
+`osteon/quiz/gemini-api-key` as a raw string. The quiz Lambda role has an
+inline policy allowing only `secretsmanager:GetSecretValue` on that secret's
+exact ARN. `GEMINI_KEY_SECRET_ARN` is set, `AI_ENABLED=true`, and
+`AI_ADAPTATION_ENABLED=false`. A fourth temporary learner submitted one answer
+and signed out; its response was saved with `explanation_source=fallback` in
+1.11 seconds. CloudWatch logged `provider_http_404`. A direct provider model
+listing with the same key succeeded and included `gemini-2.5-flash`. Diagnosis
+and any further AWS changes are paused because the AWS console browser origin
+is blocked by a saved or managed permission. At that point, the quiz remained
+usable through its deterministic fallback; later screenshots are recorded below.
+Google's [deprecation guidance](https://aistudio.google.com/docs/deprecations#gemini-2.5-flash-models)
+limits Gemini 2.5 access to prior active users and recommends
+`gemini-3.5-flash-lite`. The source default was updated, but the
+deployed ZIP still uses the old default until redeployed; setting the Lambda
+`GEMINI_MODEL` environment variable can select the new model in the meantime.
+
+**Follow-up:** The account owner reports setting `GEMINI_MODEL` to
+`gemini-3.5-flash-lite` and restoring `AI_ENABLED=true`. This has not been read
+back through the AWS console because browser access remains blocked. A fresh
+Linux Lambda ZIP was built locally as
+`Backend/quiz-api/dist/osteon-quiz-account-aware-20261105.zip`
+and passed archive integrity and entry-point checks; SHA-256 is
+`a7d346692f1bef5eef20fed61f1abb2473a9d89d753c193b832bd5e69d20ecf5`.
+The owner reported deploying it on 2026-11-06. Static question-bank review
+found that all 30 pelvis,
+arm, and leg questions placed the correct choice at A. Local CSV choices were
+reordered to balance answer positions (A 12, B 13, C 12, D 13) without changing
+any question's answer text or option set. This changes the content version and
+starts a fresh quiz run when deployed.
+
+The refreshed optimized WebGL player built with zero errors and 386 warnings;
+its artifact contains both public service URLs and no demo-token setting or
+Gemini secret name. The Android development APK also built with zero errors
+and 352 warnings; its package has a valid ZIP directory and Android manifest.
+The user confirmed that the saved learner code signs in on WebGL and that wrong
+quiz answers show explanations. A later screenshot showed both feedback styles;
+no response `explanation_source` or CloudWatch readback was available. Broader
+browser interaction, physical Quest input, cross-device
+resume, and full question-bank explanation quality still require live acceptance.
+The 2026-11-05 scene
+validation stopped on an unrelated C1 anatomy-panel text overflow after 915
+assertions.
+
+**2026-11-06 browser check:** After the owner uploaded the updated Lambda ZIP,
+screenshots showed a fresh quiz run advancing from two to four answered
+questions. One response used the exact deterministic fallback text; two later
+responses showed longer generated feedback. This establishes that both feedback
+paths reach the WebGL panel, although `explanation_source` was not read from the
+network response. The generated feedback described the learner's streak and
+mastery rather than the anatomical reason for the correct answer, so the
+explanation-quality check failed. The source now supplies the correct and
+selected answer text, explicitly separates anatomy explanation from progress
+assessment, and rejects progress-only text for fallback. The owner deployed
+this fix and supplied WebGL screenshots from two wrong answers. The floating-ribs
+response explains their lack of anterior sternal attachment and posterior
+articulation; the skull response names the frontal bone and distinguishes the
+occipital bone. Neither discusses mastery or streaks. This passes the sampled
+explanation-content check, but the screenshots do not prove `explanation_source`
+or all-question quality. Adaptation remains off.
+The owner subsequently reported that the quiz works in both WebGL and VR and
+confirmed same-account progress resumed across those devices. Exact VR
+interactions and the remaining cross-device cases were not recorded.
+The [2026-11-06 content audit](QUIZ_CONTENT_AUDIT_2026-11-06.md) reviewed all
+50 keyed answers, corrected two ambiguous question stems locally, and recorded
+the remaining live recommendation, latency, and platform checks. The revised
+question-bank package is separate and has not been deployed because its content
+version change would restart active quiz sessions.
+The replacement package is
+`Backend/quiz-api/dist/osteon-quiz-feedback-fix-20261106.zip`, SHA-256
+`83d4c1de6d0eddbf0bd014a5c250c337c04529a4217a29d6f2371929d4f2ce07`.
+
+### Historical demo-token notes (superseded)
+
+The following demo-token contract describes the superseded version.
 Each request uses `Authorization: Bearer <temporary-demo-token>`. A valid demo
 token maps every client to the same fixed `osteon-demo-learner` ID. Do **not**
 use this mode for multiple real learners: they would share progress. In a
@@ -197,7 +319,7 @@ from a browser have not been verified. Browser use needs a deliberately allowed
 CORS origin and release-grade authentication; the shared demo token must not be
 published in a WebGL build. A separate browser-native quiz UI is not implemented.
 
-## Verification record and remaining work
+## Historical demo verification (superseded)
 
 | Check | Observed result |
 |---|---|

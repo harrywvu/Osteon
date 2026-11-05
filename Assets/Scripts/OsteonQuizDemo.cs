@@ -9,8 +9,7 @@ using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.UI;
 
 /// <summary>
-/// One-learner practice quiz shown in the current Quest scene. The same HTTP
-/// client code can run in a Unity web build; AWS owns answers and mastery.
+/// Account-aware practice quiz shared by Quest and WebGL.
 /// </summary>
 public sealed class OsteonQuizDemo : MonoBehaviour
 {
@@ -22,7 +21,6 @@ public sealed class OsteonQuizDemo : MonoBehaviour
     [Serializable] private sealed class Config
     {
         public string baseUrl;
-        public string demoToken;
     }
 
     [Serializable] private sealed class Options
@@ -69,6 +67,7 @@ public sealed class OsteonQuizDemo : MonoBehaviour
         public int answered_count;
         public bool completed;
         public Question next_question;
+        public string explanation;
     }
 
     private static readonly string[] Letters = { "A", "B", "C", "D" };
@@ -86,6 +85,10 @@ public sealed class OsteonQuizDemo : MonoBehaviour
     private Question currentQuestion;
     private Question nextQuestion;
     private AnswerRequest pendingAnswer;
+    private string pendingLearnerId;
+    private string pendingSessionId;
+    private string activeLearnerId;
+    private int operationGeneration;
     private bool busy;
     private bool inPractice;
     private PanelNarration narration;
@@ -103,7 +106,7 @@ public sealed class OsteonQuizDemo : MonoBehaviour
 
     private IEnumerator Start()
     {
-        TextAsset settings = Resources.Load<TextAsset>("QuizDemoConfig");
+        TextAsset settings = Resources.Load<TextAsset>("QuizServiceConfig");
         if (settings != null)
         {
             try { config = JsonUtility.FromJson<Config>(settings.text); }
@@ -167,6 +170,7 @@ public sealed class OsteonQuizDemo : MonoBehaviour
         }
         feedbackText = AddText(panelRect, "", new Vector2(0, -332),
             new Vector2(700, 80), 24, TextAlignmentOptions.Center);
+        feedbackText.richText = false;
         actionButton = AddButton(panelRect, "", new Vector2(0, -416), new Vector2(700, 76));
         actionLabel = actionButton.GetComponentInChildren<TextMeshProUGUI>();
         narration = PanelNarration.Attach(panelRect, NarrationContent, TMP_Settings.defaultFontAsset);
@@ -180,6 +184,7 @@ public sealed class OsteonQuizDemo : MonoBehaviour
                 panel.SetActive(true);
                 ShowMenu();
             });
+            accounts.State.Changed += AccountChanged;
             accountButton = AddButton(panelRect, "Accounts", new Vector2(0, -310), new Vector2(700, 60));
             accountButton.onClick.AddListener(() => {
                 narration?.ContentChanged();
@@ -216,31 +221,67 @@ public sealed class OsteonQuizDemo : MonoBehaviour
         currentQuestion = null;
         modeLabel.text = "Hide";
         HideChoices();
+        SetFeedbackArea(false);
         if (!Configured())
         {
             statusText.text = "Quiz service not configured";
-            questionText.text = "Add the private QuizDemoConfig.json before building the Quest app.";
+            questionText.text = "Set the public QuizServiceConfig.json URL before building.";
             feedbackText.text = "";
             actionButton.gameObject.SetActive(false);
             return;
         }
-        statusText.text = busy ? "Finishing the last request..." : "Ready to practice";
-        questionText.text = "Test your anatomy knowledge.\nYour progress is saved when you stop.";
+        AccountLogin menuLogin = accounts.State.Login;
+        statusText.text = menuLogin == null ? "Sign in to practice" : busy ? "Finishing the last request..." :
+            pendingAnswer != null && pendingLearnerId == menuLogin.LearnerId ? "Answer save uncertain. Resume to check." : "Ready to practice";
+        questionText.text = menuLogin == null ? "Open Accounts to sign in." :
+            "Test your anatomy knowledge.\nYour progress is saved when you stop.";
         feedbackText.text = "";
         SetAction(busy ? "Please wait" : "Start / Resume Practice",
             () => StartCoroutine(StartSession()));
-        actionButton.interactable = !busy;
+        actionButton.interactable = !busy && menuLogin != null;
     }
 
     private bool Configured()
     {
-        return config != null && !string.IsNullOrWhiteSpace(config.demoToken) &&
+        return config != null &&
                Uri.TryCreate(config.baseUrl, UriKind.Absolute, out Uri url) && url.Scheme == Uri.UriSchemeHttps;
+    }
+
+    private void AccountChanged()
+    {
+        operationGeneration++;
+        busy = false;
+        inPractice = false;
+        currentQuestion = nextQuestion = null;
+        sessionId = null;
+        activeLearnerId = null;
+        narration?.ContentChanged();
+        AccountLogin login = accounts.State.Login;
+        if (login != null && pendingLearnerId != login.LearnerId)
+        {
+            pendingAnswer = null;
+            pendingLearnerId = null;
+            pendingSessionId = null;
+        }
+        if (panel != null && panel.activeSelf) ShowMenu();
     }
 
     private IEnumerator StartSession()
     {
-        if (busy || !Configured()) yield break;
+        AccountLogin login = accounts.State.Login;
+        if (busy || !Configured() || login == null) yield break;
+        if (pendingAnswer != null && pendingLearnerId == login.LearnerId && pendingSessionId != null)
+        {
+            sessionId = pendingSessionId;
+            inPractice = true;
+            activeLearnerId = login.LearnerId;
+            modeLabel.text = "Stop";
+            if (accountButton != null) accountButton.gameObject.SetActive(false);
+            StartCoroutine(SubmitAnswer());
+            yield break;
+        }
+        int generation = ++operationGeneration;
+        activeLearnerId = login.LearnerId;
         if (accountButton != null) accountButton.gameObject.SetActive(false);
         inPractice = true;
         modeLabel.text = "Stop";
@@ -250,9 +291,10 @@ public sealed class OsteonQuizDemo : MonoBehaviour
         feedbackText.text = "";
         HideChoices();
         actionButton.gameObject.SetActive(false);
-        using (UnityWebRequest request = NewRequest("/v1/sessions", "POST", "{}"))
+        using (UnityWebRequest request = NewRequest("/v1/sessions", "POST", "{}", login.AccessToken))
         {
             yield return request.SendWebRequest();
+            if (generation != operationGeneration) yield break;
             busy = false;
             if (!inPractice)
             {
@@ -261,6 +303,12 @@ public sealed class OsteonQuizDemo : MonoBehaviour
             }
             if (request.result != UnityWebRequest.Result.Success)
             {
+                if (request.responseCode == 401)
+                {
+                    accounts.State.Clear();
+                    ShowMenu();
+                    yield break;
+                }
                 ShowError(request, "Start quiz", () => StartCoroutine(StartSession()));
                 yield break;
             }
@@ -288,19 +336,25 @@ public sealed class OsteonQuizDemo : MonoBehaviour
             choice = letter,
             attempt_id = Guid.NewGuid().ToString()
         };
+        pendingLearnerId = activeLearnerId;
+        pendingSessionId = sessionId;
         StartCoroutine(SubmitAnswer());
     }
 
     private IEnumerator SubmitAnswer()
     {
+        AccountLogin login = accounts.State.Login;
+        if (login == null || pendingAnswer == null || pendingLearnerId != login.LearnerId) yield break;
+        int generation = ++operationGeneration;
         busy = true;
         SetChoicesInteractable(false);
         statusText.text = "Checking answer...";
         actionButton.gameObject.SetActive(false);
         using (UnityWebRequest request = NewRequest("/v1/sessions/" + sessionId + "/answers",
-                   "POST", JsonUtility.ToJson(pendingAnswer)))
+                   "POST", JsonUtility.ToJson(pendingAnswer), login.AccessToken))
         {
             yield return request.SendWebRequest();
+            if (generation != operationGeneration) yield break;
             busy = false;
             if (!inPractice)
             {
@@ -309,6 +363,20 @@ public sealed class OsteonQuizDemo : MonoBehaviour
             }
             if (request.result != UnityWebRequest.Result.Success)
             {
+                if (request.responseCode == 401)
+                {
+                    accounts.State.Clear();
+                    ShowMenu();
+                    yield break;
+                }
+                if (request.responseCode == 409)
+                {
+                    pendingAnswer = null;
+                    pendingLearnerId = null;
+                    pendingSessionId = null;
+                    ShowMessage("Progress changed. Reload your current question.", "Reload quiz", () => StartCoroutine(StartSession()));
+                    yield break;
+                }
                 ShowError(request, "Retry answer", () => StartCoroutine(SubmitAnswer()));
                 yield break;
             }
@@ -319,11 +387,19 @@ public sealed class OsteonQuizDemo : MonoBehaviour
                 ShowMessage("The quiz service returned an invalid answer.", "Retry answer", () => StartCoroutine(SubmitAnswer()));
                 yield break;
             }
-            feedbackText.text = result.correct ? "Correct!" : "Not quite. Correct answer: " + result.correct_option;
+            feedbackText.text = (result.correct ? "Correct!" : "Not quite. Correct answer: " + result.correct_option) +
+                (string.IsNullOrWhiteSpace(result.explanation) ? "" : "\n" + result.explanation);
+            SetFeedbackArea(true);
+            OsteonSettings.ScrollToTop(feedbackText);
+            pendingAnswer = null;
+            pendingLearnerId = null;
+            pendingSessionId = null;
             statusText.text = "Mastery: " + Percent(result.updated_mastery) +
                               "  |  Answered: " + result.answered_count;
             nextQuestion = result.next_question;
             currentQuestion = null;
+            HideChoices();
+            narration?.ContentChanged();
             if (result.completed)
                 SetAction("Practice complete - start again", () => StartCoroutine(StartSession()));
             else
@@ -334,13 +410,13 @@ public sealed class OsteonQuizDemo : MonoBehaviour
         }
     }
 
-    private UnityWebRequest NewRequest(string path, string method, string body)
+    private UnityWebRequest NewRequest(string path, string method, string body, string token)
     {
         var request = new UnityWebRequest(config.baseUrl.TrimEnd('/') + path, method);
         request.downloadHandler = new DownloadHandlerBuffer();
         request.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(body));
         request.SetRequestHeader("Content-Type", "application/json");
-        request.SetRequestHeader("Authorization", "Bearer " + config.demoToken);
+        request.SetRequestHeader("Authorization", "Bearer " + token);
         request.timeout = 20;
         return request;
     }
@@ -356,6 +432,8 @@ public sealed class OsteonQuizDemo : MonoBehaviour
         questionText.text = question.bone_name + " | " + question.difficulty_level + "\n" + question.question_text;
         OsteonSettings.ScrollToTop(questionText);
         feedbackText.text = "Select one answer";
+        narration?.ContentChanged();
+        SetFeedbackArea(false);
         for (int i = 0; i < 4; i++)
         {
             string letter = Letters[i];
@@ -403,6 +481,14 @@ public sealed class OsteonQuizDemo : MonoBehaviour
             if (button != null) button.interactable = value;
     }
 
+    private void SetFeedbackArea(bool expanded)
+    {
+        ScrollRect scroll = feedbackText.GetComponentInParent<ScrollRect>();
+        RectTransform area = scroll != null ? scroll.viewport : feedbackText.rectTransform;
+        area.anchoredPosition = expanded ? new Vector2(0, -200) : new Vector2(0, -332);
+        area.sizeDelta = expanded ? new Vector2(700, 340) : new Vector2(700, 80);
+    }
+
     private System.Collections.Generic.IEnumerable<string> NarrationContent()
     {
         if (currentQuestion != null && !string.IsNullOrWhiteSpace(questionText.text))
@@ -423,6 +509,11 @@ public sealed class OsteonQuizDemo : MonoBehaviour
     }
 
     private static string Percent(float mastery) => Mathf.RoundToInt(mastery * 100f) + "%";
+
+    private void OnDestroy()
+    {
+        if (accounts != null) accounts.State.Changed -= AccountChanged;
+    }
 
     internal static Canvas CreateCanvas(string name, Camera viewer, Transform parent)
     {

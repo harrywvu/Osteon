@@ -1,9 +1,26 @@
 # PLAN-006 — Anonymous user accounts for Quest and WebGL
 
 **Date:** 2026-10-28  
-**Status:** Simulator and account UI implemented; automated service checks and C# compilation passed; Play Mode, Quest, and WebGL interaction pending  
+**Updated:** 2026-11-03
+
+**Status:** Account UI, live HTTP adapter, and persistent backend implemented; live API checks recorded; Play Mode, Quest, and WebGL account interaction acceptance pending
+
 **First delivery:** Account screens, session state, a simulated account service,
 and a backend handoff contract.
+
+## Current checkpoint — 2026-11-03
+
+The live account service and Unity HTTP adapter are now implemented. The
+[account verification record](../Docs/USER_ACCOUNTS.md) records successful live
+creation/replay/login/identity/logout checks, separate device sessions, and local
+browser preflight. Profiles persist in DynamoDB; client tokens stay in memory.
+Quest and browser account UI acceptance remain pending.
+
+The quiz still uses its separate shared-demo credential. Connecting quiz progress
+to the signed-in learner and adding the optimized AI features are now covered by
+[PLAN-007](2026-11-03_PLAN-007_Account-Aware-AI-Quiz.md). The milestone sequence below
+records the original account scope; its simulated first delivery is no longer
+the latest implementation state.
 
 ## 1. Goal and confirmed decisions
 
@@ -121,7 +138,8 @@ retry window. Never log codes, session tokens, or creation request IDs.
 
 ### Proposed public API
 
-These routes are a contract to implement, not existing functionality.
+These routes define the account contract now implemented by the live service.
+See the current checkpoint above for verification limits.
 
 | Route | Request | Successful result |
 |---|---|---|
@@ -233,7 +251,9 @@ The first delivery now has an implementation and backend handoff in
 [User accounts](../Docs/USER_ACCOUNTS.md). On 2026-10-28, 34 service/state assertions
 passed and the runtime C# project compiled with the new sources. Unity batch
 validation failed during licensing startup and crashed before the suite ran.
-Quest and rebuilt WebGL interaction remain unverified; the live backend is pending.
+At that initial checkpoint, Quest/WebGL interaction and the live backend were
+pending. The 2026-11-03 checkpoint above supersedes the backend status; platform
+interaction acceptance remains pending.
 
 Reference context: [desktop WebGL controls](../Docs/WEB_DESKTOP.md),
 [current architecture](../Docs/ARCHITECTURE.md), and

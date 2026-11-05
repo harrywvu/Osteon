@@ -27,6 +27,8 @@ Copy-Item (Join-Path $source "handler.py") $package
 Copy-Item (Join-Path $source "quiz_engine.py") $package
 Copy-Item (Join-Path $source "quiz_service.py") $package
 Copy-Item (Join-Path $source "dynamodb_store.py") $package
+Copy-Item (Join-Path $source "account_verifier.py") $package
+Copy-Item (Join-Path $source "ai_feedback.py") $package
 Copy-Item (Join-Path $source "assets") $package -Recurse
 
 if (Test-Path -LiteralPath $zip) { Remove-Item -LiteralPath $zip }
