@@ -13,6 +13,7 @@ using UnityEngine.XR.Interaction.Toolkit.UI;
 /// </summary>
 public sealed class OsteonQuizDemo : MonoBehaviour
 {
+    private const string CompletionPrefix = "Practice complete. Mastery:";
     // The hospital room's right wall is near X=4.59 at Z=0.9. Leave a small
     // gap so the world-space UI and its grab handle remain ray-selectable.
     private static readonly Vector3 QuizWallPosition = new Vector3(4.54f, 1.4f, 0.9f);
@@ -162,10 +163,12 @@ public sealed class OsteonQuizDemo : MonoBehaviour
             new Vector2(700, 52), 22, TextAlignmentOptions.Center);
         questionText = AddText(panelRect, "", new Vector2(0, 218),
             new Vector2(700, 190), 29, TextAlignmentOptions.Center);
+        questionText.richText = false;
         for (int i = 0; i < 4; i++)
         {
             string letter = Letters[i];
             optionButtons[i] = AddButton(panelRect, "", new Vector2(0, 74 - i * 99), new Vector2(700, 96));
+            optionButtons[i].GetComponentInChildren<TextMeshProUGUI>().richText = false;
             optionButtons[i].onClick.AddListener(() => Choose(letter));
         }
         feedbackText = AddText(panelRect, "", new Vector2(0, -332),
@@ -173,7 +176,8 @@ public sealed class OsteonQuizDemo : MonoBehaviour
         feedbackText.richText = false;
         actionButton = AddButton(panelRect, "", new Vector2(0, -416), new Vector2(700, 76));
         actionLabel = actionButton.GetComponentInChildren<TextMeshProUGUI>();
-        narration = PanelNarration.Attach(panelRect, NarrationContent, TMP_Settings.defaultFontAsset);
+        narration = PanelNarration.Attach(panelRect, NarrationContent, TMP_Settings.defaultFontAsset,
+            () => currentQuestion != null);
         PanelMoveHandle.Configure(station, panelRect, TMP_Settings.defaultFontAsset,
             new Vector2(0, -585), new Vector2(700, 58));
         {
@@ -321,7 +325,7 @@ public sealed class OsteonQuizDemo : MonoBehaviour
             sessionId = result.session_id;
             currentQuestion = result.question;
             if (result.completed)
-                ShowMessage("Practice complete. Mastery: " + Percent(result.mastery), "Start again", () => StartCoroutine(StartSession()));
+                ShowMessage(CompletionPrefix + " " + Percent(result.mastery), "Start again", () => StartCoroutine(StartSession()));
             else
                 ShowQuestion(currentQuestion, "Mastery: " + Percent(result.mastery));
         }
@@ -505,7 +509,14 @@ public sealed class OsteonQuizDemo : MonoBehaviour
         else if (!string.IsNullOrWhiteSpace(questionText.text))
             yield return questionText.text;
         else if (!string.IsNullOrWhiteSpace(statusText.text))
-            yield return statusText.text;
+        {
+            if (statusText.text.StartsWith(CompletionPrefix + " ", StringComparison.Ordinal))
+            {
+                yield return CompletionPrefix;
+                yield return statusText.text.Substring(CompletionPrefix.Length + 1);
+            }
+            else yield return statusText.text;
+        }
     }
 
     private static string Percent(float mastery) => Mathf.RoundToInt(mastery * 100f) + "%";

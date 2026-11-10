@@ -42,20 +42,20 @@ public sealed class OsteonSettings : MonoBehaviour
 
     private static readonly Palette[] Palettes =
     {
-        new Palette { background = new Color(0.035f, 0.055f, 0.075f, 0.98f),
-            inset = new Color(0.055f, 0.11f, 0.15f), button = new Color(0.09f, 0.27f, 0.38f),
-            selected = new Color(0.18f, 0.58f, 0.72f), text = new Color(0.94f, 0.97f, 1f),
+        new Palette { background = new Color(0.035f, 0.075f, 0.12f, 0.98f),
+            inset = new Color(0.075f, 0.15f, 0.21f), button = new Color(0.10f, 0.27f, 0.36f),
+            selected = new Color(0.11f, 0.51f, 0.61f), text = new Color(0.94f, 0.97f, 1f),
             buttonText = Color.white, track = new Color(0.16f, 0.30f, 0.38f),
-            fill = new Color(0.18f, 0.68f, 0.87f), handle = new Color(0.75f, 0.94f, 1f) },
-        new Palette { background = new Color(0.92f, 0.95f, 0.97f),
-            inset = new Color(0.78f, 0.85f, 0.89f), button = new Color(0.12f, 0.31f, 0.45f),
-            selected = new Color(0.12f, 0.49f, 0.39f), text = new Color(0.08f, 0.14f, 0.20f),
+            fill = new Color(0.31f, 0.82f, 0.83f), handle = new Color(0.75f, 0.94f, 1f) },
+        new Palette { background = new Color(0.96f, 0.95f, 0.91f),
+            inset = new Color(0.87f, 0.89f, 0.85f), button = new Color(0.16f, 0.34f, 0.39f),
+            selected = new Color(0.12f, 0.48f, 0.39f), text = new Color(0.11f, 0.18f, 0.20f),
             buttonText = Color.white, track = new Color(0.45f, 0.57f, 0.64f),
-            fill = new Color(0.10f, 0.46f, 0.64f), handle = Color.white },
+            fill = new Color(0.10f, 0.46f, 0.46f), handle = Color.white },
         new Palette { background = Color.black, inset = new Color(0.12f, 0.12f, 0.12f),
-            button = new Color(0.18f, 0.18f, 0.18f), selected = new Color(0.24f, 0.39f, 0.02f),
+            button = new Color(0.18f, 0.18f, 0.18f), selected = new Color(0.32f, 0.30f, 0.05f),
             text = Color.white, buttonText = Color.white, track = new Color(0.48f, 0.48f, 0.48f),
-            fill = new Color(0.95f, 0.85f, 0.12f), handle = Color.white }
+            fill = new Color(1f, 0.85f, 0.12f), handle = Color.white }
     };
 
     private readonly Dictionary<Renderer, Material[]> originalRendererMaterials = new Dictionary<Renderer, Material[]>();
@@ -82,13 +82,14 @@ public sealed class OsteonSettings : MonoBehaviour
     public int ThemeChoice => themeChoice;
     public int TextChoice => textChoice;
     public int HighlightChoice => highlightChoice;
+    public Color AccentColor => Palettes[themeChoice].fill;
     public Material HighlightMaterial => highlightCopy;
     public bool IsOpen => page != null && page.activeSelf;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Bootstrap()
     {
-        if (SceneManager.GetActiveScene().name != "CONTROLLERS MIGRATION" ||
+        if (SceneManager.GetActiveScene().name != "Osteon" ||
             FindFirstObjectByType<OsteonSettings>() != null) return;
         new GameObject("Osteon settings").AddComponent<OsteonSettings>();
     }
@@ -397,7 +398,10 @@ public sealed class OsteonSettings : MonoBehaviour
     {
         Palette palette = Palettes[themeChoice];
         for (int i = 0; i < themeButtons.Count; i++)
-            themeButtons[i].color = i == themeChoice ? palette.selected : palette.button;
+        {
+            themeButtons[i].color = i == themeChoice ? palette.selected : Palettes[i].button;
+            OsteonUiStyle.ThemePreview(themeButtons[i], Palettes[i].fill);
+        }
     }
 
     private void UpdateTextButtons()
@@ -521,8 +525,8 @@ public sealed class OsteonSettings : MonoBehaviour
                 image.color = palette.button;
                 var states = button.colors;
                 states.normalColor = Color.white;
-                states.highlightedColor = new Color(0.8f, 0.95f, 1f);
-                states.pressedColor = new Color(0.62f, 0.75f, 0.8f);
+                states.highlightedColor = new Color(1.15f, 1.15f, 1.15f);
+                states.pressedColor = new Color(0.78f, 0.78f, 0.78f);
                 states.disabledColor = new Color(0.43f, 0.43f, 0.43f);
                 button.colors = states;
             }
@@ -538,10 +542,30 @@ public sealed class OsteonSettings : MonoBehaviour
             else if (image.name == "Handle") image.color = palette.handle;
             else if (image.name == "Spread slider")
                 image.color = new Color(palette.inset.r, palette.inset.g, palette.inset.b, 0.35f);
+            else if (image.name == "UI accent" || image.name == "UI heading icon")
+                image.color = palette.fill;
+            else if (image.name == "UI icon") image.color = palette.buttonText;
+            else if (image.name.StartsWith("Guide "))
+            {
+                Color tint = palette.fill;
+                tint.a = image.color.a;
+                image.color = tint;
+            }
+            OsteonUiStyle.Decorate(image, palette.fill, palette.buttonText);
         }
         foreach (var label in root.GetComponentsInChildren<TextMeshProUGUI>(true))
-            label.color = label.GetComponentInParent<Button>() != null
-                ? palette.buttonText : palette.text;
+            label.color = label.GetComponentInParent<TMP_InputField>() != null
+                ? new Color(0.05f, 0.15f, 0.23f)
+                : label.GetComponentInParent<Button>() != null ? palette.buttonText : palette.text;
+        if (root.name == "Anatomy information panel")
+            OsteonUiStyle.Heading(root, "Anatomy title", "bone", palette.fill);
+        if (root.name == "Settings station")
+        {
+            OsteonUiStyle.Heading(root, "Hospital color", "color", palette.fill);
+            OsteonUiStyle.Heading(root, "Panel theme", "theme", palette.fill);
+            OsteonUiStyle.Heading(root, "Text size", "text", palette.fill);
+            OsteonUiStyle.Heading(root, "Highlight color", "color", palette.fill);
+        }
     }
 
     private static RectTransform MakeRect(Transform parent, string name, Vector2 position, Vector2 size)

@@ -1,0 +1,643 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77a8dcce4b1f4ad1960cde174e7f10af, type: 3}
+  m_Name: NarrationClips
+  m_EditorClassIdentifier: Assembly-CSharp::NarrationClips
+  entries:
+  - text: "Radius. Easy. In the anatomical position, which forearm bone is located laterally on the thumb side?\nA. Ulna\nB. Humerus\nC. Tibia\nD. Radius"
+    clip: {fileID: 8300000, guid: 63ccb13152d958a5a3406e8877830a74, type: 3}
+  - text: "Ulna. Medium. What prominent proximal projection of the ulna forms the elbow point?\nA. Styloid process\nB. Olecranon process\nC. Coracoid process\nD. Acromion process"
+    clip: {fileID: 8300000, guid: 970ceb9bb7d75705a6410fb0f6b10f46, type: 3}
+  - text: "Humerus. Medium. The head of the humerus articulates with which shallow socket of the scapula?\nA. Acetabulum\nB. Trochlear notch\nC. Radial fossa\nD. Glenoid fossa"
+    clip: {fileID: 8300000, guid: 92b051d711b05a96a03a5d28d421db19, type: 3}
+  - text: "Radius. Hard. During forearm pronation and supination, which bone rotates around the stationary ulna?\nA. Scapula\nB. Clavicle\nC. Radius\nD. Humerus"
+    clip: {fileID: 8300000, guid: 262aa3f1e6755e8e89e3124aa5d3b063, type: 3}
+  - text: "Humerus. Hard. In PT rehabilitation, a fracture at the surgical neck of the humerus poses the highest risk to which nerve?\nA. Radial nerve\nB. Ulnar nerve\nC. Median nerve\nD. Axillary nerve"
+    clip: {fileID: 8300000, guid: 353e76897fc453b2b70a80a6cc852be2, type: 3}
+  - text: "Radius. Hard. What type of joint articulation between the radius and ulna allows rotational forearm motion?\nA. Saddle joint\nB. Ball and socket joint\nC. Pivot joint\nD. Hinge joint"
+    clip: {fileID: 8300000, guid: 3ed95d9915335b74a1dd5e074ebd2674, type: 3}
+  - text: "Femur. Easy. Which bone is the longest, heaviest, and strongest long bone in the human body?\nA. Fibula\nB. Humerus\nC. Femur\nD. Tibia"
+    clip: {fileID: 8300000, guid: 168c95105af950d4b1f6d441a6366fa3, type: 3}
+  - text: "Tibia. Easy. In the lower leg, which larger bone serves as the primary weight-bearing shin bone?\nA. Fibula\nB. Femur\nC. Patella\nD. Tibia"
+    clip: {fileID: 8300000, guid: 57e92afa43da5b1d89f1058919e9ba32, type: 3}
+  - text: "Femur. Medium. The large, blunt projection located laterally at the junction of the femoral neck and shaft is the:\nA. Adductor tubercle\nB. Lineal aspera\nC. Greater trochanter\nD. Lesser trochanter"
+    clip: {fileID: 8300000, guid: 231062ba7af55423b4b9b28940150c22, type: 3}
+  - text: "Tarsals. Hard. Which tarsal bone articulates directly superiorly with the tibia and fibula to form the ankle mortise joint?\nA. Medial cuneiform\nB. Talus\nC. Calcaneus\nD. Navicular"
+    clip: {fileID: 8300000, guid: adebe02ee41552628ca7d492ceda7cc0, type: 3}
+  - text: "Fibula. Hard. In PT clinical evaluation, impact trauma to the fibular head poses a high risk of injury to which nerve, leading to 'foot drop'?\nA. Tibial nerve\nB. Femoral nerve\nC. Saphenous nerve\nD. Common peroneal nerve"
+    clip: {fileID: 8300000, guid: 61889a17b5af5f5da135f6d0d8138d84, type: 3}
+  - text: "Femur. Hard. During the terminal 20 degrees of full knee extension, the femur medially rotates on the fixed tibia in a biomechanical event known as the:\nA. Reciprocal translation\nB. Bucket-handle glide\nC. Valgus alignment\nD. Screw-home mechanism"
+    clip: {fileID: 8300000, guid: f09214113f755d17aaba4efdab53ac56, type: 3}
+  - text: "Pelvis. Easy. Which bowl-shaped anatomical structure connects the axial skeleton to the lower limbs?\nA. Pectoral girdle\nB. Thoracic cage\nC. Vertebral column\nD. Pelvic girdle"
+    clip: {fileID: 8300000, guid: 1c96ae0831195a7ba012e118d3ce7559, type: 3}
+  - text: "Pelvis. Easy. Each hip bone (coxal bone) is formed by the fusion of which three bones?\nA. Sacrum Coccyx and Lumbar\nB. Talus Calcaneus and Navicular\nC. Ilium Ischium and Pubis\nD. Femur Tibia and Fibula"
+    clip: {fileID: 8300000, guid: 58a3f88157575a5282f894d8d9d0f77f, type: 3}
+  - text: "Pelvis. Easy. Which joint connects the posterior aspect of the pelvic girdle directly to the spine?\nA. Glenohumeral joint\nB. Pubic symphysis\nC. Tibiofemoral joint\nD. Sacroiliac joint"
+    clip: {fileID: 8300000, guid: a7c1b748c67a521cbcacc58250257011, type: 3}
+  - text: "Pelvis. Medium. The deep cup-like socket on the pelvic bone that articulates with the head of the femur is the:\nA. Obturator foramen\nB. Glenoid fossa\nC. Ischial spine\nD. Acetabulum"
+    clip: {fileID: 8300000, guid: fea80ea3ef72590ca47dfb3efbe55730, type: 3}
+  - text: "Pelvis. Medium. Which prominent pelvic landmark is easily palpated along the upper boundary of the waistline?\nA. Lesser trochanter\nB. Iliac crest\nC. Ischial tuberosity\nD. Pubic tubercle"
+    clip: {fileID: 8300000, guid: f90828043d115bdfb7b6cffed192c9ca, type: 3}
+  - text: "Pelvis. Medium. Which part of the ischium bears the majority of body weight when sitting in an upright position?\nA. Greater sciatic notch\nB. Pectineal line\nC. Ischial tuberosity\nD. Iliac fossa"
+    clip: {fileID: 8300000, guid: eab6d14685bb502aa9d61c2fff6516dd, type: 3}
+  - text: "Pelvis. Hard. In physical therapy gait analysis, weakness in the gluteus medius causes the pelvis to drop on the unweighted side, known as:\nA. Lachman test\nB. Babinski reflex\nC. Trendelenburg sign\nD. Thomas sign"
+    clip: {fileID: 8300000, guid: 5c476921f80456dc88aaa2b6d6d09003, type: 3}
+  - text: "Human Skeleton\nThe skeleton supports the body, protects internal organs, and helps produce movement. Select the axial or appendicular skeleton to explore its bones."
+    clip: {fileID: 8300000, guid: 101721634401557093d8cbb5f3b0e176, type: 3}
+  - text: "Axial Skeleton\nForms the body’s central axis and includes the skull, vertebral column, and thoracic cage. It primarily provides structural support and protects vital organs such as the brain, spinal cord, heart, and lungs."
+    clip: {fileID: 8300000, guid: 789145b8856d598aaca36c813680aec9, type: 3}
+  - text: "Appendicular Division\nIncludes the bones of the upper and lower limbs and the pectoral and pelvic girdles that connect them to the axial skeleton. It is primarily involved in movement, locomotion, and interaction with the environment."
+    clip: {fileID: 8300000, guid: 1fc42dfbf0fe521fa84ecbcde86af07b, type: 3}
+  - text: "Left lower limb\nThe left lower limb includes the thigh, leg, and foot. Its bones support body weight and work together for standing, walking, and balance."
+    clip: {fileID: 8300000, guid: 24b8a8cd1d2155eda272446d248aab50, type: 3}
+  - text: "Right pectoral girdle\nThe right clavicle and scapula connect the upper limb to the trunk. They position the shoulder and provide a base for a wide range of arm movements."
+    clip: {fileID: 8300000, guid: 0f91b4a249755d7ebf43a1772a432cda, type: 3}
+  - text: "Left upper limb\nThe left upper limb includes the arm, forearm, wrist, and hand. Its bones allow reaching, grasping, and precise movement."
+    clip: {fileID: 8300000, guid: 10e5335917e758939985d859bd0adc58, type: 3}
+  - text: "Pelvic girdle\nThe two hip bones form the pelvic girdle. They transfer body weight to the lower limbs, support the trunk, and help protect organs in the pelvis."
+    clip: {fileID: 8300000, guid: 70b74e91de6d5739b597e0956da27fe7, type: 3}
+  - text: "Vertebral column\nExplore the vertebral column. Point at an individual bone and select it for inspection."
+    clip: {fileID: 8300000, guid: 3c94e68b949d5a6cae3fec706fe28c6e, type: 3}
+  - text: "Right upper limb\nThe right upper limb includes the arm, forearm, wrist, and hand. Its bones allow reaching, grasping, and precise movement."
+    clip: {fileID: 8300000, guid: 357cb870fd9e51898f605122d80fdd74, type: 3}
+  - text: "Skull\nThe skull protects the brain and forms the framework of the face. Point at a named bone to inspect it."
+    clip: {fileID: 8300000, guid: 60e8826b1ce35eebb4b0e24757665ada, type: 3}
+  - text: "Right lower limb\nThe right lower limb includes the thigh, leg, and foot. Its bones support body weight and work together for standing, walking, and balance."
+    clip: {fileID: 8300000, guid: d541ac72980b5762a23eee89bb3eb074, type: 3}
+  - text: "Rib cage\nThe ribs curve around the chest and connect to the sternum directly or indirectly. Together with the thoracic vertebrae, they help protect the heart and lungs."
+    clip: {fileID: 8300000, guid: dbe9312805a55bdca27af9b3d35a5e6c, type: 3}
+  - text: "Left pectoral girdle\nThe left clavicle and scapula connect the upper limb to the trunk. They position the shoulder and support arm movement."
+    clip: {fileID: 8300000, guid: a613c8ea6ebb54dc83e11db4aac06ca5, type: 3}
+  - text: "Ethmoid bone\nLocation: between the eyes, behind the nasal cavity.\nRole: forms part of the nasal roof and the eye sockets."
+    clip: {fileID: 8300000, guid: d09570a672bc534e96f9593555ac3a86, type: 3}
+  - text: "Frontal bone\nLocation: the forehead and front of the cranial vault.\nRole: protects the frontal lobes and forms the upper eye sockets."
+    clip: {fileID: 8300000, guid: 20c4761ff515563084de278b1609b712, type: 3}
+  - text: "Hyoid bone\nLocation: the front of the neck below the mandible.\nRole: supports the tongue and larynx without joining another bone directly."
+    clip: {fileID: 8300000, guid: f54ba92f699f5f75a3f1c4516d3dd12d, type: 3}
+  - text: "Left Incus bone\nLocation: the middle ear.\nRole: passes sound vibrations from the malleus to the stapes."
+    clip: {fileID: 8300000, guid: 02e7ec4873a35e22886ad0fa5e30444e, type: 3}
+  - text: "Left Inferior Nasal Concha bone\nLocation: the lower side wall of the nasal cavity.\nRole: helps warm and humidify inhaled air."
+    clip: {fileID: 8300000, guid: fba9bb0630fc5c9f9e1b4505814bda92, type: 3}
+  - text: "Left Lacrimal bone\nLocation: the inner wall of the eye socket.\nRole: provides a channel for tear drainage."
+    clip: {fileID: 8300000, guid: 669ca49d4f525ae29640585e79032335, type: 3}
+  - text: "Left Malleus bone\nLocation: the middle ear.\nRole: passes sound vibrations from the eardrum to the incus."
+    clip: {fileID: 8300000, guid: e3d0750e4639554d8c94bf915877cf12, type: 3}
+  - text: "Left Maxilla bone\nLocation: the upper jaw.\nRole: holds the upper teeth and forms part of the hard palate and eye socket."
+    clip: {fileID: 8300000, guid: c1f3ecdaba285a6e96e855fa0ed5c316, type: 3}
+  - text: "Left Nasal bone\nLocation: the bridge of the nose.\nRole: supports the upper nose."
+    clip: {fileID: 8300000, guid: 6d105b5c77ef5f4f88be4e94e0614ada, type: 3}
+  - text: "Left Palatine bone\nLocation: the back of the hard palate.\nRole: separates the mouth from the nasal cavity."
+    clip: {fileID: 8300000, guid: 0d35c38ba5d9546aa1c82a645314a9ee, type: 3}
+  - text: "Left Parietal bone\nLocation: the upper side of the cranial vault.\nRole: protects the brain."
+    clip: {fileID: 8300000, guid: 3429f7b3e5555cf6bd505f64eaa6dd2f, type: 3}
+  - text: "Left Stapes bone\nLocation: the middle ear.\nRole: transmits vibrations into the inner ear."
+    clip: {fileID: 8300000, guid: 5160f8c54f0251989a3fc21e9faf17fa, type: 3}
+  - text: "Left Temporal bone\nLocation: the side and base of the skull.\nRole: houses the ear structures and forms part of the jaw joint."
+    clip: {fileID: 8300000, guid: db872b4ab8215b6587f87c750f3b084e, type: 3}
+  - text: "Left Zygomatic bone\nLocation: the cheek and outer eye socket.\nRole: forms the cheekbone and supports the eye socket."
+    clip: {fileID: 8300000, guid: b903311138f65ce8b5f4afe0ae99e256, type: 3}
+  - text: "Right Incus bone\nLocation: the middle ear.\nRole: passes sound vibrations from the malleus to the stapes."
+    clip: {fileID: 8300000, guid: ec80c9f66bb253aa906a49ef0d112feb, type: 3}
+  - text: "Right Inferior Nasal Concha bone\nLocation: the lower side wall of the nasal cavity.\nRole: helps warm and humidify inhaled air."
+    clip: {fileID: 8300000, guid: 57a43edc503a5e46962f19faef522907, type: 3}
+  - text: "Right Lacrimal bone\nLocation: the inner wall of the eye socket.\nRole: provides a channel for tear drainage."
+    clip: {fileID: 8300000, guid: 33333f8c67935bc5a2318743ac1cf562, type: 3}
+  - text: "Right Malleus bone\nLocation: the middle ear.\nRole: passes sound vibrations from the eardrum to the incus."
+    clip: {fileID: 8300000, guid: c666a78c4fce5ae28ea18237a25fa56a, type: 3}
+  - text: "Right Maxilla bone\nLocation: the upper jaw.\nRole: holds the upper teeth and forms part of the hard palate and eye socket."
+    clip: {fileID: 8300000, guid: 32ee4c06ca1b5846a922e842704260a6, type: 3}
+  - text: "Right Nasal bone\nLocation: the bridge of the nose.\nRole: supports the upper nose."
+    clip: {fileID: 8300000, guid: 1ad56d2a89bd5181b2312c9714b56b25, type: 3}
+  - text: "Right Palatine bone\nLocation: the back of the hard palate.\nRole: separates the mouth from the nasal cavity."
+    clip: {fileID: 8300000, guid: aebfd9f6e89357b98320e94525ec9069, type: 3}
+  - text: "Right Parietal bone\nLocation: the upper side of the cranial vault.\nRole: protects the brain."
+    clip: {fileID: 8300000, guid: b5b92a392ee95a6482ddee6f6cbd54c5, type: 3}
+  - text: "Right Stapes bone\nLocation: the middle ear.\nRole: transmits vibrations into the inner ear."
+    clip: {fileID: 8300000, guid: 87c2d0eafdad5c8d98c15f80165ff8d9, type: 3}
+  - text: "Right Temporal bone\nLocation: the side and base of the skull.\nRole: houses the ear structures and forms part of the jaw joint."
+    clip: {fileID: 8300000, guid: f6156422675550c28d48425bf0655556, type: 3}
+  - text: "Right Zygomatic bone\nLocation: the cheek and outer eye socket.\nRole: forms the cheekbone and supports the eye socket."
+    clip: {fileID: 8300000, guid: 5d7fc2ba8d8f547baa807231434e73f6, type: 3}
+  - text: "Mandible bone\nLocation: the lower jaw.\nRole: holds the lower teeth and moves during chewing and speech."
+    clip: {fileID: 8300000, guid: 775b46bce2d15da59133dfd5aa363627, type: 3}
+  - text: "Occipital bone\nLocation: the back and base of the skull.\nRole: protects the rear of the brain and surrounds the opening for the spinal cord."
+    clip: {fileID: 8300000, guid: 0f334f87bd60546586ffdafbf9f7f9e0, type: 3}
+  - text: "Sphenoid bone\nLocation: the central skull base behind the eyes.\nRole: links many skull bones and supports the pituitary gland."
+    clip: {fileID: 8300000, guid: 1b4504036b8f5a09b2fa8500f3acf50e, type: 3}
+  - text: "Vomer bone\nLocation: the lower part of the nasal septum.\nRole: divides the left and right nasal cavities."
+    clip: {fileID: 8300000, guid: b6245942f06d59f39dfe4b15bddd6728, type: 3}
+  - text: "C1 — Atlas\nLocation: top of the neck, between the skull and C2.\nRole: supports the head and contributes to nodding.\nLook for: the bony ring and broad lateral masses; there is no vertebral body."
+    clip: {fileID: 8300000, guid: 71a7b6524ab05f0585cd1ea021a48671, type: 3}
+  - text: "C2 — Axis\nLocation: below C1 in the upper neck.\nRole: provides the pivot for turning the atlas and head.\nLook for: the upward projection called the dens."
+    clip: {fileID: 8300000, guid: c863fbfcc7f95397b50729a7b180fc53, type: 3}
+  - text: "C3 — Cervical vertebra\nLocation: neck, between C2 and C4.\nRole: supports the neck and allows movement.\nLook for: a small body and openings in the transverse processes."
+    clip: {fileID: 8300000, guid: 081901f92e4e55878e11e871f2e6933f, type: 3}
+  - text: "C4 — Cervical vertebra\nLocation: neck, between C3 and C5.\nRole: supports the neck and allows movement.\nLook for: a small body and openings in the transverse processes."
+    clip: {fileID: 8300000, guid: e1eba35e76055111b2e1e5baadc3ae16, type: 3}
+  - text: "C5 — Cervical vertebra\nLocation: neck, between C4 and C6.\nRole: supports the neck and allows movement.\nLook for: a small body and openings in the transverse processes."
+    clip: {fileID: 8300000, guid: 83990559fbf25f75aefc7d9677d230f8, type: 3}
+  - text: "C6 — Cervical vertebra\nLocation: neck, between C5 and C7.\nRole: supports the neck and allows movement.\nLook for: a small body and openings in the transverse processes."
+    clip: {fileID: 8300000, guid: 8eaf7c8e122656658f173aa4f6fd6c79, type: 3}
+  - text: "C7 — Cervical vertebra\nLocation: base of the neck, between C6 and T1.\nRole: joins the neck to the thoracic region.\nLook for: its long spinous process."
+    clip: {fileID: 8300000, guid: 17a3d002f4565fb4b7b8d629e3883e31, type: 3}
+  - text: "T2 — Thoracic vertebra\nLocation: thoracic region, between T1 and T3.\nRole: supports the trunk and articulates with ribs.\nLook for: rib articulation surfaces on the body and transverse processes."
+    clip: {fileID: 8300000, guid: bd9a6f650a655fd08f91f11483525d79, type: 3}
+  - text: "T3 — Thoracic vertebra\nLocation: thoracic region, between T2 and T4.\nRole: supports the trunk and articulates with ribs.\nLook for: rib articulation surfaces on the body and transverse processes."
+    clip: {fileID: 8300000, guid: d606fbc754ec5bde8c5460407fc23a4e, type: 3}
+  - text: "T4 — Thoracic vertebra\nLocation: thoracic region, between T3 and T5.\nRole: supports the trunk and articulates with ribs.\nLook for: rib articulation surfaces on the body and transverse processes."
+    clip: {fileID: 8300000, guid: 9a0a85dd402459d38ac8b2e0a9aa07dc, type: 3}
+  - text: "T5 — Thoracic vertebra\nLocation: thoracic region, between T4 and T6.\nRole: supports the trunk and articulates with ribs.\nLook for: rib articulation surfaces on the body and transverse processes."
+    clip: {fileID: 8300000, guid: 393eb53cc0105d4b9de68fbc99b7542a, type: 3}
+  - text: "T6 — Thoracic vertebra\nLocation: thoracic region, between T5 and T7.\nRole: supports the trunk and articulates with ribs.\nLook for: rib articulation surfaces on the body and transverse processes."
+    clip: {fileID: 8300000, guid: 1f76f9cba242537593cb64df563777b0, type: 3}
+  - text: "T7 — Thoracic vertebra\nLocation: thoracic region, between T6 and T8.\nRole: supports the trunk and articulates with ribs.\nLook for: rib articulation surfaces on the body and transverse processes."
+    clip: {fileID: 8300000, guid: 141674182a225a12861b2bf0e40bcee6, type: 3}
+  - text: "T8 — Thoracic vertebra\nLocation: thoracic region, between T7 and T9.\nRole: supports the trunk and articulates with ribs.\nLook for: rib articulation surfaces on the body and transverse processes."
+    clip: {fileID: 8300000, guid: ee8dd3763d325d348b4894b51837b4f4, type: 3}
+  - text: "T9 — Thoracic vertebra\nLocation: thoracic region, between T8 and T10.\nRole: supports the trunk and articulates with ribs.\nLook for: rib articulation surfaces on the body and transverse processes."
+    clip: {fileID: 8300000, guid: 3a50d21e9b1f5236b1c1096b22fb71c1, type: 3}
+  - text: "T10 — Thoracic vertebra\nLocation: thoracic region, between T9 and T11.\nRole: supports the trunk and articulates with ribs.\nLook for: rib articulation surfaces on the body and transverse processes."
+    clip: {fileID: 8300000, guid: 71ab630f31a2528abe638e643dadbbe1, type: 3}
+  - text: "T11 — Thoracic vertebra\nLocation: thoracic region, between T10 and T12.\nRole: supports the trunk and articulates with ribs.\nLook for: rib articulation on the body; no transverse costal facet."
+    clip: {fileID: 8300000, guid: a5dda072aa9658f08e09be10c38954ad, type: 3}
+  - text: "T12 — Thoracic vertebra\nLocation: thoracic region, between T11 and L1.\nRole: supports the trunk and articulates with ribs.\nLook for: rib articulation on the body; no transverse costal facet."
+    clip: {fileID: 8300000, guid: ba4a8df4c40055a2b61cc2e6f4d26645, type: 3}
+  - text: "L1 — Lumbar vertebra\nLocation: lower back, between T12 and L2.\nRole: carries substantial body weight and supports trunk movement.\nLook for: the large vertebral body and broad spinous process."
+    clip: {fileID: 8300000, guid: 7364affc84fb561d96da09939f3bae42, type: 3}
+  - text: "L2 — Lumbar vertebra\nLocation: lower back, between L1 and L3.\nRole: carries substantial body weight and supports trunk movement.\nLook for: the large vertebral body and broad spinous process."
+    clip: {fileID: 8300000, guid: f856012e15c357959832b8f1bcefbebf, type: 3}
+  - text: "L3 — Lumbar vertebra\nLocation: lower back, between L2 and L4.\nRole: carries substantial body weight and supports trunk movement.\nLook for: the large vertebral body and broad spinous process."
+    clip: {fileID: 8300000, guid: 45fb409a3a815f6aad862c4f86d65c38, type: 3}
+  - text: "L4 — Lumbar vertebra\nLocation: lower back, between L3 and L5.\nRole: carries substantial body weight and supports trunk movement.\nLook for: the large vertebral body and broad spinous process."
+    clip: {fileID: 8300000, guid: f2ac4cb85dfc5e5eb6883dcb8bf8c181, type: 3}
+  - text: "L5 — Lumbar vertebra\nLocation: lower back, between L4 and the sacrum.\nRole: carries substantial body weight and supports trunk movement.\nLook for: the large vertebral body and broad spinous process."
+    clip: {fileID: 8300000, guid: 05d713f6fbb05cf0a6b94d131d125324, type: 3}
+  - text: "Sacrum\nLocation: between L5 and the coccyx, at the back of the pelvis.\nRole: transfers weight from the spine to the pelvic girdle.\nLook for: its triangular shape and paired sacral foramina; five vertebrae fuse to form this bone."
+    clip: {fileID: 8300000, guid: 59886076a4a7539eb08d173c19a140c3, type: 3}
+  - text: "Coccyx — Tailbone\nLocation: below the sacrum at the end of the column.\nRole: anchors pelvic-floor muscles and ligaments.\nLook for: the small tapering series of segments. The number and fusion of these segments vary."
+    clip: {fileID: 8300000, guid: 8211206c143f5b94878937da2cff35bd, type: 3}
+  - text: "Left rib 1\nLocation: left side of the chest, rib pair 1 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its costal cartilage connects directly to the sternum."
+    clip: {fileID: 8300000, guid: 27b8f13638055527aa8489e57e35e346, type: 3}
+  - text: "Left rib 2\nLocation: left side of the chest, rib pair 2 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its costal cartilage connects directly to the sternum."
+    clip: {fileID: 8300000, guid: bd24cbaffa6155a0919b2d0b12a246fe, type: 3}
+  - text: "Left rib 3\nLocation: left side of the chest, rib pair 3 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its costal cartilage connects directly to the sternum."
+    clip: {fileID: 8300000, guid: ca49deb56e9059bbb637eeea62965bd4, type: 3}
+  - text: "Left rib 4\nLocation: left side of the chest, rib pair 4 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its costal cartilage connects directly to the sternum."
+    clip: {fileID: 8300000, guid: 87f9d3e6032f57ee8e2aea46e756be53, type: 3}
+  - text: "Left rib 5\nLocation: left side of the chest, rib pair 5 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its costal cartilage connects directly to the sternum."
+    clip: {fileID: 8300000, guid: 2441641fb0745aa3a10f5f385280168a, type: 3}
+  - text: "Left rib 6\nLocation: left side of the chest, rib pair 6 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its costal cartilage connects directly to the sternum."
+    clip: {fileID: 8300000, guid: c7db4ca2ea6d56b08e71dcce7d26b6a1, type: 3}
+  - text: "Left rib 7\nLocation: left side of the chest, rib pair 7 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its costal cartilage connects directly to the sternum."
+    clip: {fileID: 8300000, guid: 5b4240a56d78597493dca73d2bfd9050, type: 3}
+  - text: "Left rib 8\nLocation: left side of the chest, rib pair 8 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its costal cartilage connects indirectly to the sternum through the cartilage above."
+    clip: {fileID: 8300000, guid: d12f3a113ff35542a930584b70f8fbe1, type: 3}
+  - text: "Left rib 9\nLocation: left side of the chest, rib pair 9 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its costal cartilage connects indirectly to the sternum through the cartilage above."
+    clip: {fileID: 8300000, guid: 78eba68bb012575fa6a0adce58955589, type: 3}
+  - text: "Left rib 10\nLocation: left side of the chest, rib pair 10 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its costal cartilage connects indirectly to the sternum through the cartilage above."
+    clip: {fileID: 8300000, guid: f44cb22b64ec59ea8a079c96c9ab60d6, type: 3}
+  - text: "Left rib 11\nLocation: left side of the chest, rib pair 11 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its anterior end does not attach to the sternum."
+    clip: {fileID: 8300000, guid: fb5948cc73ef583f900a00393fc3242d, type: 3}
+  - text: "Left rib 12\nLocation: left side of the chest, rib pair 12 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its anterior end does not attach to the sternum."
+    clip: {fileID: 8300000, guid: 03a106882107514592044e3cf4719e91, type: 3}
+  - text: "Right rib 1\nLocation: right side of the chest, rib pair 1 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its costal cartilage connects directly to the sternum."
+    clip: {fileID: 8300000, guid: 14d1ce04cfa450e1ab6f73e7803a87df, type: 3}
+  - text: "Right rib 2\nLocation: right side of the chest, rib pair 2 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its costal cartilage connects directly to the sternum."
+    clip: {fileID: 8300000, guid: aceb7b125b085165af2721a21a96c261, type: 3}
+  - text: "Right rib 3\nLocation: right side of the chest, rib pair 3 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its costal cartilage connects directly to the sternum."
+    clip: {fileID: 8300000, guid: f2bdcae2639f57c0af03e2256c96cd55, type: 3}
+  - text: "Right rib 4\nLocation: right side of the chest, rib pair 4 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its costal cartilage connects directly to the sternum."
+    clip: {fileID: 8300000, guid: 3ba2b5975d8b5aaebbe907e16bd7adb0, type: 3}
+  - text: "Right rib 5\nLocation: right side of the chest, rib pair 5 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its costal cartilage connects directly to the sternum."
+    clip: {fileID: 8300000, guid: bd17dec9413c5702a0a804d9a227d577, type: 3}
+  - text: "Right rib 6\nLocation: right side of the chest, rib pair 6 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its costal cartilage connects directly to the sternum."
+    clip: {fileID: 8300000, guid: cd370997f0b95944a57498d3e6fdc139, type: 3}
+  - text: "Right rib 7\nLocation: right side of the chest, rib pair 7 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its costal cartilage connects directly to the sternum."
+    clip: {fileID: 8300000, guid: c872c364ef2d57939774937bf9edfee2, type: 3}
+  - text: "Right rib 8\nLocation: right side of the chest, rib pair 8 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its costal cartilage connects indirectly to the sternum through the cartilage above."
+    clip: {fileID: 8300000, guid: 2f9c011d5c1252099ef39d348368f5d3, type: 3}
+  - text: "Right rib 9\nLocation: right side of the chest, rib pair 9 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its costal cartilage connects indirectly to the sternum through the cartilage above."
+    clip: {fileID: 8300000, guid: 1c8388f676ee5a8c9b2df8f65fd3c001, type: 3}
+  - text: "Right rib 10\nLocation: right side of the chest, rib pair 10 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its costal cartilage connects indirectly to the sternum through the cartilage above."
+    clip: {fileID: 8300000, guid: 0c37661179c657eb91e8f4d08bf5ad97, type: 3}
+  - text: "Right rib 11\nLocation: right side of the chest, rib pair 11 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its anterior end does not attach to the sternum."
+    clip: {fileID: 8300000, guid: b942a3259d715bf1b74ba835c5dc12fa, type: 3}
+  - text: "Right rib 12\nLocation: right side of the chest, rib pair 12 of 12.\nRole: part of the thoracic cage that helps protect the heart and lungs.\nConnection: Its anterior end does not attach to the sternum."
+    clip: {fileID: 8300000, guid: 1452c246f4985f2bb87a9bc5b4c79913, type: 3}
+  - text: "Sternum — Breastbone\nLocation: center of the front of the chest.\nRole: anchors the anterior thoracic cage and connects to the costal cartilages of the true ribs.\nLook for: the broad upper manubrium, long body, and lower xiphoid process."
+    clip: {fileID: 8300000, guid: c0f1c900d2435fc6a987559e1683863b, type: 3}
+  - text: "Left femur — Thigh bone\nLocation: thigh, between the hip and knee.\nRole: supports body weight and forms the hip and knee joints.\nLook for: the rounded head and broad lower end."
+    clip: {fileID: 8300000, guid: 42fd30da3c6e5c3ba2799f6ce7693426, type: 3}
+  - text: "Left patella — Kneecap\nLocation: front of the knee.\nRole: protects the tendon at the knee and helps the thigh muscles extend the leg.\nLook for: its small, roughly triangular shape."
+    clip: {fileID: 8300000, guid: 14f3264ed66e5d76a296110f839bcc26, type: 3}
+  - text: "Left tibia — Shinbone\nLocation: medial side of the leg, between knee and ankle.\nRole: bears most of the leg's weight.\nLook for: its broad upper end and inner ankle projection."
+    clip: {fileID: 8300000, guid: 80c99f0ca5f05327a51f00b39fa4fc41, type: 3}
+  - text: "Left fibula\nLocation: lateral side of the leg, beside the tibia.\nRole: helps stabilize the ankle and provides muscle attachments.\nLook for: its slender shaft and outer ankle projection."
+    clip: {fileID: 8300000, guid: 05860a9a8a5e52f589cd4fe95cecf336, type: 3}
+  - text: "Left talus\nLocation: upper rear foot, below the tibia and fibula.\nRole: forms the ankle joint and passes weight toward the heel.\nLook for: its joint surfaces above the calcaneus."
+    clip: {fileID: 8300000, guid: e63f6fce87bd50c89acabc16bbbfd658, type: 3}
+  - text: "Left calcaneus — Heel bone\nLocation: back and underside of the foot.\nRole: forms the heel and supports the talus.\nLook for: the large heel projection."
+    clip: {fileID: 8300000, guid: 2402298324a95d878b2891d6c79fc357, type: 3}
+  - text: "Left navicular\nLocation: medial midfoot, in front of the talus.\nRole: links the talus to the cuneiform bones.\nLook for: its curved, boat-like outline."
+    clip: {fileID: 8300000, guid: c050c21f1b5c5809a7dd256f40601edf, type: 3}
+  - text: "Left cuboid\nLocation: lateral midfoot, in front of the calcaneus.\nRole: links the heel region to the outer metatarsals.\nLook for: its block-like shape."
+    clip: {fileID: 8300000, guid: c458943c3ad956048e7e2dff3aa127d3, type: 3}
+  - text: "Left medial cuneiform\nLocation: medial part of the midfoot, between the navicular and metatarsals.\nRole: helps connect the rear foot to the forefoot and supports the foot's arches."
+    clip: {fileID: 8300000, guid: f00d101700b75490a16c46be1caf6fa0, type: 3}
+  - text: "Left intermediate cuneiform\nLocation: intermediate part of the midfoot, between the navicular and metatarsals.\nRole: helps connect the rear foot to the forefoot and supports the foot's arches."
+    clip: {fileID: 8300000, guid: d64d5aed723855578801393a7446787b, type: 3}
+  - text: "Left lateral cuneiform\nLocation: lateral part of the midfoot, between the navicular and metatarsals.\nRole: helps connect the rear foot to the forefoot and supports the foot's arches."
+    clip: {fileID: 8300000, guid: 94a1c413a8c15ec7903e4fa5bc0e8cb5, type: 3}
+  - text: "Left metatarsal 1\nLocation: forefoot, in line with toe 1; numbering begins at the big toe.\nRole: links the tarsal bones to the toes and helps form the ball of the foot."
+    clip: {fileID: 8300000, guid: 59e5bb6433fb5f50b0844881d6138c89, type: 3}
+  - text: "Left metatarsal 2\nLocation: forefoot, in line with toe 2; numbering begins at the big toe.\nRole: links the tarsal bones to the toes and helps form the ball of the foot."
+    clip: {fileID: 8300000, guid: 017ead5f358a5d139a6b5e72c59220fc, type: 3}
+  - text: "Left metatarsal 3\nLocation: forefoot, in line with toe 3; numbering begins at the big toe.\nRole: links the tarsal bones to the toes and helps form the ball of the foot."
+    clip: {fileID: 8300000, guid: 5a2bc1ae52ed553a8a44e98ec8928a9c, type: 3}
+  - text: "Left metatarsal 4\nLocation: forefoot, in line with toe 4; numbering begins at the big toe.\nRole: links the tarsal bones to the toes and helps form the ball of the foot."
+    clip: {fileID: 8300000, guid: 6ad1ef880f6351cba9db86725bc0398b, type: 3}
+  - text: "Left metatarsal 5\nLocation: forefoot, in line with toe 5; numbering begins at the big toe.\nRole: links the tarsal bones to the toes and helps form the ball of the foot."
+    clip: {fileID: 8300000, guid: 795a86d5b16f5959896fd217e7dfa522, type: 3}
+  - text: "Left toe 1 — proximal phalanx\nLocation: proximal segment of left toe 1.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: 5d7bb8d4c05d596e8f13df933e50b2d9, type: 3}
+  - text: "Left toe 1 — distal phalanx\nLocation: distal segment of left toe 1.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: 1d61b4ed20aa551fb634d6a50c1bacba, type: 3}
+  - text: "Left toe 2 — proximal phalanx\nLocation: proximal segment of left toe 2.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: b0c2ff699cb457149a95e08c1b828e12, type: 3}
+  - text: "Left toe 2 — middle phalanx\nLocation: middle segment of left toe 2.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: f173166fe61c5cf3bad29dffc273274f, type: 3}
+  - text: "Left toe 2 — distal phalanx\nLocation: distal segment of left toe 2.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: c6231fe80b5552fa8c4c9e4586cc22e6, type: 3}
+  - text: "Left toe 3 — proximal phalanx\nLocation: proximal segment of left toe 3.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: 23b61dcc526257fbb7b9ef37270421ea, type: 3}
+  - text: "Left toe 3 — distal phalanx\nLocation: distal segment of left toe 3.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: 9d9a82a7077352d294c261e709839089, type: 3}
+  - text: "Left toe 4 — proximal phalanx\nLocation: proximal segment of left toe 4.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: d5be6f00196c585abae05106a2a34951, type: 3}
+  - text: "Left toe 4 — middle phalanx\nLocation: middle segment of left toe 4.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: 51a65ef53a905954a8e51bc747721f71, type: 3}
+  - text: "Left toe 4 — distal phalanx\nLocation: distal segment of left toe 4.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: 91e572ef0aa25226a4d2d84992a617ef, type: 3}
+  - text: "Left toe 5 — proximal phalanx\nLocation: proximal segment of left toe 5.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: f752758192f45786bc7375c25897dab9, type: 3}
+  - text: "Left toe 5 — middle phalanx\nLocation: middle segment of left toe 5.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: 0d36610ae8a1506e97e287cb85d96ecc, type: 3}
+  - text: "Left toe 5 — distal phalanx\nLocation: distal segment of left toe 5.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: 07a78a942ce15bcd9776610b248e63b9, type: 3}
+  - text: "Right femur — Thigh bone\nLocation: thigh, between the hip and knee.\nRole: supports body weight and forms the hip and knee joints.\nLook for: the rounded head and broad lower end."
+    clip: {fileID: 8300000, guid: b92b3af76a6f53b0995333dd292a95a6, type: 3}
+  - text: "Right patella — Kneecap\nLocation: front of the knee.\nRole: protects the tendon at the knee and helps the thigh muscles extend the leg.\nLook for: its small, roughly triangular shape."
+    clip: {fileID: 8300000, guid: cdc0b6d752e5567fac73089ea5dd3383, type: 3}
+  - text: "Right tibia — Shinbone\nLocation: medial side of the leg, between knee and ankle.\nRole: bears most of the leg's weight.\nLook for: its broad upper end and inner ankle projection."
+    clip: {fileID: 8300000, guid: a0cacb9ee1db5c75b118f826145d9b8f, type: 3}
+  - text: "Right fibula\nLocation: lateral side of the leg, beside the tibia.\nRole: helps stabilize the ankle and provides muscle attachments.\nLook for: its slender shaft and outer ankle projection."
+    clip: {fileID: 8300000, guid: fddac7dafccc519b815ba4e14a5f25e8, type: 3}
+  - text: "Right talus\nLocation: upper rear foot, below the tibia and fibula.\nRole: forms the ankle joint and passes weight toward the heel.\nLook for: its joint surfaces above the calcaneus."
+    clip: {fileID: 8300000, guid: d31e2447f7bf5df9bedf353d9acb58a6, type: 3}
+  - text: "Right calcaneus — Heel bone\nLocation: back and underside of the foot.\nRole: forms the heel and supports the talus.\nLook for: the large heel projection."
+    clip: {fileID: 8300000, guid: 263b4246072b5569a04555b31e32614f, type: 3}
+  - text: "Right navicular\nLocation: medial midfoot, in front of the talus.\nRole: links the talus to the cuneiform bones.\nLook for: its curved, boat-like outline."
+    clip: {fileID: 8300000, guid: 45c9b3d549b45de8866edc179c883feb, type: 3}
+  - text: "Right cuboid\nLocation: lateral midfoot, in front of the calcaneus.\nRole: links the heel region to the outer metatarsals.\nLook for: its block-like shape."
+    clip: {fileID: 8300000, guid: 8364f993d597542b911e70563e53e509, type: 3}
+  - text: "Right medial cuneiform\nLocation: medial part of the midfoot, between the navicular and metatarsals.\nRole: helps connect the rear foot to the forefoot and supports the foot's arches."
+    clip: {fileID: 8300000, guid: 4b7e602e3bb953519bb87a3a3f6ebbac, type: 3}
+  - text: "Right intermediate cuneiform\nLocation: intermediate part of the midfoot, between the navicular and metatarsals.\nRole: helps connect the rear foot to the forefoot and supports the foot's arches."
+    clip: {fileID: 8300000, guid: b7bfd9913c7f5822a2ea0ff9cc8e87d2, type: 3}
+  - text: "Right lateral cuneiform\nLocation: lateral part of the midfoot, between the navicular and metatarsals.\nRole: helps connect the rear foot to the forefoot and supports the foot's arches."
+    clip: {fileID: 8300000, guid: 60a1be4661f05144919dcf7ab0c2ad16, type: 3}
+  - text: "Right metatarsal 1\nLocation: forefoot, in line with toe 1; numbering begins at the big toe.\nRole: links the tarsal bones to the toes and helps form the ball of the foot."
+    clip: {fileID: 8300000, guid: 953f12d96689546aa251f4e355b44ad3, type: 3}
+  - text: "Right metatarsal 2\nLocation: forefoot, in line with toe 2; numbering begins at the big toe.\nRole: links the tarsal bones to the toes and helps form the ball of the foot."
+    clip: {fileID: 8300000, guid: df0a0c516afc569e9540202618dd8652, type: 3}
+  - text: "Right metatarsal 3\nLocation: forefoot, in line with toe 3; numbering begins at the big toe.\nRole: links the tarsal bones to the toes and helps form the ball of the foot."
+    clip: {fileID: 8300000, guid: d83eb88aad4d5266a2889ffba73d8de9, type: 3}
+  - text: "Right metatarsal 4\nLocation: forefoot, in line with toe 4; numbering begins at the big toe.\nRole: links the tarsal bones to the toes and helps form the ball of the foot."
+    clip: {fileID: 8300000, guid: a49e9deca79a5f39a816de67029d6e64, type: 3}
+  - text: "Right metatarsal 5\nLocation: forefoot, in line with toe 5; numbering begins at the big toe.\nRole: links the tarsal bones to the toes and helps form the ball of the foot."
+    clip: {fileID: 8300000, guid: 0a98d834ba725194b7303e020480cf27, type: 3}
+  - text: "Right toe 1 — proximal phalanx\nLocation: proximal segment of right toe 1.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: a8fabd0d96cb5e918c7c039b75bc2378, type: 3}
+  - text: "Right toe 1 — distal phalanx\nLocation: distal segment of right toe 1.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: b21da06ab1495ec8b0e9236437a32dab, type: 3}
+  - text: "Right toe 2 — proximal phalanx\nLocation: proximal segment of right toe 2.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: 8e8618a19c97590bab627a3c68bbc076, type: 3}
+  - text: "Right toe 2 — middle phalanx\nLocation: middle segment of right toe 2.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: 719383e49d4a5ca082bfa304e43b1537, type: 3}
+  - text: "Right toe 2 — distal phalanx\nLocation: distal segment of right toe 2.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: 3a6e5626ac875a14a646aafb70c753ac, type: 3}
+  - text: "Right toe 3 — proximal phalanx\nLocation: proximal segment of right toe 3.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: da7d3cca212a5977a78b3be348a4622a, type: 3}
+  - text: "Right toe 3 — distal phalanx\nLocation: distal segment of right toe 3.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: a92d8d58d744573db0a2a79ee25f8b35, type: 3}
+  - text: "Right toe 4 — proximal phalanx\nLocation: proximal segment of right toe 4.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: 04bdd43d7c1151029e49d5716fcb7ef1, type: 3}
+  - text: "Right toe 4 — middle phalanx\nLocation: middle segment of right toe 4.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: f8e188df445d5f76a8def1ded0517d93, type: 3}
+  - text: "Right toe 4 — distal phalanx\nLocation: distal segment of right toe 4.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: 5e162d7111c45bfd95265b06863da8b8, type: 3}
+  - text: "Right toe 5 — proximal phalanx\nLocation: proximal segment of right toe 5.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: eb2b5fcac4425743a14be35096f8933c, type: 3}
+  - text: "Right toe 5 — middle phalanx\nLocation: middle segment of right toe 5.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: 97af7857cdfc565da6f7839b8677ccf8, type: 3}
+  - text: "Right toe 5 — distal phalanx\nLocation: distal segment of right toe 5.\nRole: forms part of the toe and helps the foot balance and push off during movement."
+    clip: {fileID: 8300000, guid: c0ce2b50d6945cf796e6fd6cc7445493, type: 3}
+  - text: "Right medial sesamoid\nLocation: beneath the big-toe joint, near the first metatarsal.\nRole: a small bone within a tendon that helps protect it and guide movement.\nLook for: the small rounded shape under the forefoot."
+    clip: {fileID: 8300000, guid: f6d9f059a27f57f0b16dbbfadda31b8f, type: 3}
+  - text: "Right lateral sesamoid\nLocation: beneath the big-toe joint, near the first metatarsal.\nRole: a small bone within a tendon that helps protect it and guide movement.\nLook for: the small rounded shape under the forefoot."
+    clip: {fileID: 8300000, guid: 674328c5cfb35eb99f3bc9078a1bfff1, type: 3}
+  - text: "Left humerus — Upper arm\nLocation: upper arm, between shoulder and elbow.\nRole: forms the shoulder and elbow joints.\nLook for: the rounded head and broad lower end."
+    clip: {fileID: 8300000, guid: 3e9290a83851593bb67c2563b5ca1363, type: 3}
+  - text: "Left radius\nLocation: thumb side of the forearm.\nRole: rotates around the ulna and contributes to the wrist joint.\nLook for: its small rounded head near the elbow."
+    clip: {fileID: 8300000, guid: 3d8ae5dd142556c5862b4f65d9407832, type: 3}
+  - text: "Left ulna\nLocation: little-finger side of the forearm.\nRole: forms the main hinge of the elbow.\nLook for: the prominent upper end that forms the elbow point."
+    clip: {fileID: 8300000, guid: c3487c978ed75e9f8b428e39fcdc36df, type: 3}
+  - text: "Left scaphoid\nLocation: wrist, between the forearm and palm.\nRole: one of eight carpal bones that give the wrist its flexibility.\nLook for: its position among the two rows of wrist bones."
+    clip: {fileID: 8300000, guid: b671698691c2587991707235b1d59653, type: 3}
+  - text: "Left lunate\nLocation: wrist, between the forearm and palm.\nRole: one of eight carpal bones that give the wrist its flexibility.\nLook for: its position among the two rows of wrist bones."
+    clip: {fileID: 8300000, guid: 8e6ec22d05e65fa591e35dcece1353b2, type: 3}
+  - text: "Left triquetrum\nLocation: wrist, between the forearm and palm.\nRole: one of eight carpal bones that give the wrist its flexibility.\nLook for: its position among the two rows of wrist bones."
+    clip: {fileID: 8300000, guid: 41fe6f91667b5b589ea5c9a2a2db3854, type: 3}
+  - text: "Left pisiform\nLocation: wrist, between the forearm and palm.\nRole: one of eight carpal bones that give the wrist its flexibility.\nLook for: its position among the two rows of wrist bones."
+    clip: {fileID: 8300000, guid: fac4576076095d86a3a9a4e2b29202fe, type: 3}
+  - text: "Left trapezium\nLocation: wrist, between the forearm and palm.\nRole: one of eight carpal bones that give the wrist its flexibility.\nLook for: its position among the two rows of wrist bones."
+    clip: {fileID: 8300000, guid: 46f79c07489c558b863dbee61df30fdc, type: 3}
+  - text: "Left trapezoid\nLocation: wrist, between the forearm and palm.\nRole: one of eight carpal bones that give the wrist its flexibility.\nLook for: its position among the two rows of wrist bones."
+    clip: {fileID: 8300000, guid: ea4ae4f9c65358fe824de4e4c7d4766b, type: 3}
+  - text: "Left capitate\nLocation: wrist, between the forearm and palm.\nRole: one of eight carpal bones that give the wrist its flexibility.\nLook for: its position among the two rows of wrist bones."
+    clip: {fileID: 8300000, guid: 0a571d3aa4e15d4db6c90825027640e2, type: 3}
+  - text: "Left hamate\nLocation: wrist, between the forearm and palm.\nRole: one of eight carpal bones that give the wrist its flexibility.\nLook for: its position among the two rows of wrist bones."
+    clip: {fileID: 8300000, guid: 68b7b7c35d05533997b41662c0d9810e, type: 3}
+  - text: "Left metacarpal 1\nLocation: palm, aligned with digit 1; numbering begins at the thumb.\nRole: links the wrist bones to the fingers and helps form the knuckles."
+    clip: {fileID: 8300000, guid: 2de5cf9e863e546d83673e72f0161728, type: 3}
+  - text: "Left metacarpal 2\nLocation: palm, aligned with digit 2; numbering begins at the thumb.\nRole: links the wrist bones to the fingers and helps form the knuckles."
+    clip: {fileID: 8300000, guid: 7b9c8987b18e5e4d9ed7fcaa09266f1e, type: 3}
+  - text: "Left metacarpal 3\nLocation: palm, aligned with digit 3; numbering begins at the thumb.\nRole: links the wrist bones to the fingers and helps form the knuckles."
+    clip: {fileID: 8300000, guid: 193590821b095a139eddb1cd7cc83c16, type: 3}
+  - text: "Left metacarpal 4\nLocation: palm, aligned with digit 4; numbering begins at the thumb.\nRole: links the wrist bones to the fingers and helps form the knuckles."
+    clip: {fileID: 8300000, guid: 2ce7343829a5522fac270f3060579484, type: 3}
+  - text: "Left metacarpal 5\nLocation: palm, aligned with digit 5; numbering begins at the thumb.\nRole: links the wrist bones to the fingers and helps form the knuckles."
+    clip: {fileID: 8300000, guid: 5fd6391474e95e7fb5410794c5796d27, type: 3}
+  - text: "Left thumb — proximal phalanx\nLocation: proximal segment of the thumb.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: 71847731c8a45256a8f019b4567fda69, type: 3}
+  - text: "Left thumb — distal phalanx\nLocation: distal segment of the thumb.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: 00a34f38cfb55e75ae32c26b0951d730, type: 3}
+  - text: "Left index — proximal phalanx\nLocation: proximal segment of the index.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: bd8fa0c1dad85ce1953ff38da0b9b044, type: 3}
+  - text: "Left index — middle phalanx\nLocation: middle segment of the index.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: 64a736edb0f255c597471ff20f8c8274, type: 3}
+  - text: "Left middle — middle phalanx\nLocation: middle segment of the middle.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: 0b03d5317a465241a431a6243aa10be6, type: 3}
+  - text: "Left middle — distal phalanx\nLocation: distal segment of the middle.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: d30da6460aa85f00a28364d8d8edd168, type: 3}
+  - text: "Left ring — proximal phalanx\nLocation: proximal segment of the ring.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: 9ba9136b84e75d47a64ff7a187e3e527, type: 3}
+  - text: "Left ring — middle phalanx\nLocation: middle segment of the ring.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: 3bd2bfd844e75e3c966531df5f1352a3, type: 3}
+  - text: "Left ring — distal phalanx\nLocation: distal segment of the ring.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: 08c96f76c44652fbb53374cdfe068075, type: 3}
+  - text: "Left little — proximal phalanx\nLocation: proximal segment of the little.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: 80153f3e840a5453922e282cb21c0156, type: 3}
+  - text: "Left little — middle phalanx\nLocation: middle segment of the little.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: 0d964592f57a5ef1a0f01626df75834b, type: 3}
+  - text: "Left little — distal phalanx\nLocation: distal segment of the little.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: e737ece663f85d1b9d6c132e206a5ce2, type: 3}
+  - text: "Right humerus — Upper arm\nLocation: upper arm, between shoulder and elbow.\nRole: forms the shoulder and elbow joints.\nLook for: the rounded head and broad lower end."
+    clip: {fileID: 8300000, guid: 8b52d284556c52e992d54419134e9b80, type: 3}
+  - text: "Right radius\nLocation: thumb side of the forearm.\nRole: rotates around the ulna and contributes to the wrist joint.\nLook for: its small rounded head near the elbow."
+    clip: {fileID: 8300000, guid: dad17f8ab8cc533894872091f74c5ff5, type: 3}
+  - text: "Right ulna\nLocation: little-finger side of the forearm.\nRole: forms the main hinge of the elbow.\nLook for: the prominent upper end that forms the elbow point."
+    clip: {fileID: 8300000, guid: baa77074919b567daeca17f6184da69b, type: 3}
+  - text: "Right scaphoid\nLocation: wrist, between the forearm and palm.\nRole: one of eight carpal bones that give the wrist its flexibility.\nLook for: its position among the two rows of wrist bones."
+    clip: {fileID: 8300000, guid: 451cf431ef59586b9da9254937b3f100, type: 3}
+  - text: "Right lunate\nLocation: wrist, between the forearm and palm.\nRole: one of eight carpal bones that give the wrist its flexibility.\nLook for: its position among the two rows of wrist bones."
+    clip: {fileID: 8300000, guid: 612beab26c50547a9362128db87c9976, type: 3}
+  - text: "Right triquetrum\nLocation: wrist, between the forearm and palm.\nRole: one of eight carpal bones that give the wrist its flexibility.\nLook for: its position among the two rows of wrist bones."
+    clip: {fileID: 8300000, guid: a2748a12559353e680b934a9b24996e8, type: 3}
+  - text: "Right pisiform\nLocation: wrist, between the forearm and palm.\nRole: one of eight carpal bones that give the wrist its flexibility.\nLook for: its position among the two rows of wrist bones."
+    clip: {fileID: 8300000, guid: 59c521a4f0bf590ab1ef9893a266b894, type: 3}
+  - text: "Right trapezoid\nLocation: wrist, between the forearm and palm.\nRole: one of eight carpal bones that give the wrist its flexibility.\nLook for: its position among the two rows of wrist bones."
+    clip: {fileID: 8300000, guid: e30b516fb305599487d546a10729bd52, type: 3}
+  - text: "Right capitate\nLocation: wrist, between the forearm and palm.\nRole: one of eight carpal bones that give the wrist its flexibility.\nLook for: its position among the two rows of wrist bones."
+    clip: {fileID: 8300000, guid: 1adcf0cfc00a5245a5fece0effa1c08e, type: 3}
+  - text: "Right hamate\nLocation: wrist, between the forearm and palm.\nRole: one of eight carpal bones that give the wrist its flexibility.\nLook for: its position among the two rows of wrist bones."
+    clip: {fileID: 8300000, guid: 0c4445a32cd85b0da599e83aa85a4cb7, type: 3}
+  - text: "Right metacarpal 1\nLocation: palm, aligned with digit 1; numbering begins at the thumb.\nRole: links the wrist bones to the fingers and helps form the knuckles."
+    clip: {fileID: 8300000, guid: f50f965bae745d4fa92323722f2d610b, type: 3}
+  - text: "Right metacarpal 2\nLocation: palm, aligned with digit 2; numbering begins at the thumb.\nRole: links the wrist bones to the fingers and helps form the knuckles."
+    clip: {fileID: 8300000, guid: 0844c597b97c5c93a61afb5f0f90e442, type: 3}
+  - text: "Right metacarpal 3\nLocation: palm, aligned with digit 3; numbering begins at the thumb.\nRole: links the wrist bones to the fingers and helps form the knuckles."
+    clip: {fileID: 8300000, guid: 0cb0cf50df3e5a79a9a82c63c28fe969, type: 3}
+  - text: "Right metacarpal 4\nLocation: palm, aligned with digit 4; numbering begins at the thumb.\nRole: links the wrist bones to the fingers and helps form the knuckles."
+    clip: {fileID: 8300000, guid: 7d083583fd025419a33b61ef31e214a1, type: 3}
+  - text: "Right metacarpal 5\nLocation: palm, aligned with digit 5; numbering begins at the thumb.\nRole: links the wrist bones to the fingers and helps form the knuckles."
+    clip: {fileID: 8300000, guid: 3f86816fea6358d1bc1dd7cc77eead49, type: 3}
+  - text: "Right thumb — proximal phalanx\nLocation: proximal segment of the thumb.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: 62cdeb7a42395a4d9b83087506ffb048, type: 3}
+  - text: "Right thumb — distal phalanx\nLocation: distal segment of the thumb.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: b9002555cdb8549db97524bb04dff009, type: 3}
+  - text: "Right index — middle phalanx\nLocation: middle segment of the index.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: 5ac2379495a452698abce4468207571e, type: 3}
+  - text: "Right index — distal phalanx\nLocation: distal segment of the index.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: cf6219a52cce5a89a24db5147a7381be, type: 3}
+  - text: "Right middle — middle phalanx\nLocation: middle segment of the middle.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: ba8dce7cb3a35f12bb771c56cb497e25, type: 3}
+  - text: "Right middle — distal phalanx\nLocation: distal segment of the middle.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: be6f9eb9846f54f99cb60f13a929fbf5, type: 3}
+  - text: "Right ring — proximal phalanx\nLocation: proximal segment of the ring.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: 50c32bf92dce51c6a6c0af938c65b318, type: 3}
+  - text: "Right ring — middle phalanx\nLocation: middle segment of the ring.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: 3aa3a169e7535ce4a5c280b3e69a5574, type: 3}
+  - text: "Right ring — distal phalanx\nLocation: distal segment of the ring.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: c966359e626f5dbcb1e869c5f4c52711, type: 3}
+  - text: "Right little — proximal phalanx\nLocation: proximal segment of the little.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: f9b5c5f99d28507ebb02a36b31cce40d, type: 3}
+  - text: "Right little — middle phalanx\nLocation: middle segment of the little.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: 70341eb357d35d3aa9299d6504a4a899, type: 3}
+  - text: "Right little — distal phalanx\nLocation: distal segment of the little.\nRole: forms part of the digit for grasping and fine hand movement."
+    clip: {fileID: 8300000, guid: f8e24ff0c03456e29024dd0573a8d283, type: 3}
+  - text: "Right clavicle — Collarbone\nLocation: across the upper chest, between the sternum and shoulder.\nRole: braces the shoulder away from the trunk and transfers forces from the arm.\nLook for: the slender curved shaft."
+    clip: {fileID: 8300000, guid: 68b0d3fde0c85fc496fcfb6ad932e848, type: 3}
+  - text: "Right scapula — Shoulder blade\nLocation: upper back, behind the rib cage.\nRole: anchors shoulder muscles and forms the shoulder socket for the humerus.\nLook for: the broad triangular blade and projecting spine."
+    clip: {fileID: 8300000, guid: cd206b64043457feaa86a3b16bdd1f39, type: 3}
+  - text: "Left clavicle — Collarbone\nLocation: across the upper chest, between the sternum and shoulder.\nRole: braces the shoulder away from the trunk and transfers forces from the arm.\nLook for: the slender curved shaft."
+    clip: {fileID: 8300000, guid: d858fdc667eb53fd88f4f3c0e7eeb4e6, type: 3}
+  - text: "Left scapula — Shoulder blade\nLocation: upper back, behind the rib cage.\nRole: anchors shoulder muscles and forms the shoulder socket for the humerus.\nLook for: the broad triangular blade and projecting spine."
+    clip: {fileID: 8300000, guid: deb30d1c01f555db8834c78b124d255d, type: 3}
+  - text: "Left hip bone — Os coxae\nLocation: left side of the pelvis, between the sacrum and thigh.\nRole: transfers body weight to the lower limb and forms the hip socket.\nLook for: the broad iliac wing and cup-shaped acetabulum."
+    clip: {fileID: 8300000, guid: 4d1b5f18233e583c9155cb39a247b904, type: 3}
+  - text: "Rib. Easy. What major body cavity do the ribs primarily enclose and protect?\nA. Abdominal cavity\nB. Thoracic cavity\nC. Pelvic cavity\nD. Cranial cavity"
+    clip: {fileID: 8300000, guid: af34d0814a4857d4988fa1f566564408, type: 3}
+  - text: "Rib. Easy. Which vital organs are shielded directly by the rib cage?\nA. Brain and spinal cord\nB. Stomach and liver\nC. Heart and lungs\nD. Kidneys and bladder"
+    clip: {fileID: 8300000, guid: c7e09bc50ff75094985ef2077babbf24, type: 3}
+  - text: "Rib. Easy. Anteriorly, most ribs attach directly or indirectly to which central axial bone?\nA. Clavicle\nB. Scapula\nC. Sternum\nD. Vertebrae"
+    clip: {fileID: 8300000, guid: 56c45074850b5069849a8b54481b763e, type: 3}
+  - text: "Rib. Medium. Posteriorly, all 12 pairs of ribs articulate with which specific segment of the vertebral column?\nA. Cervical vertebrae\nB. Thoracic vertebrae\nC. Lumbar vertebrae\nD. Sacral vertebrae"
+    clip: {fileID: 8300000, guid: 69a8ae56b89553b9af2c961f5ec406a6, type: 3}
+  - text: "Rib. Medium. How many total pairs of ribs make up the human rib cage?\nA. 10 pairs\nB. 12 pairs\nC. 14 pairs\nD. 8 pairs"
+    clip: {fileID: 8300000, guid: 1a6c7707deae5a6bb9a6aaebc4ff2fe1, type: 3}
+  - text: "Rib. Medium. Which structure connects the ribs to the sternum, providing flexibility during breathing?\nA. Hyaline costal cartilage\nB. Fibrocartilage disc\nC. Synovial fluid\nD. Interosseous membrane"
+    clip: {fileID: 8300000, guid: ac2ec595aba75c4ab29797b2642e3ca5, type: 3}
+  - text: "Rib. Medium. Ribs 11 and 12 are classified as 'floating ribs' because they:\nA. Do not articulate with the spine\nB. Are not attached anteriorly to the sternum or costal cartilage\nC. Have no muscular attachments\nD. Are made entirely of cartilage"
+    clip: {fileID: 8300000, guid: b1cce8970b5958f99294eb5c92eb50e5, type: 3}
+  - text: "Rib. Hard. During inhalation, the motion of the upper ribs increases the anterior-posterior diameter of the thorax, commonly referred to as what biomechanical movement?\nA. Bucket-handle movement\nB. Pump-handle movement\nC. Caliper movement\nD. Reciprocal glide"
+    clip: {fileID: 8300000, guid: 55a83f6905ff5908adb55b11d4f4db2b, type: 3}
+  - text: "Rib. Hard. Which intercostal muscle layer is primarily active during forced expiration by pulling the ribs downward?\nA. External intercostals\nB. Internal intercostals\nC. Diaphragm\nD. Scalenes"
+    clip: {fileID: 8300000, guid: aa61293aa2dd5b2c84965ce50291c83e, type: 3}
+  - text: "Rib. Hard. In Physical Therapy rib mobility assessments, the lateral expansion of ribs 7 through 10 during deep inspiration is described as:\nA. Pump-handle movement\nB. Bucket-handle movement\nC. Torsion rotation\nD. Anteroposterior translation"
+    clip: {fileID: 8300000, guid: de0e6a0b042e5ae295991260eff6b6ec, type: 3}
+  - text: "Skull. Easy. What is the primary anatomical function of the skull?\nA. Pumping blood\nB. Protecting the brain\nC. Filter oxygen\nD. Supporting lower limbs"
+    clip: {fileID: 8300000, guid: 0e207b031e2552c99fb379e9ec31f8e5, type: 3}
+  - text: "Skull. Easy. Which bone forms the lower jaw and is the only movable bone of the skull?\nA. Mandible\nB. Maxilla\nC. Frontal bone\nD. Vomer"
+    clip: {fileID: 8300000, guid: d8cc1721c4ea5fc5a02ddc239da97379, type: 3}
+  - text: "Skull. Easy. The large opening at the base of the skull through which the spinal cord passes is called the:\nA. Obturator foramen\nB. Foramen ovale\nC. Foramen magnum\nD. Jugular foramen"
+    clip: {fileID: 8300000, guid: b15daeacadfa5a3c90d52cdf09901f05, type: 3}
+  - text: "Skull. Medium. Which skull bone forms the forehead and the upper margins of the eye sockets?\nA. Frontal bone\nB. Parietal bone\nC. Occipital bone\nD. Temporal bone"
+    clip: {fileID: 8300000, guid: df844ff0968f5e7bb5e8571f7da1e61d, type: 3}
+  - text: "Skull. Medium. Immovable fibrous joints that connect the individual bones of the adult skull are known as:\nA. Synovial joints\nB. Sutures\nC. Cartilaginous discs\nD. Gomphoses"
+    clip: {fileID: 8300000, guid: dbc531107b2f598db29723f1b4a22701, type: 3}
+  - text: "Skull. Medium. Which cranial bone houses the middle and inner ear structures?\nA. Sphenoid bone\nB. Ethmoid bone\nC. Occipital bone\nD. Temporal bone"
+    clip: {fileID: 8300000, guid: 26253985e4145b14831e8f5217023cea, type: 3}
+  - text: "Skull. Medium. The facial bone that forms the prominent structure of the cheekbone is the:\nA. Maxilla\nB. Lacrimal bone\nC. Zygomatic bone\nD. Nasal bone"
+    clip: {fileID: 8300000, guid: 95c6976da5de55b1a036d8afb61fb1cf, type: 3}
+  - text: "Skull. Hard. The sphenoid bone is considered the keystone of the cranium because it:\nA. Is the largest bone in the head\nB. Articulates with all other cranial bones\nC. Contains the auditory ossicles\nD. Forms the anterior nasal septum"
+    clip: {fileID: 8300000, guid: d3aa79eb14995bb8898061916b17bff0, type: 3}
+  - text: "Skull. Hard. In clinical PT cranial evaluation, trauma to the pterion region is critical due to the risk of rupturing which underlying vessel?\nA. Middle meningeal artery\nB. Internal carotid artery\nC. Basilar artery\nD. Vertebral artery"
+    clip: {fileID: 8300000, guid: f8646c3e02925033a0ffaee7068c3225, type: 3}
+  - text: "Skull. Hard. Which bone structure contains the sella turcica, the bony depression that cradles the pituitary gland?\nA. Ethmoid bone\nB. Temporal bone\nC. Sphenoid bone\nD. Occipital bone"
+    clip: {fileID: 8300000, guid: b82b2bf498055658831223e82f84a75d, type: 3}
+  - text: "Pelvis. Easy. Which bowl-shaped anatomical structure connects the axial skeleton to the lower limbs?\nA. Pelvic girdle\nB. Pectoral girdle\nC. Thoracic cage\nD. Vertebral column"
+    clip: {fileID: 8300000, guid: 664d4b3aea6b58fdaca18cc16d4a178d, type: 3}
+  - text: "Pelvis. Easy. Each hip bone (coxal bone) is formed by the fusion of which three bones?\nA. Ilium Ischium and Pubis\nB. Femur Tibia and Fibula\nC. Sacrum Coccyx and Lumbar\nD. Talus Calcaneus and Navicular"
+    clip: {fileID: 8300000, guid: 43108a53b4915a948377d5468aa65d1d, type: 3}
+  - text: "Pelvis. Easy. Which joint connects the posterior aspect of the pelvic girdle directly to the spine?\nA. Sacroiliac joint\nB. Glenohumeral joint\nC. Pubic symphysis\nD. Tibiofemoral joint"
+    clip: {fileID: 8300000, guid: 1c30a660b5df50e59b134f8feb0483ba, type: 3}
+  - text: "Pelvis. Medium. The deep cup-like socket on the pelvic bone that articulates with the head of the femur is the:\nA. Acetabulum\nB. Obturator foramen\nC. Glenoid fossa\nD. Ischial spine"
+    clip: {fileID: 8300000, guid: af112012b2425f59b9b5197fe329ea95, type: 3}
+  - text: "Pelvis. Medium. Which prominent pelvic landmark is easily palpated along the upper boundary of the waistline?\nA. Iliac crest\nB. Ischial tuberosity\nC. Pubic tubercle\nD. Lesser trochanter"
+    clip: {fileID: 8300000, guid: 72ebd3ba1dad5364bb7395f67853d77e, type: 3}
+  - text: "Pelvis. Medium. The fibrocartilaginous joint that unites the left and right pubic bones anteriorly is called the:\nA. Pubic symphysis\nB. Sacroiliac joint\nC. Acetabular labrum\nD. Lineal alba"
+    clip: {fileID: 8300000, guid: 488aa6dec45056a3bcf18c82dc1b8ab1, type: 3}
+  - text: "Pelvis. Medium. Which part of the ischium bears the majority of body weight when sitting in an upright position?\nA. Ischial tuberosity\nB. Iliac fossa\nC. Greater sciatic notch\nD. Pectineal line"
+    clip: {fileID: 8300000, guid: 1add882cff8e502aa5bbaa147f28e45e, type: 3}
+  - text: "Pelvis. Hard. In physical therapy gait analysis, weakness in the gluteus medius causes the pelvis to drop on the unweighted side, known as:\nA. Trendelenburg sign\nB. Thomas sign\nC. Lachman test\nD. Babinski reflex"
+    clip: {fileID: 8300000, guid: c384719c03915cfa8476d9d82b35b876, type: 3}
+  - text: "Pelvis. Hard. An anterior pelvic tilt is characteristically accompanied by which spinal postural adjustment?\nA. Increased lumbar lordosis\nB. Decreased lumbar lordosis\nC. Thoracic kyphosis reversal\nD. Cervical protraction"
+    clip: {fileID: 8300000, guid: dd651cbf551157ecaf6e4d8889d0f5a4, type: 3}
+  - text: "Pelvis. Hard. Which anatomical ligament converts the greater sciatic notch of the pelvis into the greater sciatic foramen?\nA. Sacrospinous ligament\nB. Inguinal ligament\nC. Iliofemoral ligament\nD. Pubofemoral ligament"
+    clip: {fileID: 8300000, guid: 39d3d636ddd35289918ab485b96a356d, type: 3}
+  - text: "Humerus. Easy. Which long bone forms the upper arm, extending from the shoulder to the elbow?\nA. Humerus\nB. Radius\nC. Ulna\nD. Femur"
+    clip: {fileID: 8300000, guid: e3de6ba41caa55519b5c93896b1d6d34, type: 3}
+  - text: "Radius. Easy. In the anatomical position, which forearm bone is located laterally on the thumb side?\nA. Radius\nB. Ulna\nC. Humerus\nD. Tibia"
+    clip: {fileID: 8300000, guid: 6e3a716469de517890d22a2191f33f85, type: 3}
+  - text: "Ulna. Easy. Which medial bone of the forearm runs parallel to the radius on the pinky side?\nA. Ulna\nB. Radius\nC. Fibula\nD. Clavicle"
+    clip: {fileID: 8300000, guid: 972d45252e585e67af052ed2af7c2a83, type: 3}
+  - text: "Ulna. Medium. What prominent proximal projection of the ulna forms the elbow point?\nA. Olecranon process\nB. Coracoid process\nC. Acromion process\nD. Styloid process"
+    clip: {fileID: 8300000, guid: 9349e803edf85f7da7effdeeca7afc6c, type: 3}
+  - text: "Humerus. Medium. The head of the humerus articulates with which shallow socket of the scapula?\nA. Glenoid fossa\nB. Acetabulum\nC. Trochlear notch\nD. Radial fossa"
+    clip: {fileID: 8300000, guid: b8807e7238fb557bb548c5bea5d0dbf2, type: 3}
+  - text: "Carpals. Medium. How many individual carpal bones make up the human wrist joint?\nA. 8 bones\nB. 7 bones\nC. 5 bones\nD. 14 bones"
+    clip: {fileID: 8300000, guid: 295940ce17165c8089fae3d27a98ea12, type: 3}
+  - text: "Carpals. Medium. Which carpal bone is most commonly fractured during a fall on an outstretched hand (FOOSH)?\nA. Scaphoid\nB. Lunate\nC. Triquetrum\nD. Pisiform"
+    clip: {fileID: 8300000, guid: 73bd47fada315835ab9ff61477cd5f69, type: 3}
+  - text: "Radius. Hard. During forearm pronation and supination, which bone rotates around the stationary ulna?\nA. Radius\nB. Humerus\nC. Scapula\nD. Clavicle"
+    clip: {fileID: 8300000, guid: 9f5d6706fab759b58755e4b735dcf904, type: 3}
+  - text: "Humerus. Hard. In PT rehabilitation, a fracture at the surgical neck of the humerus poses the highest risk to which nerve?\nA. Axillary nerve\nB. Radial nerve\nC. Ulnar nerve\nD. Median nerve"
+    clip: {fileID: 8300000, guid: 66a37db595e558acadeaa0b5f8db6342, type: 3}
+  - text: "Radius. Hard. What type of joint articulation between the radius and ulna allows rotational forearm motion?\nA. Pivot joint\nB. Hinge joint\nC. Saddle joint\nD. Ball and socket joint"
+    clip: {fileID: 8300000, guid: ed1dc994bf9f54eeaff0cff76c4cad60, type: 3}
+  - text: "Femur. Easy. Which bone is the longest, heaviest, and strongest long bone in the human body?\nA. Femur\nB. Tibia\nC. Fibula\nD. Humerus"
+    clip: {fileID: 8300000, guid: 023509dd8b6a5d22acd23f95b27b6ae4, type: 3}
+  - text: "Tibia. Easy. In the lower leg, which larger bone serves as the primary weight-bearing shin bone?\nA. Tibia\nB. Fibula\nC. Femur\nD. Patella"
+    clip: {fileID: 8300000, guid: 5784a55cea8358e49907a13cbdb0f758, type: 3}
+  - text: "Patella. Easy. The kneecap is a sesamoid bone embedded within the quadriceps tendon known as the:\nA. Patella\nB. Pisiform\nC. Talus\nD. Calcaneus"
+    clip: {fileID: 8300000, guid: 3a1611ba24fe56f696a81d720bf08744, type: 3}
+  - text: "Fibula. Medium. Which slender lateral bone of the lower leg provides muscle attachments rather than direct weight-bearing?\nA. Fibula\nB. Tibia\nC. Femur\nD. Radius"
+    clip: {fileID: 8300000, guid: 4027ba86294c57029a398b54f29f0da4, type: 3}
+  - text: "Tarsals. Medium. Which tarsal bone forms the heel of the foot and serves as the insertion point for the Achilles tendon?\nA. Calcaneus\nB. Talus\nC. Navicular\nD. Cuboid"
+    clip: {fileID: 8300000, guid: 1bf91f62491b5fe3a7c3f29d77cffdd7, type: 3}
+  - text: "Tibia. Medium. The prominent bony bump felt on the anterior surface of the proximal tibia where the patellar ligament attaches is the:\nA. Tibial tuberosity\nB. Medial malleolus\nC. Lateral condyle\nD. Intercondylar eminence"
+    clip: {fileID: 8300000, guid: 450bc2fb23e75e4683ce90842b5561d5, type: 3}
+  - text: "Femur. Medium. The large, blunt projection located laterally at the junction of the femoral neck and shaft is the:\nA. Greater trochanter\nB. Lesser trochanter\nC. Adductor tubercle\nD. Lineal aspera"
+    clip: {fileID: 8300000, guid: 626ed80386895e908764860263ea37dd, type: 3}
+  - text: "Tarsals. Hard. Which tarsal bone articulates directly superiorly with the tibia and fibula to form the ankle mortise joint?\nA. Talus\nB. Calcaneus\nC. Navicular\nD. Medial cuneiform"
+    clip: {fileID: 8300000, guid: 4ca94bf87c8b5470b86244d1d5350abb, type: 3}
+  - text: "Fibula. Hard. In PT clinical evaluation, impact trauma to the fibular head poses a high risk of injury to which nerve, leading to 'foot drop'?\nA. Common peroneal nerve\nB. Tibial nerve\nC. Femoral nerve\nD. Saphenous nerve"
+    clip: {fileID: 8300000, guid: 2479aa37942d5df29c61a1d48ab2d488, type: 3}
+  - text: "Femur. Hard. During the terminal 20 degrees of full knee extension, the femur medially rotates on the fixed tibia in a biomechanical event known as the:\nA. Screw-home mechanism\nB. Reciprocal translation\nC. Bucket-handle glide\nD. Valgus alignment"
+    clip: {fileID: 8300000, guid: c9e86296d7775076a7b17a3b96d322c8, type: 3}
+  - text: "Test your anatomy knowledge.\nYour progress is saved when you stop."
+    clip: {fileID: 8300000, guid: 53d62bf96a0d55c2a8e19041e2bc80bc, type: 3}
+  - text: "Correct!"
+    clip: {fileID: 8300000, guid: 513412414f8b568284c0505c8d7037e0, type: 3}
+  - text: "Not quite. Correct answer: A"
+    clip: {fileID: 8300000, guid: 68f6d490d46f5f1c8ea6c894acf0c93b, type: 3}
+  - text: "Not quite. Correct answer: B"
+    clip: {fileID: 8300000, guid: 6287a7dfd0a45d8f94e2386e04121561, type: 3}
+  - text: "Not quite. Correct answer: C"
+    clip: {fileID: 8300000, guid: 7559e2d49b375d6f9a6e39fdf96e741f, type: 3}
+  - text: "Not quite. Correct answer: D"
+    clip: {fileID: 8300000, guid: fbe24d00f9b85708a87ec28e1940e2b4, type: 3}
+  - text: "Practice complete. Mastery:"
+    clip: {fileID: 8300000, guid: c46f4bcb0839547ca3f9f8d05530b3aa, type: 3}
+  - text: "Appearance settings"
+    clip: {fileID: 8300000, guid: 210b7a472add50b685c22ba57a93d0fd, type: 3}
+  - text: "Hospital color"
+    clip: {fileID: 8300000, guid: 787d2c3629915e9f96d28212fdda416c, type: 3}
+  - text: "Original"
+    clip: {fileID: 8300000, guid: 2733c72ab4005bdc98d0243c19ff6dc5, type: 3}
+  - text: "Cool blue"
+    clip: {fileID: 8300000, guid: 4fe30cf619455f6ab7c29e30b8a5bf20, type: 3}
+  - text: "Sage"
+    clip: {fileID: 8300000, guid: 47a4e51b65345c23a46e4ecea7e3d75e, type: 3}
+  - text: "Warm"
+    clip: {fileID: 8300000, guid: 5c3b283e51385fb4b5d98b467fccb38a, type: 3}
+  - text: "Panel theme"
+    clip: {fileID: 8300000, guid: 99225b408ad95240b1d5542abf2246ee, type: 3}
+  - text: "Default dark"
+    clip: {fileID: 8300000, guid: c3d6ecc698375b8dbaea15e2f62c3853, type: 3}
+  - text: "Light"
+    clip: {fileID: 8300000, guid: 2c955b4243ec53628b2f3223ed13430f, type: 3}
+  - text: "High contrast"
+    clip: {fileID: 8300000, guid: 949129fa849a57e588497ba73bdce024, type: 3}
+  - text: "Text size"
+    clip: {fileID: 8300000, guid: 42ba48b69ba65280948935e119b76736, type: 3}
+  - text: "Small"
+    clip: {fileID: 8300000, guid: d5d4e693d89d510bbf7a1ee296d30f0c, type: 3}
+  - text: "Standard"
+    clip: {fileID: 8300000, guid: 5662c4e7f870561ebecc733981682adf, type: 3}
+  - text: "Large"
+    clip: {fileID: 8300000, guid: 7136ece42ad7577bb4e4aee3e448feb4, type: 3}
+  - text: "Highlight color"
+    clip: {fileID: 8300000, guid: 3aed1b9f4cfe5e01a04a67fdb7ef5808, type: 3}
+  - text: "Original blue"
+    clip: {fileID: 8300000, guid: b48fbf75a9f75d4e88ce9e8355d55c3c, type: 3}
+  - text: "Amber"
+    clip: {fileID: 8300000, guid: d635a5bb62bc5dcfbc7fd06813e6f1c4, type: 3}
+  - text: "Violet"
+    clip: {fileID: 8300000, guid: 6bb27c50b0b15a7d85b084e8263154a5, type: 3}
+  - text: "Lime"
+    clip: {fileID: 8300000, guid: 93d0eb1ae8345a5d952bea374aad227a, type: 3}
+  - text: "Aim your controller ray at the skeleton and press Select. Choose Axial or Appendicular."
+    clip: {fileID: 8300000, guid: 8e17ab04178f523eba44ed91244e25f4, type: 3}
+  - text: "Select a highlighted bone group to look closer."
+    clip: {fileID: 8300000, guid: 742f083d15e75c46aa1af4aa82437ac5, type: 3}
+  - text: "Point at a bone to see its name, then select it."
+    clip: {fileID: 8300000, guid: 2bd085ccb4de5a499868484168b28670, type: 3}
+  - text: "Move the right stick sideways to turn the bone."
+    clip: {fileID: 8300000, guid: 15ac815908b25d14a042c9c525d58723, type: 3}
+  - text: "Move the right stick up or down to tilt it."
+    clip: {fileID: 8300000, guid: 95346bef6a3f5aa097811bedff6eda5e, type: 3}
+  - text: "Press left X or use Back on the panel. Keep going until you reach the whole skeleton."
+    clip: {fileID: 8300000, guid: e0358f4998eb5a1d95398f16a6b3d375, type: 3}
+  - text: "You're ready to explore. A resets turn; B resets tilt. Use Spread in multi-bone groups."
+    clip: {fileID: 8300000, guid: 9dec0cf657085e5ab13087077adbebc9, type: 3}

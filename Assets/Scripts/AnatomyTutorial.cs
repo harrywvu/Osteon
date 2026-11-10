@@ -98,6 +98,7 @@ public sealed class AnatomyTutorial : MonoBehaviour
     private GameObject launcher;
     private TextMeshProUGUI heading;
     private TextMeshProUGUI prompt;
+    private PanelNarration narration;
     private TextMeshProUGUI finishLabel;
     private Image accent;
     private Image[] progressMarkers;
@@ -151,7 +152,9 @@ public sealed class AnatomyTutorial : MonoBehaviour
     private void LateUpdate()
     {
         if (!expanded || guides == null) return;
-        accent.color = new Color(0.14f, 0.87f, 1f, 0.75f + 0.25f * Mathf.Sin(Time.time * 2.7f));
+        Color tint = OsteonSettings.Instance?.AccentColor ?? new Color(0.14f, 0.87f, 1f);
+        tint.a = 0.75f + 0.25f * Mathf.Sin(Time.time * 2.7f);
+        accent.color = tint;
         if (Time.unscaledTime < nextGuideUpdate) return;
         nextGuideUpdate = Time.unscaledTime + 0.05f;
         UpdateGuides();
@@ -196,10 +199,14 @@ public sealed class AnatomyTutorial : MonoBehaviour
             ? "Ready to explore" : $"Tutorial {index + 1}/6";
         prompt.text = Application.platform == RuntimePlatform.WebGLPlayer
             ? DesktopPrompts[index] : Prompts[index];
+        narration?.ContentChanged();
         finishLabel.text = progress.Step == AnatomyTutorialStep.Complete ? "Done" : "Skip";
+        Color marker = OsteonSettings.Instance?.AccentColor ?? new Color(0.13f, 0.85f, 1f);
         for (int i = 0; i < progressMarkers.Length; i++)
-            progressMarkers[i].color = i <= index
-                ? new Color(0.13f, 0.85f, 1f, 1f) : new Color(0.13f, 0.85f, 1f, 0.18f);
+        {
+            marker.a = i <= index ? 1f : 0.18f;
+            progressMarkers[i].color = marker;
+        }
     }
 
     private void Build(RectTransform panel)
@@ -232,6 +239,7 @@ public sealed class AnatomyTutorial : MonoBehaviour
             new Vector2(470, 34), 20, font, TextAlignmentOptions.Center);
         prompt = MakeText(cardRect, "Tutorial prompt", new Vector2(0, -16),
             new Vector2(464, 126), 23, font, TextAlignmentOptions.Center);
+        narration = PanelNarration.Attach(cardRect, () => new[] { prompt.text }, font);
         progressMarkers = new Image[6];
         for (int i = 0; i < progressMarkers.Length; i++)
             progressMarkers[i] = MakeDecor(cardRect, "Guide progress " + (i + 1),
@@ -466,8 +474,10 @@ public sealed class AnatomyTutorial : MonoBehaviour
             SetPoints(trail, from, mid, to);
             SetPoints(headHalo, left, to, right);
             SetPoints(head, left, to, right);
-            Color color = new Color(0.13f, 0.88f, 1f, 0.9f * strength);
-            Color glow = new Color(0.13f, 0.88f, 1f, 0.2f * strength);
+            Color color = OsteonSettings.Instance?.AccentColor ?? new Color(0.13f, 0.88f, 1f);
+            Color glow = color;
+            color.a = 0.9f * strength;
+            glow.a = 0.2f * strength;
             SetColor(trail, color);
             SetColor(head, color);
             SetColor(halo, glow);
