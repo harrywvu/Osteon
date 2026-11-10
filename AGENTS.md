@@ -2,8 +2,10 @@
 
 ## Project Overview
 
-Anatomy exploration app for Meta Quest and desktop WebGL. The current enabled
-experience uses selectable skeleton divisions, an in-world anatomical information panel,
+Anatomy exploration app for Meta Quest and desktop WebGL. The project was
+declared complete by its owner on 2026-11-09; see `Docs/RELEASE_HANDOFF.md`
+for delivered scope and verification boundaries. The enabled experience uses
+selectable skeleton divisions, an in-world anatomical information panel,
 hover-group highlighting, axial drill-down views, controller-based yaw rotation,
 shared G2 Spread for the nine multi-bone views, centered group rotation,
 movable anatomy, quiz, and wall Settings panels, room/panel/text/highlight preferences,
@@ -12,15 +14,13 @@ both lower limbs, both upper limbs, both pectoral sides, and the pelvic model. S
 `Docs/G3_INSPECTION.md` for controls, setup, and the verification record.
 `Plans and Features/README.md` indexes dated future work. Stationary viewing,
 smooth viewpoint turning, controller grabbing, and further group expansion are planned;
-do not describe them as implemented. The latest G3 Android development APK
-built successfully with skull explosion; the newer shared Spread and Settings
-changes compile but have not completed Play Mode or Quest verification. See
-`Docs/KNOWN_ISSUES.md`.
-The tutorial compiles; its Play Mode and Quest interaction are also unverified.
-The same enabled scene now has desktop WebGL mouse and keyboard input and a
-development build profile. Local WebGL output predates the latest desktop input
-and profile commits; browser acceptance has not been recorded. See
-`Docs/WEB_DESKTOP.md`.
+do not describe them as implemented. A 2026-11-05 Android development APK built
+with zero errors. Later Play Mode validation stopped on a C1 text overflow;
+physical Quest interaction for the latest source is not recorded as accepted.
+The same enabled scene has desktop WebGL mouse and keyboard input, an optimized
+build path, account-aware quiz requests, and bundled narration. Some browser
+interactions were observed or owner-reported; the full acceptance checklist is
+still open. See `Docs/KNOWN_ISSUES.md` and `Docs/WEB_DESKTOP.md`.
 
 The conceptual navigation model uses anatomical granularity levels: G0 whole
 skeleton, G1 axial/appendicular division, G2 major bone group, and G3 individual
@@ -38,15 +38,17 @@ verifying it first.
   Toolkit 3.2.1, XR Hands 1.7.1
 - **Targets:** Meta Quest Android (ARM64, IL2CPP, minimum SDK 32) and desktop WebGL
 - **3D source assets:** Blender 4.5.x (`.blend` import requires Blender)
-- **Entry scene:** `Assets/_Recovery/CONTROLLERS MIGRATION.unity`
+- **Entry scene:** `Assets/Scenes/Osteon.unity`
 
 ## Read First
 
-1. `Docs/SETUP.md`
-2. `Docs/ARCHITECTURE.md`
-3. `Docs/KNOWN_ISSUES.md`
-4. `Docs/ACCOUNTS.md` for device or release work
-5. `Docs/WEB_DESKTOP.md` for desktop browser work
+1. `Docs/DEVELOPER_MANUAL.md`
+2. `Docs/RELEASE_HANDOFF.md`
+3. `Docs/SETUP.md`
+4. `Docs/ARCHITECTURE.md`
+5. `Docs/KNOWN_ISSUES.md`
+6. `Docs/ACCOUNTS.md` for device or release work
+7. `Docs/WEB_DESKTOP.md` for desktop browser work
 
 ## Project-Owned Scripts
 
@@ -75,10 +77,9 @@ verifying it first.
 
 1. Open the project in Unity Hub with Unity 6000.3.2f1 and its Android Build
    Support module.
-2. Open `Assets/_Recovery/CONTROLLERS MIGRATION.unity`.
+2. Open `Assets/Scenes/Osteon.unity`.
 3. Use **File -> Build Profiles** and prefer the `Meta Quest` Android profile.
-4. Confirm the global scene list contains only the controller-migration scene
-   as enabled.
+4. Confirm the global scene list contains only `Osteon` as enabled.
 5. Confirm ARM64, IL2CPP, and minimum SDK 32.
 6. Enable Developer Mode on Quest through the Meta Horizon app.
 7. Connect by USB, accept USB debugging, then use Build and Run.
@@ -119,9 +120,8 @@ route, right-stick turn and tilt, and Back to G0. Check Skip and replay from G3.
 - **Deprecated/redundant packages:** `com.unity.ai.generators` is present beside
   `com.unity.ai.assistant`; `com.unity.xr.oculus` remains installed even though
   Android XR Management loads OpenXR.
-- **Scene naming:** The enabled scene has the recovery name
-  `CONTROLLERS MIGRATION`. Rename it only when stable, and update the global
-  scene list, both build profiles, README, and Docs together.
+- **Scene naming:** `Assets/Scenes/Osteon.unity` is the official entry scene.
+  Its Unity GUID is preserved from the former controller-migration scene.
 - **Build identity:** `DefaultCompany` and
   `com.DefaultCompany.VRTemplate` are still committed defaults.
 - **G3 input:** Keep the anatomy Back button independent of coaching-card

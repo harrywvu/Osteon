@@ -59,10 +59,10 @@ If an LFS-managed model is only a small text file beginning with
 2. Confirm Unity Hub uses **6000.3.2f1**.
 3. Let the first import and script compilation finish before entering Play
    Mode. A clean import can take several minutes.
-4. Open `Assets/_Recovery/CONTROLLERS MIGRATION.unity` if Unity does not restore
+4. Open `Assets/Scenes/Osteon.unity` if Unity does not restore
    it automatically.
 
-The global build scene list also identifies `CONTROLLERS MIGRATION.unity` as
+The global build scene list also identifies `Osteon.unity` as
 the only enabled scene. `0 (8).unity` is a historical recovery scene, not the
 current entry scene.
 
@@ -103,15 +103,15 @@ both lower limbs, both upper limbs, both pectoral sides, and the pelvic hip bone
       highlighting.
 - [ ] **G1:** Selecting a division hides the other division and updates the
       title and description on the in-world information panel.
-- [ ] **G2 (partial):** Selecting the axial division opens its detailed view;
+- [ ] **G2 (configured groups):** Selecting the axial division opens its detailed view;
       selecting Skull, vertebral column, or Ribcage opens its G2 view. Back
       returns from either group to axial G1.
-- [ ] **G2 (partial):** Selecting Left lower limb from appendicular G1 opens its
+- [ ] **G2 (configured groups):** Selecting Left lower limb from appendicular G1 opens its
       G2 model. Back returns to appendicular G1.
-- [ ] **G2 (partial):** Selecting Right pectoral girdle opens its G2 model;
+- [ ] **G2 (configured groups):** Selecting Right pectoral girdle opens its G2 model;
       left Y switches to and from the left model. Selecting Pelvic girdle opens
       its G2 model. Back returns to appendicular G1.
-- [ ] **G2 (partial):** Selecting Right lower limb or either upper limb opens
+- [ ] **G2 (configured groups):** Selecting Right lower limb or either upper limb opens
       its G2 model. Back returns to appendicular G1.
 - [ ] Moving the right thumbstick horizontally rotates the full-skeleton
       selection view.
@@ -169,10 +169,10 @@ Add `-Capture` to the complete run when a desktop rendering is also required.
 
 With Web Build Support installed, select `Web - Desktop - Development` in
 **File → Build Profiles**, then choose **Build and Run**. The profile uses the
-same enabled controller-migration scene. Use Unity's served build for browser testing;
-`Builds/` is a local, ignored output directory. The existing WebGL output
-predates the latest desktop input and profile commits. Rebuild it before testing;
-the mouse and keyboard path has no recorded browser acceptance pass.
+same enabled `Osteon` scene. Use Unity's served build for browser testing;
+`Builds/` is a local, ignored output directory. For an optimized build, switch
+to WebGL and use **Tools → Osteon → Build Optimized WebGL**. Rebuild after source
+changes; the full mouse and keyboard browser acceptance pass remains open.
 
 See [Desktop WebGL](WEB_DESKTOP.md) for controls and the browser test checklist.
 `AnatomyDesktopInput` runs in a WebGL player only, so the Windows Editor Play
@@ -184,7 +184,7 @@ Mode smoke test above exercises the XR path, not the desktop browser controls.
 2. Connect the Quest by USB and accept the headset's USB-debugging prompt.
 3. In Unity, open **File -> Build Profiles** and select the `Meta Quest`
    Android profile.
-4. Confirm `Assets/_Recovery/CONTROLLERS MIGRATION.unity` is the only enabled
+4. Confirm `Assets/Scenes/Osteon.unity` is the only enabled
    scene.
 5. Confirm **Prebake Collision Meshes** is enabled. Reopen the scene from disk
    if it was open while scene files were updated externally.

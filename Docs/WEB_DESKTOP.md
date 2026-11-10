@@ -1,21 +1,20 @@
 # Desktop WebGL exploration
 
-The enabled `CONTROLLERS MIGRATION` scene also has mouse and keyboard controls
+The enabled `Osteon` scene also has mouse and keyboard controls
 for a desktop WebGL player. `AnatomyDesktopInput` starts only in that scene when
 `Application.platform` is `WebGLPlayer`; Windows Editor Play Mode and Quest keep
 their existing input paths. The browser build uses the same G0–G3 anatomy,
 information panel, Spread sliders, Settings, quiz station, and Field Guide.
-Browser interaction for those features has not yet received a recorded acceptance
-pass.
+Browser checks cover room loading and selected quiz interactions; the complete
+acceptance pass below remains open.
 
 ## Build and open
 
 1. Install **Unity 6000.3.2f1** with **Web Build Support**. Keep Blender 4.5.x
    and Git LFS available for the source asset import; see [Setup](SETUP.md).
-2. Open `Assets/_Recovery/CONTROLLERS MIGRATION.unity`.
+2. Open `Assets/Scenes/Osteon.unity`.
 3. In **File → Build Profiles**, select `Web - Desktop - Development`. It
-   inherits the global scene list, whose only enabled scene is the controller
-   migration scene.
+   inherits the global scene list, whose only enabled scene is `Osteon`.
 4. Use **Tools → Osteon → Build Optimized WebGL** for account/browser testing.
    This builds `Builds/Web Desktop Optimized/` with size optimization and LTO,
    no development/debug symbols, a 128 MiB initial heap, and uncompressed files
@@ -25,6 +24,67 @@ pass.
 
 The `Meta Quest` profile remains the Android build path. The WebGL profile is
 for desktop browser exploration; headset WebXR behavior is not established.
+
+## Hosted desktop build
+
+On 2026-11-10, learner profile input was reproduced in the live WebGL player:
+typing changed program search to BS Nursing while the entered characters were
+invisible. `OsteonSettings.ApplyThemeTo` was recoloring the input text nearly
+white on a white field. The theme now keeps `TMP_InputField` text dark; an
+unneeded keyboard fallback was removed. Unity rebuilt the optimized player
+with `Succeeded`, zero errors, 419 warnings, and `Options: None`.
+CloudFront invalidation `I3GR2C6RLRRUV0WAH9YOUST3A6` completed after upload.
+In a fresh browser tab, `Mia` was visibly entered in First name and `nursing`
+was visibly entered in program search; the selected program changed to BS
+Nursing. No learner account was submitted, so creation and code issuance remain
+unverified in this browser pass.
+
+On 2026-11-10, a second optimized WebGL build corrected the learner form's
+generated text font, UI layer, and click target. Unity reported `Succeeded`,
+zero errors, 419 warnings, and `Options: None`. It was uploaded to the existing
+site; CloudFront invalidation `I70YFOJAAC20AC7TSP1WD4B40W` completed. The
+public entry page and rebuilt WASM returned HTTP 200. The prior hosted files
+are in `_rollback/2026-11-10-pre-input-focus-fix/`. Learner field typing still
+requires a manual browser check.
+
+On 2026-11-10, the optimized WebGL player was rebuilt after adding a
+keyboard-text fallback for focused learner profile fields. Unity reported
+`Succeeded`, zero errors, 419 warnings, and `Options: None` in
+`Logs/WebDesktop-build.txt`. The rebuilt player was uploaded to the same S3
+origin; CloudFront invalidation `ICP6MTVV9G1M8E1L8YV1N3NX5V` completed.
+The public entry page, `.wasm`, and `.data` returned HTTP 200, with the WASM
+served as `application/wasm`. The previous hosted objects are preserved under
+`_rollback/2026-11-10-pre-input-fix/`. Browser typing in the learner form still
+needs a manual acceptance check; these deployment checks do not prove it.
+
+On 2026-11-10, `Builds/Osteon-Web-1/` was uploaded to the existing private S3
+origin and CloudFront distribution. Invalidation `IXSH9GWR0EI9WEHSNCLHYDH06`
+completed. The public entry page returned HTTP 200 and referenced
+`Osteon-Web-1.loader.js`; the new `.wasm` and `.data` URLs returned HTTP 200,
+with `application/wasm` for the WebAssembly file. The prior hosted objects were
+copied to S3 prefix `_rollback/2026-11-10-pre-osteon-web-1/` before upload.
+These HTTP checks do not establish browser gameplay or account acceptance for
+the new build.
+
+The earlier 2026-11-09 deployment record follows.
+
+The optimized WebGL build is hosted at
+<https://d1fz5khe940op0.cloudfront.net/> through CloudFront and a private S3
+origin. The 2026-11-09 build succeeded with zero errors, 394 warnings, and
+`Options: None`. CloudFront serves the entry page and WebAssembly with HTTP 200;
+the WASM response has `Content-Type: application/wasm`. Direct public S3 access
+returns 403. Both the accounts and quiz APIs returned HTTP 204 preflight responses
+allowing this exact HTTPS origin, GET/POST, and the required request headers.
+The room rendered in the Codex in-app browser. On 2026-11-09, the owner
+confirmed in Firefox that the room loaded, one G0 → G3 → Back route worked,
+and sign-in followed by one quiz answer worked. The remaining browser controls,
+panel interactions, narration, and performance checks are still pending.
+
+To update the hosted build, run **Tools → Osteon → Build Optimized WebGL**, verify
+the fresh `Logs/WebDesktop-build.txt` result, and upload the contents of
+`Builds/Web Desktop Optimized/` to the site bucket. The current objects carry a
+five-minute cache lifetime; invalidate CloudFront if a replacement must be
+visible immediately.
 
 ## Fixed local address for account testing
 
@@ -137,8 +197,9 @@ desktop prompts when running in WebGL.
 - [ ] Sign in through Accounts, then check quiz start, answer feedback, Next,
       resume, switch, expiry, and the quiz API's CORS success/error responses;
       see [Quiz integration](QUIZ_INTEGRATION.md).
-- [ ] Confirm **Read / Stop** reports **Audio unavailable** on WebGL; browser
-      narration is not implemented. See [Panel narration](TTS.md).
+- [ ] Confirm **Read / Stop** plays bundled anatomy, quiz, and Settings
+      recordings, and stops when panel content changes. Text without a
+      recording has no browser speech fallback. See [Panel narration](TTS.md).
 
 This checklist is an acceptance target, not a completed test record. The optimized
 build and room-loading checks above do not establish that all browser controls,

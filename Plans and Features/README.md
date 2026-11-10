@@ -1,6 +1,6 @@
 # Plans and Features
 
-**Updated:** 2026-11-03
+**Updated:** 2026-11-09
 
 This directory tracks dated feature decisions and their status. See
 [G3 inspection](../Docs/G3_INSPECTION.md) for current controls and verification.
@@ -13,7 +13,8 @@ This directory tracks dated feature decisions and their status. See
 | PLAN-004 | 2026-10-07 | Implemented in code; Play Mode and Quest verification pending | [Appearance and text settings](2026-10-07_PLAN-004_Appearance-and-Text-Settings.md) |
 | PLAN-005 | 2026-10-07 | Implemented in code; Play Mode and Quest verification pending | [Panel spacing, shared G2 spread, and wall settings](2026-10-07_PLAN-005_Panel-Spacing-Shared-Spread-and-Wall-Settings.md) |
 | PLAN-006 | 2026-10-28 | Live account service and HTTP client implemented; live API checks recorded; Quest/WebGL account UI acceptance pending | [Anonymous user accounts for Quest and WebGL](2026-10-28_PLAN-006_Anonymous-User-Accounts.md) |
-| PLAN-007 | 2026-11-03 | Account-aware quiz and AI explanations deployed; owner verified WebGL, VR, and cross-device resume; Gemini-driven adaptation still off | [Account-aware AI quiz for Quest and WebGL](2026-11-03_PLAN-007_Account-Aware-AI-Quiz.md) |
+| PLAN-007 | 2026-11-03 | Account-aware quiz and AI explanations deployed; owner verified WebGL, VR, and cross-device resume; owner reports enabling Gemini-driven adaptation, acceptance pending | [Account-aware AI quiz for Quest and WebGL](2026-11-03_PLAN-007_Account-Aware-AI-Quiz.md) |
+| PLAN-008 | 2026-11-09 | Local implementation in progress; AWS rollout and client acceptance pending | [Educator portal and named learner profiles](2026-11-09_PLAN-008_Educator-Portal.md) |
 | FEATURE-STATUS | 2026-09-09 | Historical snapshot | [Implementation and verification status](2026-09-09_FEATURE-STATUS.md) |
 
 Confirmed user choices for PLAN-001: smooth viewpoint turning, controller-based

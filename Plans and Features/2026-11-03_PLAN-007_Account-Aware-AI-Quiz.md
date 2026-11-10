@@ -9,10 +9,22 @@ generated text discussed mastery instead of anatomy; the owner deployed a
 feedback fix, and two later WebGL screenshots showed anatomy-focused answers.
 Updated WebGL and Android builds succeeded. The owner reports the quiz works
 in WebGL and VR and confirmed same-account progress resumed across devices.
-Full question-bank explanation review, Gemini-driven
-adaptation, and detailed platform acceptance remain open. See
+Full question-bank explanation review, Gemini-driven adaptation acceptance,
+and detailed platform acceptance remain open. See
 `Docs/QUIZ_INTEGRATION.md`, `Docs/QUIZ_AI_PIPELINE.md`, and
 `Docs/QUIZ_CONTENT_AUDIT_2026-11-06.md`.
+The local backend suite now passes 32 tests. The first direct-provider audit
+obtained 17 explanations from 112 attempts; a first resume added two more
+before three HTTP 503 failures stopped it. Rate limits and provider failures
+prevented the remaining 93 cases, including all recommendation fixtures. The
+audit runner now saves and resumes partial results. See the content audit for
+the observed anatomy issues; the plan remains open.
+An advice-focused resume then returned ten of twelve recommendations. Weak
+learner advice stayed at Medium despite mastery near 0.33, and mixed-learner
+advice varied across identical runs. The owner reports setting
+`AI_ADAPTATION_ENABLED=true` in the quiz Lambda on 2026-11-06 despite these
+findings. This is an enabled experiment, not a verified feature; the environment
+change has not been read back and live behavior after the change is untested.
 
 **Targets:** Meta Quest Android and desktop Unity WebGL, using Unity 6000.3.2f1 and the enabled controller-migration scene
 

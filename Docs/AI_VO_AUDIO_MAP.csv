@@ -1,0 +1,344 @@
+﻿id,title,file,use
+quiz-arm_02,arm_02,Quiz Current Order/quiz-arm_02-current.mp3,Bundled; edited from the supplied recording to match the current choice order
+quiz-arm_04,arm_04,Quiz Current Order/quiz-arm_04-current.mp3,Bundled; edited from the supplied recording to match the current choice order
+quiz-arm_05,arm_05,Quiz Current Order/quiz-arm_05-current.mp3,Bundled; edited from the supplied recording to match the current choice order
+quiz-arm_08,arm_08,Quiz Current Order/quiz-arm_08-current.mp3,Bundled; edited from the supplied recording to match the current choice order
+quiz-arm_09,arm_09,Quiz Current Order/quiz-arm_09-current.mp3,Bundled; edited from the supplied recording to match the current choice order
+quiz-arm_10,arm_10,Quiz Current Order/quiz-arm_10-current.mp3,Bundled; edited from the supplied recording to match the current choice order
+quiz-leg_01,leg_01,Quiz Current Order/quiz-leg_01-current.mp3,Bundled; edited from the supplied recording to match the current choice order
+quiz-leg_02,leg_02,Quiz Current Order/quiz-leg_02-current.mp3,Bundled; edited from the supplied recording to match the current choice order
+quiz-leg_07,leg_07,Quiz Current Order/quiz-leg_07-current.mp3,Bundled; edited from the supplied recording to match the current choice order
+quiz-leg_08,leg_08,Quiz Current Order/quiz-leg_08-current.mp3,Bundled; edited from the supplied recording to match the current choice order
+quiz-leg_09,leg_09,Quiz Current Order/quiz-leg_09-current.mp3,Bundled; edited from the supplied recording to match the current choice order
+quiz-leg_10,leg_10,Quiz Current Order/quiz-leg_10-current.mp3,Bundled; edited from the supplied recording to match the current choice order
+quiz-pelvis_01,pelvis_01,Quiz Current Order/quiz-pelvis_01-current.mp3,Bundled; edited from the supplied recording to match the current choice order
+quiz-pelvis_02,pelvis_02,Quiz Current Order/quiz-pelvis_02-current.mp3,Bundled; edited from the supplied recording to match the current choice order
+quiz-pelvis_03,pelvis_03,Quiz Current Order/quiz-pelvis_03-current.mp3,Bundled; edited from the supplied recording to match the current choice order
+quiz-pelvis_04,pelvis_04,Quiz Current Order/quiz-pelvis_04-current.mp3,Bundled; edited from the supplied recording to match the current choice order
+quiz-pelvis_05,pelvis_05,Quiz Current Order/quiz-pelvis_05-current.mp3,Bundled; edited from the supplied recording to match the current choice order
+quiz-pelvis_07,pelvis_07,Quiz Current Order/quiz-pelvis_07-current.mp3,Bundled; edited from the supplied recording to match the current choice order
+quiz-pelvis_08,pelvis_08,Quiz Current Order/quiz-pelvis_08-current.mp3,Bundled; edited from the supplied recording to match the current choice order
+anatomy-overview,Human Skeleton,Human skeleton.mp3,Bundled
+anatomy-division-01,Axial Skeleton,Axial skeleton.mp3,Bundled
+anatomy-division-02,Appendicular Division,appendicular division.mp3,Bundled
+anatomy-group-01,Left lower limb,Left Lower limb.mp3,Bundled
+anatomy-group-02,Right pectoral girdle,Right pectoral girdle.mp3,Bundled
+anatomy-group-03,Left upper limb,Left upper limb.mp3,Bundled
+anatomy-group-06,Pelvic girdle,pelvic girdle.mp3,Bundled
+anatomy-group-07,Vertebral column,Vertebal Column.mp3,Bundled
+anatomy-group-08,Right upper limb,Right Upper Limb.mp3,Bundled
+anatomy-group-09,Skull,Skull.mp3,Bundled
+anatomy-group-10,Right lower limb,Right Lower Limb.mp3,Bundled
+anatomy-group-11,Rib cage,Rib Cage.mp3,Bundled
+anatomy-pectoral-switch-1,Left pectoral girdle,Left Pectoral Girdle.mp3,Bundled
+anatomy-pectoral-switch-2,Right pectoral girdle,,Device speech (no matching recording)
+bone-skullBones-01,Ethmoid bone,Ethmoid Bone.mp3,Bundled
+bone-skullBones-02,Frontal bone,Frontal Bone.mp3,Bundled
+bone-skullBones-03,Hyoid bone,Hyoid Bone.mp3,Bundled
+bone-skullBones-04,Left Incus bone,Left Incus Bone.mp3,Bundled
+bone-skullBones-05,Left Inferior Nasal Concha bone,Left Inferior Nasal Concha bone.mp3,Bundled
+bone-skullBones-06,Left Lacrimal bone,Left Lacrimal Bone.mp3,Bundled
+bone-skullBones-07,Left Malleus bone,Left Malleus bone.mp3,Bundled
+bone-skullBones-08,Left Maxilla bone,Left Maxilla bone.mp3,Bundled
+bone-skullBones-09,Left Nasal bone,Left Nasal Bone.mp3,Bundled
+bone-skullBones-10,Left Palatine bone,Left Palatine bone.mp3,Bundled
+bone-skullBones-11,Left Parietal bone,Left Parietal bone.mp3,Bundled
+bone-skullBones-12,Left Stapes bone,Left Stapes Bone.mp3,Bundled
+bone-skullBones-13,Left Temporal bone,Left Temporal Bone.mp3,Bundled
+bone-skullBones-14,Left Zygomatic bone,Left zycomatic bone.mp3,Bundled
+bone-skullBones-15,Right Incus bone,Right incus Bone.mp3,Bundled
+bone-skullBones-16,Right Inferior Nasal Concha bone,Right Inferior Nasal Concha bone.mp3,Bundled
+bone-skullBones-17,Right Lacrimal bone,Right Lacrimal Bone.mp3,Bundled
+bone-skullBones-18,Right Malleus bone,Right Malleus Bone.mp3,Bundled
+bone-skullBones-19,Right Maxilla bone,Right Maxilla Bone.mp3,Bundled
+bone-skullBones-20,Right Nasal bone,Right Nasal Bone.mp3,Bundled
+bone-skullBones-21,Right Palatine bone,Right Palatine Bone.mp3,Bundled
+bone-skullBones-22,Right Parietal bone,Right Parietal Bone.mp3,Bundled
+bone-skullBones-23,Right Stapes bone,Right Stapes Bone.mp3,Bundled
+bone-skullBones-24,Right Temporal bone,Right Temporal Bone.mp3,Bundled
+bone-skullBones-25,Right Zygomatic bone,Right Zygomatic Bone.mp3,Bundled
+bone-skullBones-26,Mandible bone,Mandible Bone.mp3,Bundled
+bone-skullBones-27,Occipital bone,Occipital Bone.mp3,Bundled
+bone-skullBones-28,Sphenoid bone,Sphenoid Bone.mp3,Bundled
+bone-skullBones-29,Vomer bone,Vomer Bone.mp3,Bundled
+bone-bones-01,C1 — Atlas,C1 - Atlas.mp3,Bundled
+bone-bones-02,C2 — Axis,C2 - Axis.mp3,Bundled
+bone-bones-03,C3 — Cervical vertebra,C3 - Cervical Vertebra.mp3,Bundled
+bone-bones-04,C4 — Cervical vertebra,C4 - Cervical Vertebra.mp3,Bundled
+bone-bones-05,C5 — Cervical vertebra,C5 - Cervical Vertebra.mp3,Bundled
+bone-bones-06,C6 — Cervical vertebra,C6 - Cervical Vertebra.mp3,Bundled
+bone-bones-07,C7 — Cervical vertebra,C7 - Cervical Vetebra.mp3,Bundled
+bone-bones-08,T1 — Thoracic vertebra,,Device speech (no matching recording)
+bone-bones-09,T2 — Thoracic vertebra,T2 - Thoracic Vertebra.mp3,Bundled
+bone-bones-10,T3 — Thoracic vertebra,T3 - Thoracic Vertebra.mp3,Bundled
+bone-bones-11,T4 — Thoracic vertebra,T4 - Thoracic Vertebra.mp3,Bundled
+bone-bones-12,T5 — Thoracic vertebra,T5 - Thoracic Vertebra.mp3,Bundled
+bone-bones-13,T6 — Thoracic vertebra,T6 - Thoracic Vertebra.mp3,Bundled
+bone-bones-14,T7 — Thoracic vertebra,T7 - Thoracic Vertebra.mp3,Bundled
+bone-bones-15,T8 — Thoracic vertebra,T8 - Thoracic Vertebra.mp3,Bundled
+bone-bones-16,T9 — Thoracic vertebra,T9 - Thoracic Vertebra.mp3,Bundled
+bone-bones-17,T10 — Thoracic vertebra,T10 - Thoracic Vertebra.mp3,Bundled
+bone-bones-18,T11 — Thoracic vertebra,T11 - Thoracic Vertebra.mp3,Bundled
+bone-bones-19,T12 — Thoracic vertebra,T12 - Thoracic Vertebra.mp3,Bundled
+bone-bones-20,L1 — Lumbar vertebra,L1 - Lumbar Vertebra.mp3,Bundled
+bone-bones-21,L2 — Lumbar vertebra,L2 - Lumbar Vertebra.mp3,Bundled
+bone-bones-22,L3 — Lumbar vertebra,L3 - Lumbar Vertebra.mp3,Bundled
+bone-bones-23,L4 — Lumbar vertebra,L4 - Lumbar Vertebra.mp3,Bundled
+bone-bones-24,L5 — Lumbar vertebra,L5 - Lumbar Vertebra.mp3,Bundled
+bone-bones-25,Sacrum,Sacrum.mp3,Bundled
+bone-bones-26,Coccyx — Tailbone,Coccyx - Tailbone.mp3,Bundled
+bone-ribBones-01,Left rib 1,Left Rib 1.mp3,Bundled
+bone-ribBones-02,Left rib 2,Left Rib 2.mp3,Bundled
+bone-ribBones-03,Left rib 3,Left Rib 3.mp3,Bundled
+bone-ribBones-04,Left rib 4,Left Rib 4.mp3,Bundled
+bone-ribBones-05,Left rib 5,"Left Rib 5,.mp3",Bundled
+bone-ribBones-06,Left rib 6,Left Rib 6.mp3,Bundled
+bone-ribBones-07,Left rib 7,Left Rib 7.mp3,Bundled
+bone-ribBones-08,Left rib 8,Left Rib 8.mp3,Bundled
+bone-ribBones-09,Left rib 9,Left Rib 9.mp3,Bundled
+bone-ribBones-10,Left rib 10,Left Rib 10.mp3,Bundled
+bone-ribBones-11,Left rib 11,Left Rib 11.mp3,Bundled
+bone-ribBones-12,Left rib 12,Left Rib 12.mp3,Bundled
+bone-ribBones-13,Right rib 1,Right Rib 1.mp3,Bundled
+bone-ribBones-14,Right rib 2,Right Rib 2.mp3,Bundled
+bone-ribBones-15,Right rib 3,Right Rib 3.mp3,Bundled
+bone-ribBones-16,Right rib 4,Right Rib 4.mp3,Bundled
+bone-ribBones-17,Right rib 5,Right Rib 5.mp3,Bundled
+bone-ribBones-18,Right rib 6,Right Rib 6.mp3,Bundled
+bone-ribBones-19,Right rib 7,Right Rib 7.mp3,Bundled
+bone-ribBones-20,Right rib 8,Right Rib 8.mp3,Bundled
+bone-ribBones-21,Right rib 9,Right Rib 9.mp3,Bundled
+bone-ribBones-22,Right rib 10,Right Rib 10.mp3,Bundled
+bone-ribBones-23,Right rib 11,Right Rib 11.mp3,Bundled
+bone-ribBones-24,Right rib 12,Right Rib 12.mp3,Bundled
+bone-ribBones-25,Sternum — Breastbone,Sternum - Breastbone.mp3,Bundled
+bone-leftLowerLimbBones-01,Left femur — Thigh bone,Left Femur - Thigh Bone.mp3,Bundled
+bone-leftLowerLimbBones-02,Left patella — Kneecap,Left patella - kneecap.mp3,Bundled
+bone-leftLowerLimbBones-03,Left tibia — Shinbone,Left tibia - Shinbone.mp3,Bundled
+bone-leftLowerLimbBones-04,Left fibula,Left Fibula.mp3,Bundled
+bone-leftLowerLimbBones-05,Left talus,Left Talus.mp3,Bundled
+bone-leftLowerLimbBones-06,Left calcaneus — Heel bone,Left Calcaneus - Heel Bone.mp3,Bundled
+bone-leftLowerLimbBones-07,Left navicular,Left Navicular.mp3,Bundled
+bone-leftLowerLimbBones-08,Left cuboid,Left Cuboid.mp3,Bundled
+bone-leftLowerLimbBones-09,Left medial cuneiform,Left Medial Cuneiform.mp3,Bundled
+bone-leftLowerLimbBones-10,Left intermediate cuneiform,Left Intermidate cuneiform.mp3,Bundled
+bone-leftLowerLimbBones-11,Left lateral cuneiform,Left Lateral cuneiform.mp3,Bundled
+bone-leftLowerLimbBones-12,Left metatarsal 1,Left Metatarsal 1.mp3,Bundled
+bone-leftLowerLimbBones-13,Left metatarsal 2,Left Metatarsal 2.mp3,Bundled
+bone-leftLowerLimbBones-14,Left metatarsal 3,Left metatarsal 3.mp3,Bundled
+bone-leftLowerLimbBones-15,Left metatarsal 4,Left metatarsal 4.mp3,Bundled
+bone-leftLowerLimbBones-16,Left metatarsal 5,Left metatarsal 5.mp3,Bundled
+bone-leftLowerLimbBones-17,Left toe 1 — proximal phalanx,Left toe 1 - proximal phalanx.mp3,Bundled
+bone-leftLowerLimbBones-18,Left toe 1 — distal phalanx,Left toe 1 - distal phalanx.mp3,Bundled
+bone-leftLowerLimbBones-19,Left toe 2 — proximal phalanx,Left toe 2 - proximal phalanx.mp3,Bundled
+bone-leftLowerLimbBones-20,Left toe 2 — middle phalanx,Left toe 2 — middle phalanx.mp3,Bundled
+bone-leftLowerLimbBones-21,Left toe 2 — distal phalanx,Left toe 2 — distal phalanx.mp3,Bundled
+bone-leftLowerLimbBones-22,Left toe 3 — proximal phalanx,Left toe 3 — proximal phalanx.mp3,Bundled
+bone-leftLowerLimbBones-23,Left toe 3 — middle phalanx,,Device speech (no matching recording)
+bone-leftLowerLimbBones-24,Left toe 3 — distal phalanx,Left toe 3 — distal phalanx.mp3,Bundled
+bone-leftLowerLimbBones-25,Left toe 4 — proximal phalanx,Left toe 4 - proximal phalanx.mp3,Bundled
+bone-leftLowerLimbBones-26,Left toe 4 — middle phalanx,Left toe 4 - middle phalanx.mp3,Bundled
+bone-leftLowerLimbBones-27,Left toe 4 — distal phalanx,Left toe 4 - distal phalanx.mp3,Bundled
+bone-leftLowerLimbBones-28,Left toe 5 — proximal phalanx,Left toe 5 - proximal phalanx.mp3,Bundled
+bone-leftLowerLimbBones-29,Left toe 5 — middle phalanx,Left toe 5 - middle phalanx.mp3,Bundled
+bone-leftLowerLimbBones-30,Left toe 5 — distal phalanx,Left toe 5 - distal phalanx.mp3,Bundled
+bone-rightLowerLimbBones-01,Right femur — Thigh bone,right femur - thigh bone.mp3,Bundled
+bone-rightLowerLimbBones-02,Right patella — Kneecap,right patella - kneecap.mp3,Bundled
+bone-rightLowerLimbBones-03,Right tibia — Shinbone,right tibia - shinbone.mp3,Bundled
+bone-rightLowerLimbBones-03,Right tibia — Shinbone,right tibia - shinbone(1).mp3,Alternate take; primary recording selected
+bone-rightLowerLimbBones-04,Right fibula,right fibula.mp3,Bundled
+bone-rightLowerLimbBones-05,Right talus,right talus.mp3,Bundled
+bone-rightLowerLimbBones-06,Right calcaneus — Heel bone,right calcaneus - heel bone.mp3,Bundled
+bone-rightLowerLimbBones-07,Right navicular,right navicular.mp3,Bundled
+bone-rightLowerLimbBones-08,Right cuboid,right cuboid.mp3,Bundled
+bone-rightLowerLimbBones-09,Right medial cuneiform,right medial cuneiform.mp3,Bundled
+bone-rightLowerLimbBones-10,Right intermediate cuneiform,right intermediate cuneiform.mp3,Bundled
+bone-rightLowerLimbBones-11,Right lateral cuneiform,right lateral cuneiform.mp3,Bundled
+bone-rightLowerLimbBones-12,Right metatarsal 1,right metatarsal 1.mp3,Bundled
+bone-rightLowerLimbBones-13,Right metatarsal 2,right metatarsal 2.mp3,Bundled
+bone-rightLowerLimbBones-14,Right metatarsal 3,right metatarsal 3.mp3,Bundled
+bone-rightLowerLimbBones-15,Right metatarsal 4,right metatarsal 4.mp3,Bundled
+bone-rightLowerLimbBones-16,Right metatarsal 5,right metatarsal 5.mp3,Bundled
+bone-rightLowerLimbBones-17,Right toe 1 — proximal phalanx,right toe 1 - proximal phalanx.mp3,Bundled
+bone-rightLowerLimbBones-17,Right toe 1 — proximal phalanx,right toe 1 - proximal phalanx(1).mp3,Alternate take; primary recording selected
+bone-rightLowerLimbBones-18,Right toe 1 — distal phalanx,right toe 1 - distal phalanx.mp3,Bundled
+bone-rightLowerLimbBones-18,Right toe 1 — distal phalanx,right toe 1 - distal phalanx(1).mp3,Alternate take; primary recording selected
+bone-rightLowerLimbBones-19,Right toe 2 — proximal phalanx,right toe 2 - proximal phalanx.mp3,Bundled
+bone-rightLowerLimbBones-20,Right toe 2 — middle phalanx,right toe 2 - middle phalanx.mp3,Bundled
+bone-rightLowerLimbBones-20,Right toe 2 — middle phalanx,right toe 2 - middle phalanx(1).mp3,Alternate take; primary recording selected
+bone-rightLowerLimbBones-21,Right toe 2 — distal phalanx,right toe 2 - distal phalanx.mp3,Bundled
+bone-rightLowerLimbBones-22,Right toe 3 — proximal phalanx,right toe 3 proximal phalanx.mp3,Bundled
+bone-rightLowerLimbBones-22,Right toe 3 — proximal phalanx,right toe 3 proximal phalanx(1).mp3,Alternate take; primary recording selected
+bone-rightLowerLimbBones-23,Right toe 3 — middle phalanx,,Device speech (no matching recording)
+bone-rightLowerLimbBones-24,Right toe 3 — distal phalanx,right toe 3 - distal phalanx.mp3,Bundled
+bone-rightLowerLimbBones-24,Right toe 3 — distal phalanx,right toe 3 - distal phalanx(1).mp3,Alternate take; primary recording selected
+bone-rightLowerLimbBones-25,Right toe 4 — proximal phalanx,right toe 4 - proximal phalanx.mp3,Bundled
+bone-rightLowerLimbBones-26,Right toe 4 — middle phalanx,right toe 4 - middle phalanx.mp3,Bundled
+bone-rightLowerLimbBones-26,Right toe 4 — middle phalanx,right toe 4 - middle phalanx(1).mp3,Alternate take; primary recording selected
+bone-rightLowerLimbBones-27,Right toe 4 — distal phalanx,right toe 4 - distal phalanx.mp3,Bundled
+bone-rightLowerLimbBones-27,Right toe 4 — distal phalanx,right toe 4 - distal phalanx(1).mp3,Alternate take; primary recording selected
+bone-rightLowerLimbBones-28,Right toe 5 — proximal phalanx,right toe 5 - proximal phalanx.mp3,Bundled
+bone-rightLowerLimbBones-28,Right toe 5 — proximal phalanx,right toe 5 - proximal phalanx(1).mp3,Alternate take; primary recording selected
+bone-rightLowerLimbBones-29,Right toe 5 — middle phalanx,right toe 5 - middle phalanx.mp3,Bundled
+bone-rightLowerLimbBones-29,Right toe 5 — middle phalanx,right toe 5 - middle phalanx(1).mp3,Alternate take; primary recording selected
+bone-rightLowerLimbBones-30,Right toe 5 — distal phalanx,right toe 5 - distal phalanx.mp3,Bundled
+bone-rightLowerLimbBones-30,Right toe 5 — distal phalanx,right toe 5 - distal phalanx(1).mp3,Alternate take; primary recording selected
+bone-rightLowerLimbBones-31,Right medial sesamoid,right medial sesamoid.mp3,Bundled
+bone-rightLowerLimbBones-32,Right lateral sesamoid,right lateral sesamoid.mp3,Bundled
+bone-leftUpperLimbBones-01,Left humerus — Upper arm,left humerus - upper arm.mp3,Bundled
+bone-leftUpperLimbBones-02,Left radius,left radius.mp3,Bundled
+bone-leftUpperLimbBones-03,Left ulna,left ulna.mp3,Bundled
+bone-leftUpperLimbBones-04,Left scaphoid,left scaphoid.mp3,Bundled
+bone-leftUpperLimbBones-05,Left lunate,left lunate.mp3,Bundled
+bone-leftUpperLimbBones-06,Left triquetrum,left triquetrum.mp3,Bundled
+bone-leftUpperLimbBones-07,Left pisiform,left pisiform.mp3,Bundled
+bone-leftUpperLimbBones-08,Left trapezium,left trapezium.mp3,Bundled
+bone-leftUpperLimbBones-09,Left trapezoid,left trapezoid.mp3,Bundled
+bone-leftUpperLimbBones-10,Left capitate,left capitate.mp3,Bundled
+bone-leftUpperLimbBones-11,Left hamate,left hamate.mp3,Bundled
+bone-leftUpperLimbBones-12,Left metacarpal 1,left metacarpal 1.mp3,Bundled
+bone-leftUpperLimbBones-13,Left metacarpal 2,left metacarpal 2.mp3,Bundled
+bone-leftUpperLimbBones-14,Left metacarpal 3,left metacarpal 3.mp3,Bundled
+bone-leftUpperLimbBones-15,Left metacarpal 4,left metacarpal 4.mp3,Bundled
+bone-leftUpperLimbBones-16,Left metacarpal 5,left metacarpal 5.mp3,Bundled
+bone-leftUpperLimbBones-17,Left thumb — proximal phalanx,left thumb - proximal phalanx.mp3,Bundled
+bone-leftUpperLimbBones-18,Left thumb — distal phalanx,left thumb - distal phalanx.mp3,Bundled
+bone-leftUpperLimbBones-19,Left index — proximal phalanx,left index - proximal phalanx.mp3,Bundled
+bone-leftUpperLimbBones-20,Left index — middle phalanx,left index - middle phalanx.mp3,Bundled
+bone-leftUpperLimbBones-20,Left index — middle phalanx,left middle - proximal phalanx.mp3,Alternate take; primary recording selected
+bone-leftUpperLimbBones-20,Left index — middle phalanx,left index - distal phalanx.mp3,Alternate take; primary recording selected
+bone-leftUpperLimbBones-21,Left index — distal phalanx,,Device speech (no matching recording)
+bone-leftUpperLimbBones-22,Left middle — proximal phalanx,,Device speech (no matching recording)
+bone-leftUpperLimbBones-23,Left middle — middle phalanx,left middle - middle phalanx.mp3,Bundled
+bone-leftUpperLimbBones-24,Left middle — distal phalanx,left middle - distal phalanx.mp3,Bundled
+bone-leftUpperLimbBones-25,Left ring — proximal phalanx,left ring - proximal phalanx.mp3,Bundled
+bone-leftUpperLimbBones-26,Left ring — middle phalanx,left ring - middle phalanx.mp3,Bundled
+bone-leftUpperLimbBones-27,Left ring — distal phalanx,left ring - distal phalanx.mp3,Bundled
+bone-leftUpperLimbBones-28,Left little — proximal phalanx,left little - proximal phalanx.mp3,Bundled
+bone-leftUpperLimbBones-29,Left little — middle phalanx,left little - middle phalanx.mp3,Bundled
+bone-leftUpperLimbBones-30,Left little — distal phalanx,left little - distal phalanx.mp3,Bundled
+bone-rightUpperLimbBones-01,Right humerus — Upper arm,right humerus - upper arm.mp3,Bundled
+bone-rightUpperLimbBones-02,Right radius,right radius.mp3,Bundled
+bone-rightUpperLimbBones-03,Right ulna,right ulna.mp3,Bundled
+bone-rightUpperLimbBones-04,Right scaphoid,right scaphoid.mp3,Bundled
+bone-rightUpperLimbBones-05,Right lunate,right lunate.mp3,Bundled
+bone-rightUpperLimbBones-06,Right triquetrum,right triquetrum.mp3,Bundled
+bone-rightUpperLimbBones-07,Right pisiform,right pisiform.mp3,Bundled
+bone-rightUpperLimbBones-07,Right pisiform,right trapezium.mp3,Alternate take; primary recording selected
+bone-rightUpperLimbBones-07,Right pisiform,right trapezium(1).mp3,Alternate take; primary recording selected
+bone-rightUpperLimbBones-08,Right trapezium,,Device speech (no matching recording)
+bone-rightUpperLimbBones-09,Right trapezoid,right trapezoid.mp3,Bundled
+bone-rightUpperLimbBones-09,Right trapezoid,right trapezoid(1).mp3,Alternate take; primary recording selected
+bone-rightUpperLimbBones-10,Right capitate,right capitate.mp3,Bundled
+bone-rightUpperLimbBones-11,Right hamate,right hamate.mp3,Bundled
+bone-rightUpperLimbBones-12,Right metacarpal 1,right metacarpal 1.mp3,Bundled
+bone-rightUpperLimbBones-13,Right metacarpal 2,right metacarpal 2.mp3,Bundled
+bone-rightUpperLimbBones-14,Right metacarpal 3,right metacarpal 3.mp3,Bundled
+bone-rightUpperLimbBones-15,Right metacarpal 4,right metacarpal 4.mp3,Bundled
+bone-rightUpperLimbBones-16,Right metacarpal 5,right metacarpal 5.mp3,Bundled
+bone-rightUpperLimbBones-17,Right thumb — proximal phalanx,right thumb - proximal phalanx.mp3,Bundled
+bone-rightUpperLimbBones-18,Right thumb — distal phalanx,right thumb - distal phalanx.mp3,Bundled
+bone-rightUpperLimbBones-18,Right thumb — distal phalanx,right index - proximal phalanx.mp3,Alternate take; primary recording selected
+bone-rightUpperLimbBones-19,Right index — proximal phalanx,,Device speech (no matching recording)
+bone-rightUpperLimbBones-20,Right index — middle phalanx,right index - middle phalanx.mp3,Bundled
+bone-rightUpperLimbBones-21,Right index — distal phalanx,right index - distal phalanx.mp3,Bundled
+bone-rightUpperLimbBones-21,Right index — distal phalanx,right middle - proximal phalanx.mp3,Alternate take; primary recording selected
+bone-rightUpperLimbBones-22,Right middle — proximal phalanx,,Device speech (no matching recording)
+bone-rightUpperLimbBones-23,Right middle — middle phalanx,right middle - middle phalanx.mp3,Bundled
+bone-rightUpperLimbBones-24,Right middle — distal phalanx,right middle - distal phalanx.mp3,Bundled
+bone-rightUpperLimbBones-25,Right ring — proximal phalanx,right ring - proximal phalanx.mp3,Bundled
+bone-rightUpperLimbBones-26,Right ring — middle phalanx,right ring - middle phalanx.mp3,Bundled
+bone-rightUpperLimbBones-27,Right ring — distal phalanx,right ring - distal phalanx.mp3,Bundled
+bone-rightUpperLimbBones-28,Right little — proximal phalanx,right little - proximal phalanx.mp3,Bundled
+bone-rightUpperLimbBones-29,Right little — middle phalanx,right little - middle phalanx.mp3,Bundled
+bone-rightUpperLimbBones-30,Right little — distal phalanx,right little - distal phalanx.mp3,Bundled
+bone-rightPectoralBones-01,Right clavicle — Collarbone,right clavicle - collarbone.mp3,Bundled
+bone-rightPectoralBones-02,Right scapula — Shoulder blade,right scapula - shoulder blade.mp3,Bundled
+bone-leftPectoralBones-01,Left clavicle — Collarbone,left clavicle - collarbone.mp3,Bundled
+bone-leftPectoralBones-02,Left scapula — Shoulder blade,left scapula - shoulder blade.mp3,Bundled
+bone-pelvicBones-01,Left hip bone — Os coxae,left hip bone - Os coxae.mp3,Bundled
+quiz-rib_01,rib_01,rib I easy.mp3,Bundled
+quiz-rib_02,rib_02,rib I easy 2.mp3,Bundled
+quiz-rib_03,rib_03,rib I rib 3.mp3,Bundled
+quiz-rib_04,rib_04,rib I medium.mp3,Bundled
+quiz-rib_05,rib_05,rib I medium 2.mp3,Bundled
+quiz-rib_06,rib_06,Rib I medium 3.mp3,Bundled
+quiz-rib_07,rib_07,rib I medium 4.mp3,Bundled
+quiz-rib_08,rib_08,rib I Hard.mp3,Bundled
+quiz-rib_09,rib_09,rib I hard 2.mp3,Bundled
+quiz-rib_10,rib_10,rib I hard 3.mp3,Bundled
+quiz-skull_01,skull_01,skull I easy.mp3,Bundled
+quiz-skull_02,skull_02,skull I easy 2.mp3,Bundled
+quiz-skull_03,skull_03,skull I easy 3.mp3,Bundled
+quiz-skull_04,skull_04,skull I medium.mp3,Bundled
+quiz-skull_05,skull_05,skull I medium 2.mp3,Bundled
+quiz-skull_06,skull_06,skull I medium 3.mp3,Bundled
+quiz-skull_07,skull_07,skull I medium 4.mp3,Bundled
+quiz-skull_08,skull_08,skull I hard.mp3,Bundled
+quiz-skull_09,skull_09,skull I hard 2.mp3,Bundled
+quiz-skull_10,skull_10,skull I hard 3.mp3,Bundled
+quiz-pelvis_01,pelvis_01,pelvis I easy.mp3,Bundled for recorded question/choice order
+quiz-pelvis_02,pelvis_02,pelvis I easy 2.mp3,Bundled for recorded question/choice order
+quiz-pelvis_03,pelvis_03,pelvis I easy 3.mp3,Bundled for recorded question/choice order
+quiz-pelvis_04,pelvis_04,pelvis I medium.mp3,Bundled for recorded question/choice order
+quiz-pelvis_05,pelvis_05,pelvis I medium 2.mp3,Bundled for recorded question/choice order
+quiz-pelvis_06,pelvis_06,pelvis I medium 3.mp3,Bundled
+quiz-pelvis_07,pelvis_07,pelvis I medium 4.mp3,Bundled for recorded question/choice order
+quiz-pelvis_08,pelvis_08,pelvis I hard.mp3,Bundled for recorded question/choice order
+quiz-pelvis_09,pelvis_09,pelvis I hard 2.mp3,Bundled
+quiz-pelvis_10,pelvis_10,pelvis I hard 3.mp3,Bundled for recorded question/choice order; current bank uses device speech
+quiz-arm_01,arm_01,humerus I easy.mp3,Bundled
+quiz-arm_02,arm_02,radius I easy.mp3,Bundled for recorded question/choice order
+quiz-arm_03,arm_03,ulna I easy.mp3,Bundled
+quiz-arm_04,arm_04,ulna I medium.mp3,Bundled for recorded question/choice order
+quiz-arm_05,arm_05,humerus I medium.mp3,Bundled for recorded question/choice order
+quiz-arm_06,arm_06,carpals I medium.mp3,Bundled for recorded question/choice order; current bank uses device speech
+quiz-arm_07,arm_07,carpals I medium 2.mp3,Bundled
+quiz-arm_08,arm_08,radius I hard.mp3,Bundled for recorded question/choice order
+quiz-arm_09,arm_09,humerus I hard.mp3,Bundled for recorded question/choice order
+quiz-arm_10,arm_10,radius I hard 2.mp3,Bundled for recorded question/choice order
+quiz-leg_01,leg_01,femur I easy.mp3,Bundled for recorded question/choice order
+quiz-leg_02,leg_02,tibia I easy.mp3,Bundled for recorded question/choice order
+quiz-leg_03,leg_03,patella I easy.mp3,Bundled
+quiz-leg_04,leg_04,fibulas.mp3,Bundled for recorded question/choice order; current bank uses device speech
+quiz-leg_04,leg_04,fibula I medium.mp3,Alternate take; primary recording selected
+quiz-leg_05,leg_05,tarsals I medium.mp3,Bundled
+quiz-leg_06,leg_06,tibia I medium.mp3,Bundled
+quiz-leg_07,leg_07,femur I medium.mp3,Bundled for recorded question/choice order
+quiz-leg_08,leg_08,tarsals I hard.mp3,Bundled for recorded question/choice order
+quiz-leg_09,leg_09,fibula I hard.mp3,Bundled for recorded question/choice order
+quiz-leg_10,leg_10,femur I hard.mp3,Bundled for recorded question/choice order
+quiz-intro,Quiz introduction,test your anatomy.mp3,Bundled
+quiz-correct,Correct answer,correct.mp3,Bundled
+quiz-incorrect-A,Incorrect answer: A,not quite correct ans A.mp3,Bundled
+quiz-incorrect-B,Incorrect answer: B,Not quite. Correct answer B.mp3,Bundled
+quiz-incorrect-C,Incorrect answer: C,Not quite. Correct answer C.mp3,Bundled
+quiz-incorrect-D,Incorrect answer: D,Not quite. Correct answer D.mp3,Bundled
+quiz-completion-template,Completion with mastery,Practice complete. Mastery.mp3,Bundled prefix; percentage uses device speech
+settings-01,Appearance settings,Appearance settings.mp3,Bundled
+settings-02,Hospital color,Hospital color.mp3,Bundled
+settings-03,Original,Original.mp3,Bundled
+settings-04,Cool blue,Cool blue.mp3,Bundled
+settings-05,Sage,Sage.mp3,Bundled
+settings-06,Warm,Warm.mp3,Bundled
+settings-07,Panel theme,Panel theme.mp3,Bundled
+settings-08,Default dark,Default dark.mp3,Bundled
+settings-09,Light,Light.mp3,Bundled
+settings-10,High contrast,High contrast.mp3,Bundled
+settings-11,Text size,Text size.mp3,Bundled
+settings-12,Small,Small.mp3,Bundled
+settings-13,Standard,standard.mp3,Bundled
+settings-14,Large,Large.mp3,Bundled
+settings-15,Highlight color,Highlight color.mp3,Bundled
+settings-16,Original blue,Original blue.mp3,Bundled
+settings-17,Amber,Amber.mp3,Bundled
+settings-18,Violet,Violet.mp3,Bundled
+settings-19,Lime,Lime.mp3,Bundled
+tutorial-01,Tutorial step 1,aim your controller.mp3,Bundled
+tutorial-02,Tutorial step 2,Select a highlighted bone group to look closer..mp3,Bundled
+tutorial-03,Tutorial step 3,"Point at a bone to see its name, then select it..mp3",Bundled
+tutorial-04,Tutorial step 4,Move the right stick sideways to turn the bone..mp3,Bundled
+tutorial-05,Tutorial step 5,Move the right stick up or down to tilt it..mp3,Bundled
+tutorial-05,Tutorial step 5,"ElevenLabs_2026-11-04T02_53_53_Adam - Dominant, Firm_pre_sp100_s50_sb75_v4.mp3",Alternate take; primary recording selected
+tutorial-06,Tutorial step 6,press left X.mp3,Bundled
+tutorial-07,Tutorial completion,you_re ready to explore.mp3,Bundled

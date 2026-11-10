@@ -15,84 +15,84 @@ Settings labels and values are separate phrases so they can be combined for the 
 > Human Skeleton
 > The skeleton supports the body, protects internal organs, and helps produce movement. Select the axial or appendicular skeleton to explore its bones.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (InfoBoardController 167457188)`
+Source: `Assets/Scenes/Osteon.unity (InfoBoardController 167457188)`
 
 ### anatomy-division-01 — Axial Skeleton
 
 > Axial Skeleton
 > Forms the body’s central axis and includes the skull, vertebral column, and thoracic cage. It primarily provides structural support and protects vital organs such as the brain, spinal cord, heart, and lungs.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (DivisionSelection 1268313932)`
+Source: `Assets/Scenes/Osteon.unity (DivisionSelection 1268313932)`
 
 ### anatomy-division-02 — Appendicular Division
 
 > Appendicular Division
 > Includes the bones of the upper and lower limbs and the pectoral and pelvic girdles that connect them to the axial skeleton. It is primarily involved in movement, locomotion, and interaction with the environment.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (DivisionSelection 1268313935)`
+Source: `Assets/Scenes/Osteon.unity (DivisionSelection 1268313935)`
 
 ### anatomy-group-01 — Left lower limb
 
 > Left lower limb
 > The left lower limb includes the thigh, leg, and foot. Its bones support body weight and work together for standing, walking, and balance.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (ViewTransitionOnSelect 197334652)`
+Source: `Assets/Scenes/Osteon.unity (ViewTransitionOnSelect 197334652)`
 
 ### anatomy-group-02 — Right pectoral girdle
 
 > Right pectoral girdle
 > The right clavicle and scapula connect the upper limb to the trunk. They position the shoulder and provide a base for a wide range of arm movements.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (ViewTransitionOnSelect 773174294)`
+Source: `Assets/Scenes/Osteon.unity (ViewTransitionOnSelect 773174294)`
 
 ### anatomy-group-03 — Left upper limb
 
 > Left upper limb
 > The left upper limb includes the arm, forearm, wrist, and hand. Its bones allow reaching, grasping, and precise movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (ViewTransitionOnSelect 788150962)`
+Source: `Assets/Scenes/Osteon.unity (ViewTransitionOnSelect 788150962)`
 
 ### anatomy-group-06 — Pelvic girdle
 
 > Pelvic girdle
 > The two hip bones form the pelvic girdle. They transfer body weight to the lower limbs, support the trunk, and help protect organs in the pelvis.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (ViewTransitionOnSelect 1280096900)`
+Source: `Assets/Scenes/Osteon.unity (ViewTransitionOnSelect 1280096900)`
 
 ### anatomy-group-07 — Vertebral column
 
 > Vertebral column
 > Explore the vertebral column. Point at an individual bone and select it for inspection.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (ViewTransitionOnSelect 1290350101)`
+Source: `Assets/Scenes/Osteon.unity (ViewTransitionOnSelect 1290350101)`
 
 ### anatomy-group-08 — Right upper limb
 
 > Right upper limb
 > The right upper limb includes the arm, forearm, wrist, and hand. Its bones allow reaching, grasping, and precise movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (ViewTransitionOnSelect 1364325950)`
+Source: `Assets/Scenes/Osteon.unity (ViewTransitionOnSelect 1364325950)`
 
 ### anatomy-group-09 — Skull
 
 > Skull
 > The skull protects the brain and forms the framework of the face. Point at a named bone to inspect it.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (ViewTransitionOnSelect 1370918681)`
+Source: `Assets/Scenes/Osteon.unity (ViewTransitionOnSelect 1370918681)`
 
 ### anatomy-group-10 — Right lower limb
 
 > Right lower limb
 > The right lower limb includes the thigh, leg, and foot. Its bones support body weight and work together for standing, walking, and balance.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (ViewTransitionOnSelect 1634257078)`
+Source: `Assets/Scenes/Osteon.unity (ViewTransitionOnSelect 1634257078)`
 
 ### anatomy-group-11 — Rib cage
 
 > Rib cage
 > The ribs curve around the chest and connect to the sternum directly or indirectly. Together with the thoracic vertebrae, they help protect the heart and lungs.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (ViewTransitionOnSelect 1968321021)`
+Source: `Assets/Scenes/Osteon.unity (ViewTransitionOnSelect 1968321021)`
 
 ### anatomy-pectoral-switch-1 — Left pectoral girdle
 
@@ -116,7 +116,7 @@ Source: `Assets/Scripts/AnatomyNavigationController.cs (SwitchPectoralSide)`
 > Location: between the eyes, behind the nasal cavity.
 > Role: forms part of the nasal roof and the eye sockets.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 322348358)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 322348358)`
 
 ### bone-skullBones-02 — Frontal bone
 
@@ -124,7 +124,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 322348358)`
 > Location: the forehead and front of the cranial vault.
 > Role: protects the frontal lobes and forms the upper eye sockets.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 123350813)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 123350813)`
 
 ### bone-skullBones-03 — Hyoid bone
 
@@ -132,7 +132,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 123350813)`
 > Location: the front of the neck below the mandible.
 > Role: supports the tongue and larynx without joining another bone directly.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 553963290)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 553963290)`
 
 ### bone-skullBones-04 — Left Incus bone
 
@@ -140,7 +140,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 553963290)`
 > Location: the middle ear.
 > Role: passes sound vibrations from the malleus to the stapes.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 182088253)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 182088253)`
 
 ### bone-skullBones-05 — Left Inferior Nasal Concha bone
 
@@ -148,7 +148,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 182088253)`
 > Location: the lower side wall of the nasal cavity.
 > Role: helps warm and humidify inhaled air.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1726890696)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1726890696)`
 
 ### bone-skullBones-06 — Left Lacrimal bone
 
@@ -156,7 +156,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1726890696)`
 > Location: the inner wall of the eye socket.
 > Role: provides a channel for tear drainage.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1297966273)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1297966273)`
 
 ### bone-skullBones-07 — Left Malleus bone
 
@@ -164,7 +164,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1297966273)`
 > Location: the middle ear.
 > Role: passes sound vibrations from the eardrum to the incus.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1845023139)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1845023139)`
 
 ### bone-skullBones-08 — Left Maxilla bone
 
@@ -172,7 +172,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1845023139)`
 > Location: the upper jaw.
 > Role: holds the upper teeth and forms part of the hard palate and eye socket.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 989516886)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 989516886)`
 
 ### bone-skullBones-09 — Left Nasal bone
 
@@ -180,7 +180,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 989516886)`
 > Location: the bridge of the nose.
 > Role: supports the upper nose.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 870518647)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 870518647)`
 
 ### bone-skullBones-10 — Left Palatine bone
 
@@ -188,7 +188,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 870518647)`
 > Location: the back of the hard palate.
 > Role: separates the mouth from the nasal cavity.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1257069854)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1257069854)`
 
 ### bone-skullBones-11 — Left Parietal bone
 
@@ -196,7 +196,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1257069854)`
 > Location: the upper side of the cranial vault.
 > Role: protects the brain.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 581873519)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 581873519)`
 
 ### bone-skullBones-12 — Left Stapes bone
 
@@ -204,7 +204,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 581873519)`
 > Location: the middle ear.
 > Role: transmits vibrations into the inner ear.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1341705490)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1341705490)`
 
 ### bone-skullBones-13 — Left Temporal bone
 
@@ -212,7 +212,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1341705490)`
 > Location: the side and base of the skull.
 > Role: houses the ear structures and forms part of the jaw joint.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1712585866)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1712585866)`
 
 ### bone-skullBones-14 — Left Zygomatic bone
 
@@ -220,7 +220,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1712585866)`
 > Location: the cheek and outer eye socket.
 > Role: forms the cheekbone and supports the eye socket.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1275364843)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1275364843)`
 
 ### bone-skullBones-15 — Right Incus bone
 
@@ -228,7 +228,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1275364843)`
 > Location: the middle ear.
 > Role: passes sound vibrations from the malleus to the stapes.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 726674862)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 726674862)`
 
 ### bone-skullBones-16 — Right Inferior Nasal Concha bone
 
@@ -236,7 +236,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 726674862)`
 > Location: the lower side wall of the nasal cavity.
 > Role: helps warm and humidify inhaled air.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 229429085)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 229429085)`
 
 ### bone-skullBones-17 — Right Lacrimal bone
 
@@ -244,7 +244,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 229429085)`
 > Location: the inner wall of the eye socket.
 > Role: provides a channel for tear drainage.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 757834661)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 757834661)`
 
 ### bone-skullBones-18 — Right Malleus bone
 
@@ -252,7 +252,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 757834661)`
 > Location: the middle ear.
 > Role: passes sound vibrations from the eardrum to the incus.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1450525921)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1450525921)`
 
 ### bone-skullBones-19 — Right Maxilla bone
 
@@ -260,7 +260,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1450525921)`
 > Location: the upper jaw.
 > Role: holds the upper teeth and forms part of the hard palate and eye socket.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 223699453)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 223699453)`
 
 ### bone-skullBones-20 — Right Nasal bone
 
@@ -268,7 +268,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 223699453)`
 > Location: the bridge of the nose.
 > Role: supports the upper nose.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 437732869)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 437732869)`
 
 ### bone-skullBones-21 — Right Palatine bone
 
@@ -276,7 +276,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 437732869)`
 > Location: the back of the hard palate.
 > Role: separates the mouth from the nasal cavity.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1332119660)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1332119660)`
 
 ### bone-skullBones-22 — Right Parietal bone
 
@@ -284,7 +284,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1332119660)`
 > Location: the upper side of the cranial vault.
 > Role: protects the brain.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1363236691)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1363236691)`
 
 ### bone-skullBones-23 — Right Stapes bone
 
@@ -292,7 +292,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1363236691)`
 > Location: the middle ear.
 > Role: transmits vibrations into the inner ear.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1310403021)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1310403021)`
 
 ### bone-skullBones-24 — Right Temporal bone
 
@@ -300,7 +300,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1310403021)`
 > Location: the side and base of the skull.
 > Role: houses the ear structures and forms part of the jaw joint.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 733991784)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 733991784)`
 
 ### bone-skullBones-25 — Right Zygomatic bone
 
@@ -308,7 +308,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 733991784)`
 > Location: the cheek and outer eye socket.
 > Role: forms the cheekbone and supports the eye socket.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1318716529)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1318716529)`
 
 ### bone-skullBones-26 — Mandible bone
 
@@ -316,7 +316,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1318716529)`
 > Location: the lower jaw.
 > Role: holds the lower teeth and moves during chewing and speech.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 666452052)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 666452052)`
 
 ### bone-skullBones-27 — Occipital bone
 
@@ -324,7 +324,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 666452052)`
 > Location: the back and base of the skull.
 > Role: protects the rear of the brain and surrounds the opening for the spinal cord.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1467996071)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1467996071)`
 
 ### bone-skullBones-28 — Sphenoid bone
 
@@ -332,7 +332,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1467996071)`
 > Location: the central skull base behind the eyes.
 > Role: links many skull bones and supports the pituitary gland.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 680983165)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 680983165)`
 
 ### bone-skullBones-29 — Vomer bone
 
@@ -340,7 +340,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 680983165)`
 > Location: the lower part of the nasal septum.
 > Role: divides the left and right nasal cavities.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1881582663)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1881582663)`
 
 ## Individual bones: Vertebral column
 
@@ -351,7 +351,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1881582663)`
 > Role: supports the head and contributes to nodding.
 > Look for: the bony ring and broad lateral masses; there is no vertebral body.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 892903092)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 892903092)`
 
 ### bone-bones-02 — C2 — Axis
 
@@ -360,7 +360,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 892903092)`
 > Role: provides the pivot for turning the atlas and head.
 > Look for: the upward projection called the dens.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1879568838)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1879568838)`
 
 ### bone-bones-03 — C3 — Cervical vertebra
 
@@ -369,7 +369,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1879568838)`
 > Role: supports the neck and allows movement.
 > Look for: a small body and openings in the transverse processes.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1008820799)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1008820799)`
 
 ### bone-bones-04 — C4 — Cervical vertebra
 
@@ -378,7 +378,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1008820799)`
 > Role: supports the neck and allows movement.
 > Look for: a small body and openings in the transverse processes.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1878756173)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1878756173)`
 
 ### bone-bones-05 — C5 — Cervical vertebra
 
@@ -387,7 +387,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1878756173)`
 > Role: supports the neck and allows movement.
 > Look for: a small body and openings in the transverse processes.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1506301920)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1506301920)`
 
 ### bone-bones-06 — C6 — Cervical vertebra
 
@@ -396,7 +396,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1506301920)`
 > Role: supports the neck and allows movement.
 > Look for: a small body and openings in the transverse processes.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 996075141)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 996075141)`
 
 ### bone-bones-07 — C7 — Cervical vertebra
 
@@ -405,7 +405,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 996075141)`
 > Role: joins the neck to the thoracic region.
 > Look for: its long spinous process.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1105354102)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1105354102)`
 
 ### bone-bones-08 — T1 — Thoracic vertebra
 
@@ -414,7 +414,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1105354102)`
 > Role: supports the trunk and articulates with ribs.
 > Look for: rib articulation surfaces on the body and transverse processes.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 141030586)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 141030586)`
 
 ### bone-bones-09 — T2 — Thoracic vertebra
 
@@ -423,7 +423,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 141030586)`
 > Role: supports the trunk and articulates with ribs.
 > Look for: rib articulation surfaces on the body and transverse processes.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1817782757)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1817782757)`
 
 ### bone-bones-10 — T3 — Thoracic vertebra
 
@@ -432,7 +432,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1817782757)`
 > Role: supports the trunk and articulates with ribs.
 > Look for: rib articulation surfaces on the body and transverse processes.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2139106345)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 2139106345)`
 
 ### bone-bones-11 — T4 — Thoracic vertebra
 
@@ -441,7 +441,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2139106345)`
 > Role: supports the trunk and articulates with ribs.
 > Look for: rib articulation surfaces on the body and transverse processes.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1795531471)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1795531471)`
 
 ### bone-bones-12 — T5 — Thoracic vertebra
 
@@ -450,7 +450,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1795531471)`
 > Role: supports the trunk and articulates with ribs.
 > Look for: rib articulation surfaces on the body and transverse processes.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 646470236)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 646470236)`
 
 ### bone-bones-13 — T6 — Thoracic vertebra
 
@@ -459,7 +459,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 646470236)`
 > Role: supports the trunk and articulates with ribs.
 > Look for: rib articulation surfaces on the body and transverse processes.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1489596518)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1489596518)`
 
 ### bone-bones-14 — T7 — Thoracic vertebra
 
@@ -468,7 +468,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1489596518)`
 > Role: supports the trunk and articulates with ribs.
 > Look for: rib articulation surfaces on the body and transverse processes.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 511791642)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 511791642)`
 
 ### bone-bones-15 — T8 — Thoracic vertebra
 
@@ -477,7 +477,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 511791642)`
 > Role: supports the trunk and articulates with ribs.
 > Look for: rib articulation surfaces on the body and transverse processes.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1386474620)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1386474620)`
 
 ### bone-bones-16 — T9 — Thoracic vertebra
 
@@ -486,7 +486,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1386474620)`
 > Role: supports the trunk and articulates with ribs.
 > Look for: rib articulation surfaces on the body and transverse processes.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 680183467)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 680183467)`
 
 ### bone-bones-17 — T10 — Thoracic vertebra
 
@@ -495,7 +495,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 680183467)`
 > Role: supports the trunk and articulates with ribs.
 > Look for: rib articulation surfaces on the body and transverse processes.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1395828629)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1395828629)`
 
 ### bone-bones-18 — T11 — Thoracic vertebra
 
@@ -504,7 +504,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1395828629)`
 > Role: supports the trunk and articulates with ribs.
 > Look for: rib articulation on the body; no transverse costal facet.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 624769646)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 624769646)`
 
 ### bone-bones-19 — T12 — Thoracic vertebra
 
@@ -513,7 +513,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 624769646)`
 > Role: supports the trunk and articulates with ribs.
 > Look for: rib articulation on the body; no transverse costal facet.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1848810544)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1848810544)`
 
 ### bone-bones-20 — L1 — Lumbar vertebra
 
@@ -522,7 +522,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1848810544)`
 > Role: carries substantial body weight and supports trunk movement.
 > Look for: the large vertebral body and broad spinous process.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 596812544)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 596812544)`
 
 ### bone-bones-21 — L2 — Lumbar vertebra
 
@@ -531,7 +531,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 596812544)`
 > Role: carries substantial body weight and supports trunk movement.
 > Look for: the large vertebral body and broad spinous process.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2112090854)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 2112090854)`
 
 ### bone-bones-22 — L3 — Lumbar vertebra
 
@@ -540,7 +540,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2112090854)`
 > Role: carries substantial body weight and supports trunk movement.
 > Look for: the large vertebral body and broad spinous process.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 577443248)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 577443248)`
 
 ### bone-bones-23 — L4 — Lumbar vertebra
 
@@ -549,7 +549,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 577443248)`
 > Role: carries substantial body weight and supports trunk movement.
 > Look for: the large vertebral body and broad spinous process.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 362733971)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 362733971)`
 
 ### bone-bones-24 — L5 — Lumbar vertebra
 
@@ -558,7 +558,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 362733971)`
 > Role: carries substantial body weight and supports trunk movement.
 > Look for: the large vertebral body and broad spinous process.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 808308808)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 808308808)`
 
 ### bone-bones-25 — Sacrum
 
@@ -567,7 +567,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 808308808)`
 > Role: transfers weight from the spine to the pelvic girdle.
 > Look for: its triangular shape and paired sacral foramina; five vertebrae fuse to form this bone.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1311911093)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1311911093)`
 
 ### bone-bones-26 — Coccyx — Tailbone
 
@@ -576,7 +576,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1311911093)`
 > Role: anchors pelvic-floor muscles and ligaments.
 > Look for: the small tapering series of segments. The number and fusion of these segments vary.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1594136857)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1594136857)`
 
 ## Individual bones: Rib cage
 
@@ -587,7 +587,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1594136857)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its costal cartilage connects directly to the sternum.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2074278889)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 2074278889)`
 
 ### bone-ribBones-02 — Left rib 2
 
@@ -596,7 +596,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2074278889)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its costal cartilage connects directly to the sternum.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 799061174)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 799061174)`
 
 ### bone-ribBones-03 — Left rib 3
 
@@ -605,7 +605,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 799061174)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its costal cartilage connects directly to the sternum.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 515622961)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 515622961)`
 
 ### bone-ribBones-04 — Left rib 4
 
@@ -614,7 +614,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 515622961)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its costal cartilage connects directly to the sternum.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1204656388)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1204656388)`
 
 ### bone-ribBones-05 — Left rib 5
 
@@ -623,7 +623,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1204656388)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its costal cartilage connects directly to the sternum.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1249100989)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1249100989)`
 
 ### bone-ribBones-06 — Left rib 6
 
@@ -632,7 +632,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1249100989)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its costal cartilage connects directly to the sternum.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 96898443)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 96898443)`
 
 ### bone-ribBones-07 — Left rib 7
 
@@ -641,7 +641,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 96898443)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its costal cartilage connects directly to the sternum.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 245036724)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 245036724)`
 
 ### bone-ribBones-08 — Left rib 8
 
@@ -650,7 +650,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 245036724)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its costal cartilage connects indirectly to the sternum through the cartilage above.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1376515842)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1376515842)`
 
 ### bone-ribBones-09 — Left rib 9
 
@@ -659,7 +659,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1376515842)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its costal cartilage connects indirectly to the sternum through the cartilage above.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1352919851)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1352919851)`
 
 ### bone-ribBones-10 — Left rib 10
 
@@ -668,7 +668,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1352919851)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its costal cartilage connects indirectly to the sternum through the cartilage above.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1207539159)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1207539159)`
 
 ### bone-ribBones-11 — Left rib 11
 
@@ -677,7 +677,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1207539159)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its anterior end does not attach to the sternum.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 456715959)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 456715959)`
 
 ### bone-ribBones-12 — Left rib 12
 
@@ -686,7 +686,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 456715959)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its anterior end does not attach to the sternum.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1997452419)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1997452419)`
 
 ### bone-ribBones-13 — Right rib 1
 
@@ -695,7 +695,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1997452419)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its costal cartilage connects directly to the sternum.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 277932970)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 277932970)`
 
 ### bone-ribBones-14 — Right rib 2
 
@@ -704,7 +704,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 277932970)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its costal cartilage connects directly to the sternum.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1874228580)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1874228580)`
 
 ### bone-ribBones-15 — Right rib 3
 
@@ -713,7 +713,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1874228580)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its costal cartilage connects directly to the sternum.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 183293661)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 183293661)`
 
 ### bone-ribBones-16 — Right rib 4
 
@@ -722,7 +722,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 183293661)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its costal cartilage connects directly to the sternum.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 220028065)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 220028065)`
 
 ### bone-ribBones-17 — Right rib 5
 
@@ -731,7 +731,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 220028065)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its costal cartilage connects directly to the sternum.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 210664184)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 210664184)`
 
 ### bone-ribBones-18 — Right rib 6
 
@@ -740,7 +740,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 210664184)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its costal cartilage connects directly to the sternum.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1200903547)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1200903547)`
 
 ### bone-ribBones-19 — Right rib 7
 
@@ -749,7 +749,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1200903547)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its costal cartilage connects directly to the sternum.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1923005708)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1923005708)`
 
 ### bone-ribBones-20 — Right rib 8
 
@@ -758,7 +758,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1923005708)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its costal cartilage connects indirectly to the sternum through the cartilage above.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1677483471)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1677483471)`
 
 ### bone-ribBones-21 — Right rib 9
 
@@ -767,7 +767,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1677483471)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its costal cartilage connects indirectly to the sternum through the cartilage above.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1646608029)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1646608029)`
 
 ### bone-ribBones-22 — Right rib 10
 
@@ -776,7 +776,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1646608029)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its costal cartilage connects indirectly to the sternum through the cartilage above.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 288657787)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 288657787)`
 
 ### bone-ribBones-23 — Right rib 11
 
@@ -785,7 +785,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 288657787)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its anterior end does not attach to the sternum.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1145743145)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1145743145)`
 
 ### bone-ribBones-24 — Right rib 12
 
@@ -794,7 +794,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1145743145)`
 > Role: part of the thoracic cage that helps protect the heart and lungs.
 > Connection: Its anterior end does not attach to the sternum.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 220303159)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 220303159)`
 
 ### bone-ribBones-25 — Sternum — Breastbone
 
@@ -803,7 +803,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 220303159)`
 > Role: anchors the anterior thoracic cage and connects to the costal cartilages of the true ribs.
 > Look for: the broad upper manubrium, long body, and lower xiphoid process.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 976390802)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 976390802)`
 
 ## Individual bones: Left lower limb
 
@@ -814,7 +814,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 976390802)`
 > Role: supports body weight and forms the hip and knee joints.
 > Look for: the rounded head and broad lower end.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1906426239)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1906426239)`
 
 ### bone-leftLowerLimbBones-02 — Left patella — Kneecap
 
@@ -823,7 +823,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1906426239)`
 > Role: protects the tendon at the knee and helps the thigh muscles extend the leg.
 > Look for: its small, roughly triangular shape.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 493370594)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 493370594)`
 
 ### bone-leftLowerLimbBones-03 — Left tibia — Shinbone
 
@@ -832,7 +832,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 493370594)`
 > Role: bears most of the leg's weight.
 > Look for: its broad upper end and inner ankle projection.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1748049612)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1748049612)`
 
 ### bone-leftLowerLimbBones-04 — Left fibula
 
@@ -841,7 +841,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1748049612)`
 > Role: helps stabilize the ankle and provides muscle attachments.
 > Look for: its slender shaft and outer ankle projection.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1138974769)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1138974769)`
 
 ### bone-leftLowerLimbBones-05 — Left talus
 
@@ -850,7 +850,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1138974769)`
 > Role: forms the ankle joint and passes weight toward the heel.
 > Look for: its joint surfaces above the calcaneus.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1364176618)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1364176618)`
 
 ### bone-leftLowerLimbBones-06 — Left calcaneus — Heel bone
 
@@ -859,7 +859,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1364176618)`
 > Role: forms the heel and supports the talus.
 > Look for: the large heel projection.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1848510050)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1848510050)`
 
 ### bone-leftLowerLimbBones-07 — Left navicular
 
@@ -868,7 +868,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1848510050)`
 > Role: links the talus to the cuneiform bones.
 > Look for: its curved, boat-like outline.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1030681667)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1030681667)`
 
 ### bone-leftLowerLimbBones-08 — Left cuboid
 
@@ -877,7 +877,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1030681667)`
 > Role: links the heel region to the outer metatarsals.
 > Look for: its block-like shape.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 141479940)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 141479940)`
 
 ### bone-leftLowerLimbBones-09 — Left medial cuneiform
 
@@ -885,7 +885,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 141479940)`
 > Location: medial part of the midfoot, between the navicular and metatarsals.
 > Role: helps connect the rear foot to the forefoot and supports the foot's arches.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1845223801)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1845223801)`
 
 ### bone-leftLowerLimbBones-10 — Left intermediate cuneiform
 
@@ -893,7 +893,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1845223801)`
 > Location: intermediate part of the midfoot, between the navicular and metatarsals.
 > Role: helps connect the rear foot to the forefoot and supports the foot's arches.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 372117776)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 372117776)`
 
 ### bone-leftLowerLimbBones-11 — Left lateral cuneiform
 
@@ -901,7 +901,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 372117776)`
 > Location: lateral part of the midfoot, between the navicular and metatarsals.
 > Role: helps connect the rear foot to the forefoot and supports the foot's arches.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 821635572)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 821635572)`
 
 ### bone-leftLowerLimbBones-12 — Left metatarsal 1
 
@@ -909,7 +909,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 821635572)`
 > Location: forefoot, in line with toe 1; numbering begins at the big toe.
 > Role: links the tarsal bones to the toes and helps form the ball of the foot.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1896121249)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1896121249)`
 
 ### bone-leftLowerLimbBones-13 — Left metatarsal 2
 
@@ -917,7 +917,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1896121249)`
 > Location: forefoot, in line with toe 2; numbering begins at the big toe.
 > Role: links the tarsal bones to the toes and helps form the ball of the foot.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1728593726)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1728593726)`
 
 ### bone-leftLowerLimbBones-14 — Left metatarsal 3
 
@@ -925,7 +925,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1728593726)`
 > Location: forefoot, in line with toe 3; numbering begins at the big toe.
 > Role: links the tarsal bones to the toes and helps form the ball of the foot.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 755898914)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 755898914)`
 
 ### bone-leftLowerLimbBones-15 — Left metatarsal 4
 
@@ -933,7 +933,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 755898914)`
 > Location: forefoot, in line with toe 4; numbering begins at the big toe.
 > Role: links the tarsal bones to the toes and helps form the ball of the foot.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1901963225)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1901963225)`
 
 ### bone-leftLowerLimbBones-16 — Left metatarsal 5
 
@@ -941,7 +941,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1901963225)`
 > Location: forefoot, in line with toe 5; numbering begins at the big toe.
 > Role: links the tarsal bones to the toes and helps form the ball of the foot.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1573481066)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1573481066)`
 
 ### bone-leftLowerLimbBones-17 — Left toe 1 — proximal phalanx
 
@@ -949,7 +949,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1573481066)`
 > Location: proximal segment of left toe 1.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1677063108)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1677063108)`
 
 ### bone-leftLowerLimbBones-18 — Left toe 1 — distal phalanx
 
@@ -957,7 +957,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1677063108)`
 > Location: distal segment of left toe 1.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1804170739)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1804170739)`
 
 ### bone-leftLowerLimbBones-19 — Left toe 2 — proximal phalanx
 
@@ -965,7 +965,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1804170739)`
 > Location: proximal segment of left toe 2.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 591754789)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 591754789)`
 
 ### bone-leftLowerLimbBones-20 — Left toe 2 — middle phalanx
 
@@ -973,7 +973,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 591754789)`
 > Location: middle segment of left toe 2.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 471065881)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 471065881)`
 
 ### bone-leftLowerLimbBones-21 — Left toe 2 — distal phalanx
 
@@ -981,7 +981,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 471065881)`
 > Location: distal segment of left toe 2.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 898734800)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 898734800)`
 
 ### bone-leftLowerLimbBones-22 — Left toe 3 — proximal phalanx
 
@@ -989,7 +989,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 898734800)`
 > Location: proximal segment of left toe 3.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2014903860)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 2014903860)`
 
 ### bone-leftLowerLimbBones-23 — Left toe 3 — middle phalanx
 
@@ -997,7 +997,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2014903860)`
 > Location: middle segment of left toe 3.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 814954254)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 814954254)`
 
 ### bone-leftLowerLimbBones-24 — Left toe 3 — distal phalanx
 
@@ -1005,7 +1005,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 814954254)`
 > Location: distal segment of left toe 3.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 949868021)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 949868021)`
 
 ### bone-leftLowerLimbBones-25 — Left toe 4 — proximal phalanx
 
@@ -1013,7 +1013,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 949868021)`
 > Location: proximal segment of left toe 4.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 518702394)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 518702394)`
 
 ### bone-leftLowerLimbBones-26 — Left toe 4 — middle phalanx
 
@@ -1021,7 +1021,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 518702394)`
 > Location: middle segment of left toe 4.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 408033937)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 408033937)`
 
 ### bone-leftLowerLimbBones-27 — Left toe 4 — distal phalanx
 
@@ -1029,7 +1029,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 408033937)`
 > Location: distal segment of left toe 4.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1837029302)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1837029302)`
 
 ### bone-leftLowerLimbBones-28 — Left toe 5 — proximal phalanx
 
@@ -1037,7 +1037,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1837029302)`
 > Location: proximal segment of left toe 5.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1960847144)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1960847144)`
 
 ### bone-leftLowerLimbBones-29 — Left toe 5 — middle phalanx
 
@@ -1045,7 +1045,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1960847144)`
 > Location: middle segment of left toe 5.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1884076016)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1884076016)`
 
 ### bone-leftLowerLimbBones-30 — Left toe 5 — distal phalanx
 
@@ -1053,7 +1053,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1884076016)`
 > Location: distal segment of left toe 5.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 555085717)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 555085717)`
 
 ## Individual bones: Right lower limb
 
@@ -1064,7 +1064,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 555085717)`
 > Role: supports body weight and forms the hip and knee joints.
 > Look for: the rounded head and broad lower end.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 917579078)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 917579078)`
 
 ### bone-rightLowerLimbBones-02 — Right patella — Kneecap
 
@@ -1073,7 +1073,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 917579078)`
 > Role: protects the tendon at the knee and helps the thigh muscles extend the leg.
 > Look for: its small, roughly triangular shape.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 417459154)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 417459154)`
 
 ### bone-rightLowerLimbBones-03 — Right tibia — Shinbone
 
@@ -1082,7 +1082,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 417459154)`
 > Role: bears most of the leg's weight.
 > Look for: its broad upper end and inner ankle projection.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1720068996)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1720068996)`
 
 ### bone-rightLowerLimbBones-04 — Right fibula
 
@@ -1091,7 +1091,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1720068996)`
 > Role: helps stabilize the ankle and provides muscle attachments.
 > Look for: its slender shaft and outer ankle projection.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 65710603)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 65710603)`
 
 ### bone-rightLowerLimbBones-05 — Right talus
 
@@ -1100,7 +1100,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 65710603)`
 > Role: forms the ankle joint and passes weight toward the heel.
 > Look for: its joint surfaces above the calcaneus.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 58287936)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 58287936)`
 
 ### bone-rightLowerLimbBones-06 — Right calcaneus — Heel bone
 
@@ -1109,7 +1109,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 58287936)`
 > Role: forms the heel and supports the talus.
 > Look for: the large heel projection.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 294868690)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 294868690)`
 
 ### bone-rightLowerLimbBones-07 — Right navicular
 
@@ -1118,7 +1118,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 294868690)`
 > Role: links the talus to the cuneiform bones.
 > Look for: its curved, boat-like outline.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1945284237)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1945284237)`
 
 ### bone-rightLowerLimbBones-08 — Right cuboid
 
@@ -1127,7 +1127,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1945284237)`
 > Role: links the heel region to the outer metatarsals.
 > Look for: its block-like shape.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 681784762)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 681784762)`
 
 ### bone-rightLowerLimbBones-09 — Right medial cuneiform
 
@@ -1135,7 +1135,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 681784762)`
 > Location: medial part of the midfoot, between the navicular and metatarsals.
 > Role: helps connect the rear foot to the forefoot and supports the foot's arches.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 312797523)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 312797523)`
 
 ### bone-rightLowerLimbBones-10 — Right intermediate cuneiform
 
@@ -1143,7 +1143,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 312797523)`
 > Location: intermediate part of the midfoot, between the navicular and metatarsals.
 > Role: helps connect the rear foot to the forefoot and supports the foot's arches.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 381020037)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 381020037)`
 
 ### bone-rightLowerLimbBones-11 — Right lateral cuneiform
 
@@ -1151,7 +1151,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 381020037)`
 > Location: lateral part of the midfoot, between the navicular and metatarsals.
 > Role: helps connect the rear foot to the forefoot and supports the foot's arches.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1985808930)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1985808930)`
 
 ### bone-rightLowerLimbBones-12 — Right metatarsal 1
 
@@ -1159,7 +1159,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1985808930)`
 > Location: forefoot, in line with toe 1; numbering begins at the big toe.
 > Role: links the tarsal bones to the toes and helps form the ball of the foot.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1125409685)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1125409685)`
 
 ### bone-rightLowerLimbBones-13 — Right metatarsal 2
 
@@ -1167,7 +1167,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1125409685)`
 > Location: forefoot, in line with toe 2; numbering begins at the big toe.
 > Role: links the tarsal bones to the toes and helps form the ball of the foot.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 499065931)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 499065931)`
 
 ### bone-rightLowerLimbBones-14 — Right metatarsal 3
 
@@ -1175,7 +1175,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 499065931)`
 > Location: forefoot, in line with toe 3; numbering begins at the big toe.
 > Role: links the tarsal bones to the toes and helps form the ball of the foot.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2078235473)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 2078235473)`
 
 ### bone-rightLowerLimbBones-15 — Right metatarsal 4
 
@@ -1183,7 +1183,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2078235473)`
 > Location: forefoot, in line with toe 4; numbering begins at the big toe.
 > Role: links the tarsal bones to the toes and helps form the ball of the foot.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1828164204)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1828164204)`
 
 ### bone-rightLowerLimbBones-16 — Right metatarsal 5
 
@@ -1191,7 +1191,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1828164204)`
 > Location: forefoot, in line with toe 5; numbering begins at the big toe.
 > Role: links the tarsal bones to the toes and helps form the ball of the foot.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 612319566)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 612319566)`
 
 ### bone-rightLowerLimbBones-17 — Right toe 1 — proximal phalanx
 
@@ -1199,7 +1199,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 612319566)`
 > Location: proximal segment of right toe 1.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1157365520)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1157365520)`
 
 ### bone-rightLowerLimbBones-18 — Right toe 1 — distal phalanx
 
@@ -1207,7 +1207,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1157365520)`
 > Location: distal segment of right toe 1.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 349169387)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 349169387)`
 
 ### bone-rightLowerLimbBones-19 — Right toe 2 — proximal phalanx
 
@@ -1215,7 +1215,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 349169387)`
 > Location: proximal segment of right toe 2.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 336108943)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 336108943)`
 
 ### bone-rightLowerLimbBones-20 — Right toe 2 — middle phalanx
 
@@ -1223,7 +1223,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 336108943)`
 > Location: middle segment of right toe 2.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 203412632)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 203412632)`
 
 ### bone-rightLowerLimbBones-21 — Right toe 2 — distal phalanx
 
@@ -1231,7 +1231,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 203412632)`
 > Location: distal segment of right toe 2.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 516909752)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 516909752)`
 
 ### bone-rightLowerLimbBones-22 — Right toe 3 — proximal phalanx
 
@@ -1239,7 +1239,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 516909752)`
 > Location: proximal segment of right toe 3.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1974314064)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1974314064)`
 
 ### bone-rightLowerLimbBones-23 — Right toe 3 — middle phalanx
 
@@ -1247,7 +1247,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1974314064)`
 > Location: middle segment of right toe 3.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1991020000)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1991020000)`
 
 ### bone-rightLowerLimbBones-24 — Right toe 3 — distal phalanx
 
@@ -1255,7 +1255,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1991020000)`
 > Location: distal segment of right toe 3.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 199897243)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 199897243)`
 
 ### bone-rightLowerLimbBones-25 — Right toe 4 — proximal phalanx
 
@@ -1263,7 +1263,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 199897243)`
 > Location: proximal segment of right toe 4.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1915630994)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1915630994)`
 
 ### bone-rightLowerLimbBones-26 — Right toe 4 — middle phalanx
 
@@ -1271,7 +1271,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1915630994)`
 > Location: middle segment of right toe 4.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 670783516)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 670783516)`
 
 ### bone-rightLowerLimbBones-27 — Right toe 4 — distal phalanx
 
@@ -1279,7 +1279,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 670783516)`
 > Location: distal segment of right toe 4.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 535826874)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 535826874)`
 
 ### bone-rightLowerLimbBones-28 — Right toe 5 — proximal phalanx
 
@@ -1287,7 +1287,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 535826874)`
 > Location: proximal segment of right toe 5.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 488182590)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 488182590)`
 
 ### bone-rightLowerLimbBones-29 — Right toe 5 — middle phalanx
 
@@ -1295,7 +1295,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 488182590)`
 > Location: middle segment of right toe 5.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 184972981)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 184972981)`
 
 ### bone-rightLowerLimbBones-30 — Right toe 5 — distal phalanx
 
@@ -1303,7 +1303,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 184972981)`
 > Location: distal segment of right toe 5.
 > Role: forms part of the toe and helps the foot balance and push off during movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 285165835)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 285165835)`
 
 ### bone-rightLowerLimbBones-31 — Right medial sesamoid
 
@@ -1312,7 +1312,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 285165835)`
 > Role: a small bone within a tendon that helps protect it and guide movement.
 > Look for: the small rounded shape under the forefoot.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 320916827)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 320916827)`
 
 ### bone-rightLowerLimbBones-32 — Right lateral sesamoid
 
@@ -1321,7 +1321,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 320916827)`
 > Role: a small bone within a tendon that helps protect it and guide movement.
 > Look for: the small rounded shape under the forefoot.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1805490577)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1805490577)`
 
 ## Individual bones: Left upper limb
 
@@ -1332,7 +1332,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1805490577)`
 > Role: forms the shoulder and elbow joints.
 > Look for: the rounded head and broad lower end.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 154396501)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 154396501)`
 
 ### bone-leftUpperLimbBones-02 — Left radius
 
@@ -1341,7 +1341,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 154396501)`
 > Role: rotates around the ulna and contributes to the wrist joint.
 > Look for: its small rounded head near the elbow.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 929720188)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 929720188)`
 
 ### bone-leftUpperLimbBones-03 — Left ulna
 
@@ -1350,7 +1350,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 929720188)`
 > Role: forms the main hinge of the elbow.
 > Look for: the prominent upper end that forms the elbow point.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 14251104)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 14251104)`
 
 ### bone-leftUpperLimbBones-04 — Left scaphoid
 
@@ -1359,7 +1359,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 14251104)`
 > Role: one of eight carpal bones that give the wrist its flexibility.
 > Look for: its position among the two rows of wrist bones.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1849603604)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1849603604)`
 
 ### bone-leftUpperLimbBones-05 — Left lunate
 
@@ -1368,7 +1368,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1849603604)`
 > Role: one of eight carpal bones that give the wrist its flexibility.
 > Look for: its position among the two rows of wrist bones.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 919916229)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 919916229)`
 
 ### bone-leftUpperLimbBones-06 — Left triquetrum
 
@@ -1377,7 +1377,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 919916229)`
 > Role: one of eight carpal bones that give the wrist its flexibility.
 > Look for: its position among the two rows of wrist bones.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1944784439)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1944784439)`
 
 ### bone-leftUpperLimbBones-07 — Left pisiform
 
@@ -1386,7 +1386,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1944784439)`
 > Role: one of eight carpal bones that give the wrist its flexibility.
 > Look for: its position among the two rows of wrist bones.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1310540579)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1310540579)`
 
 ### bone-leftUpperLimbBones-08 — Left trapezium
 
@@ -1395,7 +1395,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1310540579)`
 > Role: one of eight carpal bones that give the wrist its flexibility.
 > Look for: its position among the two rows of wrist bones.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 755611434)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 755611434)`
 
 ### bone-leftUpperLimbBones-09 — Left trapezoid
 
@@ -1404,7 +1404,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 755611434)`
 > Role: one of eight carpal bones that give the wrist its flexibility.
 > Look for: its position among the two rows of wrist bones.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1374576501)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1374576501)`
 
 ### bone-leftUpperLimbBones-10 — Left capitate
 
@@ -1413,7 +1413,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1374576501)`
 > Role: one of eight carpal bones that give the wrist its flexibility.
 > Look for: its position among the two rows of wrist bones.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 178066893)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 178066893)`
 
 ### bone-leftUpperLimbBones-11 — Left hamate
 
@@ -1422,7 +1422,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 178066893)`
 > Role: one of eight carpal bones that give the wrist its flexibility.
 > Look for: its position among the two rows of wrist bones.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 747043992)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 747043992)`
 
 ### bone-leftUpperLimbBones-12 — Left metacarpal 1
 
@@ -1430,7 +1430,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 747043992)`
 > Location: palm, aligned with digit 1; numbering begins at the thumb.
 > Role: links the wrist bones to the fingers and helps form the knuckles.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1584414923)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1584414923)`
 
 ### bone-leftUpperLimbBones-13 — Left metacarpal 2
 
@@ -1438,7 +1438,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1584414923)`
 > Location: palm, aligned with digit 2; numbering begins at the thumb.
 > Role: links the wrist bones to the fingers and helps form the knuckles.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 113057101)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 113057101)`
 
 ### bone-leftUpperLimbBones-14 — Left metacarpal 3
 
@@ -1446,7 +1446,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 113057101)`
 > Location: palm, aligned with digit 3; numbering begins at the thumb.
 > Role: links the wrist bones to the fingers and helps form the knuckles.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2027451646)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 2027451646)`
 
 ### bone-leftUpperLimbBones-15 — Left metacarpal 4
 
@@ -1454,7 +1454,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2027451646)`
 > Location: palm, aligned with digit 4; numbering begins at the thumb.
 > Role: links the wrist bones to the fingers and helps form the knuckles.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1296343311)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1296343311)`
 
 ### bone-leftUpperLimbBones-16 — Left metacarpal 5
 
@@ -1462,7 +1462,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1296343311)`
 > Location: palm, aligned with digit 5; numbering begins at the thumb.
 > Role: links the wrist bones to the fingers and helps form the knuckles.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1905602575)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1905602575)`
 
 ### bone-leftUpperLimbBones-17 — Left thumb — proximal phalanx
 
@@ -1470,7 +1470,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1905602575)`
 > Location: proximal segment of the thumb.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1723419989)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1723419989)`
 
 ### bone-leftUpperLimbBones-18 — Left thumb — distal phalanx
 
@@ -1478,7 +1478,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1723419989)`
 > Location: distal segment of the thumb.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1300786457)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1300786457)`
 
 ### bone-leftUpperLimbBones-19 — Left index — proximal phalanx
 
@@ -1486,7 +1486,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1300786457)`
 > Location: proximal segment of the index.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1057182331)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1057182331)`
 
 ### bone-leftUpperLimbBones-20 — Left index — middle phalanx
 
@@ -1494,7 +1494,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1057182331)`
 > Location: middle segment of the index.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 800137614)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 800137614)`
 
 ### bone-leftUpperLimbBones-21 — Left index — distal phalanx
 
@@ -1502,7 +1502,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 800137614)`
 > Location: distal segment of the index.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 599168178)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 599168178)`
 
 ### bone-leftUpperLimbBones-22 — Left middle — proximal phalanx
 
@@ -1510,7 +1510,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 599168178)`
 > Location: proximal segment of the middle.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1677456066)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1677456066)`
 
 ### bone-leftUpperLimbBones-23 — Left middle — middle phalanx
 
@@ -1518,7 +1518,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1677456066)`
 > Location: middle segment of the middle.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 830506302)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 830506302)`
 
 ### bone-leftUpperLimbBones-24 — Left middle — distal phalanx
 
@@ -1526,7 +1526,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 830506302)`
 > Location: distal segment of the middle.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1429562819)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1429562819)`
 
 ### bone-leftUpperLimbBones-25 — Left ring — proximal phalanx
 
@@ -1534,7 +1534,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1429562819)`
 > Location: proximal segment of the ring.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 250539020)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 250539020)`
 
 ### bone-leftUpperLimbBones-26 — Left ring — middle phalanx
 
@@ -1542,7 +1542,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 250539020)`
 > Location: middle segment of the ring.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 571603795)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 571603795)`
 
 ### bone-leftUpperLimbBones-27 — Left ring — distal phalanx
 
@@ -1550,7 +1550,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 571603795)`
 > Location: distal segment of the ring.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 754965203)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 754965203)`
 
 ### bone-leftUpperLimbBones-28 — Left little — proximal phalanx
 
@@ -1558,7 +1558,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 754965203)`
 > Location: proximal segment of the little.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 227554163)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 227554163)`
 
 ### bone-leftUpperLimbBones-29 — Left little — middle phalanx
 
@@ -1566,7 +1566,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 227554163)`
 > Location: middle segment of the little.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1672032463)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1672032463)`
 
 ### bone-leftUpperLimbBones-30 — Left little — distal phalanx
 
@@ -1574,7 +1574,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1672032463)`
 > Location: distal segment of the little.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 193476994)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 193476994)`
 
 ## Individual bones: Right upper limb
 
@@ -1585,7 +1585,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 193476994)`
 > Role: forms the shoulder and elbow joints.
 > Look for: the rounded head and broad lower end.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 215999437)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 215999437)`
 
 ### bone-rightUpperLimbBones-02 — Right radius
 
@@ -1594,7 +1594,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 215999437)`
 > Role: rotates around the ulna and contributes to the wrist joint.
 > Look for: its small rounded head near the elbow.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 332458555)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 332458555)`
 
 ### bone-rightUpperLimbBones-03 — Right ulna
 
@@ -1603,7 +1603,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 332458555)`
 > Role: forms the main hinge of the elbow.
 > Look for: the prominent upper end that forms the elbow point.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1463808217)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1463808217)`
 
 ### bone-rightUpperLimbBones-04 — Right scaphoid
 
@@ -1612,7 +1612,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1463808217)`
 > Role: one of eight carpal bones that give the wrist its flexibility.
 > Look for: its position among the two rows of wrist bones.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 529552624)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 529552624)`
 
 ### bone-rightUpperLimbBones-05 — Right lunate
 
@@ -1621,7 +1621,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 529552624)`
 > Role: one of eight carpal bones that give the wrist its flexibility.
 > Look for: its position among the two rows of wrist bones.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 717773467)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 717773467)`
 
 ### bone-rightUpperLimbBones-06 — Right triquetrum
 
@@ -1630,7 +1630,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 717773467)`
 > Role: one of eight carpal bones that give the wrist its flexibility.
 > Look for: its position among the two rows of wrist bones.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 75974445)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 75974445)`
 
 ### bone-rightUpperLimbBones-07 — Right pisiform
 
@@ -1639,7 +1639,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 75974445)`
 > Role: one of eight carpal bones that give the wrist its flexibility.
 > Look for: its position among the two rows of wrist bones.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 937663882)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 937663882)`
 
 ### bone-rightUpperLimbBones-08 — Right trapezium
 
@@ -1648,7 +1648,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 937663882)`
 > Role: one of eight carpal bones that give the wrist its flexibility.
 > Look for: its position among the two rows of wrist bones.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 584123698)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 584123698)`
 
 ### bone-rightUpperLimbBones-09 — Right trapezoid
 
@@ -1657,7 +1657,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 584123698)`
 > Role: one of eight carpal bones that give the wrist its flexibility.
 > Look for: its position among the two rows of wrist bones.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 833833240)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 833833240)`
 
 ### bone-rightUpperLimbBones-10 — Right capitate
 
@@ -1666,7 +1666,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 833833240)`
 > Role: one of eight carpal bones that give the wrist its flexibility.
 > Look for: its position among the two rows of wrist bones.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1083675025)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1083675025)`
 
 ### bone-rightUpperLimbBones-11 — Right hamate
 
@@ -1675,7 +1675,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1083675025)`
 > Role: one of eight carpal bones that give the wrist its flexibility.
 > Look for: its position among the two rows of wrist bones.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 228978773)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 228978773)`
 
 ### bone-rightUpperLimbBones-12 — Right metacarpal 1
 
@@ -1683,7 +1683,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 228978773)`
 > Location: palm, aligned with digit 1; numbering begins at the thumb.
 > Role: links the wrist bones to the fingers and helps form the knuckles.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1830390360)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1830390360)`
 
 ### bone-rightUpperLimbBones-13 — Right metacarpal 2
 
@@ -1691,7 +1691,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1830390360)`
 > Location: palm, aligned with digit 2; numbering begins at the thumb.
 > Role: links the wrist bones to the fingers and helps form the knuckles.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 556332999)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 556332999)`
 
 ### bone-rightUpperLimbBones-14 — Right metacarpal 3
 
@@ -1699,7 +1699,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 556332999)`
 > Location: palm, aligned with digit 3; numbering begins at the thumb.
 > Role: links the wrist bones to the fingers and helps form the knuckles.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1621206481)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1621206481)`
 
 ### bone-rightUpperLimbBones-15 — Right metacarpal 4
 
@@ -1707,7 +1707,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1621206481)`
 > Location: palm, aligned with digit 4; numbering begins at the thumb.
 > Role: links the wrist bones to the fingers and helps form the knuckles.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 411825065)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 411825065)`
 
 ### bone-rightUpperLimbBones-16 — Right metacarpal 5
 
@@ -1715,7 +1715,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 411825065)`
 > Location: palm, aligned with digit 5; numbering begins at the thumb.
 > Role: links the wrist bones to the fingers and helps form the knuckles.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 685540388)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 685540388)`
 
 ### bone-rightUpperLimbBones-17 — Right thumb — proximal phalanx
 
@@ -1723,7 +1723,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 685540388)`
 > Location: proximal segment of the thumb.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 172024055)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 172024055)`
 
 ### bone-rightUpperLimbBones-18 — Right thumb — distal phalanx
 
@@ -1731,7 +1731,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 172024055)`
 > Location: distal segment of the thumb.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 876630155)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 876630155)`
 
 ### bone-rightUpperLimbBones-19 — Right index — proximal phalanx
 
@@ -1739,7 +1739,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 876630155)`
 > Location: proximal segment of the index.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 11549036)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 11549036)`
 
 ### bone-rightUpperLimbBones-20 — Right index — middle phalanx
 
@@ -1747,7 +1747,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 11549036)`
 > Location: middle segment of the index.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1749329785)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1749329785)`
 
 ### bone-rightUpperLimbBones-21 — Right index — distal phalanx
 
@@ -1755,7 +1755,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1749329785)`
 > Location: distal segment of the index.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2132271906)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 2132271906)`
 
 ### bone-rightUpperLimbBones-22 — Right middle — proximal phalanx
 
@@ -1763,7 +1763,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2132271906)`
 > Location: proximal segment of the middle.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1318046989)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1318046989)`
 
 ### bone-rightUpperLimbBones-23 — Right middle — middle phalanx
 
@@ -1771,7 +1771,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1318046989)`
 > Location: middle segment of the middle.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 401467376)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 401467376)`
 
 ### bone-rightUpperLimbBones-24 — Right middle — distal phalanx
 
@@ -1779,7 +1779,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 401467376)`
 > Location: distal segment of the middle.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 66606602)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 66606602)`
 
 ### bone-rightUpperLimbBones-25 — Right ring — proximal phalanx
 
@@ -1787,7 +1787,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 66606602)`
 > Location: proximal segment of the ring.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 893528747)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 893528747)`
 
 ### bone-rightUpperLimbBones-26 — Right ring — middle phalanx
 
@@ -1795,7 +1795,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 893528747)`
 > Location: middle segment of the ring.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 948446142)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 948446142)`
 
 ### bone-rightUpperLimbBones-27 — Right ring — distal phalanx
 
@@ -1803,7 +1803,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 948446142)`
 > Location: distal segment of the ring.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 242935870)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 242935870)`
 
 ### bone-rightUpperLimbBones-28 — Right little — proximal phalanx
 
@@ -1811,7 +1811,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 242935870)`
 > Location: proximal segment of the little.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1193942484)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1193942484)`
 
 ### bone-rightUpperLimbBones-29 — Right little — middle phalanx
 
@@ -1819,7 +1819,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1193942484)`
 > Location: middle segment of the little.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 559565871)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 559565871)`
 
 ### bone-rightUpperLimbBones-30 — Right little — distal phalanx
 
@@ -1827,7 +1827,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 559565871)`
 > Location: distal segment of the little.
 > Role: forms part of the digit for grasping and fine hand movement.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2130824767)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 2130824767)`
 
 ## Individual bones: Right pectoral girdle
 
@@ -1838,7 +1838,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 2130824767)`
 > Role: braces the shoulder away from the trunk and transfers forces from the arm.
 > Look for: the slender curved shaft.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1482026722)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1482026722)`
 
 ### bone-rightPectoralBones-02 — Right scapula — Shoulder blade
 
@@ -1847,7 +1847,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1482026722)`
 > Role: anchors shoulder muscles and forms the shoulder socket for the humerus.
 > Look for: the broad triangular blade and projecting spine.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1146079466)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1146079466)`
 
 ## Individual bones: Left pectoral girdle
 
@@ -1858,7 +1858,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1146079466)`
 > Role: braces the shoulder away from the trunk and transfers forces from the arm.
 > Look for: the slender curved shaft.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1265485111)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1265485111)`
 
 ### bone-leftPectoralBones-02 — Left scapula — Shoulder blade
 
@@ -1867,7 +1867,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1265485111)`
 > Role: anchors shoulder muscles and forms the shoulder socket for the humerus.
 > Look for: the broad triangular blade and projecting spine.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1117057901)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1117057901)`
 
 ## Individual bones: Pelvic girdle
 
@@ -1878,7 +1878,7 @@ Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1117057901)`
 > Role: transfers body weight to the lower limb and forms the hip socket.
 > Look for: the broad iliac wing and cup-shaped acetabulum.
 
-Source: `Assets/_Recovery/CONTROLLERS MIGRATION.unity (BonePartInfo 1428180037)`
+Source: `Assets/Scenes/Osteon.unity (BonePartInfo 1428180037)`
 
 ## Quiz: current question bank
 
