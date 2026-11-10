@@ -1,0 +1,420 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Osteon educator portal with private static hosting, Cognito MFA, a JWT protected API, and immutable question-bank storage.
+Metadata:
+  AWSToolsMetrics:
+    AWSAgentToolkit: aws-cloudformation@3
+  com.aws.cloudformation.Context:
+    ref:
+      - at: Backend/educator-portal/README.md
+        has: deployment order and migration safety
+        scope: portal
+    must:
+      - Import the exact deployed quiz ZIP bank before setting QUESTION_BANK_TABLE_NAME on the quiz Lambda.
+      - Never grant the browser direct DynamoDB or S3 write permission.
+Parameters:
+  ArtifactBucket:
+    Type: String
+    Description: Existing private bucket containing the educator Lambda ZIP.
+  EducatorZipKey:
+    Type: String
+    Description: Object key of the educator Lambda ZIP.
+  AccountsTableName:
+    Type: String
+    Default: osteon-accounts
+  QuizTableName:
+    Type: String
+    Default: osteon-quiz-demo
+  CognitoDomainPrefix:
+    Type: String
+    AllowedPattern: '[a-z0-9-]{3,63}'
+Resources:
+  Bank:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Metadata:
+      com.aws.cloudformation.Context:
+        why: Stores each published bank as immutable question rows and a single active pointer.
+        must:
+          - Keep old versions for active sessions and historical answers.
+          - Back up before the first migration and any manual rollback.
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: pk
+          AttributeType: S
+        - AttributeName: sk
+          AttributeType: S
+      KeySchema:
+        - AttributeName: pk
+          KeyType: HASH
+        - AttributeName: sk
+          KeyType: RANGE
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+      SSESpecification:
+        SSEEnabled: true
+  PortalBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Metadata:
+      com.aws.cloudformation.Context:
+        why: Serves only through CloudFront origin access control.
+        must:
+          - No public S3 website endpoint or public ACLs.
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      VersioningConfiguration:
+        Status: Enabled
+  PortalAccess:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: !Sub '${AWS::StackName}-portal-oac'
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+  SecurityHeaders:
+    Type: AWS::CloudFront::ResponseHeadersPolicy
+    Properties:
+      ResponseHeadersPolicyConfig:
+        Name: !Sub '${AWS::StackName}-security-headers'
+        SecurityHeadersConfig:
+          ContentSecurityPolicy:
+            ContentSecurityPolicy: !Sub "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self' https://*.execute-api.${AWS::Region}.amazonaws.com https://*.auth.${AWS::Region}.amazoncognito.com; form-action 'self'; base-uri 'none'; frame-ancestors 'none'"
+            Override: true
+          StrictTransportSecurity:
+            AccessControlMaxAgeSec: 31536000
+            IncludeSubdomains: true
+            Override: true
+          FrameOptions:
+            FrameOption: DENY
+            Override: true
+          ContentTypeOptions:
+            Override: true
+          ReferrerPolicy:
+            ReferrerPolicy: no-referrer
+            Override: true
+  PortalDistribution:
+    Type: AWS::CloudFront::Distribution
+    Metadata:
+      com.aws.cloudformation.Context:
+        why: Gives educators an HTTPS origin while the S3 bucket stays private.
+        must:
+          - Keep response security headers and HTTPS redirection enabled.
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        DefaultRootObject: index.html
+        HttpVersion: http2
+        Origins:
+          - Id: portal-s3
+            DomainName: !GetAtt PortalBucket.RegionalDomainName
+            OriginAccessControlId: !Ref PortalAccess
+            S3OriginConfig:
+              OriginAccessIdentity: ''
+        DefaultCacheBehavior:
+          TargetOriginId: portal-s3
+          ViewerProtocolPolicy: redirect-to-https
+          AllowedMethods: [GET, HEAD]
+          CachedMethods: [GET, HEAD]
+          Compress: true
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+          ResponseHeadersPolicyId: !Ref SecurityHeaders
+        ViewerCertificate:
+          CloudFrontDefaultCertificate: true
+  PortalBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref PortalBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: CloudFrontRead
+            Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
+            Action: s3:GetObject
+            Resource: !Sub '${PortalBucket.Arn}/*'
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub 'arn:${AWS::Partition}:cloudfront::${AWS::AccountId}:distribution/${PortalDistribution}'
+          - Sid: DenyInsecureTransport
+            Effect: Deny
+            Principal: '*'
+            Action: s3:*
+            Resource:
+              - !GetAtt PortalBucket.Arn
+              - !Sub '${PortalBucket.Arn}/*'
+            Condition:
+              Bool:
+                aws:SecureTransport: false
+  EducatorPool:
+    Type: AWS::Cognito::UserPool
+    DependsOn: SignupGuardPermission
+    Metadata:
+      com.aws.cloudformation.Context:
+        why: Separate self-registered educator identities from learner access codes.
+        must:
+          - Self-registration needs no maintainer approval; the pre-sign-up trigger limits new users to @mmsu.edu.ph.
+          - Email confirmation and MFA stay required; the trigger must not auto-confirm or auto-verify.
+    Properties:
+      AdminCreateUserConfig:
+        AllowAdminCreateUserOnly: false
+      LambdaConfig:
+        PreSignUp: !GetAtt SignupGuardFunction.Arn
+      AutoVerifiedAttributes: [email]
+      UsernameAttributes: [email]
+      MfaConfiguration: 'ON'
+      EnabledMfas: [SOFTWARE_TOKEN_MFA]
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 14
+          RequireLowercase: true
+          RequireUppercase: true
+          RequireNumbers: true
+          RequireSymbols: true
+          TemporaryPasswordValidityDays: 7
+      AccountRecoverySetting:
+        RecoveryMechanisms:
+          - Name: verified_email
+            Priority: 1
+  SignupGuardRole:
+    Type: AWS::IAM::Role
+    Metadata:
+      com.aws.cloudformation.Context:
+        why: Gives the pre-sign-up email-domain check only basic Lambda logging permissions.
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+  SignupGuardFunction:
+    Type: AWS::Lambda::Function
+    Metadata:
+      com.aws.cloudformation.Context:
+        why: Rejects self-registration unless the submitted email ends in the exact MMSU academic domain.
+        must:
+          - Keep Cognito email confirmation enabled; the submitted address must be proven before sign-in.
+          - Package signup_guard.py in the educator ZIP before updating the pool trigger.
+    Properties:
+      Runtime: python3.12
+      Handler: signup_guard.lambda_handler
+      Architectures: [x86_64]
+      MemorySize: 128
+      Timeout: 5
+      Role: !GetAtt SignupGuardRole.Arn
+      Code:
+        S3Bucket: !Ref ArtifactBucket
+        S3Key: !Ref EducatorZipKey
+  SignupGuardPermission:
+    Type: AWS::Lambda::Permission
+    Metadata:
+      com.aws.cloudformation.Context:
+        why: Authorizes this account's Cognito pool to invoke the guard before the pool trigger is enabled.
+        must:
+          - Keep EducatorPool dependent on this permission so sign-up never starts with an unusable trigger.
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref SignupGuardFunction
+      Principal: cognito-idp.amazonaws.com
+      SourceAccount: !Ref AWS::AccountId
+  EducatorGroup:
+    Type: AWS::Cognito::UserPoolGroup
+    Properties:
+      GroupName: osteon-educators
+      UserPoolId: !Ref EducatorPool
+  EducatorClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      UserPoolId: !Ref EducatorPool
+      GenerateSecret: false
+      AllowedOAuthFlowsUserPoolClient: true
+      AllowedOAuthFlows: [code]
+      AllowedOAuthScopes: [openid]
+      CallbackURLs:
+        - !Sub 'https://${PortalDistribution.DomainName}/'
+      LogoutURLs:
+        - !Sub 'https://${PortalDistribution.DomainName}/'
+      SupportedIdentityProviders: [COGNITO]
+      AccessTokenValidity: 15
+      IdTokenValidity: 15
+      RefreshTokenValidity: 1
+      TokenValidityUnits:
+        AccessToken: minutes
+        IdToken: minutes
+        RefreshToken: days
+      EnableTokenRevocation: true
+      PreventUserExistenceErrors: ENABLED
+  EducatorDomain:
+    Type: AWS::Cognito::UserPoolDomain
+    Properties:
+      Domain: !Ref CognitoDomainPrefix
+      UserPoolId: !Ref EducatorPool
+  EducatorRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+      Policies:
+        - PolicyName: EducatorData
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: [dynamodb:GetItem, dynamodb:Query, dynamodb:PutItem, dynamodb:UpdateItem, dynamodb:BatchWriteItem]
+                Resource: !GetAtt Bank.Arn
+              - Effect: Allow
+                Action: [dynamodb:GetItem, dynamodb:Scan]
+                Resource: !Sub 'arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${AccountsTableName}'
+              - Effect: Allow
+                Action: dynamodb:GetItem
+                Resource: !Sub 'arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${QuizTableName}'
+  EducatorFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Runtime: python3.12
+      Handler: api.lambda_handler
+      Architectures: [x86_64]
+      MemorySize: 256
+      Timeout: 20
+      Role: !GetAtt EducatorRole.Arn
+      Code:
+        S3Bucket: !Ref ArtifactBucket
+        S3Key: !Ref EducatorZipKey
+      Environment:
+        Variables:
+          QUESTION_BANK_TABLE_NAME: !Ref Bank
+          ACCOUNTS_TABLE_NAME: !Ref AccountsTableName
+          QUIZ_TABLE_NAME: !Ref QuizTableName
+          EDUCATOR_CLIENT_ID: !Ref EducatorClient
+  EducatorApi:
+    Type: AWS::ApiGatewayV2::Api
+    Metadata:
+      com.aws.cloudformation.Context:
+        why: JWT authorizer protects every route; Lambda checks token type and educator client ID again.
+        must:
+          - CORS origin stays scoped to this distribution.
+          - No unauthenticated educator data route.
+    Properties:
+      Name: !Sub '${AWS::StackName}-api'
+      ProtocolType: HTTP
+      CorsConfiguration:
+        AllowOrigins:
+          - !Sub 'https://${PortalDistribution.DomainName}'
+        AllowMethods: [GET, POST, OPTIONS]
+        AllowHeaders: [authorization, content-type]
+        MaxAge: 300
+  EducatorStage:
+    Type: AWS::ApiGatewayV2::Stage
+    Properties:
+      ApiId: !Ref EducatorApi
+      StageName: $default
+      AutoDeploy: true
+  EducatorAuthorizer:
+    Type: AWS::ApiGatewayV2::Authorizer
+    Properties:
+      ApiId: !Ref EducatorApi
+      AuthorizerType: JWT
+      Name: educator-jwt
+      IdentitySource: ['$request.header.Authorization']
+      JwtConfiguration:
+        Audience: [!Ref EducatorClient]
+        Issuer: !Sub 'https://cognito-idp.${AWS::Region}.amazonaws.com/${EducatorPool}'
+  EducatorIntegration:
+    Type: AWS::ApiGatewayV2::Integration
+    Properties:
+      ApiId: !Ref EducatorApi
+      IntegrationType: AWS_PROXY
+      IntegrationUri: !GetAtt EducatorFunction.Arn
+      PayloadFormatVersion: '2.0'
+  QuestionsRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref EducatorApi
+      RouteKey: 'GET /v1/questions'
+      Target: !Sub 'integrations/${EducatorIntegration}'
+      AuthorizationType: JWT
+      AuthorizerId: !Ref EducatorAuthorizer
+  ProgramsRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref EducatorApi
+      RouteKey: 'GET /v1/programs'
+      Target: !Sub 'integrations/${EducatorIntegration}'
+      AuthorizationType: JWT
+      AuthorizerId: !Ref EducatorAuthorizer
+  PublishRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref EducatorApi
+      RouteKey: 'POST /v1/questions/publish'
+      Target: !Sub 'integrations/${EducatorIntegration}'
+      AuthorizationType: JWT
+      AuthorizerId: !Ref EducatorAuthorizer
+  LearnersRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref EducatorApi
+      RouteKey: 'GET /v1/learners'
+      Target: !Sub 'integrations/${EducatorIntegration}'
+      AuthorizationType: JWT
+      AuthorizerId: !Ref EducatorAuthorizer
+  LearnerRoute:
+    Type: AWS::ApiGatewayV2::Route
+    Properties:
+      ApiId: !Ref EducatorApi
+      RouteKey: 'GET /v1/learners/{learner_id}'
+      Target: !Sub 'integrations/${EducatorIntegration}'
+      AuthorizationType: JWT
+      AuthorizerId: !Ref EducatorAuthorizer
+  InvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref EducatorFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub 'arn:${AWS::Partition}:execute-api:${AWS::Region}:${AWS::AccountId}:${EducatorApi}/*/*/v1/*'
+Outputs:
+  PortalUrl:
+    Description: Public HTTPS educator website.
+    Value: !Sub 'https://${PortalDistribution.DomainName}/'
+  PortalBucketName:
+    Description: Private bucket for static site files.
+    Value: !Ref PortalBucket
+  EducatorApiUrl:
+    Description: JWT protected educator API origin.
+    Value: !Sub 'https://${EducatorApi}.execute-api.${AWS::Region}.amazonaws.com'
+  EducatorClientId:
+    Description: Public Cognito app client ID.
+    Value: !Ref EducatorClient
+  EducatorUserPoolId:
+    Description: Maintainer-managed educator user pool.
+    Value: !Ref EducatorPool
+  CognitoDomain:
+    Description: Cognito managed login origin.
+    Value: !Sub 'https://${CognitoDomainPrefix}.auth.${AWS::Region}.amazoncognito.com'
+  QuestionBankTableName:
+    Description: Versioned question-bank table.
+    Value: !Ref Bank

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Osteon Educator — Local Preview</title>
+<link rel="stylesheet" href="style.css">
+<header><h1>Osteon Educator</h1><nav><button id="questions-tab" type="button">Questions</button><button id="learners-tab" type="button">Learners</button><button id="logout" type="button" disabled>Sign out</button></nav></header>
+<main>
+  <p id="notice" role="status">Local preview with sample data. Sign-in, publishing, and learner records require deployment.</p>
+  <section id="questions"><h2>Questions</h2><p>Edits stay in this browser until you publish the complete bank.</p><p>Published bank: sample preview</p><label>Find a question <input id="question-search" type="search"></label><div class="layout"><div id="question-list" class="list"></div><form id="editor"><h3 id="editing"></h3><label>Bone group <select name="bone_group"><option>Axial</option><option>Appendicular</option></select></label><label>Bone name <input name="bone_name" maxlength="80" required></label><label>Difficulty <select name="difficulty_level"><option>Easy</option><option>Medium</option><option>Hard</option></select></label><label>Difficulty score <input name="difficulty_score" type="number" min="0" max="1" step="0.01" required></label><label>Question <textarea name="question_text" maxlength="180" required></textarea></label><label>Choice A <input name="option_a" maxlength="70" required></label><label>Choice B <input name="option_b" maxlength="70" required></label><label>Choice C <input name="option_c" maxlength="70" required></label><label>Choice D <input name="option_d" maxlength="70" required></label><label>Correct answer <select name="correct_option"><option>A</option><option>B</option><option>C</option><option>D</option></select></label><button type="submit">Save draft</button></form></div><p id="draft-state">No unpublished changes</p><button type="button" disabled>Publish changes</button><button type="button" disabled>Reload published bank</button></section>
+  <section id="learners" hidden><h2>Learners</h2><p>Names and program details are learner-supplied. Mastery is a model estimate, not a grade. Recent answers contain at most 10 retained entries.</p><label>Search by name <input id="learner-search" type="search"></label><button id="learner-find" type="button">Search</button><div id="learner-list"></div><article id="learner-detail" hidden></article></section>
+</main>
+<script>
+const sample={question_id:"rib_01",bone_group:"Axial",bone_name:"Rib",difficulty_level:"Easy",difficulty_score:"0.25",question_text:"Which bone helps protect the lungs?",option_a:"Rib",option_b:"Femur",option_c:"Tibia",option_d:"Humerus",correct_option:"A"};
+const learners=[{id:"sample-1",name:"Alex Santos",program:"BS Nursing",year:"2",mastery:"62%",answers:4},{id:"sample-2",name:"Mika Reyes",program:"BS Computer Science",year:"3",mastery:"51%",answers:1}];
+const $=id=>document.getElementById(id),form=$("editor");
+function selectQuestion(){for(const [key,value] of Object.entries(sample))if(form.elements[key])form.elements[key].value=value;$("editing").textContent=sample.question_id;}
+const question=document.createElement("button");question.type="button";question.textContent=sample.question_id+": "+sample.question_text;question.onclick=selectQuestion;$("question-list").append(question);selectQuestion();
+form.onsubmit=event=>{event.preventDefault();$("draft-state").textContent="Sample draft saved in this preview only";};
+$("question-search").oninput=event=>question.hidden=!question.textContent.toLowerCase().includes(event.target.value.toLowerCase());
+function renderPreviewDetail(learner){
+  const detail=$("learner-detail");detail.hidden=false;detail.replaceChildren();
+  const title=document.createElement("h3");title.textContent=learner.name;detail.append(title);
+  const facts=document.createElement("p");facts.textContent=`${learner.program} · Year ${learner.year} · ${learner.answers} answers this run`;detail.append(facts);
+  const metrics=document.createElement("div");metrics.className="metrics";
+  for(const [label,value] of [["Mastery estimate",learner.mastery],["Retained answers","4"],["Correct in retained window","3/4 (75%)"],["Quiz status","In progress"]]){
+    const card=document.createElement("div");card.className="metric";const caption=document.createElement("span");caption.textContent=label;const amount=document.createElement("strong");amount.textContent=value;card.append(caption,amount);metrics.append(card);
+  }
+  detail.append(metrics);
+  const scope=document.createElement("p");scope.textContent="Sample analysis uses only the most recent retained answers (up to 10), not a lifetime score.";detail.append(scope);
+  const trend=document.createElement("section");trend.className="analysis-block";const trendTitle=document.createElement("h4");trendTitle.textContent="Mastery estimate across retained answers";const trendCopy=document.createElement("p");trendCopy.textContent="55% → 62% (+7 percentage points). This is a model estimate, not a grade.";trend.append(trendTitle,trendCopy);
+  const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");svg.setAttribute("viewBox","0 0 640 150");svg.setAttribute("role","img");svg.setAttribute("aria-label","Sample mastery estimate trend");svg.classList.add("mastery-chart");const line=document.createElementNS("http://www.w3.org/2000/svg","polyline");line.setAttribute("points","20,69 170,64 320,73 470,65 620,62");line.setAttribute("fill","none");line.setAttribute("stroke","#075b9c");line.setAttribute("stroke-width","4");svg.append(line);trend.append(svg);detail.append(trend);
+  for(const [heading,rows] of [["By bone group",[["Axial",2,3],["Appendicular",1,1]]],["By difficulty",[["Easy",2,2],["Medium",1,2]]]]){
+    const section=document.createElement("section");section.className="analysis-block";const h=document.createElement("h4");h.textContent=heading;section.append(h);
+    for(const [label,correct,answered] of rows){const line=document.createElement("div");line.className="breakdown-row";line.textContent=`${label}: ${correct}/${answered} correct`;const track=document.createElement("div");track.className="bar-track";const fill=document.createElement("div");fill.className="bar-fill";fill.style.width=`${100*correct/answered}%`;track.append(fill);line.append(track);section.append(line);}detail.append(section);
+  }
+  const h=document.createElement("h4");h.textContent="Recent answers";detail.append(h);
+  for(const line of ["Rib · Easy · Choice A — Rib · Correct · Model estimate: 58% → 62%","Femur · Medium · Choice B — Tibia · Incorrect · Correct answer: A — Femur"]){const row=document.createElement("div");row.className="answer-row";row.textContent=line;detail.append(row);}
+}
+function renderLearners(){const list=$("learner-list");list.replaceChildren();for(const learner of learners.filter(value=>value.name.toLowerCase().includes($("learner-search").value.toLowerCase()))){const card=document.createElement("div");card.className="card";const button=document.createElement("button");button.textContent=learner.name;button.onclick=()=>renderPreviewDetail(learner);card.append(button,document.createTextNode(" "+learner.program+" · Year "+learner.year+" · "+learner.mastery+" model estimate, "+learner.answers+" answers this run"));list.append(card);}}
+$("learner-find").onclick=renderLearners;renderLearners();
+$("questions-tab").onclick=()=>{$("questions").hidden=false;$("learners").hidden=true;};
+$("learners-tab").onclick=()=>{$("questions").hidden=true;$("learners").hidden=false;};
+</script>
+</html>

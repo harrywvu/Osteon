@@ -1,0 +1,7 @@
+{
+  "AllowCredentials": false,
+  "AllowHeaders": ["authorization", "content-type", "x-unity-version"],
+  "AllowMethods": ["GET", "POST", "PUT"],
+  "AllowOrigins": ["http://localhost:8000", "https://d1fz5khe940op0.cloudfront.net"],
+  "MaxAge": 300
+}
