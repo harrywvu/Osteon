@@ -42,6 +42,16 @@ class QuizServiceTests(unittest.TestCase):
         self.assertNotEqual(bob["session_id"], alice["session_id"])
         self.assertEqual(self.service.current("alice"), alice)
 
+    def test_content_change_starts_new_session_and_keeps_mastery(self):
+        original = self.service.start("alice")
+        self.store.states["alice"]["mastery"] = 0.68
+        with patch("quiz_service.content_version", return_value="new-content"):
+            fresh = self.service.start("alice")
+            self.assertNotEqual(fresh["session_id"], original["session_id"])
+            self.assertEqual(fresh["mastery"], 0.68)
+            self.assertEqual(fresh["answered_count"], 0)
+            self.assertEqual(self.store.states["alice"]["history"], [])
+
     def test_answer_uses_server_time_and_replays_retry_once(self):
         session = self.service.start("alice")
         self.now = 106.5
@@ -75,6 +85,27 @@ class QuizServiceTests(unittest.TestCase):
                 "alice", session["session_id"], "rib_01", "A",
                 "98c9a143-79c3-4a81-8b82-4cb9e03b6bed",
             )
+
+    def test_second_client_cannot_double_score_same_question(self):
+        first_client = self.service.start("alice")
+        second_client = QuizService(self.store, clock=lambda: self.now)
+        same_state = second_client.start("alice")
+        self.assertEqual(first_client, same_state)
+        question = first_client["question"]
+        feedback = {"question_id": question["question_id"], "correct": True,
+                    "correct_option": "B", "previous_mastery": 0.5,
+                    "updated_mastery": 0.6, "mastery_change": 0.1}
+        with patch("quiz_service.score_answer", return_value=feedback) as score, \
+             patch("quiz_service.generate", return_value={}):
+            self.service.answer("alice", first_client["session_id"],
+                                question["question_id"], "B",
+                                "3ee09c40-14a4-4a7a-aeee-d5cc1a113f4a")
+            with self.assertRaises(SessionConflict):
+                second_client.answer("alice", same_state["session_id"],
+                                     question["question_id"], "A",
+                                     "9dbbe32b-b8ae-4273-a6fb-6d0d49737372")
+        self.assertEqual(score.call_count, 1)
+        self.assertEqual(self.service.current("alice")["answered_count"], 1)
 
     def test_ai_feedback_is_committed_once_and_attempt_conflicts(self):
         session = self.service.start("alice")

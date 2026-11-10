@@ -84,6 +84,15 @@ class HandlerTests(unittest.TestCase):
                 self.assertEqual(response["statusCode"], status)
                 service.assert_not_called()
 
+    def test_saved_answer_replay_still_requires_valid_account_token(self):
+        request = event("POST", "/v1/sessions/session-1/answers",
+                        {"question_id": "rib_04", "choice": "B", "attempt_id": "same-attempt"})
+        with patch.object(handler, "verify", side_effect=InvalidCredential()), \
+             patch.object(handler, "_service") as service:
+            response = handler.lambda_handler(request, None)
+        self.assertEqual(response["statusCode"], 401)
+        service.assert_not_called()
+
 
 if __name__ == "__main__":
     unittest.main()

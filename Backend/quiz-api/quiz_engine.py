@@ -11,6 +11,7 @@ from functools import lru_cache
 from pathlib import Path
 
 import numpy as np
+import question_bank
 
 
 ASSETS = Path(__file__).resolve().parent / "assets"
@@ -47,7 +48,7 @@ def _validated_mastery(mastery):
     return value
 
 
-def next_question(mastery, asked_question_ids, preferred_tier=None):
+def next_question(mastery, asked_question_ids, preferred_tier=None, bank_version=None):
     """Return the first unasked question in the current difficulty tier.
 
     Return None when the bank is exhausted. The caller must record the returned
@@ -62,32 +63,34 @@ def next_question(mastery, asked_question_ids, preferred_tier=None):
         target = "hard"
 
     asked = set(asked_question_ids)
-    available = [q for q in _questions() if q["question_id"] not in asked]
+    available = [q for q in (question_bank.rows(bank_version) if bank_version else _questions())
+                 if q["question_id"] not in asked]
     if not available:
         return None
     if preferred_tier in ("easy", "medium", "hard"):
         preferred = next((q for q in available if q["difficulty_level"].lower() == preferred_tier), None)
         if preferred:
-            return question_by_id(preferred["question_id"])
+            return question_by_id(preferred["question_id"], bank_version)
     question = next(
         (q for q in available if q["difficulty_level"].lower() == target),
         available[0],
     )
-    return question_by_id(question["question_id"])
+    return question_by_id(question["question_id"], bank_version)
 
 
-def _find_question(question_id):
+def _find_question(question_id, bank_version=None):
     question = next(
-        (q for q in _questions() if q["question_id"] == question_id), None
+        (q for q in (question_bank.rows(bank_version) if bank_version else _questions())
+         if q["question_id"] == question_id), None
     )
     if question is None:
         raise ValueError(f"unknown question_id: {question_id}")
     return question
 
 
-def question_by_id(question_id):
+def question_by_id(question_id, bank_version=None):
     """Return a question for display without exposing its answer key."""
-    question = _find_question(question_id)
+    question = _find_question(question_id, bank_version)
     return {
         "question_id": question["question_id"],
         "bone_group": question["bone_group"],
@@ -100,7 +103,7 @@ def question_by_id(question_id):
     }
 
 
-def score_answer(question_id, choice, response_seconds, mastery):
+def score_answer(question_id, choice, response_seconds, mastery, bank_version=None):
     """Score one answer using the teammate's ONNX feature order and guardrails.
 
     The HTTP service must supply mastery and response time from trusted session
@@ -114,7 +117,7 @@ def score_answer(question_id, choice, response_seconds, mastery):
         raise ValueError("choice must be A, B, C, or D")
     choice = choice.strip().upper()
 
-    question = _find_question(question_id)
+    question = _find_question(question_id, bank_version)
     correct_option = question["correct_option"].strip().upper()
     correct = choice == correct_option
     difficulty = question["difficulty_level"].strip().lower()

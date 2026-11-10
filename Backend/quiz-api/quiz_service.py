@@ -2,10 +2,12 @@
 
 import time
 import os
+import json
 import re
 from uuid import UUID, uuid4
 
 from quiz_engine import content_version, next_question, question_by_id, score_answer
+from question_bank import active_version, model_version
 from ai_feedback import generate
 
 
@@ -22,18 +24,47 @@ class QuizService:
         self.store = store
         self.clock = clock or time.time
 
+    @staticmethod
+    def _pinned(state):
+        if state.get("bank_version"):
+            return {"bank_version": state["bank_version"]}
+        if os.environ.get("QUESTION_BANK_TABLE_NAME"):
+            try:
+                legacy_map = json.loads(os.environ.get("LEGACY_BANK_MAP", "{}"))
+            except ValueError:
+                raise SessionConflict("legacy quiz bank mapping is invalid") from None
+            if not isinstance(legacy_map, dict):
+                raise SessionConflict("legacy quiz bank mapping is invalid")
+            bank_version = legacy_map.get(state.get("content_version"))
+            if isinstance(bank_version, str) and bank_version:
+                return {"bank_version": bank_version}
+            if os.environ.get("LEGACY_CONTENT_VERSION") and state.get("content_version") == os.environ["LEGACY_CONTENT_VERSION"]:
+                return {"bank_version": os.environ["LEGACY_BANK_VERSION"]}
+            raise SessionConflict("legacy quiz bank is unavailable; do not restart this learner")
+        if state.get("content_version") != content_version():
+            raise SessionConflict("quiz content changed; start a new session")
+        return {}
+
     def start(self, learner_id):
         """Resume an active session, or begin one using saved mastery."""
         for _ in range(3):
             previous = self.store.get(learner_id)
-            if previous and not previous["completed"] and previous.get("content_version") == content_version():
-                return self._public_state(previous)
+            if previous and not previous["completed"]:
+                try:
+                    self._pinned(previous)
+                    return self._public_state(previous)
+                except SessionConflict:
+                    if os.environ.get("QUESTION_BANK_TABLE_NAME"):
+                        raise
 
             mastery = float(previous["mastery"]) if previous else 0.50
-            question = next_question(mastery, [])
+            version = active_version() if os.environ.get("QUESTION_BANK_TABLE_NAME") else None
+            question = next_question(mastery, [], bank_version=version) if version else next_question(mastery, [])
             state = {
                 "session_id": str(uuid4()),
                 "content_version": content_version(),
+                "model_version": model_version(),
+                **({"bank_version": version} if version else {}),
                 "mastery": mastery,
                 "asked_ids": [],
                 "current_question_id": question["question_id"] if question else None,
@@ -41,7 +72,8 @@ class QuizService:
                 "completed": question is None,
                 "last_attempt_id": None,
                 "last_result": None,
-                "history": previous.get("history", []) if previous and previous.get("content_version") == content_version() else [],
+                "history": previous.get("history", []) if previous and (
+                    version or previous.get("content_version") == content_version()) else [],
                 "revision": int(previous["revision"]) + 1 if previous else 0,
             }
             saved = (
@@ -56,8 +88,7 @@ class QuizService:
         state = self.store.get(learner_id)
         if state is None:
             raise SessionNotFound("no quiz session for this learner")
-        if state.get("content_version") != content_version():
-            raise SessionConflict("quiz content changed; start a new session")
+        self._pinned(state)
         return self._public_state(state)
 
     def answer(self, learner_id, session_id, question_id, choice, attempt_id):
@@ -70,8 +101,7 @@ class QuizService:
         state = self.store.get(learner_id)
         if state is None or state["session_id"] != session_id:
             raise SessionNotFound("quiz session not found")
-        if state.get("content_version") != content_version():
-            raise SessionConflict("quiz content changed; start a new session")
+        pinned = self._pinned(state)
         if state["last_attempt_id"] == attempt_id:
             if (state["last_result"]["question_id"] != question_id or
                     state.get("last_choice") != choice):
@@ -84,14 +114,15 @@ class QuizService:
 
         now = self.clock()
         seconds = max(0.0, now - float(state["issued_at"]))
-        feedback = score_answer(question_id, choice, seconds, float(state["mastery"]))
-        question = question_by_id(question_id)
+        feedback = score_answer(question_id, choice, seconds, float(state["mastery"]), **pinned)
+        question = question_by_id(question_id, **pinned)
         raw_delta = feedback.pop("raw_model_delta", feedback["mastery_change"])
         history = [*state.get("history", []), {
             "question_id": question_id, "bone_group": question["bone_group"],
             "difficulty": question["difficulty_level"], "choice": choice,
             "correct": feedback["correct"], "previous_mastery": feedback["previous_mastery"],
             "updated_mastery": feedback["updated_mastery"], "accepted_at": now,
+            **pinned,
         }][-10:]
         ai = generate(question, {"choice": choice, "correct": feedback["correct"],
                                  "correct_option": feedback["correct_option"],
@@ -119,8 +150,8 @@ class QuizService:
         asked = [*state["asked_ids"], question_id]
         preferred = recommended_tier if (os.environ.get("AI_ADAPTATION_ENABLED", "false").lower() == "true"
                                          and len(history) >= 5) else None
-        baseline = next_question(feedback["updated_mastery"], asked)
-        following = next_question(feedback["updated_mastery"], asked, preferred) if preferred else baseline
+        baseline = next_question(feedback["updated_mastery"], asked, **pinned)
+        following = next_question(feedback["updated_mastery"], asked, preferred, **pinned) if preferred else baseline
         difficulty_source = ("none" if following is None else "gemini" if preferred and
                              following["difficulty_level"].lower() == preferred else "mastery")
         result = {
@@ -169,5 +200,5 @@ class QuizService:
             "mastery": float(state["mastery"]),
             "answered_count": len(state["asked_ids"]),
             "completed": state["completed"],
-            "question": question_by_id(question_id) if question_id else None,
+            "question": question_by_id(question_id, **QuizService._pinned(state)) if question_id else None,
         }

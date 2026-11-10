@@ -64,8 +64,9 @@ not the deployed quiz service.
 
 **Observed status (2026-11-06):** The owner reports the quiz works in WebGL and
 VR and that same-account progress resumes across them. WebGL screenshots show
-two anatomy-focused explanations after wrong answers. Gemini-driven
-adaptation remains off. The local review of all 50 keyed answers found two
+two anatomy-focused explanations after wrong answers. The owner reports
+enabling Gemini-driven adaptation in Lambda on 2026-11-06; its live behavior
+has not been verified. The local review of all 50 keyed answers found two
 ambiguous stems and corrected them in an undeployed package; live review of
 all 50 generated explanations and real recommendations is still open. See
 [content audit](QUIZ_CONTENT_AUDIT_2026-11-06.md) and

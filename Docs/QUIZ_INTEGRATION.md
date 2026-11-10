@@ -5,7 +5,9 @@
 > feedback fix and supplied WebGL screenshots of two anatomy-focused explanations
 > after wrong answers. The owner also reports the quiz works in both WebGL and
 > VR. Provider source and the detailed platform acceptance cases remain
-> unverified. Do not put tokens or credentials here.
+> unverified. The owner reports enabling `AI_ADAPTATION_ENABLED=true` in the
+> quiz Lambda on 2026-11-06; this has not been read back or tested live after
+> the change. Do not put tokens or credentials here.
 
 See the [current AI pipeline diagram](QUIZ_AI_PIPELINE.md) for the answer path,
 fallback, and difficulty flags. The older demo instructions below are kept as
@@ -259,7 +261,12 @@ confirmed same-account progress resumed across those devices. Exact VR
 interactions and the remaining cross-device cases were not recorded.
 The [2026-11-06 content audit](QUIZ_CONTENT_AUDIT_2026-11-06.md) reviewed all
 50 keyed answers, corrected two ambiguous question stems locally, and recorded
-the remaining live recommendation, latency, and platform checks. The revised
+the remaining live recommendation, latency, and platform checks. The backend
+suite now passes 32 tests. The owner's first direct-provider audit returned
+17 explanations from 112 calls; 75 HTTP 429 responses, 13 HTTP 503 responses,
+and 7 timeouts prevented the rest. All 12 recommendation fixtures lacked
+provider output. The audit runner now saves partial results and resumes only
+missing cases. The revised
 question-bank package is separate and has not been deployed because its content
 version change would restart active quiz sessions.
 The replacement package is
@@ -305,7 +312,7 @@ the same `attempt_id` only to verify retry behavior: it should replay the
 saved result, not advance twice. Answering changes the demo learner's stored
 progress, so do not use a shared live session as disposable test data.
 
-In the enabled `CONTROLLERS MIGRATION` scene, `OsteonQuizDemo` creates a
+In the enabled `Osteon` scene, `OsteonQuizDemo` creates a
 world-space quiz station on the room's right wall. The
 menu initially shows **Start / Resume Practice**. **Stop** returns to the
 menu without erasing saved server progress. **Hide** collapses the menu to a

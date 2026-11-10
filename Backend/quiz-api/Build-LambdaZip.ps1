@@ -25,6 +25,7 @@ if ($LASTEXITCODE -ne 0) { throw "Dependency installation failed." }
 
 Copy-Item (Join-Path $source "handler.py") $package
 Copy-Item (Join-Path $source "quiz_engine.py") $package
+Copy-Item (Join-Path $source "question_bank.py") $package
 Copy-Item (Join-Path $source "quiz_service.py") $package
 Copy-Item (Join-Path $source "dynamodb_store.py") $package
 Copy-Item (Join-Path $source "account_verifier.py") $package
