@@ -9,6 +9,7 @@ New-Item -ItemType Directory -Path $accountPackage -Force | Out-Null
     --target $accountPackage --disable-pip-version-check
 if ($LASTEXITCODE -ne 0) { throw 'Linux dependency installation failed.' }
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'lambda_function.py') -Destination $accountPackage
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'program_catalog.py') -Destination $accountPackage
 $accountZip = Join-Path $accountOutput 'osteon-accounts-lambda.zip'
 # Python zipfile includes native bindings and dotfiles without PowerShell archive filtering.
 & $Python -c 'import pathlib,sys,zipfile; p=pathlib.Path(sys.argv[1]); z=zipfile.ZipFile(sys.argv[2],"w",zipfile.ZIP_DEFLATED); [z.write(f,f.relative_to(p).as_posix()) for f in p.rglob("*") if f.is_file() and "__pycache__" not in f.parts and f.suffix!=".pyc"]; z.close()' $accountPackage $accountZip

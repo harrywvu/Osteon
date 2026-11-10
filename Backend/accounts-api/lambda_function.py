@@ -20,6 +20,7 @@ from boto3.dynamodb.types import TypeSerializer
 from botocore.config import Config
 from botocore.exceptions import ClientError
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+from program_catalog import BY_ID, catalog
 
 LOG = logging.getLogger(__name__)
 TOKEN = re.compile(r"[A-Za-z0-9_-]{43}\Z")
@@ -100,8 +101,7 @@ class Accounts:
     def session(self, profile):
         now = int(self.clock())
         token = secrets.token_urlsafe(32)
-        public = {"learner_id": profile["learner_id"], "profile_label": profile["profile_label"],
-                  "access_token": token, "expires_in": 3600}
+        public = {**self.public_profile(profile), "access_token": token, "expires_in": 3600}
         item = {"pk": self.session_key(token), "learner_id": profile["learner_id"], "expires_at": now + 3600}
         return public, item
 
@@ -110,6 +110,36 @@ class Accounts:
         if not profile or profile.get("status") != "active":
             raise Failure(401, "authentication_required")
         return profile
+
+    @staticmethod
+    def public_profile(profile):
+        fields = ("learner_id", "profile_label", "first_name", "middle_name",
+                  "last_name", "program_id", "year_level")
+        result = {field: profile.get(field) for field in fields}
+        if result["year_level"] is not None:
+            result["year_level"] = int(result["year_level"])
+        result["profile_complete"] = all(profile.get(field) for field in
+                                         ("first_name", "last_name", "program_id", "year_level"))
+        return result
+
+    @staticmethod
+    def validate_details(details):
+        if not isinstance(details, dict) or set(details) != {"first_name", "middle_name", "last_name", "program_id", "year_level"}:
+            raise Failure(400, "invalid_profile")
+        clean = {}
+        for field in ("first_name", "middle_name", "last_name"):
+            value = details[field]
+            if not isinstance(value, str) or len(value.strip()) > 80 or any(ord(c) < 32 for c in value):
+                raise Failure(400, "invalid_profile")
+            clean[field] = value.strip()
+        if not clean["first_name"] or not clean["last_name"]:
+            raise Failure(400, "invalid_profile")
+        program = details["program_id"]
+        year = details["year_level"]
+        if not isinstance(program, str) or program not in BY_ID or type(year) is not int or year not in BY_ID[program]["year_options"]:
+            raise Failure(400, "invalid_profile")
+        clean.update(program_id=program, year_level=year)
+        return clean
 
     def replay(self, key):
         record = self.store.get(key)
@@ -123,7 +153,7 @@ class Accounts:
         result["expires_in"] = max(0, int(session["expires_at"]) - int(self.clock())) if session else 0
         return result
 
-    def create(self, request_id, source):
+    def create(self, request_id, source, details=None):
         try:
             if not isinstance(request_id, str) or len(request_id) > 36:
                 raise ValueError()
@@ -143,6 +173,8 @@ class Accounts:
             learner_id = uuid.uuid4().hex
             profile = {"pk": "PROFILE#" + learner_id, "learner_id": learner_id,
                        "profile_label": "Learner " + learner_id[:6], "status": "active", "created_at": now}
+            if details is not None:
+                profile.update(self.validate_details(details))
             public, session = self.session(profile)
             public["access_code"] = code
             nonce = secrets.token_bytes(12)
@@ -195,8 +227,20 @@ class Accounts:
         if not record or record["expires_at"] <= now:
             raise Failure(401, "authentication_required")
         profile = self.profile(record["learner_id"])
-        return {"learner_id": profile["learner_id"], "profile_label": profile["profile_label"],
-                "expires_in": int(record["expires_at"]) - now}
+        return {**self.public_profile(profile), "expires_in": int(record["expires_at"]) - now}
+
+    def update_profile(self, token, details):
+        identity = self.current(token)
+        clean = self.validate_details(details)
+        self.store.table.update_item(
+            Key={"pk": "PROFILE#" + identity["learner_id"]},
+            UpdateExpression="SET first_name = :first, middle_name = :middle, last_name = :last, program_id = :program, year_level = :year",
+            ConditionExpression="#s = :active",
+            ExpressionAttributeNames={"#s": "status"},
+            ExpressionAttributeValues={":first": clean["first_name"], ":middle": clean["middle_name"],
+                                       ":last": clean["last_name"], ":program": clean["program_id"],
+                                       ":year": clean["year_level"], ":active": "active"})
+        return self.current(token)
 
     def logout(self, token):
         self.store.table.delete_item(Key={"pk": self.session_key(token)})
@@ -231,6 +275,20 @@ def body(event):
 
 def lambda_handler(event, context):
     try:
+        if event.get("type") == "REQUEST":
+            # API Gateway checks the learner session before admitting profile writes.
+            if event.get("routeKey") != "PUT /v1/auth/me/profile":
+                return {"isAuthorized": False}
+            headers = {str(k).lower(): v for k, v in (event.get("headers") or {}).items()}
+            authorization = headers.get("authorization", "")
+            match = re.fullmatch(r"Bearer ([A-Za-z0-9_-]{43})", authorization) if isinstance(authorization, str) else None
+            if not match:
+                return {"isAuthorized": False}
+            try:
+                service().current(match[1])
+            except Failure:
+                return {"isAuthorized": False}
+            return {"isAuthorized": True}
         http = event.get("requestContext", {}).get("http", {})
         # IAM-authorized direct invocation only; API Gateway always supplies http context.
         if not http and event == {"diagnostic": "connectivity"}:
@@ -238,6 +296,8 @@ def lambda_handler(event, context):
             return response(200, {"database": "reachable", "secret": "valid"})
         method, path = http.get("method"), event.get("rawPath")
         headers = {str(k).lower(): v for k, v in (event.get("headers") or {}).items()}
+        if method == "GET" and path == "/v1/catalog/programs":
+            return response(200, {"programs": catalog()})
         if method == "POST" and path in ("/v1/auth/profiles", "/v1/auth/login"):
             try:
                 source = str(ipaddress.ip_address(http["sourceIp"]))
@@ -247,9 +307,10 @@ def lambda_handler(event, context):
                 raise Failure(400, "invalid_request")
             data = body(event)
             if path.endswith("/profiles"):
-                return response(200, service().create(data.get("request_id"), source))
+                details = {field: data.get(field) for field in ("first_name", "middle_name", "last_name", "program_id", "year_level")} if "first_name" in data else None
+                return response(200, service().create(data.get("request_id"), source, details))
             return response(200, service().login(data.get("access_code"), source))
-        if (method, path) not in (("GET", "/v1/auth/me"), ("POST", "/v1/auth/logout")):
+        if (method, path) not in (("GET", "/v1/auth/me"), ("PUT", "/v1/auth/me/profile"), ("POST", "/v1/auth/logout")):
             return response(404, {"error": "route_not_found"})
         authorization = headers.get("authorization", "")
         match = re.fullmatch(r"Bearer ([A-Za-z0-9_-]{43})", authorization) if isinstance(authorization, str) else None
@@ -257,6 +318,10 @@ def lambda_handler(event, context):
             raise Failure(401, "authentication_required")
         if path.endswith("/me"):
             return response(200, service().current(match[1]))
+        if path.endswith("/profile"):
+            if not str(headers.get("content-type", "")).lower().startswith("application/json"):
+                raise Failure(400, "invalid_request")
+            return response(200, service().update_profile(match[1], body(event)))
         service().logout(match[1])
         return response(200, {"signed_out": True})
     except Failure as error:

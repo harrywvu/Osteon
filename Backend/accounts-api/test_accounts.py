@@ -186,6 +186,44 @@ class AccountsTest(unittest.TestCase):
             backend.service.cache_clear()
             self.service_patch.start()
 
+    def test_named_profile_creation_completion_and_isolation(self):
+        details = {"first_name": "  José  ", "middle_name": "O'Neil", "last_name": "<Santos>",
+                   "program_id": "bs_nursing", "year_level": 2}
+        created = self.accounts.create(str(uuid.uuid4()), "203.0.113.10", details)
+        self.assertTrue(created["profile_complete"])
+        self.assertEqual("José", created["first_name"])
+        self.assertEqual("<Santos>", self.accounts.current(created["access_token"])["last_name"])
+        other = self.create()
+        self.assertFalse(other["profile_complete"])
+        modified = self.accounts.update_profile(other["access_token"], details)
+        self.assertEqual("José", modified["first_name"])
+        self.assertEqual("José", self.accounts.current(other["access_token"])["first_name"])
+        self.assertEqual(created["learner_id"], self.accounts.current(created["access_token"])["learner_id"])
+        self.assertNotEqual(other["learner_id"], created["learner_id"])
+        self.assertEqual(200, self.request("PUT", "/v1/auth/me/profile", details,
+                                            token=other["access_token"])[0])
+        self.assertEqual(401, self.request("PUT", "/v1/auth/me/profile",
+                                           {**details, "learner_id": created["learner_id"]})[0])
+        self.assertEqual(200, self.request("GET", "/v1/catalog/programs")[0])
+
+    def test_profile_catalog_and_year_are_validated(self):
+        details = {"first_name": "Ada", "middle_name": "", "last_name": "Lovelace",
+                   "program_id": "bs_computer_science", "year_level": 1}
+        for change in ({"program_id": "unknown"}, {"year_level": 0}, {"year_level": True},
+                       {"first_name": ""}, {"last_name": "x" * 81}):
+            with self.subTest(change=change):
+                self.assert_failure(400, lambda: self.accounts.validate_details({**details, **change}))
+
+    def test_profile_write_authorizer_requires_live_learner_session(self):
+        created = self.create()
+        event = {"version": "2.0", "type": "REQUEST", "routeKey": "PUT /v1/auth/me/profile",
+                 "headers": {"authorization": "Bearer " + created["access_token"]}}
+        self.assertEqual({"isAuthorized": True}, backend.lambda_handler(event, None))
+        self.assertEqual({"isAuthorized": False}, backend.lambda_handler({**event, "headers": {}}, None))
+        self.assertEqual({"isAuthorized": False}, backend.lambda_handler({**event, "routeKey": "GET /v1/auth/me"}, None))
+        self.accounts.logout(created["access_token"])
+        self.assertEqual({"isAuthorized": False}, backend.lambda_handler(event, None))
+
 
 if __name__ == "__main__":
     unittest.main()

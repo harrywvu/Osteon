@@ -1,5 +1,10 @@
 # Persistent account Lambda
 
+PLAN-008 local source now adds optional named fields to creation, authenticated
+profile completion/correction, and the MMSU program catalog. This code has not
+been deployed. The catalog still needs the official-offerings and year-range
+review in [Docs/MMSU_PROGRAM_CATALOG.md](../../Docs/MMSU_PROGRAM_CATALOG.md).
+
 Python 3.12 / Linux x86-64 account service for API Gateway HTTP API payload v2.
 Prepared on 2026-11-03 for the manually provisioned Sydney resources. Local tests
 use Moto; deployment and live AWS acceptance must be recorded separately.
@@ -18,8 +23,10 @@ use Moto; deployment and live AWS acceptance must be recorded separately.
   on the exact secret ARN. DynamoDB transactions use the underlying item permissions.
 
 No quiz or AI dependencies are included. Clients must never access this table or
-secret directly. The Unity HTTP adapter and API Gateway are separate integration
-steps; Unity currently still uses the development simulator.
+secret directly. The Unity client now uses `HttpLearnerAccounts` by default;
+the in-memory simulator is an explicit development-only option. See
+[`Docs/USER_ACCOUNTS.md`](../../Docs/USER_ACCOUNTS.md) for the client flow and
+verification record.
 
 ## Test and package
 
@@ -61,6 +68,14 @@ the AWS operation and error code, which are logged without request data or secre
 | POST /v1/auth/login | JSON access_code, six ASCII digits | learner_id, profile_label, access_token, expires_in |
 | GET /v1/auth/me | Authorization: Bearer token | learner_id, profile_label, remaining expires_in |
 | POST /v1/auth/logout | Authorization: Bearer token | signed_out: true; idempotent for this token |
+| GET /v1/catalog/programs | No token | Program IDs, display names, colleges, and configured year options |
+| PUT /v1/auth/me/profile | Bearer token and first_name, middle_name, last_name, program_id, year_level | Updated own profile; learner ID comes from the token |
+
+New client creation sends the five profile fields. The backend still accepts
+the old request shape so existing installations can create an incomplete
+profile until updated. `GET /v1/auth/me` and login return `profile_complete`
+plus named fields, with missing legacy values represented as null. Names are
+trimmed Unicode text, bounded to 80 characters, and not identity keys.
 
 POST creation/login require application/json and the trusted API Gateway
 requestContext.http.sourceIp. Explicit route mapping uses event.rawPath and

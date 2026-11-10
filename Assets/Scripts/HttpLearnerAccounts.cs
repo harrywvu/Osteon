@@ -11,7 +11,7 @@ public sealed class HttpLearnerAccounts : ILearnerAccountService
     public const string DefaultBaseUrl = "https://x0pgrcdyh1.execute-api.ap-southeast-2.amazonaws.com";
     private readonly MonoBehaviour runner;
     private readonly string baseUrl;
-    [Serializable] private sealed class CreateBody { public string request_id; }
+    [Serializable] private sealed class CreateBody { public string request_id; public string first_name; public string middle_name; public string last_name; public string program_id; public int year_level; }
     [Serializable] private sealed class LoginBody { public string access_code; }
     [Serializable] private sealed class Reply
     {
@@ -22,6 +22,12 @@ public sealed class HttpLearnerAccounts : ILearnerAccountService
         public int expires_in;
         public int retry_after_seconds;
         public bool signed_out;
+        public string first_name;
+        public string middle_name;
+        public string last_name;
+        public string program_id;
+        public int year_level;
+        public ProgramOption[] programs;
     }
 
     public HttpLearnerAccounts(MonoBehaviour runner, string baseUrl = DefaultBaseUrl)
@@ -34,11 +40,14 @@ public sealed class HttpLearnerAccounts : ILearnerAccountService
         this.baseUrl = baseUrl.TrimEnd('/');
     }
 
-    public Task<AccountCreated> Create(string requestId)
+    public Task<AccountCreated> Create(string requestId, LearnerProfile profile)
     {
         Guid parsed;
         if (!Guid.TryParse(requestId, out parsed)) throw new AccountFailure(400);
-        var body = JsonUtility.ToJson(new CreateBody { request_id = requestId });
+        if (profile == null || !profile.Complete) throw new AccountFailure(400);
+        var body = JsonUtility.ToJson(new CreateBody { request_id = requestId, first_name = profile.first_name,
+            middle_name = profile.middle_name ?? "", last_name = profile.last_name,
+            program_id = profile.program_id, year_level = profile.year_level });
         return Send("/v1/auth/profiles", "POST", body, null, reply => {
             if (!SimulatedLearnerAccounts.ValidCode(reply.access_code)) throw new AccountFailure(503);
             return new AccountCreated(ToLogin(reply), reply.access_code);
@@ -57,6 +66,17 @@ public sealed class HttpLearnerAccounts : ILearnerAccountService
             return ToLogin(reply);
         });
     }
+    public Task<AccountLogin> UpdateProfile(string token, LearnerProfile profile)
+    {
+        if (string.IsNullOrWhiteSpace(token)) throw new AccountFailure(401);
+        if (profile == null || !profile.Complete) throw new AccountFailure(400);
+        return Send("/v1/auth/me/profile", "PUT", JsonUtility.ToJson(profile), token, reply => {
+            reply.access_token = token;
+            return ToLogin(reply);
+        });
+    }
+    public Task<ProgramOption[]> Programs()
+    { return Send("/v1/catalog/programs", "GET", null, null, reply => reply.programs ?? new ProgramOption[0]); }
     public Task Logout(string token)
     {
         if (string.IsNullOrWhiteSpace(token)) return Task.FromResult(true);
@@ -71,7 +91,9 @@ public sealed class HttpLearnerAccounts : ILearnerAccountService
             string.IsNullOrWhiteSpace(reply.access_token) || reply.expires_in < 0 || reply.expires_in > 86400)
             throw new AccountFailure(503);
         return new AccountLogin(reply.learner_id, reply.profile_label, reply.access_token,
-            DateTimeOffset.UtcNow.AddSeconds(reply.expires_in));
+            DateTimeOffset.UtcNow.AddSeconds(reply.expires_in), new LearnerProfile {
+                first_name = reply.first_name, middle_name = reply.middle_name,
+                last_name = reply.last_name, program_id = reply.program_id, year_level = reply.year_level });
     }
     private Task<T> Send<T>(string path, string method, string body, string token, Func<Reply, T> read)
     {

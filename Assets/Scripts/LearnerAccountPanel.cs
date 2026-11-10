@@ -29,6 +29,12 @@ public sealed class LearnerAccountPanel : MonoBehaviour
     private bool reveal;
     private float retryUntil;
     private Keyboard textKeyboard;
+    private ProgramOption[] programs = new ProgramOption[0];
+    private LearnerProfile draftDetails = new LearnerProfile();
+    private TMP_InputField firstInput, middleInput, lastInput, programSearch;
+    private Button programButton, yearButton;
+    private int programIndex, yearLevel = 1;
+    private bool creatingProfile;
     public SimulatedLearnerAccounts Simulation { get { return service as SimulatedLearnerAccounts; } }
 
     [ContextMenu("Simulation/Toggle service unavailable")]
@@ -169,8 +175,8 @@ public sealed class LearnerAccountPanel : MonoBehaviour
     }
     private void Welcome()
     {
-        ClearView("welcome", "Your learning account\nNo registration form required.");
-        Button("New learner", 40, Create);
+        ClearView("welcome", "Create a named learning profile or use your saved code.");
+        Button("New learner", 40, () => { draftDetails = new LearnerProfile(); LoadPrograms(() => ProfileForm(true)); });
         Button("Enter code", -60, () => Entry());
         Button("Forgot your code?", -160, Forgotten);
         Style();
@@ -222,7 +228,8 @@ public sealed class LearnerAccountPanel : MonoBehaviour
     {
         if (busy || Time.unscaledTime < retryUntil) return;
         if (creationId == null) creationId = Guid.NewGuid().ToString();
-        Run(() => service.Create(creationId), result => { issued = result; ShowIssued(); }, Create);
+        Run(() => service.Create(creationId, draftDetails), result => { issued = result; ShowIssued(); }, Create,
+            () => { ProfileForm(true); message.text = "Check the profile fields and try again."; });
     }
     private void ShowIssued()
     {
@@ -250,11 +257,130 @@ public sealed class LearnerAccountPanel : MonoBehaviour
     {
         var login = State.Login;
         if (login == null) { Entry(); return; }
-        ClearView("profile", "Signed in as " + login.ProfileLabel);
-        Button("Continue", 30, Exit);
-        Button("Switch learner", -70, () => Confirm(true));
-        Button("Sign out", -170, () => Confirm(false));
+        if (login.Profile == null || !login.Profile.Complete)
+        {
+            draftDetails = login.Profile ?? new LearnerProfile();
+            LoadPrograms(() => ProfileForm(false));
+            return;
+        }
+        ClearView("profile", "Signed in as " + login.Profile.first_name + " " + login.Profile.last_name);
+        Button("Continue", 70, Exit);
+        Button("Edit profile", -20, () => { draftDetails = login.Profile; LoadPrograms(() => ProfileForm(false)); });
+        Button("Switch learner", -110, () => Confirm(true));
+        Button("Sign out", -200, () => Confirm(false));
         Style();
+    }
+
+    private void LoadPrograms(Action ready)
+    {
+        Run(() => service.Programs(), values => {
+            programs = values ?? new ProgramOption[0];
+            if (programs.Length == 0) { ClearView("error", "Program catalog unavailable."); Button("Retry", -60, () => LoadPrograms(ready)); return; }
+            ready();
+        }, () => LoadPrograms(ready));
+    }
+
+    private TMP_InputField Input(string label, string value, float y)
+    {
+        Text(label, y + 31, 20, 34);
+        var shell = new GameObject(label + " input", typeof(RectTransform), typeof(Image), typeof(TMP_InputField));
+        shell.layer = root.gameObject.layer;
+        shell.transform.SetParent(root, false);
+        var rect = (RectTransform)shell.transform;
+        rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.sizeDelta = new Vector2(700, 54);
+        rect.anchoredPosition = new Vector2(0, y);
+        var image = shell.GetComponent<Image>();
+        image.color = Color.white;
+        var text = new GameObject("Text", typeof(RectTransform), typeof(TextMeshProUGUI));
+        text.layer = shell.layer;
+        text.transform.SetParent(shell.transform, false);
+        var textRect = (RectTransform)text.transform;
+        textRect.anchorMin = Vector2.zero; textRect.anchorMax = Vector2.one;
+        textRect.offsetMin = new Vector2(12, 4); textRect.offsetMax = new Vector2(-12, -4);
+        var display = text.GetComponent<TextMeshProUGUI>();
+        display.font = TMP_Settings.defaultFontAsset;
+        display.fontSize = 24; display.color = new Color(0.05f, 0.15f, 0.23f); display.richText = false;
+        display.alignment = TextAlignmentOptions.MidlineLeft;
+        display.raycastTarget = false;
+        var input = shell.GetComponent<TMP_InputField>();
+        input.targetGraphic = image;
+        input.textViewport = rect; input.textComponent = display;
+        input.lineType = TMP_InputField.LineType.SingleLine;
+        input.characterLimit = 80;
+        input.text = value ?? "";
+        controls.Add(shell);
+        return input;
+    }
+
+    private void ProfileForm(bool create)
+    {
+        creatingProfile = create;
+        ClearView("details", create ? "Create your learner profile" : "Complete or correct your learner profile");
+        message.rectTransform.anchoredPosition = new Vector2(0, 295);
+        message.rectTransform.sizeDelta = new Vector2(700, 55);
+        firstInput = Input("First name", draftDetails.first_name, 205);
+        middleInput = Input("Middle name (optional)", draftDetails.middle_name, 115);
+        lastInput = Input("Last name", draftDetails.last_name, 25);
+        programSearch = Input("Search MMSU program", "", -65);
+        programIndex = Math.Max(0, Array.FindIndex(programs, item => item.id == draftDetails.program_id));
+        yearLevel = draftDetails.year_level > 0 ? draftDetails.year_level : 1;
+        programButton = Button("", -170, NextProgram);
+        yearButton = Button("", -255, NextYear);
+        programSearch.onValueChanged.AddListener(_ => FindProgram());
+        RefreshProgram();
+        Button(create ? "Create account" : "Save profile", -365, SaveProfile);
+        Style();
+    }
+
+    private void FindProgram()
+    {
+        string term = programSearch.text.Trim();
+        if (term.Length == 0) return;
+        int found = Array.FindIndex(programs, item => item.name.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0);
+        if (found >= 0) { programIndex = found; yearLevel = 1; RefreshProgram(); }
+    }
+    private void NextProgram()
+    {
+        if (programs.Length == 0) return;
+        string term = programSearch.text.Trim();
+        for (int i = 1; i <= programs.Length; i++)
+        {
+            int next = (programIndex + i) % programs.Length;
+            if (term.Length == 0 || programs[next].name.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0)
+            { programIndex = next; yearLevel = 1; break; }
+        }
+        RefreshProgram();
+    }
+    private void NextYear()
+    {
+        int[] years = programs[programIndex].year_options;
+        if (years == null || years.Length == 0) return;
+        int at = Array.IndexOf(years, yearLevel);
+        yearLevel = years[(at + 1) % years.Length];
+        RefreshProgram();
+    }
+    private void RefreshProgram()
+    {
+        if (programs.Length == 0) return;
+        ProgramOption chosen = programs[programIndex];
+        programButton.GetComponentInChildren<TextMeshProUGUI>().text = chosen.name + "  (tap to change)";
+        if (Array.IndexOf(chosen.year_options ?? new int[0], yearLevel) < 0) yearLevel = 1;
+        yearButton.GetComponentInChildren<TextMeshProUGUI>().text = "Year " + yearLevel + "  (tap to change)";
+    }
+    private void SaveProfile()
+    {
+        if (busy || programs.Length == 0) return;
+        draftDetails = new LearnerProfile { first_name = firstInput.text.Trim(), middle_name = middleInput.text.Trim(),
+            last_name = lastInput.text.Trim(), program_id = programs[programIndex].id, year_level = yearLevel };
+        if (!draftDetails.Complete) { message.text = "First name and last name are required."; return; }
+        if (creatingProfile) { Create(); return; }
+        var login = State.Login;
+        if (login == null) { Entry(); return; }
+        Run(() => service.UpdateProfile(login.AccessToken, draftDetails), updated => {
+            State.Accept(State.Generation, updated);
+            Profile();
+        }, () => ProfileForm(false), () => { ProfileForm(false); message.text = "Check the profile fields and try again."; });
     }
     private void Confirm(bool switching)
     {
@@ -282,13 +408,13 @@ public sealed class LearnerAccountPanel : MonoBehaviour
     private void Forgotten()
     {
         ClearView("forgotten", "Code recovery is unavailable. Without your code you must create a new account. Previous accounts cannot be restored or merged.");
-        Button("New learner", -60, Create);
+        Button("New learner", -60, () => { draftDetails = new LearnerProfile(); LoadPrograms(() => ProfileForm(true)); });
         Button("Back", -160, Welcome);
         Style();
     }
-    private void Run<T>(Func<Task<T>> operation, Action<T> success, Action retry)
-    { if (!busy) StartCoroutine(Request(operation, success, retry)); }
-    private IEnumerator Request<T>(Func<Task<T>> operation, Action<T> success, Action retry)
+    private void Run<T>(Func<Task<T>> operation, Action<T> success, Action retry, Action invalid = null)
+    { if (!busy) StartCoroutine(Request(operation, success, retry, invalid)); }
+    private IEnumerator Request<T>(Func<Task<T>> operation, Action<T> success, Action retry, Action invalid)
     {
         State.CancelPending();
         int generation = State.Generation;
@@ -305,6 +431,7 @@ public sealed class LearnerAccountPanel : MonoBehaviour
         if (task != null && task.Status == TaskStatus.RanToCompletion) { success(task.Result); yield break; }
         var accountFailure = failure as AccountFailure;
         int status = accountFailure != null ? accountFailure.Status : 503;
+        if (status == 400 && invalid != null) { invalid(); yield break; }
         if (status == 401 || status == 400)
         {
             State.Clear();
