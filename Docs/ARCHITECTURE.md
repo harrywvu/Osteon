@@ -1,244 +1,192 @@
 # Architecture Overview
 
-The [high-level system architecture diagram](SYSTEM_ARCHITECTURE.svg) maps the
-shared Unity scene, Quest and WebGL clients, account and quiz services, and
-separate build flow.
-
-> Quest G3 validation is recorded in `Docs/G3_INSPECTION.md`. Desktop WebGL
-> input was added on 2026-10-19; see `Docs/WEB_DESKTOP.md` for its controls and
-> pending browser acceptance checks.
+The [system diagram](SYSTEM_ARCHITECTURE.svg) maps the shared Unity scene, Quest
+and WebGL clients, account and quiz services, and build flow.
 
 ## Runtime entry point
 
 `Assets/Scenes/Osteon.unity` is the only enabled scene in
-`ProjectSettings/EditorBuildSettings.asset`. Both the `Meta Quest` Android and
+`ProjectSettings/EditorBuildSettings.asset`. The `Meta Quest` Android and
 `Web - Desktop - Development` WebGL profiles inherit that global scene list.
+Numbered scenes under `Assets/_Recovery/` are historical snapshots.
 
-`Assets/_Recovery/0 (8).unity` and the other numbered scenes are historical
-snapshots. Use the enabled `Osteon` scene for current behavior.
+## Anatomical granularity levels (G0–G3)
 
-## Anatomical granularity levels (G0-G3)
+`G` means **granularity**: how narrowly anatomy is grouped for viewing and
+interaction. It is a semantic navigation model, not a graphics LOD or
+difficulty setting.
 
-The `G` prefix means **granularity**: how narrowly the anatomy is grouped for
-viewing and interaction. It is a semantic navigation model, not a mesh
-level-of-detail (LOD), graphics-quality, or difficulty setting.
-
-| Level | Anatomical scope | Intended user action | Current implementation |
+| Level | Scope | User action | Implementation |
 |---|---|---|---|
-| **G0 — Whole skeleton** | The complete skeleton as the overview/entry view | View the complete structure and select a top-level division | Present through `low-poly-skeleton-prefab.fbx` |
-| **G1 — Skeletal division** | Axial or appendicular skeleton | Select a division to isolate it and show its overview information | Present through the two `DivisionSelection` roots |
-| **G2 — Major bone group** | A major group or region within the selected division—for example skull, vertebral column, thoracic cage, shoulder/upper-limb grouping, lower-limb grouping, or pelvis | Explore the group and select one of its bones | Skull, vertebral column, ribcage, both lower limbs, both upper limbs, both pectoral sides, and pelvic girdle continue to G3; the nine multi-bone views have Spread |
-| **G3 — Individual bone** | One named bone | Select, turn, and tilt an enlarged inspection copy with information and a reference group | Implemented for 207 entries: 29 skull, 26 vertebral, 25 ribcage, 30 left lower-limb, 32 right lower-limb, 60 upper-limb, 4 pectoral, and 1 pelvic |
+| **G0** | Whole skeleton | View the skeleton and pick a division | `low-poly-skeleton-prefab.fbx` |
+| **G1** | Axial or appendicular division | Isolate the division and read its overview | Two `DivisionSelection` roots |
+| **G2** | Major bone group | Explore the group and pick a bone | Skull, vertebral column, ribcage, limbs, pectoral girdles, and pelvis continue to G3; nine multi-bone views have Spread |
+| **G3** | Individual bone | Turn and tilt an enlarged copy beside a reference group | 207 entries: 29 skull, 26 vertebral, 25 ribcage, 30 left lower limb, 32 right lower limb, 60 upper limb, 4 pectoral, 1 pelvic |
 
-The intended navigation direction is `G0 -> G1 -> G2 -> G3` as the user makes
-increasingly specific selections. `AnatomyNavigationController` owns Back
-navigation and restores the previous view, transform, and information from history.
-
-The level identifies the anatomical scope even when two levels share a scene or
-reuse the same model hierarchy. A feature should not be called complete merely
-because an asset exists: its selection, transition, information, and Back path
-must all work in the enabled scene.
+Navigation runs `G0 → G1 → G2 → G3`.
+`AnatomyNavigationController` owns Back and restores the previous view,
+transform, and information from history. A feature is not complete merely
+because an asset exists: selection, transition, information, and Back must all
+work in the enabled scene.
 
 ## Current interaction flow
 
 ```text
-G0: Full low-poly skeleton
-  |-- select Appendicular -> G1: isolate division + show division information
-  |                           `-> select Left lower limb -> G2: activate limb view
-  |                                `-> select a named bone -> G3: inspection + reference limb
-  |                           `-> select Right pectoral girdle -> G2: right model
-  |                                `-> left Y switches to/from left model
-  |                                     `-> select clavicle or scapula -> G3
-  |                           `-> select Pelvic girdle -> G2: pelvic model
-  |                                `-> select hip bone -> G3
-  |                           `-> select Right lower limb -> G2 -> select bone -> G3
-  |                           `-> select Left or Right upper limb -> G2 -> select bone -> G3
-  `-- select Axial -------> G1: isolate division + show division information
-                              `-> activate the detailed axial model
-                                   |-> select the vertebral-column group
-                                   |    -> G2: activate its group view
-                                   |         `-> select a named bone
-                                   |              -> G3: inspection + reference column
-                                   |-> select Skull -> G2: activate the skull view
-                                   |    `-> select a named bone -> G3: inspection + reference skull
-                                   `-> select Ribcage -> G2: activate the ribs view
-                                        `-> select a rib or sternum
-                                             -> G3: inspection + reference cage
+G0: full low-poly skeleton
+  |-- Appendicular -> G1 division
+  |     |-- Left lower limb / Right lower limb / upper limbs -> G2 -> bone -> G3
+  |     |-- Right pectoral girdle -> G2 (left Y switches sides) -> bone -> G3
+  |     `-- Pelvic girdle -> G2 -> hip bone -> G3
+  `-- Axial -> G1 division + detailed axial model
+        |-- Vertebral column -> G2 -> named bone -> G3
+        |-- Skull -> G2 -> named bone -> G3
+        `-- Ribcage -> G2 -> rib or sternum -> G3
 ```
 
-`DivisionSelection` and `ViewTransitionOnSelect` listen to selection events
-from child `XRBaseInteractable` components. The enabled scene currently uses
-`XRSimpleInteractable` components rather than `XRGrabInteractable` components.
+`DivisionSelection` and `ViewTransitionOnSelect` listen to child
+`XRBaseInteractable` selection events; the enabled scene uses
+`XRSimpleInteractable`, not `XRGrabInteractable`.
 
-G1 group mesh ray targets are authored into the scene before Quest builds so
-their colliders can be cooked with the Android player. `ViewTransitionOnSelect`
-registers those targets and group highlighting at runtime. Navigation discovers
-each configured G2 view from its transition component. See
-`Docs/ADDING_BONE_GROUPS.md` for the setup steps.
+G1 group ray targets are authored into the scene before Quest builds so their
+colliders are cooked with the Android player. `ViewTransitionOnSelect` registers
+those targets and group highlighting at runtime. Navigation discovers each G2
+view from its transition component. See
+[Adding bone groups](ADDING_BONE_GROUPS.md).
 
-`AnatomyNavigationController` owns model visibility and history in the enabled
-scene. `InfoBoardController` presents its title, description, breadcrumb, and
-Back label. Division selection and view-transition scripts delegate to navigation
-when their serialized navigation reference is assigned; their legacy behavior
-remains available in older scenes.
+`AnatomyNavigationController` owns model visibility and history.
+`InfoBoardController` presents title, description, breadcrumb, and Back label.
+`SkeletonYawRotator` reads the right controller's `primary2DAxis` through
+`UnityEngine.XR.InputDevices` for G0–G2; the lower limbs, upper limbs, and
+pectoral girdles pivot on visible model bounds. In G3 those roots are inactive,
+and separate turn/tilt values rotate only the inspection copy. A and B reset the
+axes independently; the controller must return to neutral after entry or
+reconnection.
 
-`SkeletonYawRotator` reads the right XR controller's `primary2DAxis` directly
-through `UnityEngine.XR.InputDevices`. Instances on the full, division, and G2
-group roots rotate those views, including the G2 skull. The lower limbs, upper limbs, and pectoral
-girdles use the visible model bounds center as their yaw pivot. During G3,
-those roots are inactive. Separate turning and tilt values rotate only the
-inspection copy; the reference group stays stationary. A and B reset the axes
-independently. The controller must return to neutral after entry or reconnection.
-
-In a WebGL player, `AnatomyDesktopInput` starts after that same scene loads and
-uses the camera ray, mouse, and keyboard for selection and movement. It calls
-the existing division, group, and bone navigation paths, and enables mouse
-raycasts on world-space canvases. Its runtime platform check leaves Windows
-Editor Play Mode and Quest input unchanged. Browser behavior is not yet covered
-by the recorded Play Mode and Quest validation. See [Desktop WebGL](WEB_DESKTOP.md).
+In WebGL, `AnatomyDesktopInput` starts after scene load and uses the camera ray,
+mouse, and keyboard for selection and movement through the same navigation
+components. Its platform check leaves Windows Editor Play Mode and Quest input
+unchanged. See [Desktop WebGL](WEB_DESKTOP.md).
 
 ## Project-owned scripts
 
-| Script | Responsibility | Status in current scene |
+| Script | Responsibility | Scene status |
 |---|---|---|
-| `Assets/Scripts/AnatomyNavigationController.cs` | View history, model visibility, bone selection, information, and G3 controller input | Attached to `AnatomyNavigation` |
-| `Assets/Scripts/AnatomyDesktopInput.cs` | Mouse and keyboard selection, camera movement, panel dragging, and G3 input in a WebGL player | Runtime-created in the enabled scene on WebGL only |
-| `Assets/Scripts/BoneSelection.cs` | Per-bone selection and first/last-ray hover highlighting | Attached to 207 entries across ten group models |
-| `Assets/Scripts/SkullExplosionController.cs` | Skull G2 spread, exact reassembly, and assembled reference poses | Attached to `G2_skull` |
-| `Assets/Scripts/BoneGroupSpreadController.cs` | Shared G2 Spread motion and assembled reference poses | Added at runtime to the eight other multi-bone G2 views |
-| `Assets/Scripts/BoneInspectionDisplay.cs` | Builds centered visual-only inspection and reference copies | Attached to `AnatomyNavigation` |
-| `Assets/Scripts/AnatomyInputReservation.cs` | Temporarily reserves conflicting right-controller bindings and restores them on exit | Attached to `AnatomyNavigation` |
-| `Assets/Scripts/InfoBoardController.cs` | Information-panel presentation; legacy division behavior when navigation is unassigned | Attached once to `CoachingCardRoot` |
-| `Assets/Scripts/DivisionSelection.cs` | Routes child selection to navigation; retains legacy isolation when navigation is unassigned | Attached to the axial and appendicular roots |
-| `Assets/Scripts/ViewTransitionOnSelect.cs` | Routes group selection to navigation; retains legacy view swapping when navigation is unassigned | Attached to the axial and appendicular group flows |
-| `Assets/Scripts/BoneGroupHoverHighlighter.cs` | Highlights a hovered division/group and restores shared materials on exit or disable | Used before individual-bone selection |
-| `Assets/Scripts/SkeletonYawRotator.cs` | Rotates a model about its center with the right thumbstick | Attached to the full, axial, vertebral, and ribcage model roots |
-| `Assets/Scripts/PanelMoveHandle.cs` | Gives anatomy, quiz, and Settings separate XR grab bars below their controls | Scene-authored for anatomy; runtime-created for quiz and Settings |
-| `Assets/Scripts/OsteonSettings.cs` | Builds the wall Settings station, saves local preferences, colors hospital room material copies, and applies panel themes, text sizes, and highlight color | Runtime-created in the enabled scene; Quest interaction pending verification |
-| `Assets/Scripts/AnatomyTutorial.cs` | Creates the first-run Field Guide, arrows, Skip, and replay | Runtime-created in the enabled scene; interaction acceptance pending |
-| `Assets/Scripts/LearnerAccountPanel.cs` | Presents account creation, login, switch, and sign-out at the quiz station | Runtime-created with the quiz station |
-| `Assets/Scripts/HttpLearnerAccounts.cs` | Sends account requests to the HTTPS accounts service | Default account transport for Quest, WebGL, and Editor |
-| `Assets/Scripts/OsteonQuizDemo.cs` | Presents the practice quiz and calls the account-aware quiz service | Runtime-created in the enabled scene |
-| `Assets/Scripts/PanelNarration.cs` | Adds Read / Stop tabs and coordinates one speaking panel | Runtime-attached to anatomy, quiz, Settings, and Field Guide |
-| `Assets/Scripts/NarrationClips.cs` | Looks up bundled recordings by the current text | Loaded from `Assets/Resources/NarrationClips.asset` |
-| `Assets/Scripts/OnDeviceSpeech.cs` | Provides Android and Windows Editor speech fallback | WebGL has no speech fallback |
-| `Assets/BonePartGrabRelease.cs` | Shows `BonePartInfo` on grab, hides it on release, then lerps the object back to its original parent/local transform | Not referenced by the current scene; used by older recovery scenes |
-| `Assets/Scripts/BonePartInfo.cs` | Stores a serialized part name and anatomical description | Used by G3 and older recovery scenes |
-| `Assets/Scripts/AxialDivisionSelection.cs` | Older axial-only selection implementation that hides a configured appendicular object | Not referenced by any scene or prefab |
+| `AnatomyNavigationController.cs` | View history, model visibility, bone selection, information, G3 input | On `AnatomyNavigation` |
+| `AnatomyDesktopInput.cs` | Mouse/keyboard selection, camera movement, panel dragging, G3 input | WebGL only, runtime-created |
+| `BoneSelection.cs` | Per-bone selection and hover highlighting | 207 entries across ten group models |
+| `SkullExplosionController.cs` | Skull G2 spread, reassembly, assembled reference poses | On `G2_skull` |
+| `BoneGroupSpreadController.cs` | Shared G2 Spread motion and reference poses | Runtime-added to eight views |
+| `BoneInspectionDisplay.cs` | Centered inspection copy and stationary reference copy | On `AnatomyNavigation` |
+| `AnatomyInputReservation.cs` | Reserves conflicting right-controller bindings and restores them | On `AnatomyNavigation` |
+| `InfoBoardController.cs` | Information panel; legacy division behavior when navigation is unassigned | On `CoachingCardRoot` |
+| `DivisionSelection.cs` | Routes division selection to navigation | Axial and appendicular roots |
+| `ViewTransitionOnSelect.cs` | Routes group selection to navigation | Axial and appendicular group flows |
+| `BoneGroupHoverHighlighter.cs` | One highlight material for a hovered group | Before individual-bone selection |
+| `SkeletonYawRotator.cs` | Rotates a model about its center with the right stick | Full, axial, vertebral, and ribcage roots |
+| `PanelMoveHandle.cs` | Grab bars below anatomy, quiz, and Settings panels | Anatomy authored; quiz and Settings runtime |
+| `OsteonSettings.cs` | Wall Settings station and saved preferences | Runtime-created |
+| `AnatomyTutorial.cs` | First-run Field Guide, arrows, Skip, replay | Runtime-created |
+| `LearnerAccountPanel.cs` | Account create, login, switch, sign-out | Runtime-created with quiz station |
+| `HttpLearnerAccounts.cs` | Account requests to the HTTPS service | Default transport on Quest, WebGL, Editor |
+| `OsteonQuizDemo.cs` | Practice quiz UI and account-aware API calls | Runtime-created |
+| `PanelNarration.cs` | Read/Stop tabs; coordinates one speaking panel | Anatomy, quiz, Settings, Field Guide |
+| `NarrationClips.cs` | Looks up bundled recordings by current text | `Assets/Resources/NarrationClips.asset` |
+| `OnDeviceSpeech.cs` | Android and Windows Editor speech fallback | No WebGL fallback |
+| `BonePartGrabRelease.cs` | Legacy grab, information, return-to-origin | Older recovery scenes only |
+| `BonePartInfo.cs` | Serialized bone name and description | G3 and older scenes |
+| `AxialDivisionSelection.cs` | Superseded axial-only selection | Unreferenced |
 
-Project scripts are currently compiled into the default `Assembly-CSharp`
-assembly; no project `.asmdef` files are present.
+Project scripts compile into `Assembly-CSharp`; there are no project `.asmdef`
+files.
 
 ## Scene and asset composition
 
 | Runtime element | Source |
 |---|---|
-| Full skeleton selection view | `Assets/Art/Models/Skeleton/Low Poly/low-poly-skeleton-prefab.fbx` |
-| Axial drill-down view | `Assets/Art/Models/Skeleton/Mid Poly/Skeleton_axial.blend` |
-| Vertebral-column drill-down | `Assets/Art/Models/Skeleton/Mid Poly/Axial Bone Groups/VERTEBRAL COLUMN.blend` |
-| Ribcage drill-down | `Assets/Art/Models/Skeleton/Mid Poly/Axial Bone Groups/ribs.fbx` |
-| Left lower-limb drill-down | `Assets/Art/Models/Skeleton/Mid Poly/Appendicular Bone Groups/G2_LeftLowerLimb.fbx` |
-| Right lower-limb drill-down | `Assets/Art/Models/Skeleton/Mid Poly/Appendicular Bone Groups/G2_RightLowerLimb.fbx` |
-| Upper-limb drill-down | `Assets/Art/Models/Skeleton/Mid Poly/Appendicular Bone Groups/G2_LeftUpperLimb.fbx` and `G2_RightUpperLimb.fbx` |
-| Pectoral drill-down | `Assets/Art/Models/Skeleton/Mid Poly/Appendicular Bone Groups/G2_RightPectoralGirdle.fbx` and `G2_LeftPectoralGirdle.fbx` |
-| Pelvic drill-down | `Assets/Art/Models/Skeleton/Mid Poly/Appendicular Bone Groups/G2_Pelvic Girdle.fbx` |
-| Room model | `Assets/hospital room.blend` |
+| Full skeleton | `Assets/Art/Models/Skeleton/Low Poly/low-poly-skeleton-prefab.fbx` |
+| Axial drill-down | `Assets/Art/Models/Skeleton/Mid Poly/Skeleton_axial.blend` |
+| Vertebral column | `Assets/Art/Models/Skeleton/Mid Poly/Axial Bone Groups/VERTEBRAL COLUMN.blend` |
+| Ribcage | `Assets/Art/Models/Skeleton/Mid Poly/Axial Bone Groups/ribs.fbx` |
+| Lower limbs | `G2_LeftLowerLimb.fbx` and `G2_RightLowerLimb.fbx` under `Appendicular Bone Groups/` |
+| Upper limbs | `G2_LeftUpperLimb.fbx` and `G2_RightUpperLimb.fbx` |
+| Pectoral girdles | `G2_RightPectoralGirdle.fbx` and `G2_LeftPectoralGirdle.fbx` |
+| Pelvis | `G2_Pelvic Girdle.fbx` |
+| Room | `Assets/hospital room.blend` |
 | XR rig | `Assets/VRTemplateAssets/Prefabs/Setup/Complete XR Origin Set Up Variant.prefab` |
-| Information UI | `AnatomyNavigation/Anatomy information panel`, using TextMesh Pro and the existing Back button; controlled by `InfoBoardController` on `CoachingCardRoot` |
-| G3 display placement | Bone anchor at world X 2.477991, Z -1.173756; reference keeps its 42 cm offset |
+| Information UI | `AnatomyNavigation/Anatomy information panel` (TextMesh Pro + Back) |
+| G3 placement | Bone anchor at world X 2.477991, Z -1.173756; reference offset 42 cm |
 | Hover material | `Assets/HighlightMst.mat` |
 
-The current scene depends on Unity VR template prefabs. The obsolete scene
-`StepManager` is disabled and its anatomy Back callbacks are removed. Treat
-`Assets/VRTemplateAssets/` as an imported dependency; the implementation modifies
-scene instances rather than imported template scripts.
+The scene depends on Unity VR template prefabs. The obsolete scene `StepManager`
+is disabled and its anatomy Back callbacks are removed. Treat
+`Assets/VRTemplateAssets/` as an imported dependency; change scene instances,
+not imported template scripts.
 
 ## XR and input configuration
 
 - Android XR Management loads `Open XR Loader`.
-- OpenXR's Android configuration enables Meta Quest support and Oculus/Meta
-  Touch controller profiles.
-- Hand Tracking Subsystem and Meta Hand Tracking Aim are enabled in the OpenXR
-  settings, and XR Hands 1.7.1 is installed.
-- The active scene uses the Unity VR template XR Origin and XRI interactables.
-- The desktop WebGL path uses the same scene camera and colliders, with its own
-  mouse and keyboard controller. A saved WebGL development profile exists;
-  browser input and visual acceptance have not been recorded.
-- `SkeletonYawRotator` is explicitly controller-oriented. Installed hand
-  packages and enabled features do not, by themselves, prove that every action
-  has a working hand-tracking binding.
+- OpenXR Android enables Meta Quest support and Oculus/Meta Touch profiles.
+- Hand Tracking Subsystem and Meta Hand Tracking Aim are enabled; XR Hands
+  1.7.1 is installed.
+- The scene uses the Unity VR template XR Origin and XRI interactables.
+- WebGL uses the same camera and colliders with its own mouse and keyboard
+  controller.
+- `SkeletonYawRotator` is controller-oriented. Installed hand packages do not
+  prove a working hand-tracking binding.
 
-Controller and hand behavior still require verification on a physical headset.
+Controller and hand behavior require verification on a physical headset.
 
 ## Practice quiz service
 
-The quiz menu also hosts **Accounts** in all builds. `LearnerAccountPanel`
-provides create/login/switch/sign-out screens, and `HttpLearnerAccounts` sends
-account requests to the Sydney API Gateway/Lambda service backed by DynamoDB.
-Quest and WebGL use the same endpoint and six-digit account codes. Session
-tokens remain in memory in `LearnerAccountState`. The quiz uses that same
-account token and verifies it through the accounts API before each protected
-request. The account view reuses the station's move handle and
-appearance preferences, and reserves desktop input while open. A development
-context menu can explicitly select the in-memory simulator for failure testing.
-See [User accounts](USER_ACCOUNTS.md) for the contract and verification.
+The quiz menu hosts **Accounts** in all builds. `LearnerAccountPanel` provides
+create/login/switch/sign-out screens, and `HttpLearnerAccounts` calls the Sydney
+API Gateway/Lambda service backed by DynamoDB. Quest and WebGL share the
+endpoint and six-digit account codes. Session tokens stay in memory in
+`LearnerAccountState`. The quiz sends that token and verifies it through the
+accounts API before each protected request. See
+[User accounts](USER_ACCOUNTS.md).
 
-The [AWS architecture diagram](AWS_ARCHITECTURE.md) shows the account-aware
-practice quiz's runtime and deployment paths. The current
-Unity scene creates an in-world quiz station on the room's right wall; it is
-not attached to the headset. API Gateway's HTTP API sends the
-client's HTTPS requests to a Python Lambda function. Lambda reads the packaged
-question CSV and ONNX mastery-delta model, optionally requests Gemini feedback,
-then persists the learner's session and mastery in DynamoDB. S3 holds the Lambda
-deployment ZIP only; it is not in
-the live question/answer request path. The notebook is a training artifact,
-not a hosted service. The WebGL player reuses the Unity quiz station. The owner
-reports that quiz interactions work in WebGL and VR and that the same learner's
-progress resumes across them. Full platform acceptance remains open. A separate
-browser-native quiz UI is not implemented. See the
-[AI pipeline diagram](QUIZ_AI_PIPELINE.md) for answer processing and
-[`QUIZ_INTEGRATION.md`](QUIZ_INTEGRATION.md) for the API contract, model inputs,
-security boundary, and verification record.
+The [AWS diagram](AWS_ARCHITECTURE.md) shows the runtime and deployment paths.
+The scene creates an in-world quiz station on the right wall, not attached to
+the headset. API Gateway forwards HTTPS requests to a Python Lambda that reads
+the packaged question CSV and ONNX model, optionally requests Gemini feedback,
+and persists the learner session in DynamoDB. S3 holds the deployment ZIP only.
+The training notebook is a local artifact, not a hosted service. See the
+[AI pipeline](QUIZ_AI_PIPELINE.md) and
+[quiz integration](QUIZ_INTEGRATION.md) for contracts and limits.
 
 ## UI and selection lifecycle
 
-1. Navigation starts in G0 and installs selection filters on the model interactables.
+1. Navigation starts in G0 and installs selection filters.
 2. `DivisionSelection` requests G1; the axial detail model represents axial G1.
-3. A configured group transition requests G2. A division transition
-   does not also advance for the same selection event. On each G0 division
-   root, `DivisionSelection` and `ViewTransitionOnSelect` must reference the
-   same navigation controller; otherwise a legacy direct view switch can
-   bypass history. See the appendicular incident in
-   [`KNOWN_ISSUES.md`](KNOWN_ISSUES.md).
-4. `BoneSelection` highlights a single bone and requests G3. Navigation records
-   G2's transform, clears highlighting, hides the group, and presents mesh copies.
-5. G3 reserves conflicting controller bindings while retaining ray/UI selection.
-6. Back restores the previous frame and releases G3 input reservations. Selection
-   is blocked until the input has been released after every transition.
+3. A group transition requests G2. On each G0 division root,
+   `DivisionSelection` and `ViewTransitionOnSelect` must reference the same
+   navigation controller; otherwise a legacy direct switch bypasses history.
+4. `BoneSelection` highlights one bone and requests G3. Navigation records the
+   G2 transform, clears highlighting, hides the group, and presents mesh copies.
+5. G3 reserves conflicting controller bindings while keeping ray/UI selection.
+6. Back restores the previous frame and releases G3 reservations. Selection is
+   blocked until input is released after every transition.
 
-`Assets/Editor/AnatomySceneSetup.cs` authors explicit bone references and colliders;
-`AnatomyValidation` runs automated Play Mode checks. See `Docs/G3_INSPECTION.md`.
+`Assets/Editor/AnatomySceneSetup.cs` authors bone references and colliders;
+`AnatomyValidation` runs automated Play Mode checks. See
+[G3 inspection](G3_INSPECTION.md).
 
-## Features that are not implemented in the current scene
+## Not implemented in the current scene
 
-- Complete G2 coverage for all major axial and appendicular bone groups
-- G3 per-bone grab and return-to-origin behavior
+- Complete G2 coverage for all major bone groups
+- Per-bone grab and return-to-origin
 - Socket-based assembly or correctness matching
-- G3 inspection outside the skull, vertebral-column, ribcage, limb, pectoral, and
-  pelvic groups
+- G3 inspection outside the configured groups
 
 Colored socket materials and older grab scripts remain in the repository, but
-there is no project-owned socket-matching script and no `XRSocketInteractor` in
-the enabled scene. Do not describe assembly matching as a current feature until
-it is implemented and verified.
+there is no socket-matching script and no `XRSocketInteractor` in the enabled
+scene.
 
 ## Maintenance boundaries
 
-- Add project behavior under `Assets/Scripts/` rather than editing
-  `Assets/Samples/`.
-- Avoid editing `Assets/VRTemplateAssets/` unless a change truly belongs to the
-  imported template dependency.
-- Once the scene and package set stabilize, consider introducing project-owned
-  assemblies such as `Anatomy.Core`, `Anatomy.XR`, and `Anatomy.Editor`.
-- When the entry scene changes, update the global build scene list,
-  `AnatomySceneSetup.ScenePath`, both build paths, and the developer docs together.
+- Add project behavior under `Assets/Scripts/`, not `Assets/Samples/`.
+- Avoid editing `Assets/VRTemplateAssets/` unless the change belongs to the
+  imported dependency.
+- When the entry scene changes, update the build scene list,
+  `AnatomySceneSetup.ScenePath`, both build paths, and the developer docs.
