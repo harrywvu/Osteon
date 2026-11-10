@@ -1,18 +1,21 @@
 # Architecture Overview
 
+The [high-level system architecture diagram](SYSTEM_ARCHITECTURE.svg) maps the
+shared Unity scene, Quest and WebGL clients, account and quiz services, and
+separate build flow.
+
 > Quest G3 validation is recorded in `Docs/G3_INSPECTION.md`. Desktop WebGL
 > input was added on 2026-10-19; see `Docs/WEB_DESKTOP.md` for its controls and
 > pending browser acceptance checks.
 
 ## Runtime entry point
 
-`Assets/_Recovery/CONTROLLERS MIGRATION.unity` is the only enabled scene in
+`Assets/Scenes/Osteon.unity` is the only enabled scene in
 `ProjectSettings/EditorBuildSettings.asset`. Both the `Meta Quest` Android and
 `Web - Desktop - Development` WebGL profiles inherit that global scene list.
 
-The scene name reflects its recovery history; it is the current source of truth
-despite the unusual name. `Assets/_Recovery/0 (8).unity` and the other numbered
-scenes are historical snapshots.
+`Assets/_Recovery/0 (8).unity` and the other numbered scenes are historical
+snapshots. Use the enabled `Osteon` scene for current behavior.
 
 ## Anatomical granularity levels (G0-G3)
 
@@ -110,9 +113,15 @@ by the recorded Play Mode and Quest validation. See [Desktop WebGL](WEB_DESKTOP.
 | `Assets/Scripts/ViewTransitionOnSelect.cs` | Routes group selection to navigation; retains legacy view swapping when navigation is unassigned | Attached to the axial and appendicular group flows |
 | `Assets/Scripts/BoneGroupHoverHighlighter.cs` | Highlights a hovered division/group and restores shared materials on exit or disable | Used before individual-bone selection |
 | `Assets/Scripts/SkeletonYawRotator.cs` | Rotates a model about its center with the right thumbstick | Attached to the full, axial, vertebral, and ribcage model roots |
-| `Assets/Scripts/OsteonQuizDemo.cs` | Creates the world-space, user-movable practice-quiz station and calls the shared HTTP API | Runtime-created only in the enabled scene; Quest placement still needs verification |
 | `Assets/Scripts/PanelMoveHandle.cs` | Gives anatomy, quiz, and Settings separate XR grab bars below their controls | Scene-authored for anatomy; runtime-created for quiz and Settings |
 | `Assets/Scripts/OsteonSettings.cs` | Builds the wall Settings station, saves local preferences, colors hospital room material copies, and applies panel themes, text sizes, and highlight color | Runtime-created in the enabled scene; Quest interaction pending verification |
+| `Assets/Scripts/AnatomyTutorial.cs` | Creates the first-run Field Guide, arrows, Skip, and replay | Runtime-created in the enabled scene; interaction acceptance pending |
+| `Assets/Scripts/LearnerAccountPanel.cs` | Presents account creation, login, switch, and sign-out at the quiz station | Runtime-created with the quiz station |
+| `Assets/Scripts/HttpLearnerAccounts.cs` | Sends account requests to the HTTPS accounts service | Default account transport for Quest, WebGL, and Editor |
+| `Assets/Scripts/OsteonQuizDemo.cs` | Presents the practice quiz and calls the account-aware quiz service | Runtime-created in the enabled scene |
+| `Assets/Scripts/PanelNarration.cs` | Adds Read / Stop tabs and coordinates one speaking panel | Runtime-attached to anatomy, quiz, Settings, and Field Guide |
+| `Assets/Scripts/NarrationClips.cs` | Looks up bundled recordings by the current text | Loaded from `Assets/Resources/NarrationClips.asset` |
+| `Assets/Scripts/OnDeviceSpeech.cs` | Provides Android and Windows Editor speech fallback | WebGL has no speech fallback |
 | `Assets/BonePartGrabRelease.cs` | Shows `BonePartInfo` on grab, hides it on release, then lerps the object back to its original parent/local transform | Not referenced by the current scene; used by older recovery scenes |
 | `Assets/Scripts/BonePartInfo.cs` | Stores a serialized part name and anatomical description | Used by G3 and older recovery scenes |
 | `Assets/Scripts/AxialDivisionSelection.cs` | Older axial-only selection implementation that hides a configured appendicular object | Not referenced by any scene or prefab |
@@ -231,5 +240,5 @@ it is implemented and verified.
   imported template dependency.
 - Once the scene and package set stabilize, consider introducing project-owned
   assemblies such as `Anatomy.Core`, `Anatomy.XR`, and `Anatomy.Editor`.
-- When the recovery scene is renamed, update the global build scene list, both
-  build profiles, this document, `README.md`, and `Docs/SETUP.md` together.
+- When the entry scene changes, update the global build scene list,
+  `AnatomySceneSetup.ScenePath`, both build paths, and the developer docs together.

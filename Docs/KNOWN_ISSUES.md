@@ -15,9 +15,11 @@
   been read back. Screenshots on 2026-11-06 show longer generated feedback
   discussing mastery and streaks instead of anatomy. The owner deployed a prompt
   and validation fix; two later WebGL screenshots show anatomy-focused feedback
-  after wrong answers. The owner also reports a working VR quiz. Review the full
-  question set before enabling Gemini-driven adaptive
-  difficulty.
+  after wrong answers. The owner also reports a working VR quiz. The owner
+  reports enabling Gemini-driven difficulty on 2026-11-06 despite unresolved
+  recommendation-quality findings; the flag has not been read back or tested
+  live since that change. Review the full question set and recommendation
+  behavior before treating this mode as accepted.
   Service/state
   checks passed 34 assertions, 14 backend tests passed, and live HTTPS checks passed
   creation/replay/login/session/revocation on 2026-11-03. Rebuilt browser account UI
@@ -36,8 +38,8 @@
 - The first-run tutorial is implemented as a separate left-side Field Guide
   with glowing world arrows. Its Play Mode step flow, target placement,
   controller-ray buttons, large-text layout, and Quest comfort still need
-  verification. Replay returns to the whole skeleton; the guide does not play
-  voice-over audio.
+  verification. Replay returns to the whole skeleton. The guide's Read tab uses
+  recordings for the controller prompts; desktop prompts have no matching clips.
 
 - Saved-scene batch validation was retried on 2026-10-12 before refactoring.
   Unity exited with code 1 during startup, before running `AnatomyValidation`,
@@ -58,11 +60,10 @@
   [Quiz integration](QUIZ_INTEGRATION.md) for the account and AI acceptance
   that remains open.
 
-- Panel narration tabs now call Android's installed offline English TTS voice
-  for the anatomy, quiz, and Settings panels. The voice's presence on the
-  target Quest is assumed. Windows Editor speech preview is implemented, but
-  full Play Mode, Quest build, and physical headset checks remain pending.
-  See `Docs/TTS.md`.
+- Panel narration uses bundled recordings, with fallback to Android's installed
+  offline English voice on Quest and Windows speech in the Editor. The Quest
+  fallback voice's availability is assumed. Playback in Play Mode, WebGL, and
+  on Quest needs acceptance. See `Docs/TTS.md`.
 
 - The wall Settings station, highlight color, lower Move bars, and shared G2
   Spread compile through the generated Unity C# projects, but Play Mode and
@@ -76,7 +77,7 @@
 ### Current scene and incomplete feature migration
 
 - The only enabled scene is
-  `Assets/_Recovery/CONTROLLERS MIGRATION.unity`. Earlier documentation named
+  `Assets/Scenes/Osteon.unity`. Earlier documentation named
   `0 (8).unity`; that is now a historical recovery snapshot.
 - The enabled scene has G3 selection-based inspection for 26 vertebral-column
   entries, 29 skull entries, 25 ribcage entries (24 ribs and the sternum), 30 left lower-limb
@@ -259,7 +260,7 @@
   `XRInteractionManager.SelectEnter` and checks G1 history, G2/G3 selection,
   and Back. Changing the selection gate did not resolve this wiring defect.
 - **If it recurs:** Leave Play Mode and reopen
-  `Assets/_Recovery/CONTROLLERS MIGRATION.unity` from disk after external scene
+  `Assets/Scenes/Osteon.unity` from disk after external scene
   edits. On the appendicular division root, inspect both components and set
   their **Navigation** fields to the scene's `AnatomyNavigation` controller;
   save the scene. Run `Tools/Invoke-AnatomyValidation.ps1 -Current` in a
@@ -345,8 +346,9 @@
 
 ## 2026-09-08 — Documentation and repository audit
 
-- Corrected the entry scene to `CONTROLLERS MIGRATION.unity`, the only enabled
-  scene in `EditorBuildSettings.asset`.
+- Corrected the entry scene to `CONTROLLERS MIGRATION.unity`, then the only
+  enabled scene in `EditorBuildSettings.asset`. It was renamed to `Osteon.unity`
+  on 2026-11-09.
 - Replaced speculative script descriptions with a map of all eight
   project-owned scripts and their current-scene reference status.
 - Documented the active low-poly -> axial -> vertebral selection flow, OpenXR

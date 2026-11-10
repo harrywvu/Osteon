@@ -13,7 +13,7 @@ using UnityEngine.XR.Interaction.Toolkit.UI;
 
 public static class AnatomySceneSetup
 {
-    public const string ScenePath = "Assets/_Recovery/CONTROLLERS MIGRATION.unity";
+    public const string ScenePath = "Assets/Scenes/Osteon.unity";
     private static readonly Vector2 InspectionXZ = new Vector2(2.477991f, -1.173756f);
 
     [MenuItem("Anatomy/Configure vertebral inspection")]

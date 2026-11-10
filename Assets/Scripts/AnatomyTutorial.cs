@@ -110,7 +110,7 @@ public sealed class AnatomyTutorial : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Bootstrap()
     {
-        if (SceneManager.GetActiveScene().name != "CONTROLLERS MIGRATION" ||
+        if (SceneManager.GetActiveScene().name != "Osteon" ||
             FindFirstObjectByType<AnatomyTutorial>() != null) return;
         new GameObject("Anatomy tutorial").AddComponent<AnatomyTutorial>();
     }
