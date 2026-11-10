@@ -16,13 +16,14 @@ public static class AccountChecks
         var now = System.DateTimeOffset.UtcNow;
         var codes = new System.Collections.Generic.Queue<string>(new [] { "000123", "000123", "345678", "456789" });
         var service = new SimulatedLearnerAccounts(() => now, () => codes.Dequeue());
+        var profile = new LearnerProfile { first_name = "Test", last_name = "Learner", program_id = "bs_nursing", year_level = 1 };
         string request = System.Guid.NewGuid().ToString();
         service.LoseNextCreationResponse = true;
-        Fails(() => service.Create(request), 503);
-        var a = service.Create(request).Result;
+        Fails(() => service.Create(request, profile), 503);
+        var a = service.Create(request, profile).Result;
         Check(a.AccessCode == "000123", "Leading zero lost");
-        Check(service.Create(request).Result.Login.LearnerId == a.Login.LearnerId, "Creation replay duplicated profile");
-        var b = service.Create(System.Guid.NewGuid().ToString()).Result;
+        Check(service.Create(request, profile).Result.Login.LearnerId == a.Login.LearnerId, "Creation replay duplicated profile");
+        var b = service.Create(System.Guid.NewGuid().ToString(), profile).Result;
         Check(b.AccessCode == "345678", "Code collision not retried");
         Check(a.Login.LearnerId != b.Login.LearnerId, "Account identities collide");
         var a2 = service.Login(a.AccessCode).Result;
@@ -34,7 +35,7 @@ public static class AccountChecks
         Check(service.Current(b.Login.AccessToken).Result.LearnerId == b.Login.LearnerId, "Logout changed account B");
         Fails(() => service.Login("123"), 400);
         Fails(() => service.Login("１２３４５６"), 400);
-        Fails(() => service.Create("bad request"), 400);
+        Fails(() => service.Create("bad request", profile), 400);
         for (int i = 0; i < 4; i++) Fails(() => service.Login("999999"), 401);
         Fails(() => service.Login("888888"), 429);
         Fails(() => service.Login(a.AccessCode), 429);
@@ -44,7 +45,7 @@ public static class AccountChecks
         Fails(() => service.Login(b.AccessCode), 401);
         Fails(() => service.Current(b.Login.AccessToken), 401);
         service.Unavailable = true;
-        Fails(() => service.Create(request), 503);
+        Fails(() => service.Create(request, profile), 503);
         Fails(() => service.Login(a.AccessCode), 503);
         service.Unavailable = false;
         service.HangNextRequest = true;
@@ -68,7 +69,7 @@ public static class AccountChecks
         var restarted = new SimulatedLearnerAccounts(() => now);
         Fails(() => restarted.Login(a.AccessCode), 401);
         now = now.AddDays(2);
-        Check(service.Create(request).Result.Login.LearnerId != a.Login.LearnerId, "Expired creation record replayed");
+        Check(service.Create(request, profile).Result.Login.LearnerId != a.Login.LearnerId, "Expired creation record replayed");
         return count;
     }
 }
