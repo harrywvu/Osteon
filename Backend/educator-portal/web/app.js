@@ -1,15 +1,47 @@
 "use strict";
-const config = window.OSTEON_EDUCATOR_CONFIG;
-const $ = id => document.getElementById(id);
-let accessToken = null, expiresAt = 0, bank = [], baseVersion = null, selected = null, dirty = false, cursor = null, publicationId = null, programNames = new Map();
-const notice = message => { $("notice").textContent = message; };
-const encode = bytes => btoa(String.fromCharCode(...bytes)).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/g,"");
-function show(view){for(const id of ["welcome","questions","learners"])$(id).hidden=id!==view;}
+const config=window.OSTEON_EDUCATOR_CONFIG;
+const $=id=>document.getElementById(id);
+const views=["welcome","questions","learners"];
+const titles={welcome:"Osteon Educator",questions:"Questions · Osteon Educator",learners:"Learners · Osteon Educator"};
 const editFields=["bone_group","bone_name","difficulty_level","difficulty_score","question_text","option_a","option_b","option_c","option_d","correct_option"];
-function editorHasChanges(){return selected!==null&&editFields.some(field=>$("editor").elements[field].value.trim()!==String(bank[selected][field]));}
-function leaveDraft(){return (!dirty&&!editorHasChanges()) || confirm("Discard unpublished question changes?");}
-function session(){if(!accessToken || Date.now()>=expiresAt){accessToken=null;show("welcome");throw Error("Your educator session expired. Sign in again.");}}
-async function api(path, options={}){
+const counters={question_text:180,option_a:70,option_b:70,option_c:70,option_d:70};
+let accessToken=null,expiresAt=0,bank=[],baseVersion=null,selected=null,dirty=false,cursor=null,publicationId=null,programNames=new Map(),currentView=null,lastLearnerButton=null;
+
+/* Messages: one dismissible region, announced politely for status and assertively for errors. */
+function notice(message,kind="info"){
+  const wrap=$("notice-wrap"),node=$("notice");
+  node.setAttribute("role",kind==="error"?"alert":"status");
+  node.setAttribute("aria-live",kind==="error"?"assertive":"polite");
+  node.textContent=message||"";
+  wrap.hidden=!message;
+  if(message)wrap.dataset.kind=kind;else delete wrap.dataset.kind;
+}
+const setBusy=(node,busy)=>{if(node)node.toggleAttribute("aria-busy",Boolean(busy));};
+async function run(button,label,task){
+  const original=button?button.textContent:null;
+  if(button){button.disabled=true;button.textContent=label;}
+  try{return await task();}
+  finally{if(button){button.textContent=original;button.disabled=false;}}
+}
+
+/* Views, tabs, and focus. */
+function show(view){
+  if(view===currentView)return;
+  for(const id of views)$(id).hidden=id!==view;
+  currentView=view;
+  document.title=titles[view];
+  $("app-nav").hidden=!accessToken;
+  $("questions-tab").setAttribute("aria-current",view==="questions"?"page":"false");
+  $("learners-tab").setAttribute("aria-current",view==="learners"?"page":"false");
+  notice("");
+  const heading=$(view).querySelector("h2");
+  if(heading)heading.focus({preventScroll:true});
+  window.scrollTo(0,0);
+}
+
+/* Session and API. */
+function session(){if(!accessToken||Date.now()>=expiresAt){accessToken=null;show("welcome");throw Error("Your educator session expired. Sign in again.");}}
+async function api(path,options={}){
   session();
   const response=await fetch(config.apiBase+path,{...options,headers:{Authorization:"Bearer "+accessToken,...(options.body?{"Content-Type":"application/json"}:{})},cache:"no-store"});
   const data=await response.json().catch(()=>({}));
@@ -17,6 +49,7 @@ async function api(path, options={}){
   if(!response.ok){const error=Error(data.message||data.error||"Request failed");error.status=response.status;throw error;}
   return data;
 }
+const encode=bytes=>btoa(String.fromCharCode(...bytes)).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/g,"");
 function randomString(){return encode(crypto.getRandomValues(new Uint8Array(32)));}
 async function login(endpoint="/oauth2/authorize"){
   const verifier=randomString(),state=randomString(),digest=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(verifier));
@@ -27,32 +60,121 @@ async function login(endpoint="/oauth2/authorize"){
 }
 async function callback(){
   const url=new URL(location.href),code=url.searchParams.get("code");
-  if(!code){if(url.searchParams.has("error"))notice("Sign-in was cancelled or failed.");return;}
+  if(!code){if(url.searchParams.has("error"))notice("Sign-in was cancelled or failed.","error");return;}
   const pending=JSON.parse(sessionStorage.getItem("osteon-pkce")||"null");
   sessionStorage.removeItem("osteon-pkce");history.replaceState({},"",config.redirectUri);
   if(!pending||pending.state!==url.searchParams.get("state"))throw Error("Sign-in state did not match. Try again.");
   const response=await fetch(config.cognitoDomain+"/oauth2/token",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams({grant_type:"authorization_code",client_id:config.clientId,code,redirect_uri:config.redirectUri,code_verifier:pending.verifier})});
   const token=await response.json();if(!response.ok||!token.access_token)throw Error("Sign-in could not be completed.");
   accessToken=token.access_token;expiresAt=Date.now()+Math.min(Number(token.expires_in)||900,900)*1000;
-  show("questions");await loadQuestions();
+  show("questions");
+  await loadQuestions();
+}
+
+/* Questions. */
+const editorHasChanges=()=>selected!==null&&editFields.some(field=>$("editor").elements[field].value.trim()!==String(bank[selected][field]??""));
+const confirmDiscard=message=>!(dirty||editorHasChanges())||confirm(message);
+function toggleEditor(on){$("editor").hidden=!on;$("editor-empty").hidden=on;}
+function updateCounters(){
+  const form=$("editor");
+  for(const [field,max] of Object.entries(counters)){
+    const input=form.elements[field],output=document.querySelector(`[data-count-for="${field}"]`);
+    if(!input||!output)continue;
+    const length=input.value.length;
+    output.textContent=`${length}/${max}`;
+    output.classList.toggle("near-limit",length>=max);
+  }
+}
+function updateAnswerHint(){
+  const form=$("editor");
+  if(form.hidden)return;
+  const option=form.elements.correct_option.value.toLowerCase(),text=form.elements["option_"+option]?.value.trim();
+  $("answer-hint").textContent=text?`Choice ${option.toUpperCase()} reads "${text}".`:`Choice ${option.toUpperCase()} is empty.`;
 }
 function renderQuestions(){
-  const list=$("question-list");list.replaceChildren();const term=$("question-search").value.trim().toLocaleLowerCase();
-  bank.forEach((row,index)=>{if(term&&!(`${row.question_id} ${row.question_text} ${row.bone_name}`.toLocaleLowerCase().includes(term)))return;
-    const button=document.createElement("button");button.type="button";button.textContent=`${row.question_id}: ${row.question_text}`;button.setAttribute("aria-current",String(selected===index));button.onclick=()=>selectQuestion(index);list.append(button);});
-  $("version").textContent="Published bank: "+baseVersion;
+  const list=$("question-list"),term=$("question-search").value.trim().toLocaleLowerCase(),scrollTop=list.scrollTop;
+  list.replaceChildren();
+  let shown=0;
+  bank.forEach((row,index)=>{
+    if(term&&!`${row.question_id} ${row.question_text} ${row.bone_name}`.toLocaleLowerCase().includes(term))return;
+    const button=document.createElement("button");
+    button.type="button";
+    button.textContent=`${row.question_id}: ${row.question_text}`;
+    if(selected===index)button.setAttribute("aria-current","true");
+    button.onclick=()=>selectQuestion(index);
+    list.append(button);
+    shown++;
+  });
+  if(!shown){
+    const empty=document.createElement("p");
+    empty.className="empty";
+    empty.textContent=bank.length?"No questions match that search.":"The question bank is empty.";
+    list.append(empty);
+  }
+  list.scrollTop=scrollTop;
+  $("version").textContent=baseVersion?`Published bank: ${baseVersion}`:"Published bank unavailable";
+  $("question-count").textContent=term?`${shown} of ${bank.length} questions`:`${bank.length} question${bank.length===1?"":"s"}`;
   $("draft-state").textContent=dirty?"Unpublished changes in this browser":"No unpublished changes";
   $("publish").disabled=!dirty;
 }
-function selectQuestion(index){if(editorHasChanges()&&!confirm("Discard unsaved edits to this question?"))return;selected=index;const row=bank[index],form=$("editor");form.hidden=false;$("editing").textContent=row.question_id;
-  for(const field of editFields)form.elements[field].value=row[field];renderQuestions();}
-function saveDraft(event){event.preventDefault();if(selected===null)return;const row=bank[selected],form=$("editor");
+function selectQuestion(index){
+  if(index===selected)return;
+  if(editorHasChanges()&&!confirm("Discard unsaved edits to this question?"))return;
+  selected=index;
+  const form=$("editor"),row=bank[index];
+  for(const field of editFields)form.elements[field].value=row[field];
+  $("editing").textContent=row.question_id;
+  toggleEditor(true);
+  updateCounters();updateAnswerHint();renderQuestions();
+  $("editing").focus({preventScroll:true});
+}
+function saveDraft(event){
+  event.preventDefault();
+  if(selected===null)return;
+  const form=$("editor");
+  let valid=true;
+  for(const field of editFields){
+    const input=form.elements[field],value=input.value.trim();
+    input.setCustomValidity(value?"":"This field is required.");
+    if(!value)valid=false;
+  }
+  if(!valid){form.reportValidity();notice("Fill in every field before saving the draft.","error");return;}
+  const row=bank[selected];
   for(const field of editFields)row[field]=form.elements[field].value.trim();
-  dirty=true;publicationId=null;renderQuestions();notice("Draft saved in this browser. Publish to make it live for new quizzes.");}
-async function loadQuestions(){const data=await api("/v1/questions");bank=data.questions;baseVersion=data.version;selected=null;dirty=false;publicationId=null;$("editor").hidden=true;renderQuestions();}
-async function publish(){if(!dirty)return;if(editorHasChanges()){notice("Save this question draft before publishing.");return;}publicationId??=crypto.randomUUID();$("publish").disabled=true;
-  try{const data=await api("/v1/questions/publish",{method:"POST",body:JSON.stringify({base_version:baseVersion,questions:bank,request_id:publicationId})});notice("Published bank "+data.version);await loadQuestions();}
-  catch(error){notice(error.status===409?"Another educator published first. Reload and reapply your edits.":error.message);$("publish").disabled=false;}}
+  dirty=true;publicationId=null;
+  renderQuestions();updateAnswerHint();
+  notice("Draft saved in this browser. Publish to make it live for new quizzes.","success");
+}
+async function loadQuestions(){
+  setBusy($("questions"),true);
+  $("version").textContent="Loading published bank…";
+  try{
+    const data=await api("/v1/questions");
+    bank=data.questions;baseVersion=data.version;selected=null;dirty=false;publicationId=null;
+    toggleEditor(false);renderQuestions();
+  }finally{setBusy($("questions"),false);}
+}
+async function openQuestions(){
+  if(!accessToken)return show("welcome");
+  show("questions");
+  if(dirty&&bank.length){renderQuestions();return;}
+  try{await loadQuestions();}catch(error){notice(error.message,"error");}
+}
+async function publish(){
+  if(!dirty)return;
+  if(editorHasChanges()){notice("Save this question draft before publishing.","error");return;}
+  if(!confirm(`Publish ${bank.length} question${bank.length===1?"":"s"}? This replaces the live bank for new quiz sessions.`))return;
+  publicationId??=crypto.randomUUID();
+  const button=$("publish"),label=button.textContent;
+  button.textContent="Publishing…";button.disabled=true;
+  try{
+    const data=await api("/v1/questions/publish",{method:"POST",body:JSON.stringify({base_version:baseVersion,questions:bank,request_id:publicationId})});
+    notice("Published bank "+data.version+".","success");
+    await loadQuestions();
+  }catch(error){
+    notice(error.status===409?"Another educator published first. Your edits are still in this browser; copy anything you need before reloading the published bank.":error.message,"error");
+  }finally{button.textContent=label;button.disabled=!dirty;}
+}
 function element(tag,text){const node=document.createElement(tag);node.textContent=String(text??"");return node;}
 function metric(label,value){const card=element("div","");card.className="metric";card.append(element("span",label),element("strong",value));return card;}
 function breakdown(title,items){
@@ -61,7 +183,7 @@ function breakdown(title,items){
   for(const item of items){
     const row=element("div","");row.className="breakdown-row";
     row.append(element("span",`${item.label}: ${item.correct}/${item.answered} correct`));
-    const track=element("div","");track.className="bar-track";
+    const track=element("div","");track.className="bar-track";track.setAttribute("aria-hidden","true");
     const fill=element("div","");fill.className="bar-fill";fill.style.width=`${100*item.correct/item.answered}%`;
     track.append(fill);row.append(track);section.append(row);
   }
@@ -78,18 +200,42 @@ function masteryChart(estimates){
   estimates.forEach((value,index)=>{const dot=document.createElementNS("http://www.w3.org/2000/svg","circle");dot.setAttribute("cx",String(20+600*index/(estimates.length-1)));dot.setAttribute("cy",String(130-110*value));dot.setAttribute("r","5");dot.setAttribute("fill","#075b9c");svg.append(dot);});
   section.append(svg);return section;
 }
-async function loadLearners(next=false){if(!next){cursor=null;$("learner-list").replaceChildren();$("learner-detail").hidden=true;}
-  if(!programNames.size){const catalog=await api("/v1/programs");programNames=new Map(catalog.programs.map(item=>[item.id,item.name]));}
-  const query=new URLSearchParams({q:$("learner-search").value.trim()});if(cursor)query.set("cursor",cursor);
-  const data=await api("/v1/learners?"+query);cursor=data.next_cursor;$("more").hidden=!cursor;
-  for(const item of data.learners){const p=item.profile,s=item.progress,card=element("div","");card.className="card";
-    const button=element("button",[p.first_name,p.middle_name,p.last_name].filter(Boolean).join(" ")||p.profile_label||"Incomplete profile");button.onclick=()=>loadDetail(p.learner_id);card.append(button);
-    card.append(element("span",` ${programNames.get(p.program_id)||p.program_id||"Program incomplete"} · Year ${p.year_level||"incomplete"} · ${s?Math.round(s.mastery_estimate*100)+"% model estimate, "+s.answered_count+" answers this run":"No quiz started"}`));$("learner-list").append(card);}
-  if(!data.learners.length&&!next)notice("No learners found on this page.");}
-async function loadDetail(id){
+
+/* Learners. */
+const learnerName=profile=>[profile.first_name,profile.middle_name,profile.last_name].filter(Boolean).join(" ")||profile.profile_label||"Incomplete profile";
+async function loadLearners(next=false){
+  const list=$("learner-list"),status=$("learner-status"),term=$("learner-search").value.trim();
+  if(!next){cursor=null;list.replaceChildren();$("learner-detail").hidden=true;lastLearnerButton=null;status.textContent="Loading learners…";}
+  setBusy($("learners"),true);
+  try{
+    if(!programNames.size){const catalog=await api("/v1/programs");programNames=new Map(catalog.programs.map(item=>[item.id,item.name]));}
+    const query=new URLSearchParams({q:term});if(cursor)query.set("cursor",cursor);
+    const data=await api("/v1/learners?"+query);cursor=data.next_cursor;$("more").hidden=!cursor;
+    for(const item of data.learners){
+      const p=item.profile,s=item.progress,card=element("div","");card.className="card";
+      const button=element("button",learnerName(p));button.type="button";
+      button.onclick=()=>loadDetail(p.learner_id,button).catch(error=>notice(error.message,"error"));
+      card.append(button);
+      card.append(element("span",` ${programNames.get(p.program_id)||p.program_id||"Program incomplete"} · Year ${p.year_level||"incomplete"} · ${s?Math.round(s.mastery_estimate*100)+"% model estimate, "+s.answered_count+" answers this run":"No quiz started"}`));
+      list.append(card);
+    }
+    if(!data.learners.length&&!next){
+      const empty=element("p",term?"No learners match that name. Clear the search or try a different spelling.":"No learners have created an account yet.");
+      empty.className="empty";list.append(empty);
+    }
+    const total=list.querySelectorAll(".card").length;
+    status.textContent=!total?(term?"No matches.":"No learners yet."):`${next?`${total} learners shown so far`:total===1?"1 learner found":`${total} learners found`}.`;
+  }finally{setBusy($("learners"),false);}
+}
+async function loadDetail(id,button){
   const data=await api("/v1/learners/"+id),p=data.profile,s=data.progress,a=data.analysis,article=$("learner-detail");
   article.replaceChildren();article.hidden=false;
-  article.append(element("h3",[p.first_name,p.middle_name,p.last_name].filter(Boolean).join(" ")||"Incomplete profile"));
+  const head=element("div","");head.className="detail-head";
+  const title=element("h3",learnerName(p));title.tabIndex=-1;
+  const close=element("button","Close");close.type="button";close.className="secondary";
+  close.onclick=()=>{article.hidden=true;if(lastLearnerButton)lastLearnerButton.focus();};
+  head.append(title,close);article.append(head);
+  if(button){lastLearnerButton=button;button.setAttribute("aria-expanded","true");}
   const dl=document.createElement("dl");
   for(const [key,value] of [["Learner ID",p.learner_id],["Program",programNames.get(p.program_id)||p.program_id||"Incomplete"],["Year",p.year_level||"Incomplete"],["Quiz status",s?(s.completed?"Completed":"In progress"):"Not started"],["Current question",s?.current_question_id||"None"]])dl.append(element("dt",key),element("dd",value));
   article.append(dl);
@@ -116,16 +262,51 @@ async function loadDetail(id){
     if(!answer.question_text)row.append(element("p","Original question text unavailable for this legacy answer."));
     article.append(row);
   }
+  title.focus({preventScroll:true});
 }
+async function openLearners(){
+  if(!accessToken)return show("welcome");
+  show("learners");
+  if($("learner-list").children.length)return;
+  try{await loadLearners();}catch(error){notice(error.message,"error");}
+}
+
+/* Wiring. */
 window.addEventListener("beforeunload",event=>{if(dirty||editorHasChanges()){event.preventDefault();event.returnValue="";}});
-$("login").onclick=()=>login().catch(error=>notice(error.message));
-$("signup").onclick=()=>login("/signup").catch(error=>notice(error.message));
-$("logout").onclick=()=>{if(!leaveDraft())return;accessToken=null;expiresAt=0;dirty=false;sessionStorage.removeItem("osteon-pkce");const url=new URL(config.cognitoDomain+"/logout");url.search=new URLSearchParams({client_id:config.clientId,logout_uri:config.redirectUri});location.assign(url);};
-$("questions-tab").onclick=()=>{if(!leaveDraft())return;show(accessToken?"questions":"welcome");if(accessToken)loadQuestions().catch(error=>notice(error.message));};
-$("learners-tab").onclick=()=>{if(!leaveDraft())return;dirty=false;show(accessToken?"learners":"welcome");if(accessToken)loadLearners().catch(error=>notice(error.message));};
-$("editor").onsubmit=saveDraft;$("question-search").oninput=renderQuestions;
-$("publish").onclick=()=>publish().catch(error=>notice(error.message));
-$("reload").onclick=()=>{if(leaveDraft())loadQuestions().catch(error=>notice(error.message));};
-$("learner-find").onclick=()=>loadLearners().catch(error=>notice(error.message));
-$("more").onclick=()=>loadLearners(true).catch(error=>notice(error.message));
-if(config?.apiBase&&config?.cognitoDomain&&config?.clientId&&config?.redirectUri)callback().catch(error=>notice(error.message));else notice("Portal configuration is missing.");
+$("login").onclick=()=>login().catch(error=>notice(error.message,"error"));
+$("signup").onclick=()=>login("/signup").catch(error=>notice(error.message,"error"));
+$("notice-close").onclick=()=>notice("");
+$("logout").onclick=()=>{
+  if(!confirmDiscard("Sign out and discard your unpublished question changes?"))return;
+  accessToken=null;expiresAt=0;dirty=false;sessionStorage.removeItem("osteon-pkce");
+  const url=new URL(config.cognitoDomain+"/logout");url.search=new URLSearchParams({client_id:config.clientId,logout_uri:config.redirectUri});
+  location.assign(url);
+};
+$("questions-tab").onclick=()=>openQuestions();
+$("learners-tab").onclick=()=>openLearners();
+$("editor").onsubmit=saveDraft;
+$("editor").addEventListener("input",event=>{if(event.target.setCustomValidity)event.target.setCustomValidity("");updateCounters();updateAnswerHint();});
+$("revert").onclick=()=>{
+  if(selected===null)return;
+  const form=$("editor"),row=bank[selected];
+  for(const field of editFields)form.elements[field].value=row[field];
+  updateCounters();updateAnswerHint();
+  notice("Question restored to the last saved version in this browser.");
+};
+$("question-search").oninput=renderQuestions;
+$("publish").onclick=()=>publish().catch(error=>notice(error.message,"error"));
+$("reload").onclick=()=>run($("reload"),"Reloading…",async()=>{
+  if(!confirmDiscard("Reload the published bank and discard your unpublished changes?"))return;
+  try{await loadQuestions();notice("Loaded published bank "+baseVersion+".","success");}
+  catch(error){notice(error.message,"error");}
+});
+$("learner-search-form").onsubmit=event=>{event.preventDefault();run($("learner-find"),"Searching…",()=>loadLearners()).catch(error=>notice(error.message,"error"));};
+$("more").onclick=()=>run($("more"),"Loading…",()=>loadLearners(true)).catch(error=>notice(error.message,"error"));
+document.addEventListener("keydown",event=>{
+  if(!(event.ctrlKey||event.metaKey)||event.altKey||event.key.toLowerCase()!=="s")return;
+  if($("editor").hidden)return;
+  event.preventDefault();
+  $("editor").requestSubmit();
+});
+if(config?.apiBase&&config?.cognitoDomain&&config?.clientId&&config?.redirectUri)callback().catch(error=>notice(error.message,"error"));
+else notice("Portal configuration is missing.","error");

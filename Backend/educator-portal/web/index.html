@@ -5,12 +5,69 @@
 <meta name="referrer" content="no-referrer">
 <title>Osteon Educator</title>
 <link rel="stylesheet" href="style.css">
-<header><h1>Osteon Educator</h1><nav><button id="questions-tab" type="button">Questions</button><button id="learners-tab" type="button">Learners</button><button id="logout" type="button">Sign out</button></nav></header>
-<main>
-  <section id="welcome"><h2>Educator access</h2><p>Use an educator account or create one with your @mmsu.edu.ph email address. New accounts confirm their email and set up an authenticator app.</p><button id="login" type="button">Sign in</button> <button id="signup" type="button">Create educator account</button></section>
-  <p id="notice" role="status" aria-live="polite"></p>
-  <section id="questions" hidden><h2>Questions</h2><p>Edits stay in this browser until you publish the complete bank.</p><p id="version"></p><label>Find a question <input id="question-search" type="search"></label><div class="layout"><div id="question-list" class="list"></div><form id="editor" hidden><h3 id="editing"></h3><label>Bone group <select name="bone_group"><option>Axial</option><option>Appendicular</option></select></label><label>Bone name <input name="bone_name" maxlength="80" required></label><label>Difficulty <select name="difficulty_level"><option>Easy</option><option>Medium</option><option>Hard</option></select></label><label>Difficulty score <input name="difficulty_score" type="number" min="0" max="1" step="0.01" required></label><label>Question <textarea name="question_text" maxlength="180" required></textarea></label><label>Choice A <input name="option_a" maxlength="70" required></label><label>Choice B <input name="option_b" maxlength="70" required></label><label>Choice C <input name="option_c" maxlength="70" required></label><label>Choice D <input name="option_d" maxlength="70" required></label><label>Correct answer <select name="correct_option"><option>A</option><option>B</option><option>C</option><option>D</option></select></label><button type="submit">Save draft</button></form></div><p id="draft-state"></p><button id="publish" type="button" disabled>Publish changes</button><button id="reload" type="button">Reload published bank</button></section>
-  <section id="learners" hidden><h2>Learners</h2><p>Names and program details are learner-supplied. Mastery is a model estimate, not a grade. Recent answers contain at most 10 retained entries.</p><label>Search by name <input id="learner-search" type="search"></label><button id="learner-find" type="button">Search</button><div id="learner-list"></div><button id="more" type="button" hidden>Next page</button><article id="learner-detail" hidden></article></section>
+<a class="skip-link" href="#main">Skip to content</a>
+<header>
+  <h1>Osteon Educator</h1>
+  <nav id="app-nav" aria-label="Sections" hidden>
+    <button id="questions-tab" type="button" aria-current="page">Questions</button>
+    <button id="learners-tab" type="button">Learners</button>
+    <button id="logout" type="button" class="secondary">Sign out</button>
+  </nav>
+</header>
+<main id="main">
+  <div id="notice-wrap" class="notice" hidden>
+    <p id="notice" role="status" aria-live="polite"></p>
+    <button id="notice-close" type="button" class="link">Dismiss</button>
+  </div>
+  <section id="welcome" aria-labelledby="welcome-title">
+    <h2 id="welcome-title" tabindex="-1">Educator access</h2>
+    <p>Use an educator account or create one with your @mmsu.edu.ph email address. New accounts confirm their email and set up an authenticator app.</p>
+    <p class="actions"><button id="login" type="button">Sign in</button> <button id="signup" type="button" class="secondary">Create educator account</button></p>
+  </section>
+  <section id="questions" aria-labelledby="questions-title" hidden>
+    <h2 id="questions-title" tabindex="-1">Questions</h2>
+    <p>Edits stay in this browser until you publish the complete bank.</p>
+    <p id="version" class="muted"></p>
+    <label>Find a question <input id="question-search" type="search" autocomplete="off"></label>
+    <p id="question-count" class="muted"></p>
+    <div class="layout">
+      <div id="question-list" class="list" role="group" aria-label="Question bank"></div>
+      <div class="editor-pane">
+        <p id="editor-empty" class="empty">Choose a question from the list to edit it.</p>
+        <form id="editor" hidden>
+          <h3 id="editing" tabindex="-1"></h3>
+          <label>Bone group <select name="bone_group"><option>Axial</option><option>Appendicular</option></select></label>
+          <label>Bone name <input name="bone_name" maxlength="80" required></label>
+          <label>Difficulty <select name="difficulty_level"><option>Easy</option><option>Medium</option><option>Hard</option></select></label>
+          <label>Difficulty score <input name="difficulty_score" type="number" min="0" max="1" step="0.01" required></label>
+          <label>Question <textarea name="question_text" maxlength="180" required></textarea><span class="counter" data-count-for="question_text">0/180</span></label>
+          <label>Choice A <input name="option_a" maxlength="70" required><span class="counter" data-count-for="option_a">0/70</span></label>
+          <label>Choice B <input name="option_b" maxlength="70" required><span class="counter" data-count-for="option_b">0/70</span></label>
+          <label>Choice C <input name="option_c" maxlength="70" required><span class="counter" data-count-for="option_c">0/70</span></label>
+          <label>Choice D <input name="option_d" maxlength="70" required><span class="counter" data-count-for="option_d">0/70</span></label>
+          <label>Correct answer <select name="correct_option"><option>A</option><option>B</option><option>C</option><option>D</option></select></label>
+          <p id="answer-hint" class="muted"></p>
+          <p class="actions"><button type="submit">Save draft</button> <button id="revert" type="button" class="secondary">Revert this question</button></p>
+        </form>
+      </div>
+    </div>
+    <div class="publish-bar">
+      <p id="draft-state" role="status">No unpublished changes</p>
+      <p class="actions"><button id="publish" type="button" disabled>Publish changes</button> <button id="reload" type="button" class="secondary">Reload published bank</button></p>
+    </div>
+  </section>
+  <section id="learners" aria-labelledby="learners-title" hidden>
+    <h2 id="learners-title" tabindex="-1">Learners</h2>
+    <p>Names and program details are learner-supplied. Mastery is a model estimate, not a grade. Recent answers contain at most 10 retained entries.</p>
+    <form id="learner-search-form" class="search-form">
+      <label>Search by name <input id="learner-search" type="search" autocomplete="off"></label>
+      <button id="learner-find" type="submit">Search</button>
+    </form>
+    <p id="learner-status" class="muted" role="status"></p>
+    <div id="learner-list"></div>
+    <p class="actions"><button id="more" type="button" hidden>Next page</button></p>
+    <article id="learner-detail" hidden></article>
+  </section>
 </main>
 <script src="config.js"></script><script src="app.js" defer></script>
 </html>

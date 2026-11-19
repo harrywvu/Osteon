@@ -4,23 +4,86 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Osteon Educator — Local Preview</title>
 <link rel="stylesheet" href="style.css">
-<header><h1>Osteon Educator</h1><nav><button id="questions-tab" type="button">Questions</button><button id="learners-tab" type="button">Learners</button><button id="logout" type="button" disabled>Sign out</button></nav></header>
-<main>
-  <p id="notice" role="status">Local preview with sample data. Sign-in, publishing, and learner records require deployment.</p>
-  <section id="questions"><h2>Questions</h2><p>Edits stay in this browser until you publish the complete bank.</p><p>Published bank: sample preview</p><label>Find a question <input id="question-search" type="search"></label><div class="layout"><div id="question-list" class="list"></div><form id="editor"><h3 id="editing"></h3><label>Bone group <select name="bone_group"><option>Axial</option><option>Appendicular</option></select></label><label>Bone name <input name="bone_name" maxlength="80" required></label><label>Difficulty <select name="difficulty_level"><option>Easy</option><option>Medium</option><option>Hard</option></select></label><label>Difficulty score <input name="difficulty_score" type="number" min="0" max="1" step="0.01" required></label><label>Question <textarea name="question_text" maxlength="180" required></textarea></label><label>Choice A <input name="option_a" maxlength="70" required></label><label>Choice B <input name="option_b" maxlength="70" required></label><label>Choice C <input name="option_c" maxlength="70" required></label><label>Choice D <input name="option_d" maxlength="70" required></label><label>Correct answer <select name="correct_option"><option>A</option><option>B</option><option>C</option><option>D</option></select></label><button type="submit">Save draft</button></form></div><p id="draft-state">No unpublished changes</p><button type="button" disabled>Publish changes</button><button type="button" disabled>Reload published bank</button></section>
-  <section id="learners" hidden><h2>Learners</h2><p>Names and program details are learner-supplied. Mastery is a model estimate, not a grade. Recent answers contain at most 10 retained entries.</p><label>Search by name <input id="learner-search" type="search"></label><button id="learner-find" type="button">Search</button><div id="learner-list"></div><article id="learner-detail" hidden></article></section>
+<a class="skip-link" href="#main">Skip to content</a>
+<header>
+  <h1>Osteon Educator</h1>
+  <nav id="app-nav" aria-label="Sections">
+    <button id="questions-tab" type="button" aria-current="page">Questions</button>
+    <button id="learners-tab" type="button">Learners</button>
+    <button id="logout" type="button" class="secondary" disabled>Sign out</button>
+  </nav>
+</header>
+<main id="main">
+  <div id="notice-wrap" class="notice">
+    <p id="notice" role="status" aria-live="polite">Local preview with sample data. Sign-in, publishing, and learner records require deployment.</p>
+    <button id="notice-close" type="button" class="link">Dismiss</button>
+  </div>
+  <section id="questions" aria-labelledby="questions-title">
+    <h2 id="questions-title" tabindex="-1">Questions</h2>
+    <p>Edits stay in this browser until you publish the complete bank.</p>
+    <p id="version" class="muted">Published bank: sample preview</p>
+    <label>Find a question <input id="question-search" type="search" autocomplete="off"></label>
+    <p id="question-count" class="muted">1 of 1 question</p>
+    <div class="layout">
+      <div id="question-list" class="list" role="group" aria-label="Question bank"></div>
+      <div class="editor-pane">
+        <p id="editor-empty" class="empty" hidden>Choose a question from the list to edit it.</p>
+        <form id="editor">
+          <h3 id="editing" tabindex="-1"></h3>
+          <label>Bone group <select name="bone_group"><option>Axial</option><option>Appendicular</option></select></label>
+          <label>Bone name <input name="bone_name" maxlength="80" required></label>
+          <label>Difficulty <select name="difficulty_level"><option>Easy</option><option>Medium</option><option>Hard</option></select></label>
+          <label>Difficulty score <input name="difficulty_score" type="number" min="0" max="1" step="0.01" required></label>
+          <label>Question <textarea name="question_text" maxlength="180" required></textarea><span class="counter" data-count-for="question_text">0/180</span></label>
+          <label>Choice A <input name="option_a" maxlength="70" required><span class="counter" data-count-for="option_a">0/70</span></label>
+          <label>Choice B <input name="option_b" maxlength="70" required><span class="counter" data-count-for="option_b">0/70</span></label>
+          <label>Choice C <input name="option_c" maxlength="70" required><span class="counter" data-count-for="option_c">0/70</span></label>
+          <label>Choice D <input name="option_d" maxlength="70" required><span class="counter" data-count-for="option_d">0/70</span></label>
+          <label>Correct answer <select name="correct_option"><option>A</option><option>B</option><option>C</option><option>D</option></select></label>
+          <p id="answer-hint" class="muted"></p>
+          <p class="actions"><button type="submit">Save draft</button> <button id="revert" type="button" class="secondary">Revert this question</button></p>
+        </form>
+      </div>
+    </div>
+    <div class="publish-bar">
+      <p id="draft-state" role="status">No unpublished changes</p>
+      <p class="actions"><button type="button" disabled>Publish changes</button> <button type="button" class="secondary" disabled>Reload published bank</button></p>
+    </div>
+  </section>
+  <section id="learners" aria-labelledby="learners-title" hidden>
+    <h2 id="learners-title" tabindex="-1">Learners</h2>
+    <p>Names and program details are learner-supplied. Mastery is a model estimate, not a grade. Recent answers contain at most 10 retained entries.</p>
+    <form id="learner-search-form" class="search-form">
+      <label>Search by name <input id="learner-search" type="search" autocomplete="off"></label>
+      <button id="learner-find" type="submit">Search</button>
+    </form>
+    <p id="learner-status" class="muted" role="status"></p>
+    <div id="learner-list"></div>
+    <p class="actions"><button id="more" type="button" hidden>Next page</button></p>
+    <article id="learner-detail" hidden></article>
+  </section>
 </main>
 <script>
 const sample={question_id:"rib_01",bone_group:"Axial",bone_name:"Rib",difficulty_level:"Easy",difficulty_score:"0.25",question_text:"Which bone helps protect the lungs?",option_a:"Rib",option_b:"Femur",option_c:"Tibia",option_d:"Humerus",correct_option:"A"};
 const learners=[{id:"sample-1",name:"Alex Santos",program:"BS Nursing",year:"2",mastery:"62%",answers:4},{id:"sample-2",name:"Mika Reyes",program:"BS Computer Science",year:"3",mastery:"51%",answers:1}];
 const $=id=>document.getElementById(id),form=$("editor");
-function selectQuestion(){for(const [key,value] of Object.entries(sample))if(form.elements[key])form.elements[key].value=value;$("editing").textContent=sample.question_id;}
-const question=document.createElement("button");question.type="button";question.textContent=sample.question_id+": "+sample.question_text;question.onclick=selectQuestion;$("question-list").append(question);selectQuestion();
+const fields=["bone_group","bone_name","difficulty_level","difficulty_score","question_text","option_a","option_b","option_c","option_d","correct_option"];
+function updateCounters(){for(const [field,max] of [["question_text",180],["option_a",70],["option_b",70],["option_c",70],["option_d",70]]){const output=document.querySelector(`[data-count-for="${field}"]`);if(output)output.textContent=`${form.elements[field].value.length}/${max}`;}}
+function updateAnswerHint(){const option=form.elements.correct_option.value.toLowerCase(),text=form.elements["option_"+option].value;if(text)$("answer-hint").textContent=`Choice ${option.toUpperCase()} reads "${text}".`;}
+function loadSample(){for(const field of fields)if(form.elements[field])form.elements[field].value=sample[field];$("editing").textContent=sample.question_id;$("editor-empty").hidden=true;form.hidden=false;updateCounters();updateAnswerHint();$("editing").focus({preventScroll:true});}
+const question=document.createElement("button");question.type="button";question.textContent=sample.question_id+": "+sample.question_text;question.setAttribute("aria-current","true");question.onclick=loadSample;$("question-list").append(question);loadSample();
 form.onsubmit=event=>{event.preventDefault();$("draft-state").textContent="Sample draft saved in this preview only";};
-$("question-search").oninput=event=>question.hidden=!question.textContent.toLowerCase().includes(event.target.value.toLowerCase());
+form.addEventListener("input",()=>{updateCounters();updateAnswerHint();});
+$("revert").onclick=loadSample;
+$("question-search").oninput=event=>{const term=event.target.value.trim().toLowerCase(),match=question.textContent.toLowerCase().includes(term);question.hidden=!match;$("question-count").textContent=match?"1 of 1 question":"0 of 1 questions";};
+$("notice-close").onclick=()=>$("notice-wrap").hidden=true;
 function renderPreviewDetail(learner){
   const detail=$("learner-detail");detail.hidden=false;detail.replaceChildren();
-  const title=document.createElement("h3");title.textContent=learner.name;detail.append(title);
+  const head=document.createElement("div");head.className="detail-head";
+  const title=document.createElement("h3");title.textContent=learner.name;title.tabIndex=-1;
+  const close=document.createElement("button");close.type="button";close.className="secondary";close.textContent="Close";
+  close.onclick=()=>{detail.hidden=true;};
+  head.append(title,close);detail.append(head);
   const facts=document.createElement("p");facts.textContent=`${learner.program} · Year ${learner.year} · ${learner.answers} answers this run`;detail.append(facts);
   const metrics=document.createElement("div");metrics.className="metrics";
   for(const [label,value] of [["Mastery estimate",learner.mastery],["Retained answers","4"],["Correct in retained window","3/4 (75%)"],["Quiz status","In progress"]]){
@@ -32,14 +95,19 @@ function renderPreviewDetail(learner){
   const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");svg.setAttribute("viewBox","0 0 640 150");svg.setAttribute("role","img");svg.setAttribute("aria-label","Sample mastery estimate trend");svg.classList.add("mastery-chart");const line=document.createElementNS("http://www.w3.org/2000/svg","polyline");line.setAttribute("points","20,69 170,64 320,73 470,65 620,62");line.setAttribute("fill","none");line.setAttribute("stroke","#075b9c");line.setAttribute("stroke-width","4");svg.append(line);trend.append(svg);detail.append(trend);
   for(const [heading,rows] of [["By bone group",[["Axial",2,3],["Appendicular",1,1]]],["By difficulty",[["Easy",2,2],["Medium",1,2]]]]){
     const section=document.createElement("section");section.className="analysis-block";const h=document.createElement("h4");h.textContent=heading;section.append(h);
-    for(const [label,correct,answered] of rows){const line=document.createElement("div");line.className="breakdown-row";line.textContent=`${label}: ${correct}/${answered} correct`;const track=document.createElement("div");track.className="bar-track";const fill=document.createElement("div");fill.className="bar-fill";fill.style.width=`${100*correct/answered}%`;track.append(fill);line.append(track);section.append(line);}detail.append(section);
+    for(const [label,correct,answered] of rows){const line=document.createElement("div");line.className="breakdown-row";line.textContent=`${label}: ${correct}/${answered} correct`;const track=document.createElement("div");track.className="bar-track";track.setAttribute("aria-hidden","true");const fill=document.createElement("div");fill.className="bar-fill";fill.style.width=`${100*correct/answered}%`;track.append(fill);line.append(track);section.append(line);}detail.append(section);
   }
   const h=document.createElement("h4");h.textContent="Recent answers";detail.append(h);
   for(const line of ["Rib · Easy · Choice A — Rib · Correct · Model estimate: 58% → 62%","Femur · Medium · Choice B — Tibia · Incorrect · Correct answer: A — Femur"]){const row=document.createElement("div");row.className="answer-row";row.textContent=line;detail.append(row);}
+  title.focus({preventScroll:true});
 }
-function renderLearners(){const list=$("learner-list");list.replaceChildren();for(const learner of learners.filter(value=>value.name.toLowerCase().includes($("learner-search").value.toLowerCase()))){const card=document.createElement("div");card.className="card";const button=document.createElement("button");button.textContent=learner.name;button.onclick=()=>renderPreviewDetail(learner);card.append(button,document.createTextNode(" "+learner.program+" · Year "+learner.year+" · "+learner.mastery+" model estimate, "+learner.answers+" answers this run"));list.append(card);}}
-$("learner-find").onclick=renderLearners;renderLearners();
-$("questions-tab").onclick=()=>{$("questions").hidden=false;$("learners").hidden=true;};
-$("learners-tab").onclick=()=>{$("questions").hidden=true;$("learners").hidden=false;};
+function renderLearners(){const list=$("learner-list"),term=$("learner-search").value.trim().toLowerCase();list.replaceChildren();
+  const matches=learners.filter(value=>value.name.toLowerCase().includes(term));
+  for(const learner of matches){const card=document.createElement("div");card.className="card";const button=document.createElement("button");button.type="button";button.textContent=learner.name;button.onclick=()=>renderPreviewDetail(learner);card.append(button,document.createTextNode(" "+learner.program+" · Year "+learner.year+" · "+learner.mastery+" model estimate, "+learner.answers+" answers this run"));list.append(card);}
+  $("learner-status").textContent=matches.length?`${matches.length} learner${matches.length===1?"":"s"} found.`:"No matches.";
+}
+$("learner-search-form").onsubmit=event=>{event.preventDefault();renderLearners();};
+$("questions-tab").onclick=()=>{$("questions").hidden=false;$("learners").hidden=true;$("questions-tab").setAttribute("aria-current","page");$("learners-tab").setAttribute("aria-current","false");};
+$("learners-tab").onclick=()=>{$("questions").hidden=true;$("learners").hidden=false;$("learners-tab").setAttribute("aria-current","page");$("questions-tab").setAttribute("aria-current","false");};
 </script>
 </html>
