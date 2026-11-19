@@ -7,7 +7,7 @@ import android.speech.tts.Voice;
 import java.util.Locale;
 import java.util.Set;
 
-/** Uses only an installed English voice that does not require a network. */
+/** Prefers an installed offline English voice, then the device English voice. */
 public final class OfflineSpeech implements TextToSpeech.OnInitListener {
     private final TextToSpeech tts;
     private volatile int initialization; // 0 pending, 1 initialized, -1 failed
@@ -58,7 +58,9 @@ public final class OfflineSpeech implements TextToSpeech.OnInitListener {
                     if (best == null || voice.getQuality() > best.getQuality()) best = voice;
                 }
             }
-            if (best == null || tts.setVoice(best) != TextToSpeech.SUCCESS)
+            if (best != null && tts.setVoice(best) == TextToSpeech.SUCCESS)
+                return initialization;
+            if (tts.setLanguage(Locale.US) < TextToSpeech.LANG_AVAILABLE)
                 initialization = -1;
         }
         return initialization;

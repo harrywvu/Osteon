@@ -99,7 +99,9 @@ public sealed class OsteonQuizDemo : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Bootstrap()
     {
-        if (SceneManager.GetActiveScene().name != "Osteon" ||
+        if ((SceneManager.GetActiveScene().name != "Osteon" &&
+            SceneManager.GetActiveScene().name != "Osteon-Web" &&
+            SceneManager.GetActiveScene().name != "Osteon-VR") ||
             FindFirstObjectByType<OsteonQuizDemo>() != null) return;
         Debug.Log("[OsteonQuiz] Starting in scene: " + SceneManager.GetActiveScene().name);
         new GameObject("Osteon practice quiz").AddComponent<OsteonQuizDemo>();

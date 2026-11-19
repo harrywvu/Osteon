@@ -35,6 +35,9 @@ public sealed class LearnerAccountPanel : MonoBehaviour
     private Button programButton, yearButton;
     private int programIndex, yearLevel = 1;
     private bool creatingProfile;
+    private RectTransform vrKeyboard;
+    private TMP_InputField vrInput;
+    private bool vrUppercase = true;
     public SimulatedLearnerAccounts Simulation { get { return service as SimulatedLearnerAccounts; } }
 
     [ContextMenu("Simulation/Toggle service unavailable")]
@@ -64,6 +67,7 @@ public sealed class LearnerAccountPanel : MonoBehaviour
     private void OnDisable()
     {
         if (textKeyboard != null) textKeyboard.onTextInput -= TypeDigit;
+        if (vrKeyboard != null) vrKeyboard.gameObject.SetActive(false);
         CapturesDesktopInput = false;
     }
     private void TypeDigit(char value)
@@ -141,6 +145,7 @@ public sealed class LearnerAccountPanel : MonoBehaviour
             }
         }
         controls.Clear();
+        if (vrKeyboard != null) vrKeyboard.gameObject.SetActive(false);
         submit = null;
         digits = null;
         reveal = false;
@@ -309,9 +314,72 @@ public sealed class LearnerAccountPanel : MonoBehaviour
         input.lineType = TMP_InputField.LineType.SingleLine;
         input.characterLimit = 80;
         input.text = value ?? "";
+#if UNITY_ANDROID && !UNITY_EDITOR
+        input.onSelect.AddListener(_ => ShowVrKeyboard(input));
+#endif
         controls.Add(shell);
         return input;
     }
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+    private void ShowVrKeyboard(TMP_InputField input)
+    {
+        vrInput = input;
+        if (vrKeyboard == null) BuildVrKeyboard();
+        vrKeyboard.gameObject.SetActive(true);
+    }
+
+    private void BuildVrKeyboard()
+    {
+        var board = new GameObject("VR profile keyboard", typeof(RectTransform), typeof(Image));
+        board.layer = root.gameObject.layer;
+        board.transform.SetParent(root, false);
+        vrKeyboard = (RectTransform)board.transform;
+        vrKeyboard.anchorMin = vrKeyboard.anchorMax = vrKeyboard.pivot = new Vector2(0.5f, 0.5f);
+        vrKeyboard.sizeDelta = new Vector2(680, 400);
+        vrKeyboard.anchoredPosition = new Vector2(755, 0);
+        board.GetComponent<Image>().color = new Color(0.08f, 0.15f, 0.22f, 0.96f);
+        string[] rows = { "QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM" };
+        for (int row = 0; row < rows.Length; row++)
+        {
+            string letters = rows[row];
+            for (int column = 0; column < letters.Length; column++)
+            {
+                char letter = letters[column];
+                var key = OsteonQuizDemo.AddButton(vrKeyboard, letter.ToString(),
+                    new Vector2((column - (letters.Length - 1) * 0.5f) * 62, 125 - row * 85),
+                    new Vector2(58, 72));
+                key.onClick.AddListener(() => InsertVrText(vrUppercase ? char.ToUpperInvariant(letter).ToString() : char.ToLowerInvariant(letter).ToString()));
+            }
+        }
+        VrKey("Shift", new Vector2(-255, -125), 105, () => vrUppercase = !vrUppercase);
+        VrKey("Space", new Vector2(-80, -125), 225, () => InsertVrText(" "));
+        VrKey("Delete", new Vector2(125, -125), 150, DeleteVrText);
+        VrKey("Done", new Vector2(280, -125), 105, () => vrKeyboard.gameObject.SetActive(false));
+    }
+
+    private void VrKey(string label, Vector2 position, float width, Action action)
+    {
+        var key = OsteonQuizDemo.AddButton(vrKeyboard, label, position, new Vector2(width, 72));
+        key.onClick.AddListener(() => action());
+    }
+
+    private void InsertVrText(string value)
+    {
+        if (vrInput == null || vrInput.text.Length >= vrInput.characterLimit) return;
+        int position = vrInput.caretPosition;
+        vrInput.text = vrInput.text.Insert(position, value);
+        vrInput.caretPosition = position + value.Length;
+    }
+
+    private void DeleteVrText()
+    {
+        if (vrInput == null || vrInput.caretPosition == 0) return;
+        int position = vrInput.caretPosition - 1;
+        vrInput.text = vrInput.text.Remove(position, 1);
+        vrInput.caretPosition = position;
+    }
+#endif
 
     private void ProfileForm(bool create)
     {

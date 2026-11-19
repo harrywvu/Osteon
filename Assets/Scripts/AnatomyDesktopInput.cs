@@ -31,7 +31,9 @@ public sealed class AnatomyDesktopInput : MonoBehaviour
     private static void Bootstrap()
     {
         if (Application.platform != RuntimePlatform.WebGLPlayer ||
-            SceneManager.GetActiveScene().name != "Osteon") return;
+            SceneManager.GetActiveScene().name != "Osteon" &&
+            SceneManager.GetActiveScene().name != "Osteon-Web" &&
+            SceneManager.GetActiveScene().name != "Osteon-VR") return;
         new GameObject("Anatomy desktop input").AddComponent<AnatomyDesktopInput>();
     }
 

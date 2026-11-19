@@ -111,7 +111,9 @@ public sealed class AnatomyTutorial : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Bootstrap()
     {
-        if (SceneManager.GetActiveScene().name != "Osteon" ||
+        if ((SceneManager.GetActiveScene().name != "Osteon" &&
+            SceneManager.GetActiveScene().name != "Osteon-Web" &&
+            SceneManager.GetActiveScene().name != "Osteon-VR") ||
             FindFirstObjectByType<AnatomyTutorial>() != null) return;
         new GameObject("Anatomy tutorial").AddComponent<AnatomyTutorial>();
     }
