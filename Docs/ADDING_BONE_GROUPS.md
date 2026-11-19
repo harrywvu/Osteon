@@ -21,8 +21,9 @@ regression and repair are in [`KNOWN_ISSUES.md`](KNOWN_ISSUES.md).
    Create Mesh Targets** enabled while authoring. Run **Anatomy → Bake G1 group
    ray targets for Quest** before building. It adds mesh colliders and
    `XRSimpleInteractable` targets to the scene, adds group highlighting, and
-   turns off runtime target creation. Save and commit the scene. The Meta Quest
-   build profiles must keep **Prebake Collision Meshes** enabled.
+   turns off runtime target creation. Apply the authored collider changes to
+   `Osteon-VR.unity` for the `Meta Quest` profile and keep
+   **Prebake Collision Meshes** enabled.
 4. Enter Play Mode. Point at the G1 group: all its rendered meshes should
    highlight. Select it: its G2 model and information should appear. Use Back
    to restore the G1 division, then Back again for the whole skeleton.

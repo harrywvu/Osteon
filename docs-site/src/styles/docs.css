@@ -1,0 +1,68 @@
+:root {
+  --sl-content-width: 47rem;
+  --sl-sidebar-width: 17rem;
+  --sl-text-5xl: 2.5rem;
+  --sl-color-accent-low: #15332d;
+  --sl-color-accent: #49b49c;
+  --sl-color-accent-high: #b5eddd;
+}
+
+:root[data-theme='light'] {
+  --sl-color-accent-low: #dcefe9;
+  --sl-color-accent: #126b58;
+  --sl-color-accent-high: #103d33;
+}
+
+.site-title {
+  letter-spacing: -0.025em;
+}
+
+.sl-markdown-content :is(h2, h3) {
+  letter-spacing: -0.015em;
+}
+
+.sl-markdown-content .start-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-block: 1.5rem 2.5rem;
+}
+
+.sl-markdown-content .start-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.95rem;
+  border: 1px solid var(--sl-color-gray-4);
+  border-radius: 0.375rem;
+  color: var(--sl-color-white);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.sl-markdown-content .start-links a.start-primary {
+  border-color: var(--sl-color-accent);
+  background: var(--sl-color-accent-low);
+  color: var(--sl-color-accent-high);
+}
+
+.sl-markdown-content .start-links a:hover {
+  text-decoration: underline;
+}
+
+.sl-markdown-content .diagram {
+  overflow-x: auto;
+  padding: 0.75rem;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.375rem;
+  background: #fff;
+}
+
+.sl-markdown-content .diagram svg {
+  display: block;
+  margin-inline: auto;
+}
+
+@media (max-width: 35rem) {
+  :root { --sl-text-5xl: 2rem; }
+}

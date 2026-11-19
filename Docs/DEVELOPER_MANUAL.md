@@ -1,26 +1,27 @@
 # Osteon developer manual
 
 This is the starting point for engineers working on the Unity application and its
-two Python services. It describes the source in this checkout. Test and deployment
-claims are recorded separately because code presence does not establish device or
-browser acceptance.
+Python backend services. It describes the source in this checkout. Test and
+deployment claims are recorded separately because code presence does not
+establish device or browser acceptance.
 
 ## 1. Repository and runtime
 
-Osteon is a single-scene anatomy explorer for Meta Quest Android and desktop
-WebGL. `Assets/Scenes/Osteon.unity` is the only enabled scene in
-`ProjectSettings/EditorBuildSettings.asset`. `Assets/Editor/AnatomySceneSetup.cs`
-also names this scene, and the Quest and optimized WebGL build scripts use that
-constant. `Assets/_Recovery/` contains historical scenes, not the build entry.
+Open `Assets/Scenes/Osteon.unity` for authoring and automated anatomy validation.
+The `Meta Quest` profile builds `Osteon-VR.unity`. The Web profile and both
+scripted build recipes use the authoring scene. Confirm the exact entry before
+using a build as evidence for a scene change. See the
+[scene and build map](SETUP.md#scene-and-build-map).
 
 | Area | Source of truth | Purpose |
 |---|---|---|
-| Unity runtime | `Assets/Scripts/` and `Assets/Scenes/Osteon.unity` | Anatomy, input, world-space panels, accounts, quiz client, and narration |
+| Unity runtime | `Assets/Scripts/` and `Assets/Scenes/` | Anatomy, input, world-space panels, accounts, quiz client, and narration |
 | Unity editor | `Assets/Editor/` | Scene authoring, validation, and build recipes |
 | Quest settings | `ProjectSettings/`, `Assets/Settings/Build Profiles/` | Android, XR, and build configuration |
 | WebGL runner | `Tools/Start-WebDesktop.ps1` | Serves the optimized local build on loopback |
 | Accounts API | `Backend/accounts-api/` | Profile codes, bearer sessions, and account persistence |
 | Quiz API | `Backend/quiz-api/` | Questions, scoring, mastery, optional AI feedback, and persistence |
+| Educator portal | `Backend/educator-portal/` | Cognito-protected site and API for learner review and question publication |
 | Content | `Assets/Art/`, `Assets/Ai Voice/`, `Assets/Resources/` | Models, recordings, and runtime configuration |
 
 The Unity version is **6000.3.2f1** (`ProjectSettings/ProjectVersion.txt`).
@@ -31,12 +32,9 @@ clone steps, import checks, and Quest build settings.
 
 ## 2. Anatomy architecture
 
-`G0` through `G3` are anatomical *granularity* levels, not graphics LODs:
-
-```text
-G0 whole skeleton → G1 axial or appendicular division
-                 → G2 bone group → G3 individual bone inspection
-```
+`G0` through `G3` describe increasing anatomical granularity. From the whole
+skeleton (G0), select a division (G1), a bone group (G2), and then an individual
+bone (G3).
 
 `AnatomyNavigationController` owns the active view, history stack, Back, and G3
 input. `DivisionSelection` routes G0 division selection to it;
@@ -89,7 +87,8 @@ API on each protected request, then reads or writes that learner's DynamoDB
 session. The account code and token are credentials: keep them out of source,
 docs, screenshots, and build assets.
 
-The quiz backend packages a 50-question CSV and an ONNX mastery model. It scores
+The quiz backend packages a 50-question CSV and an ONNX mastery model. In the
+configured deployment, new runs pin the active DynamoDB question bank. It scores
 on the server, stores answer attempts for retry safety, and can request Gemini
 explanations and bounded difficulty advice when separately enabled. The Gemini
 key belongs in AWS Secrets Manager, not the Unity player. The directory
@@ -98,16 +97,20 @@ See [User accounts](USER_ACCOUNTS.md), [Quiz integration](QUIZ_INTEGRATION.md),
 the [AI pipeline](QUIZ_AI_PIPELINE.md), and each backend README for contracts and
 deployment details. `Docs/ACCOUNTS.md` covers human device and release access.
 
+A separate educator portal uses its own Cognito pool to review learners and
+edit or publish the question bank; it does not use learner accounts. See
+[Educator portal](EDUCATOR_PORTAL.md).
+
 ## 5. Make a change safely
 
 1. Start from a clean or intentionally reviewed worktree. Preserve `.meta`
-   files when moving Unity assets. Open the enabled scene and wait for import
+   files when moving Unity assets. Open the authoring scene and wait for import
    and compilation.
 2. Change project-owned code under `Assets/Scripts/` or `Assets/Editor/`.
    Avoid editing `Assets/Samples/` and `Assets/VRTemplateAssets/` for app behavior.
-3. For anatomy changes, wire scene references and colliders, then save the
-   scene. The Anatomy setup menu can replace bone descriptions and save the
-   active scene, so save other work first.
+3. Wire and save anatomy references and colliders. The Anatomy setup menu opens
+   `Osteon.unity` and can replace catalog descriptions, so save other work
+   first. Apply relevant serialized changes to `Osteon-VR.unity` as well.
 4. Run the relevant checks below. Record what ran and what remains unverified;
    a successful compile or APK build is not a Quest interaction pass.
 5. Update the appropriate task page, [Known issues](KNOWN_ISSUES.md), and this
@@ -117,17 +120,18 @@ deployment details. `Docs/ACCOUNTS.md` covers human device and release access.
 
 Run Unity validation from a temporary project copy or worktree while the
 original project is closed or open elsewhere. `-Current` validates the saved
-scene; `-Pilot` is a focused anatomy run. The script requires the pinned Editor.
+`Osteon.unity` scene. `-Pilot` is a focused anatomy run. The script requires the
+pinned Editor.
 
 ```powershell
 ./Tools/Invoke-AnatomyValidation.ps1 -ProjectPath '<validation-project>' -Current
 ./Tools/Invoke-AnatomyValidation.ps1 -ProjectPath '<validation-project>'
-python -m unittest discover -s Backend/quiz-api -p 'test_*.py' -q
 ```
 
-For account backend test dependencies and its test command, follow
-[`Backend/accounts-api/README.md`](../Backend/accounts-api/README.md). The
-Windows account client and narration checks are
+Install the [Python test dependencies](../Backend/accounts-api/README.md#test-and-package)
+before running the [service checks](EDUCATOR_PORTAL.md#local-workflow) for
+accounts, quiz, and the educator portal. The Windows account client and narration
+checks are
 `./Tools/Test-LearnerAccounts.ps1` and `./Tools/Test-SpeechCleanup.ps1`.
 **Tools → Osteon → Validate Narration Clips** checks imported catalog links;
 it does not listen to the audio. Use the [Setup smoke test](SETUP.md#5-play-mode-smoke-test)
@@ -139,7 +143,7 @@ input and browser service calls.
 
 | Target | Build path | Output and acceptance |
 |---|---|---|
-| Quest | `File → Build Profiles → Meta Quest`, then Build and Run | Android ARM64/IL2CPP, minimum SDK 32; install and test on a headset |
+| Quest | `File > Build Profiles > Meta Quest`, then Build and Run | `Osteon-VR.unity`, Android ARM64/IL2CPP, minimum SDK 32. Install and test on a headset. |
 | Desktop debug | `File → Build Profiles → Web - Desktop - Development`, then Build and Run | Development WebGL player for debugging |
 | Desktop optimized | Switch to WebGL, then `Tools → Osteon → Build Optimized WebGL` | `Builds/Web Desktop Optimized/`; serve with `./Tools/Start-WebDesktop.ps1` |
 
@@ -150,19 +154,11 @@ acceptance pass from a successful build.
 
 ## 6. Status and limits
 
-The project owner declared the delivered project complete on 2026-11-09. The
-[project handoff](RELEASE_HANDOFF.md) records the scope and evidence at closure.
-
-The latest documented G3 Quest development APK built successfully with skull
-Spread. Later shared Spread, Settings, tutorial, accounts, quiz, and narration
-changes have separate evidence and gaps in their respective docs. Some WebGL
-room and quiz interactions and cross-device resume have owner-reported checks;
-full browser controls, panel behavior, narration, and physical Quest input still
-need recorded acceptance. See [Known issues](KNOWN_ISSUES.md) for the current
-verification boundary and incident history.
+The [project handoff](RELEASE_HANDOFF.md) records the owner's completion decision
+on 2026-11-09, build and installation evidence, and the remaining platform and
+service acceptance checks. See [Known issues](KNOWN_ISSUES.md) for troubleshooting.
 
 Per-bone grabbing, socket assembly, stationary viewing, and smooth viewpoint
 turning are not implemented in the enabled scene. Plans under
 [`Plans and Features/`](../Plans%20and%20Features/README.md) are proposals or
-work records; use the enabled scene and test results to determine current
-functionality.
+work records, not current functionality.

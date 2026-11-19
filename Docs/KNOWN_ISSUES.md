@@ -1,14 +1,14 @@
 # Known Issues and Incidents
 
-> Current-state update: 2026-11-06. This page lists open risks, incident lessons,
-> and the checks still required. It is not a test record.
+See the [project handoff](RELEASE_HANDOFF.md#verification-record) for dated test
+evidence and the platform acceptance checklists.
 
 ## Open issues
 
-- **Physical Quest acceptance is incomplete.** Android development APKs build
-  with zero errors, but the latest source has no recorded headset pass for
-  targeting, grabbing, panel movement, Settings, Spread, tutorial, narration, or
-  comfort. A 2026-11-05 build also emitted 352 warnings.
+- **Physical Quest acceptance is incomplete.** The 1.2 APK was installed on a
+  Quest 3S on 2026-11-10. Targeting, panel movement, Settings, Spread, the Field
+  Guide, profile entry, narration, and comfort still need a recorded pass. See
+  the [Quest checklist](VR_1_2_FOLLOWUP.md#test-the-installed-build).
 - **Batch validation is unreliable.** Several Unity batch attempts exited during
   licensing startup before loading the scene. The 2026-11-05 `-Current` run
   started and passed 915 assertions, then failed because C1 information text
@@ -34,6 +34,11 @@
 - **Account UI is unverified in-engine.** Live HTTPS account tests passed, but
   Play Mode UI, physical Quest input, and a rebuilt browser pass are not
   recorded. See [User accounts](USER_ACCOUNTS.md).
+- **Educator access is based on email domain.** The deployed Cognito sign-up
+  guard accepts MMSU email addresses. Any eligible student mailbox can register
+  for access to educator functions. The wider release needs educator-role
+  enforcement and recorded access-boundary checks. See
+  [Educator portal](EDUCATOR_PORTAL.md#authentication-and-access).
 - **The quiz service is not production-ready.** It runs in a maintainer's
   personal AWS account. Before a wider release, move it to a school account,
   add proper per-user authorization at the gateway, configure browser CORS
@@ -126,8 +131,9 @@ the exact editor.
 
 - The product name is `VRSKULL`; the committed company and package identity are
   still `DefaultCompany` / `com.DefaultCompany.VRTemplate`.
-- Two Android profiles exist: `Meta Quest` and `Meta Quest 1`. They serialize the
-  same core settings; consolidate once ownership of the duplicate is known.
+- The Quest profile builds a separate scene copy. A serialized change made to
+  the authoring scene can be missing from the APK. Check the
+  [scene and build map](SETUP.md#scene-and-build-map) before building.
 - Build profiles serialize Android target SDK 32, while the custom manifest
   declares Horizon OS minimum 60 and target 83. Validate the merged manifest and
   current Meta store requirements before release.

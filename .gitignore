@@ -8,6 +8,8 @@
 [Uu]serSettings/
 .utmp/
 node_modules/
+__pycache__/
+*.py[cod]
 [Mm]emoryCaptures/
 [Rr]ecordings/
 

@@ -1,6 +1,6 @@
 # Accounts, Device Access, and Release Ownership
 
-> Last reviewed on 2026-09-30. Do not commit passwords, recovery codes,
+> Last reviewed on 2026-11-06. Do not commit passwords, recovery codes,
 > keystores, or signing secrets to this repository.
 
 ## Project organization
@@ -20,13 +20,12 @@ A developer needs:
 - repository access, including permission to download Git LFS objects; and
 - Blender 4.5.x for importing the live `.blend` assets.
 
-Ordinary anatomy Play Mode does not need a backend login. The optional quiz
-demo calls an API deployed in a maintainer's **personal AWS account** in
-`ap-southeast-2`. Its one-learner bearer token belongs only in the ignored
-`Assets/Resources/QuizDemoConfig.json` and the matching Lambda environment
-variable, never in a commit. The token is embedded in any APK made with that
-file; do not distribute such an APK beyond the controlled demo. See
-[`QUIZ_INTEGRATION.md`](QUIZ_INTEGRATION.md).
+Ordinary anatomy Play Mode does not need a backend login. The optional accounts
+and quiz services run in a maintainer's **personal AWS account** in
+`ap-southeast-2`. Learner login tokens stay in memory; no account credential is
+bundled with the client. Move these services to a school-owned account before any
+wider release. See [User accounts](USER_ACCOUNTS.md) and
+[Quiz integration](QUIZ_INTEGRATION.md).
 
 ## Quest device testing
 

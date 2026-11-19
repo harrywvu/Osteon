@@ -1,0 +1,26 @@
+---
+import DefaultFooter from '@astrojs/starlight/components/Footer.astro';
+---
+
+<DefaultFooter><slot /></DefaultFooter>
+
+<script>
+  const diagrams = document.querySelectorAll<HTMLElement>('[data-mermaid]');
+
+  if (diagrams.length) {
+    const { default: mermaid } = await import('mermaid');
+    mermaid.initialize({ startOnLoad: false, securityLevel: 'strict', theme: 'neutral' });
+
+    for (const [index, diagram] of diagrams.entries()) {
+      try {
+        const { svg } = await mermaid.render('osteon-diagram-' + index, diagram.textContent ?? '');
+        const figure = document.createElement('div');
+        figure.className = 'diagram';
+        figure.innerHTML = svg;
+        diagram.replaceWith(figure);
+      } catch {
+        // Keep the source visible when a diagram cannot render.
+      }
+    }
+  }
+</script>

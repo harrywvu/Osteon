@@ -38,8 +38,9 @@ If an LFS file is a small text file beginning with
 3. Let the first import and script compilation finish before entering Play Mode.
 4. Open `Assets/Scenes/Osteon.unity` if Unity does not restore it automatically.
 
-`Osteon.unity` is the only enabled scene in `EditorBuildSettings.asset`.
-Numbered scenes under `Assets/_Recovery/` are historical snapshots.
+`Osteon.unity` is the authoring scene and the single enabled global scene.
+The Quest profile overrides that list. See the [scene and build map](#scene-and-build-map)
+before testing or packaging a scene change.
 
 ## 4. Verify the editor configuration
 
@@ -53,10 +54,25 @@ The committed configuration should resolve to:
 - OpenXR loader for Android
 - URP 17.3.0
 
-Unity 6 uses **File → Build Profiles**. The repository contains `Meta Quest`,
-the duplicate-looking `Meta Quest 1`, and `Web - Desktop - Development`. All
-inherit the global scene list. Prefer `Meta Quest` for Android and the Web
-profile for desktop builds.
+### Scene and build map
+
+All scene names below are relative to `Assets/Scenes/`.
+
+| Workflow | Scene | How the scene is selected |
+|---|---|---|
+| Editor authoring and saved-scene validation | `Osteon.unity` | `AnatomySceneSetup.ScenePath` and the global scene list |
+| Quest Build and Run | `Osteon-VR.unity` | `Meta Quest` overrides the global scene list |
+| WebGL Build and Run | `Osteon.unity` | `Web - Desktop - Development` inherits the global scene list |
+| Optimized WebGL and scripted development APK | `Osteon.unity` | `WebDesktopBuild` and `AnatomyBuild` pass `AnatomySceneSetup.ScenePath` explicitly |
+
+In **File > Build Profiles**, use `Meta Quest` for the Quest follow-up build.
+`Meta Quest 1` inherits the global list and builds `Osteon.unity`. The
+`Osteon-Web.unity` copy has no current build entry. The three scene files had
+identical content on 2026-11-19. They are independent Unity assets with
+distinct GUIDs. When changing serialized scene content, apply the change to
+each affected build scene, preserve its `.meta` file, and test that scene.
+For a repository handoff, include `Osteon-VR.unity` and its `.meta` file with
+the profile revision that references its GUID.
 
 ## 5. Play Mode smoke test
 
@@ -138,7 +154,7 @@ checklist.
 1. Enable Developer Mode for the headset in the Meta Horizon mobile app.
 2. Connect the Quest by USB and accept the USB-debugging prompt.
 3. In Unity, open **File → Build Profiles** and select the `Meta Quest` profile.
-4. Confirm `Assets/Scenes/Osteon.unity` is the only enabled scene.
+4. Confirm the profile's only enabled scene is `Assets/Scenes/Osteon-VR.unity`.
 5. Confirm **Prebake Collision Meshes** is enabled. Reopen the scene from disk if
    scene files changed externally.
 6. Choose **Build and Run**, or install an APK manually:
@@ -165,10 +181,11 @@ configuration before distributing the app.
 
 **Appendicular selection or Back does not work**
 
-Reopen the enabled scene from disk after external edits, check that both
+Reopen the scene used by the failing build after external edits, check that both
 navigation references on the appendicular division root are assigned, and run
-the saved-scene `-Current` validation before rebuilding. See the appendicular
-incident in [Known issues](KNOWN_ISSUES.md).
+the saved-scene `-Current` validation for the authoring scene. If the build uses
+`Osteon-VR.unity`, confirm the same references there and retest on the headset.
+See the appendicular incident in [Known issues](KNOWN_ISSUES.md).
 
 **Models are missing or invisible**
 

@@ -1,6 +1,6 @@
 # Desktop WebGL exploration
 
-The enabled `Osteon` scene also supports a desktop WebGL player.
+Desktop WebGL builds use `Assets/Scenes/Osteon.unity`.
 `AnatomyDesktopInput` starts only when `Application.platform` is `WebGLPlayer`;
 Windows Editor Play Mode and Quest keep their existing input paths. The browser
 build uses the same G0–G3 anatomy, information panel, Spread sliders, Settings,
@@ -9,8 +9,10 @@ quiz station, and Field Guide. See [Setup](SETUP.md) for shared prerequisites.
 ## Build and open
 
 1. Open `Assets/Scenes/Osteon.unity`.
-2. In **File → Build Profiles**, select `Web - Desktop - Development`. It
-   inherits the global scene list, whose only enabled scene is `Osteon`.
+2. In **File > Build Profiles**, select `Web - Desktop - Development`.
+   It inherits the global scene list and builds `Osteon.unity`. The optimized
+   command also uses `Osteon.unity` explicitly. See the
+   [scene and build map](SETUP.md#scene-and-build-map).
 3. Use **Tools → Osteon → Build Optimized WebGL** for account/browser testing.
    It writes `Builds/Web Desktop Optimized/` with size optimization and LTO, no
    development symbols, a 128 MiB initial heap, and uncompressed files for the
@@ -51,7 +53,8 @@ The launcher serves uncompressed output and refuses compressed builds. Configure
 an appropriate server before switching compression.
 
 For API CORS, allow the exact origin `http://localhost:8000`, methods GET and
-POST, and headers `authorization`, `content-type`, and `x-unity-version`. Leave
+POST, plus PUT on the account API for profile edits. Allow headers
+`authorization`, `content-type`, and `x-unity-version`. Leave
 Allow credentials disabled; the client sends a bearer header, not cookies. API
 Gateway handles OPTIONS preflight. Open the site through `localhost`, not
 `127.0.0.1` or another port, to match the configured origin.
@@ -89,6 +92,8 @@ prompts in WebGL.
       controls still receive clicks after mouse look.
 - [ ] Drag each Move bar, use each multi-bone Spread slider, switch pectoral
       sides, and check Settings persistence after reload.
+- [ ] Create an account, sign in with its code, and edit the profile. Check
+      catalog loading, name entry, and the profile write CORS response.
 - [ ] Sign in through Accounts, then check quiz start, answer feedback, Next,
       resume, switch, expiry, and the quiz API's CORS success/error responses.
       See [Quiz integration](QUIZ_INTEGRATION.md).

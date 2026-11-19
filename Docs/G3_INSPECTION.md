@@ -100,7 +100,7 @@ disabled.
 
 ## Authoring commands
 
-Save work first: these commands open and save the enabled scene and replace
+Save work first. These commands open and save `Assets/Scenes/Osteon.unity` and replace
 descriptions when rerun.
 
 | Command | Effect |

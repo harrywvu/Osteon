@@ -19,8 +19,8 @@ bank has matching audio for 47 of 50 questions; eight individual bones and one
 pectoral view text variant also lack a matching recording.
 
 When a clip is missing or fails to load, Quest calls Android `TextToSpeech` through
-`OfflineSpeech.java`. It chooses an installed English voice that reports no
-network requirement and is not marked as awaiting a voice-data download.
+`OfflineSpeech.java`. It prefers an installed offline English voice and falls back
+to the device's English voice when no offline voice is available.
 Speech is synthesized from the text currently displayed. Fetching a new quiz
 question still needs the existing quiz service.
 
@@ -39,9 +39,9 @@ and imported clips. Neither check plays audio.
 
 ## Quest verification
 
-1. Build the enabled `Osteon` scene and check that all four tabs
-   can be selected by controller ray without grabbing a Move bar or selecting
-   another control.
+1. Build with the [Meta Quest profile](SETUP.md#7-build-and-run-on-quest) and
+   check that all four tabs can be selected by controller ray without grabbing
+   a Move bar or selecting another control.
 2. Start, stop, and restart each panel. Switch panels while speaking and verify
    that only one speaks. Move each panel and verify its tab stays attached.
 3. Change anatomy views, answer a quiz question, and change Settings choices
@@ -50,9 +50,9 @@ and imported clips. Neither check plays audio.
 4. With Wi-Fi off, read anatomy and Settings content. Fetch a quiz question
    before disconnecting and verify it remains readable. Listen for clear
    pronunciation of anatomical terms.
-5. Verify an unavailable or removed offline voice produces **Audio unavailable**
-   without a network request.
+5. If the headset has no usable offline English voice, check the configured
+   device English voice with Wi-Fi on and off. Expect **Audio unavailable**
+   when neither path can speak the displayed text.
 
-The device's installed English TTS voice is an assumption, not a verified
-property of the target Quest. Unity Play Mode, Android build, and physical
-headset verification are still pending.
+An offline English voice is needed for speech while disconnected. The target
+Quest's voice availability and physical audio output still need verification.

@@ -1,9 +1,10 @@
 # Persistent account Lambda
 
-PLAN-008 local source now adds optional named fields to creation, authenticated
-profile completion/correction, and the MMSU program catalog. This code has not
-been deployed. The catalog still needs the official-offerings and year-range
-review in [Docs/MMSU_PROGRAM_CATALOG.md](../../Docs/MMSU_PROGRAM_CATALOG.md).
+The 2026-11-10 [deployment record](../educator-portal/README.md#deployment-record-and-remaining-work)
+includes named learner fields, the profile-edit route, and the MMSU program
+catalog. The Unity client flows still need acceptance. The catalog needs the
+official-offerings and year-range review in
+[Docs/MMSU_PROGRAM_CATALOG.md](../../Docs/MMSU_PROGRAM_CATALOG.md).
 
 Python 3.12 / Linux x86-64 account service for API Gateway HTTP API payload v2.
 Prepared on 2026-11-03 for the manually provisioned Sydney resources. Local tests
@@ -142,15 +143,13 @@ limited-protection anonymous access, not proof of real student identity.
 ## Verification record
 
 On 2026-11-03, 14 tests passed against Moto using the real SDK transaction adapter
-and AES-GCM implementation. Coverage includes persistent lookup across workers,
-code collisions and transaction rollback, idempotent creation, sessions on multiple
-devices, disabled profiles, TTL-independent expiry, shared rate counters, encrypted
-replay integrity, HTTP validation, and safe diagnostics.
+and AES-GCM implementation, covering lookup across workers, collisions and
+rollback, idempotent creation, multi-device sessions, disabled profiles,
+TTL-independent expiry, shared rate counters, replay integrity, HTTP validation,
+and diagnostics.
 
-On 2026-11-03, the user reported a successful direct invocation of the deployed
-Sydney Lambda connectivity diagnostic: statusCode 200, database reachable,
-secret valid. AWS's reported code SHA-256 matches the locally generated ZIP.
-Duration was 1,580.27 ms with 800.73 ms initialization and 95 MB maximum memory
-used out of 256 MB. This verifies deployment and read access, not account writes.
-Live creation/login/logout, concurrent production load, API Gateway, and
-Quest/WebGL account integration remain pending.
+A direct invocation of the deployed Sydney connectivity diagnostic returned
+statusCode 200 with the database reachable and secret valid; the deployed code
+hash matches the local ZIP. This verifies deployment and read access, not account
+writes. Live creation/login/logout, production load, API Gateway, and Quest/WebGL
+acceptance remain pending.

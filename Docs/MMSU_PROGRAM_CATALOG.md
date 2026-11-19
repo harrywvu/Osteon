@@ -12,7 +12,7 @@ This is a **release review item**. The current MMSU home page says there are
 this catalog includes professional degrees and some offerings from the
 [MMSU faculty manual](https://www.mmsu.edu.ph/resources/1oHHscTsr6T_QB89TYzUQm4Ldzzj0q33O/data).
 Confirm which older entries are still offered and reconcile the undergraduate
-count before deploying mandatory program selection. The current
+count before wider learner rollout. The current
 [CCIS page](https://www.mmsu.edu.ph/page/245/1/college-of-computing-and-information-sciences)
 confirms BS Computer Science and BS Information Technology. The
 [Health Sciences page](https://chs.mmsu.edu.ph/article/accreditation-level)

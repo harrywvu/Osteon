@@ -17,7 +17,7 @@ smooth viewpoint turning, controller grabbing, and further group expansion are p
 do not describe them as implemented. A 2026-11-05 Android development APK built
 with zero errors. Later Play Mode validation stopped on a C1 text overflow;
 physical Quest interaction for the latest source is not recorded as accepted.
-The same enabled scene has desktop WebGL mouse and keyboard input, an optimized
+Desktop WebGL uses the authoring scene with mouse and keyboard input, an optimized
 build path, account-aware quiz requests, and bundled narration. Some browser
 interactions were observed or owner-reported; the full acceptance checklist is
 still open. See `Docs/KNOWN_ISSUES.md` and `Docs/WEB_DESKTOP.md`.
@@ -38,7 +38,8 @@ verifying it first.
   Toolkit 3.2.1, XR Hands 1.7.1
 - **Targets:** Meta Quest Android (ARM64, IL2CPP, minimum SDK 32) and desktop WebGL
 - **3D source assets:** Blender 4.5.x (`.blend` import requires Blender)
-- **Entry scene:** `Assets/Scenes/Osteon.unity`
+- **Authoring, validation, and WebGL scene:** `Assets/Scenes/Osteon.unity`
+- **Meta Quest profile scene:** `Assets/Scenes/Osteon-VR.unity` (see `Docs/SETUP.md`)
 
 ## Read First
 
@@ -79,7 +80,8 @@ verifying it first.
    Support module.
 2. Open `Assets/Scenes/Osteon.unity`.
 3. Use **File -> Build Profiles** and prefer the `Meta Quest` Android profile.
-4. Confirm the global scene list contains only `Osteon` as enabled.
+4. Confirm the profile's only enabled scene is `Osteon-VR`. Apply relevant
+   authored scene changes there before building and preserve its `.meta` GUID.
 5. Confirm ARM64, IL2CPP, and minimum SDK 32.
 6. Enable Developer Mode on Quest through the Meta Horizon app.
 7. Connect by USB, accept USB debugging, then use Build and Run.

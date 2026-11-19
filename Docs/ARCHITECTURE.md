@@ -1,14 +1,14 @@
 # Architecture Overview
 
-The [system diagram](SYSTEM_ARCHITECTURE.svg) maps the shared Unity scene, Quest
-and WebGL clients, account and quiz services, and build flow.
+Osteon shares Unity runtime code across Quest and desktop WebGL. Each player
+uses platform-specific input and calls the same learner account and quiz APIs.
 
 ## Runtime entry point
 
-`Assets/Scenes/Osteon.unity` is the only enabled scene in
-`ProjectSettings/EditorBuildSettings.asset`. The `Meta Quest` Android and
-`Web - Desktop - Development` WebGL profiles inherit that global scene list.
-Numbered scenes under `Assets/_Recovery/` are historical snapshots.
+`Assets/Scenes/Osteon.unity` is the authoring scene and the WebGL build entry.
+The `Meta Quest` profile uses `Osteon-VR.unity`. Both share the anatomy models
+and scripts below. See the [scene and build map](SETUP.md#scene-and-build-map)
+for the scripted build and validation paths.
 
 ## Anatomical granularity levels (G0–G3)
 
@@ -31,17 +31,18 @@ work in the enabled scene.
 
 ## Current interaction flow
 
-```text
-G0: full low-poly skeleton
-  |-- Appendicular -> G1 division
-  |     |-- Left lower limb / Right lower limb / upper limbs -> G2 -> bone -> G3
-  |     |-- Right pectoral girdle -> G2 (left Y switches sides) -> bone -> G3
-  |     `-- Pelvic girdle -> G2 -> hip bone -> G3
-  `-- Axial -> G1 division + detailed axial model
-        |-- Vertebral column -> G2 -> named bone -> G3
-        |-- Skull -> G2 -> named bone -> G3
-        `-- Ribcage -> G2 -> rib or sternum -> G3
+```mermaid
+flowchart TD
+    Whole["G0 · Whole skeleton"] --> Axial["G1 · Axial"]
+    Whole --> Appendicular["G1 · Appendicular"]
+    Axial --> AxialGroup["G2 · Skull, vertebral column, or ribcage"]
+    Appendicular --> AppendicularGroup["G2 · Limb, pectoral girdle, or pelvis"]
+    AxialGroup --> Bone["G3 · Individual bone"]
+    AppendicularGroup --> Bone
 ```
+
+The pectoral view opens on the right. Left-controller **Y** or desktop **Y**
+switches between sides. Back retraces the selected route.
 
 `DivisionSelection` and `ViewTransitionOnSelect` listen to child
 `XRBaseInteractable` selection events; the enabled scene uses
@@ -149,9 +150,13 @@ accounts API before each protected request. See
 The [AWS diagram](AWS_ARCHITECTURE.md) shows the runtime and deployment paths.
 The scene creates an in-world quiz station on the right wall, not attached to
 the headset. API Gateway forwards HTTPS requests to a Python Lambda that reads
-the packaged question CSV and ONNX model, optionally requests Gemini feedback,
-and persists the learner session in DynamoDB. S3 holds the deployment ZIP only.
-The training notebook is a local artifact, not a hosted service. See the
+the pinned question bank, runs the packaged ONNX model, optionally requests
+Gemini feedback, and persists the learner session in DynamoDB. The packaged CSV
+serves environments without a bank table.
+The training notebook is a local artifact, not a hosted service. A separate
+educator portal uses its own Cognito pool, static site, and API to review
+learners and publish question-bank versions; it does not share the learner
+session. See [Educator portal](EDUCATOR_PORTAL.md). See the
 [AI pipeline](QUIZ_AI_PIPELINE.md) and
 [quiz integration](QUIZ_INTEGRATION.md) for contracts and limits.
 

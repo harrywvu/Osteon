@@ -4,21 +4,24 @@ Osteon is a Unity anatomy explorer for Meta Quest and desktop WebGL. Users move
 from the whole skeleton (G0) through divisions (G1) and bone groups (G2) to
 inspection of 207 individual entries (G3). The scene also includes an in-world
 information panel, group highlighting, model rotation, G2 Spread, movable
-panels, a first-run Field Guide, Settings, and an optional practice quiz.
+panels, a first-run Field Guide, Settings, on-demand narration, and a practice quiz.
 
 ## Get started
 
-Begin with the [developer manual](Docs/DEVELOPER_MANUAL.md) and
+For app controls, start with the [learner guide](Docs/LEARNER_GUIDE.md).
+For development, use the [setup guide](Docs/SETUP.md) and
 [documentation map](Docs/README.md).
+To browse the guides with search and sidebar navigation, run the
+[documentation site](docs-site/README.md) locally.
 
 1. Clone with Git LFS and run `git lfs pull`. Models and media are LFS-managed;
    a ZIP download is insufficient.
 2. Install **Unity 6000.3.2f1** with Android Build Support and **Blender 4.5.x**
    with `.blend` file association.
-3. Open the project in Unity, then open `Assets/Scenes/Osteon.unity`. It is the
-   only enabled build scene.
+3. Open the project in Unity, then open `Assets/Scenes/Osteon.unity` to author
+   and test the scene in the Editor.
 4. For Quest, use **File → Build Profiles → Meta Quest** with Android ARM64,
-   IL2CPP, and minimum SDK 32.
+   IL2CPP, and minimum SDK 32. The profile builds `Osteon-VR.unity`.
 5. For desktop browsers, install Web Build Support and use
    **File → Build Profiles → Web - Desktop - Development → Build and Run**.
 
@@ -32,11 +35,13 @@ verification boundary.
 
 - G3 covers the skull, vertebral column, ribcage, both lower limbs, both upper
   limbs, both pectoral sides, and the pelvic model.
-- Android development APKs build, but the latest source has no recorded physical
-  Quest acceptance. Full browser acceptance is also open.
-- The same scene has desktop WebGL input, account-aware quiz requests, and
-  bundled narration. WebGL has no speech fallback for text without a recording.
-- Per-bone grabbing and socket assembly are not in the enabled scene.
+- A Quest 1.2 APK was built and installed on a Quest 3S. Headset interaction
+  acceptance and full browser acceptance remain open.
+- WebGL uses `Osteon.unity` with desktop input, account-aware quiz requests, and
+  bundled narration.
+- The separate educator portal is deployed, but browser sign-up, publication,
+  and learner flows still need acceptance. See
+  [Educator portal](Docs/EDUCATOR_PORTAL.md).
 
 Open risks are in [Known issues](Docs/KNOWN_ISSUES.md).
 
